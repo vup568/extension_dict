@@ -17,6 +17,10 @@ export default defineManifest({
     service_worker: 'src/background/index.ts',
     type: 'module',
   },
+  // No popup page — the action badge shows dictionary-import progress.
+  action: {
+    default_title: 'Japanese Dictionary Popup',
+  },
   content_scripts: [
     {
       matches: ['<all_urls>'],

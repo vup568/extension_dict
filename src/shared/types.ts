@@ -15,12 +15,20 @@ export type TargetLang = 'en' | 'vi'
 
 export const DEFAULT_TARGET_LANG: TargetLang = 'vi'
 
+/** Which engine produced a translation. */
+export type TranslationEngine = 'cloud' | 'device'
+
 /** Lifecycle of one sentence-translation attempt in the popup. */
 export type TranslationState =
-  | { readonly status: 'idle' }
+  /** 'downloading' is only used by the explicit offline-pack download flow. */
   | { readonly status: 'downloading'; readonly pct: number }
   | { readonly status: 'translating' }
-  | { readonly status: 'done'; readonly text: string; readonly target: TargetLang }
+  | {
+      readonly status: 'done'
+      readonly text: string
+      readonly target: TargetLang
+      readonly engine: TranslationEngine
+    }
   | { readonly status: 'error'; readonly message: string }
 
 /** One token of a tokenized selection, for the clickable token list. */

@@ -34,4 +34,7 @@ export default defineManifest({
       run_at: 'document_idle',
     },
   ],
+  // ONLY for online sentence translation (fetched from the service worker;
+  // the grant bypasses CORS). Word lookups never touch the network.
+  host_permissions: ['https://translate.googleapis.com/*'],
 })

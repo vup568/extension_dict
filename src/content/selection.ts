@@ -7,8 +7,11 @@ import { debounce } from '../shared/debounce'
 /** Debounce so drag-selection / shift+arrow bursts don't thrash the popup. */
 const DEBOUNCE_MS = 200
 
-/** Ignore huge selections (select-all etc.) — they are never a word lookup. */
-const MAX_SELECTION_LENGTH = 120
+/**
+ * Ignore huge selections (select-all etc.). Generous enough for several
+ * sentences, since sentence translation handles long selections too.
+ */
+const MAX_SELECTION_LENGTH = 500
 
 export interface SelectionHandlers {
   onSelect(text: string, range: Range): void

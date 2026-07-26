@@ -25,9 +25,11 @@ export type PopupModel =
 /** Environment + callbacks for the sentence-translation controls. */
 export interface TranslationControls {
   readonly targetLang: TargetLang
-  readonly viAvailable: boolean
-  readonly onTranslate: (target: TargetLang) => void
   readonly onTargetLangChange: (target: TargetLang) => void
+  readonly onRetry: () => void
+  /** True when the on-device pack could be downloaded but isn't yet. */
+  readonly offlinePackAvailable: boolean
+  readonly onDownloadPack: () => void
 }
 
 export interface PopupProps {
@@ -97,7 +99,10 @@ function TokenStrip({
   )
 }
 
-/** Sentence-translation row: Translate button, VI|EN toggle, state below. */
+/**
+ * Auto-translation area: header labels it "Translation" so it can't be
+ * mistaken for the dictionary senses above; VI|EN retranslates on switch.
+ */
 function TranslateSection({
   state,
   controls,
@@ -110,8 +115,7 @@ function TranslateSection({
   const langBtn = (lang: TargetLang, label: string) => (
     <button
       class={`lang-btn${controls.targetLang === lang ? ' active' : ''}`}
-      disabled={busy || (lang === 'vi' && !controls.viAvailable)}
-      title={lang === 'vi' && !controls.viAvailable ? 'Vietnamese pack unavailable on this device' : undefined}
+      disabled={busy}
       onClick={() => controls.onTargetLangChange(lang)}
     >
       {label}
@@ -120,20 +124,41 @@ function TranslateSection({
   return (
     <div class="translate">
       <div class="translate-row">
-        <button class="translate-btn" disabled={busy} onClick={() => controls.onTranslate(controls.targetLang)}>
-          {state.status === 'done' ? 'Translate again' : 'Translate sentence'}
-        </button>
+        <span class="translate-label">Translation</span>
         <span class="lang-toggle">
           {langBtn('vi', 'VI')}
           {langBtn('en', 'EN')}
         </span>
       </div>
-      {state.status === 'downloading' && (
-        <div class="translate-note">Downloading language pack (one-time)… {state.pct}%</div>
-      )}
       {state.status === 'translating' && <div class="translate-note">Translating…</div>}
-      {state.status === 'error' && <div class="translate-note error">{state.message}</div>}
-      {state.status === 'done' && <div class="translate-result">{state.text}</div>}
+      {state.status === 'downloading' && (
+        <div class="translate-note">Downloading offline pack (one-time)… {state.pct}%</div>
+      )}
+      {state.status === 'error' && (
+        <div class="translate-note error">
+          {state.message}{' '}
+          <button class="link-btn" onClick={controls.onRetry}>
+            Retry
+          </button>
+        </div>
+      )}
+      {state.status === 'done' && (
+        <div
+          class="translate-result"
+          title={state.engine === 'device' ? 'Translated on-device (offline, private)' : 'Translated online (Google)'}
+        >
+          {state.text}
+        </div>
+      )}
+      {state.status === 'done' && state.engine === 'cloud' && controls.offlinePackAvailable && (
+        <button
+          class="link-btn"
+          title="Chrome downloads a language pack once; afterwards translation is private and works offline"
+          onClick={controls.onDownloadPack}
+        >
+          ⬇ Download offline pack
+        </button>
+      )}
     </div>
   )
 }

@@ -9,6 +9,7 @@ import { configureImporter, getDictionaryStatus, startImport } from '../core/dic
 import { lookupExact } from '../core/dictionary/lookup'
 import { configureTokenizer } from '../core/language/japanese/tokenizer'
 import { japanesePack } from '../core/language/japanese/japanese-pack'
+import { cloudTranslate } from '../core/translation/cloud-translator'
 import type {
   BackgroundRequest,
   BackgroundResponse,
@@ -16,6 +17,7 @@ import type {
   DictStatusResponse,
   LookupResponse,
   PrefsResponse,
+  TranslateCloudResponse,
 } from '../shared/messages'
 import { DEFAULT_TARGET_LANG } from '../shared/types'
 import type { TargetLang } from '../shared/types'
@@ -67,9 +69,24 @@ chrome.runtime.onMessage.addListener(
       case 'set-prefs':
         void handleSetPrefs(message.targetLang).then(sendResponse)
         return true
+      case 'translate-cloud':
+        void handleCloudTranslate(message.text, message.target).then(sendResponse)
+        return true
     }
   },
 )
+
+async function handleCloudTranslate(text: string, target: TargetLang): Promise<TranslateCloudResponse> {
+  try {
+    return { type: 'translate-cloud-result', ok: true, text: await cloudTranslate(text, target) }
+  } catch (error) {
+    return {
+      type: 'translate-cloud-result',
+      ok: false,
+      reason: error instanceof Error ? error.message : String(error),
+    }
+  }
+}
 
 async function handleGetPrefs(): Promise<PrefsResponse> {
   try {

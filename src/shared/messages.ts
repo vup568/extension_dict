@@ -26,7 +26,22 @@ export interface SetPrefsRequest {
   readonly targetLang: TargetLang
 }
 
-export type BackgroundRequest = LookupRequest | DictStatusRequest | GetPrefsRequest | SetPrefsRequest
+/**
+ * Online sentence translation. Runs in the service worker because the
+ * endpoint needs the extension's host_permission grant to bypass CORS.
+ */
+export interface TranslateCloudRequest {
+  readonly type: 'translate-cloud'
+  readonly text: string
+  readonly target: TargetLang
+}
+
+export type BackgroundRequest =
+  | LookupRequest
+  | DictStatusRequest
+  | GetPrefsRequest
+  | SetPrefsRequest
+  | TranslateCloudRequest
 
 // ---------------------------------------------------------------------------
 // Responses (service worker → content script)
@@ -65,4 +80,8 @@ export interface PrefsResponse {
   readonly targetLang: TargetLang
 }
 
-export type BackgroundResponse = LookupResponse | DictStatusResponse | PrefsResponse
+export type TranslateCloudResponse =
+  | { readonly type: 'translate-cloud-result'; readonly ok: true; readonly text: string }
+  | { readonly type: 'translate-cloud-result'; readonly ok: false; readonly reason: string }
+
+export type BackgroundResponse = LookupResponse | DictStatusResponse | PrefsResponse | TranslateCloudResponse

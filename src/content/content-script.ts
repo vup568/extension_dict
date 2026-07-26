@@ -4,17 +4,21 @@
  * place Japanese-specific knowledge enters the content layer (the
  * containsJapanese predicate); everything else here is language-agnostic.
  *
- * Sentence translation also lives here — a deliberate exception to the
- * "service worker owns everything" rule: Chrome's built-in Translator API is
- * only exposed to window contexts (not workers), and its first create() per
- * language pair requires a real user gesture, which the popup's Translate
- * button provides.
+ * Sentence translation is orchestrated from here too (see
+ * translation-flow.ts): multi-token selections translate automatically —
+ * on-device when Chrome's pack is installed, online otherwise.
  */
 import { containsJapanese } from '../core/language/japanese/detect'
-import { builtinSentenceTranslator } from '../core/translation/sentence-translator'
 import { PopupController } from './popup-controller'
 import type { PopupHandlers } from './popup-controller'
 import { watchSelection } from './selection'
+import {
+  downloadOfflinePack,
+  offlinePackReady,
+  probeOfflinePacks,
+  translateAuto,
+  translatorApiPresent,
+} from './translation-flow'
 import type {
   GetPrefsRequest,
   LookupRequest,
@@ -38,39 +42,22 @@ let requestSeq = 0
 let lastRange: Range | null = null
 /** Token list of the current selection, kept across token-click lookups. */
 let lastTokens: readonly TokenInfo[] | null = null
-/** Raw text of the current selection — what the Translate button sends. */
+/** Raw text of the current selection — what gets translated. */
 let lastText: string | null = null
 /** The model currently rendered, so translation states can patch onto it. */
 let currentModel: PopupModel | null = null
 
-// ---------------------------------------------------------------------------
-// Sentence-translation environment
-
-const translatorSupported = builtinSentenceTranslator.isSupported()
-/** Turns false if no target language is actually available on this device. */
-let translationOffered = translatorSupported
-let viAvailable = true
 let targetLang: TargetLang = DEFAULT_TARGET_LANG
 
-if (translatorSupported) {
-  void initTranslationPrefs()
-}
+void probeOfflinePacks()
+void loadPrefs()
 
-async function initTranslationPrefs(): Promise<void> {
+async function loadPrefs(): Promise<void> {
   try {
     const prefs = await chrome.runtime.sendMessage<GetPrefsRequest, PrefsResponse>({ type: 'get-prefs' })
     targetLang = prefs.targetLang
   } catch {
     // Service worker unreachable — the default stands.
-  }
-  try {
-    if ((await builtinSentenceTranslator.availability('vi')) === 'unavailable') {
-      viAvailable = false
-      if (targetLang === 'vi') targetLang = 'en'
-      if ((await builtinSentenceTranslator.availability('en')) === 'unavailable') translationOffered = false
-    }
-  } catch {
-    translationOffered = false
   }
 }
 
@@ -85,17 +72,21 @@ function withTranslation(model: NonStatusModel, translation: TranslationState): 
   return model.kind === 'entries' ? { ...model, translation } : { ...model, translation }
 }
 
-/** Offer translation only for sentence-ish selections (2+ tokens). */
-function initialTranslation(tokens: readonly TokenInfo[] | null): TranslationState | null {
-  return translationOffered && tokens !== null && tokens.length >= 2 ? { status: 'idle' } : null
+/** Translation applies to sentence-ish selections only (2+ tokens). */
+function shouldTranslate(tokens: readonly TokenInfo[] | null): boolean {
+  return tokens !== null && tokens.length >= 2
 }
 
 function makeHandlers(): PopupHandlers {
   return {
     onTokenClick: handleTokenClick,
-    translation: translationOffered
-      ? { targetLang, viAvailable, onTranslate: handleTranslate, onTargetLangChange: handleTargetLangChange }
-      : undefined,
+    translation: {
+      targetLang,
+      onTargetLangChange: handleTargetLangChange,
+      onRetry: () => startTranslation(),
+      offlinePackAvailable: translatorApiPresent() && !offlinePackReady(targetLang),
+      onDownloadPack: handleDownloadPack,
+    },
   }
 }
 
@@ -141,6 +132,11 @@ function transientModel(response: LookupResponse): PopupModel | null {
   }
 }
 
+/** The translation slot of the currently shown model (kept across updates). */
+function currentTranslation(): TranslationState | null {
+  return currentModel !== null && currentModel.kind !== 'status' ? currentModel.translation : null
+}
+
 /** A token chip was clicked: look up its dictionary form, keep the strip. */
 function handleTokenClick(lookupTerm: string): void {
   const range = lastRange
@@ -154,44 +150,45 @@ function handleTokenClick(lookupTerm: string): void {
       return
     }
     if (response.status !== 'ready') return
+    // Keep the whole-selection translation visible while exploring tokens.
+    const translation = currentTranslation()
     const model: PopupModel =
       response.matches.length > 0
-        ? {
-            kind: 'entries',
-            entries: response.matches,
-            tokens: lastTokens,
-            translation: initialTranslation(lastTokens),
-          }
+        ? { kind: 'entries', entries: response.matches, tokens: lastTokens, translation }
         : {
             kind: 'no-match',
             tokens: lastTokens,
             deinflectionAvailable: response.deinflectionAvailable,
-            translation: initialTranslation(lastTokens),
+            translation,
           }
     showCurrent(model, range)
   })
 }
 
 // ---------------------------------------------------------------------------
-// Sentence-translation flow
+// Sentence-translation flow (auto)
 
-function handleTranslate(target: TargetLang): void {
-  const text = lastText
-  if (text === null) return
+/** Applies translation states onto the live model, dropping stale ones. */
+function makeApplier(): (state: TranslationState) => void {
   const seqAtStart = requestSeq
-  const apply = (state: TranslationState): void => {
+  return (state) => {
     if (requestSeq !== seqAtStart) return // selection changed meanwhile
     const model = currentModel
     if (model === null || model.kind === 'status') return
     updateCurrent(withTranslation(model, state))
   }
-  apply({ status: 'translating' })
-  builtinSentenceTranslator
-    .translate(text, target, (pct) => apply({ status: 'downloading', pct }))
-    .then((translated) => apply({ status: 'done', text: translated, target }))
-    .catch((error: unknown) => {
-      apply({ status: 'error', message: error instanceof Error ? error.message : String(error) })
-    })
+}
+
+function startTranslation(): void {
+  const text = lastText
+  if (text === null) return
+  void translateAuto(text, targetLang, makeApplier())
+}
+
+function handleDownloadPack(): void {
+  const text = lastText
+  if (text === null) return
+  void downloadOfflinePack(text, targetLang, makeApplier())
 }
 
 function handleTargetLangChange(target: TargetLang): void {
@@ -202,13 +199,7 @@ function handleTargetLangChange(target: TargetLang): void {
     .catch(() => {
       // Preference just won't persist; the in-page value still applies.
     })
-  const model = currentModel
-  if (model === null || model.kind === 'status') return
-  if (model.translation?.status === 'done') {
-    handleTranslate(target) // re-translate into the newly chosen language
-  } else {
-    updateCurrent(model) // refresh the toggle highlight
-  }
+  if (currentTranslation() !== null) startTranslation() // re-translate (cached = instant)
 }
 
 // ---------------------------------------------------------------------------
@@ -228,25 +219,23 @@ watchSelection(containsJapanese, {
       }
       if (response.status !== 'ready') return
       lastTokens = response.tokens
+      const translate = shouldTranslate(response.tokens)
+      const translation: TranslationState | null = translate ? { status: 'translating' } : null
       const model: PopupModel =
         response.matches.length > 0
-          ? {
-              kind: 'entries',
-              entries: response.matches,
-              tokens: response.tokens,
-              translation: initialTranslation(response.tokens),
-            }
+          ? { kind: 'entries', entries: response.matches, tokens: response.tokens, translation }
           : {
               kind: 'no-match',
               tokens: response.tokens,
               deinflectionAvailable: response.deinflectionAvailable,
-              translation: initialTranslation(response.tokens),
+              translation,
             }
       showCurrent(model, range)
+      if (translate) startTranslation()
     })
   },
   onClear: () => {
-    // Interactions inside the popup (token clicks, Translate, "show more")
+    // Interactions inside the popup (token clicks, toggles, "show more")
     // collapse the page selection; don't let that dismiss the popup.
     if (controller.hasRecentInnerInteraction()) return
     requestSeq += 1

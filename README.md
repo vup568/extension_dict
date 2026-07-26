@@ -75,12 +75,12 @@ Non-obvious implementation notes:
 
 ## Sentence translation
 
-Selecting a multi-word phrase or sentence adds a **Translate sentence** button to the popup (default target: **Vietnamese**, with a VI|EN toggle; the choice is remembered). It uses **Chrome's built-in Translator API** — translation runs on-device:
+Selecting a multi-word phrase or sentence **translates it automatically** in the popup (default target: **Vietnamese**, VI|EN toggle, choice remembered). A hybrid engine picks the best available path per call (`src/content/translation-flow.ts`):
 
-- Requires **Chrome 138+** on desktop. On browsers without the API (Firefox, older Chrome) the button simply never appears.
-- The first translation per language pair downloads a Chrome-managed language pack (a few hundred MB, shared by all sites and extensions — not part of this extension). Progress is shown in the popup; after that it works **fully offline**. Japanese→Vietnamese pivots through English, so it needs two packs.
-- Because the Translator API is not exposed to workers, this is the one feature that runs in the **content script** instead of the service worker (see `src/core/translation/sentence-translator.ts`). The first download also legitimately requires a user gesture — which the button click provides.
-- Installed packs are visible at `chrome://on-device-translation-internals/`.
+1. **On-device** (Chrome's built-in Translator API, Chrome 138+): used automatically once its language pack is installed — private and fully offline. Because this API is not exposed to workers, it runs in the content script; the pack download legitimately requires a user click, which the **"⬇ Download offline pack"** link provides. Installed packs: `chrome://on-device-translation-internals/`.
+2. **Online fallback** (zero setup): the key-less `translate.googleapis.com` gtx endpoint — the same one popular dictionary extensions use. Instant from the first use, but: it needs internet, **the selected text is sent to Google**, and the endpoint is unofficial (rate-limited per IP; Google could change or block it). It is fetched from the service worker under the narrow `https://translate.googleapis.com/*` host permission.
+
+Results are cached per (text, target). Hover the translated text to see which engine produced it. To keep everything local, download the offline pack once — on-device then wins everywhere. Word/kanji lookups never touch the network either way.
 
 ## Performance
 

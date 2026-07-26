@@ -9,6 +9,17 @@ import type { DictionaryEntry } from '../../shared/types'
 const MAX_MATCHES = 8
 
 /**
+ * Cheap existence probe (used by dictionary-guided token merging): fetches
+ * only an index key, never a full entry record.
+ */
+export async function existsExact(term: string): Promise<boolean> {
+  const normalized = term.normalize('NFC').trim()
+  if (normalized.length === 0) return false
+  const db = await getDb()
+  return (await db.getKeyFromIndex('entries', 'forms', normalized)) !== undefined
+}
+
+/**
  * Exact-match lookup: the term must equal one of an entry's kanji or kana
  * forms. Entries marked common in JMdict rank first.
  */

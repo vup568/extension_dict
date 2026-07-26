@@ -19,6 +19,8 @@ export type PopupModel =
       readonly deinflectionAvailable: boolean
       readonly translation: TranslationState | null
     }
+  /** Long selections: translation only, no dictionary content. */
+  | { readonly kind: 'translation'; readonly translation: TranslationState }
   /** Transient states: dictionary still importing, or unavailable. */
   | { readonly kind: 'status'; readonly text: string }
 
@@ -56,6 +58,12 @@ export function Popup({ model, onTokenClick, translation }: PopupProps) {
             <TokenStrip tokens={model.tokens} onTokenClick={onTokenClick} />
           )}
           {model.translation !== null && <TranslateSection state={model.translation} controls={translation} />}
+        </div>
+      )
+    case 'translation':
+      return (
+        <div class="panel" role="dialog" aria-label="Translation">
+          <TranslateSection state={model.translation} controls={translation} />
         </div>
       )
     case 'entries':

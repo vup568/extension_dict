@@ -16,10 +16,17 @@ const ENDPOINT = 'https://translate.googleapis.com/translate_a/single'
 const TIMEOUT_MS = 10_000
 
 export async function cloudTranslate(text: string, target: TargetLang): Promise<string> {
-  const url = `${ENDPOINT}?client=gtx&sl=ja&tl=${target}&dt=t&q=${encodeURIComponent(text)}`
+  const url = `${ENDPOINT}?client=gtx&sl=ja&tl=${target}&dt=t`
   let response: Response
   try {
-    response = await fetch(url, { signal: AbortSignal.timeout(TIMEOUT_MS) })
+    // POST body (not URL query): multi-sentence CJK selections URL-encode to
+    // many KB and would overflow URL limits on a GET.
+    response = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+      body: `q=${encodeURIComponent(text)}`,
+      signal: AbortSignal.timeout(TIMEOUT_MS),
+    })
   } catch {
     throw new Error(
       navigator.onLine

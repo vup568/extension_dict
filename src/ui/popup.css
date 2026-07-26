@@ -189,6 +189,11 @@
   border-top: 1px solid var(--border);
 }
 
+/* Translation-only popup (long selections): no divider above. */
+.translate:first-child {
+  border-top: 0;
+}
+
 .translate-row {
   display: flex;
   align-items: center;

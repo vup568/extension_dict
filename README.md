@@ -82,6 +82,12 @@ Selecting a multi-word phrase or sentence **translates it automatically** in the
 
 Results are cached per (text, target). Hover the translated text to see which engine produced it. To keep everything local, download the offline pack once — on-device then wins everywhere. Word/kanji lookups never touch the network either way.
 
+Selection handling details:
+
+- **Furigana-safe**: ruby annotations (`<rt>`/`<rp>`, as used by NHK Easy News) are stripped from selections before tokenizing, lookup, and translation — reading aids never pollute results.
+- **Long selections** (over ~500 characters, up to 2000): the popup switches to a translation-only view — no token strip or dictionary lookup, just the translated passage.
+- **Token strip cleanup**: pure digit/punctuation tokens are hidden, and adjacent tokens that form a JMdict compound are merged (IPADIC splits 熱中症 into 熱中+症; the strip shows the compound).
+
 ## Performance
 
 Target: **< 50 ms per lookup** once initialized. Verify from the service-worker console (`chrome://extensions` → *service worker*):

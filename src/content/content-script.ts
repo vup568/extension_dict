@@ -11,7 +11,7 @@
 import { containsJapanese } from '../core/language/japanese/detect'
 import { PopupController } from './popup-controller'
 import type { PopupHandlers } from './popup-controller'
-import { watchSelection } from './selection'
+import { LOOKUP_MAX_LENGTH, watchSelection } from './selection'
 import {
   downloadOfflinePack,
   offlinePackReady,
@@ -67,9 +67,16 @@ async function loadPrefs(): Promise<void> {
 type NonStatusModel = Exclude<PopupModel, { kind: 'status' }>
 
 function withTranslation(model: NonStatusModel, translation: TranslationState): PopupModel {
-  // Both branches look identical, but the kind-narrowing is required:
+  // The branches look identical, but the kind-narrowing is required:
   // TypeScript cannot spread a union type directly into an object literal.
-  return model.kind === 'entries' ? { ...model, translation } : { ...model, translation }
+  switch (model.kind) {
+    case 'entries':
+      return { ...model, translation }
+    case 'no-match':
+      return { ...model, translation }
+    case 'translation':
+      return { kind: 'translation', translation }
+  }
 }
 
 /** Translation applies to sentence-ish selections only (2+ tokens). */
@@ -209,7 +216,16 @@ watchSelection(containsJapanese, {
   onSelect: (text, range) => {
     lastRange = range.cloneRange()
     lastText = text
-    const seq = ++requestSeq
+    requestSeq += 1
+    if (text.length > LOOKUP_MAX_LENGTH) {
+      // Tier 2: paragraph-sized selection — translation only. Tokenizing
+      // hundreds of chips and dictionary work would be slow and useless.
+      lastTokens = null
+      showCurrent({ kind: 'translation', translation: { status: 'translating' } }, range)
+      startTranslation()
+      return
+    }
+    const seq = requestSeq
     void requestLookup(text).then((response) => {
       if (seq !== requestSeq || response === null) return
       const transient = transientModel(response)

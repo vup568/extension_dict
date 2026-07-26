@@ -2,13 +2,14 @@
  * Content script composition root: wires selection detection to real
  * dictionary lookups over the extension messaging layer. This is the ONLY
  * place Japanese-specific knowledge enters the content layer (the
- * containsJapanese predicate); everything else here is language-agnostic.
+ * containsJapanese/uniqueKanji helpers); everything else here is
+ * language-agnostic.
  *
- * Sentence translation is orchestrated from here too (see
- * translation-flow.ts): multi-token selections translate automatically —
- * on-device when Chrome's pack is installed, online otherwise.
+ * The popup is tabbed (Từ vựng | Hán tự | Dịch); tab data loads lazily —
+ * kanji info and single-word translations are only fetched when their tab
+ * is first opened (see translation-flow.ts for the hybrid engine).
  */
-import { containsJapanese } from '../core/language/japanese/detect'
+import { containsJapanese, uniqueKanji } from '../core/language/japanese/detect'
 import { PopupController } from './popup-controller'
 import type { PopupHandlers } from './popup-controller'
 import { LOOKUP_MAX_LENGTH, watchSelection } from './selection'
@@ -21,30 +22,33 @@ import {
 } from './translation-flow'
 import type {
   GetPrefsRequest,
+  KanjiRequest,
+  KanjiResponse,
   LookupRequest,
   LookupResponse,
   PrefsResponse,
   SetPrefsRequest,
 } from '../shared/messages'
 import { DEFAULT_TARGET_LANG } from '../shared/types'
-import type { GrammarPart, TargetLang, TokenInfo, TranslationState } from '../shared/types'
+import type { TargetLang, TokenInfo, TranslationState } from '../shared/types'
 import type { PopupModel } from '../ui'
 
 const controller = new PopupController()
 
+/** Max kanji cards offered per selection. */
+const KANJI_TAB_CAP = 30
+
 /**
  * Monotonic sequence number guarding against stale async responses: if the
- * selection changed (or cleared) while a lookup or translation was in
- * flight, the late result must not resurrect an outdated popup.
+ * selection changed (or cleared) while a lookup, kanji fetch, or translation
+ * was in flight, the late result must not resurrect an outdated popup.
  */
 let requestSeq = 0
-/** Anchor of the current selection — token clicks re-show at this spot. */
-let lastRange: Range | null = null
-/** Token list of the current selection, kept across token-click lookups. */
-let lastTokens: readonly TokenInfo[] | null = null
+/** Orders chip-click lookups within one selection (last click wins). */
+let tokenSeq = 0
 /** Raw text of the current selection — what gets translated. */
 let lastText: string | null = null
-/** The model currently rendered, so translation states can patch onto it. */
+/** The model currently rendered, so async tab states can patch onto it. */
 let currentModel: PopupModel | null = null
 
 let targetLang: TargetLang = DEFAULT_TARGET_LANG
@@ -64,27 +68,26 @@ async function loadPrefs(): Promise<void> {
 // ---------------------------------------------------------------------------
 // Model plumbing
 
-type NonStatusModel = Exclude<PopupModel, { kind: 'status' }>
+type ResultModel = Extract<PopupModel, { kind: 'result' }>
 
-function withTranslation(model: NonStatusModel, translation: TranslationState): PopupModel {
-  // The branches look identical, but the kind-narrowing is required:
-  // TypeScript cannot spread a union type directly into an object literal.
+/** The live model when it is a tabbed result view, else null. */
+function currentResult(): ResultModel | null {
+  return currentModel !== null && currentModel.kind === 'result' ? currentModel : null
+}
+
+function withTranslation(
+  model: Exclude<PopupModel, { kind: 'status' }>,
+  translation: TranslationState,
+): PopupModel {
   switch (model.kind) {
-    case 'entries':
-      return { ...model, translation }
-    case 'no-match':
+    case 'result':
       return { ...model, translation }
     case 'translation':
       return { kind: 'translation', translation }
   }
 }
 
-/** Grammar shown for a token click: the chip's own breakdown. */
-function grammarForToken(token: TokenInfo): readonly GrammarPart[] | null {
-  return token.grammar
-}
-
-/** Translation applies to sentence-ish selections only (2+ tokens). */
+/** Translation starts automatically for sentence-ish selections (2+ tokens). */
 function shouldTranslate(tokens: readonly TokenInfo[] | null): boolean {
   return tokens !== null && tokens.length >= 2
 }
@@ -92,6 +95,8 @@ function shouldTranslate(tokens: readonly TokenInfo[] | null): boolean {
 function makeHandlers(): PopupHandlers {
   return {
     onTokenClick: handleTokenClick,
+    onRequestKanji: handleRequestKanji,
+    onRequestTranslation: handleRequestTranslation,
     translation: {
       targetLang,
       onTargetLangChange: handleTargetLangChange,
@@ -137,51 +142,59 @@ function transientModel(response: LookupResponse): PopupModel | null {
         progress === null || progress.chunkCount === 0
           ? null
           : Math.round((progress.chunksDone / progress.chunkCount) * 100)
-      return { kind: 'status', text: pct === null ? 'Preparing dictionary…' : `Preparing dictionary… ${pct}%` }
+      return {
+        kind: 'status',
+        text: pct === null ? 'Đang chuẩn bị từ điển…' : `Đang chuẩn bị từ điển… ${pct}%`,
+      }
     }
     case 'unavailable':
-      return { kind: 'status', text: `Dictionary unavailable: ${response.reason}` }
+      return { kind: 'status', text: `Từ điển chưa dùng được: ${response.reason}` }
   }
 }
 
-/** The translation slot of the currently shown model (kept across updates). */
-function currentTranslation(): TranslationState | null {
-  return currentModel !== null && currentModel.kind !== 'status' ? currentModel.translation : null
-}
-
-/** A token chip was clicked: look up its dictionary form, keep the strip. */
+/**
+ * A token chip was clicked: look up its dictionary form and swap the Từ vựng
+ * tab content in place — the strip, other tabs' data, pin position, and the
+ * whole-selection translation all stay.
+ */
 function handleTokenClick(token: TokenInfo): void {
-  const range = lastRange
-  if (range === null) return
-  const seq = ++requestSeq
+  const selectionSeq = requestSeq
+  const mySeq = ++tokenSeq
   void requestLookup(token.lookupTerm).then((response) => {
-    if (seq !== requestSeq || response === null) return
-    const transient = transientModel(response)
-    if (transient !== null) {
-      showCurrent(transient, range)
-      return
-    }
-    if (response.status !== 'ready') return
-    // Keep the whole-selection translation visible while exploring tokens;
-    // the grammar section shows the clicked chip's own breakdown.
-    const translation = currentTranslation()
-    const grammar = grammarForToken(token)
-    const model: PopupModel =
-      response.matches.length > 0
-        ? { kind: 'entries', entries: response.matches, tokens: lastTokens, grammar, translation }
-        : {
-            kind: 'no-match',
-            tokens: lastTokens,
-            grammar,
-            deinflectionAvailable: response.deinflectionAvailable,
-            translation,
-          }
-    showCurrent(model, range)
+    if (selectionSeq !== requestSeq || mySeq !== tokenSeq) return
+    if (response === null || response.status !== 'ready') return
+    const live = currentResult()
+    if (live === null) return
+    updateCurrent({
+      ...live,
+      entries: response.matches,
+      grammar: token.grammar,
+      deinflectionAvailable: response.deinflectionAvailable,
+    })
   })
 }
 
 // ---------------------------------------------------------------------------
-// Sentence-translation flow (auto)
+// Hán tự tab (lazy)
+
+function handleRequestKanji(): void {
+  const model = currentResult()
+  if (model === null || model.kanjiTab !== 'idle' || model.kanjiChars.length === 0) return
+  const seq = requestSeq
+  updateCurrent({ ...model, kanjiTab: 'loading' })
+  const applyKanji = (state: ResultModel['kanjiTab']): void => {
+    if (seq !== requestSeq) return
+    const live = currentResult()
+    if (live !== null) updateCurrent({ ...live, kanjiTab: state })
+  }
+  chrome.runtime
+    .sendMessage<KanjiRequest, KanjiResponse>({ type: 'kanji', chars: model.kanjiChars })
+    .then((response) => applyKanji({ ready: response.ready, kanji: response.kanji }))
+    .catch(() => applyKanji({ ready: false, kanji: [] }))
+}
+
+// ---------------------------------------------------------------------------
+// Sentence-translation flow
 
 /** Applies translation states onto the live model, dropping stale ones. */
 function makeApplier(): (state: TranslationState) => void {
@@ -200,6 +213,13 @@ function startTranslation(): void {
   void translateAuto(text, targetLang, makeApplier())
 }
 
+/** Dịch tab opened before any translation ran (single-word selections). */
+function handleRequestTranslation(): void {
+  const model = currentResult()
+  if (model === null || model.translation !== null) return
+  startTranslation()
+}
+
 function handleDownloadPack(): void {
   const text = lastText
   if (text === null) return
@@ -214,7 +234,9 @@ function handleTargetLangChange(target: TargetLang): void {
     .catch(() => {
       // Preference just won't persist; the in-page value still applies.
     })
-  if (currentTranslation() !== null) startTranslation() // re-translate (cached = instant)
+  const model = currentModel
+  const started = model !== null && model.kind !== 'status' && model.translation !== null
+  if (started) startTranslation() // re-translate (cached = instant)
 }
 
 // ---------------------------------------------------------------------------
@@ -222,13 +244,11 @@ function handleTargetLangChange(target: TargetLang): void {
 
 watchSelection(containsJapanese, {
   onSelect: (text, range) => {
-    lastRange = range.cloneRange()
     lastText = text
     requestSeq += 1
     if (text.length > LOOKUP_MAX_LENGTH) {
       // Tier 2: paragraph-sized selection — translation only. Tokenizing
       // hundreds of chips and dictionary work would be slow and useless.
-      lastTokens = null
       showCurrent({ kind: 'translation', translation: { status: 'translating' } }, range)
       startTranslation()
       return
@@ -242,36 +262,26 @@ watchSelection(containsJapanese, {
         return
       }
       if (response.status !== 'ready') return
-      lastTokens = response.tokens
       const translate = shouldTranslate(response.tokens)
-      const translation: TranslationState | null = translate ? { status: 'translating' } : null
-      const model: PopupModel =
-        response.matches.length > 0
-          ? {
-              kind: 'entries',
-              entries: response.matches,
-              tokens: response.tokens,
-              grammar: response.grammar,
-              translation,
-            }
-          : {
-              kind: 'no-match',
-              tokens: response.tokens,
-              grammar: response.grammar,
-              deinflectionAvailable: response.deinflectionAvailable,
-              translation,
-            }
+      const model: PopupModel = {
+        kind: 'result',
+        entries: response.matches,
+        tokens: response.tokens,
+        grammar: response.grammar,
+        deinflectionAvailable: response.deinflectionAvailable,
+        kanjiChars: uniqueKanji(text).slice(0, KANJI_TAB_CAP),
+        kanjiTab: 'idle',
+        translation: translate ? { status: 'translating' } : null,
+      }
       showCurrent(model, range)
       if (translate) startTranslation()
     })
   },
   onClear: () => {
-    // Interactions inside the popup (token clicks, toggles, "show more")
+    // Interactions inside the popup (token clicks, tab switches, toggles)
     // collapse the page selection; don't let that dismiss the popup.
     if (controller.hasRecentInnerInteraction()) return
     requestSeq += 1
-    lastRange = null
-    lastTokens = null
     lastText = null
     currentModel = null
     controller.hide()

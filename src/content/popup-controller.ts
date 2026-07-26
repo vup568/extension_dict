@@ -19,6 +19,8 @@ import type { TokenInfo } from '../shared/types'
 /** Callbacks the popup content needs; provided by the composition root. */
 export interface PopupHandlers {
   readonly onTokenClick?: (token: TokenInfo) => void
+  readonly onRequestKanji?: () => void
+  readonly onRequestTranslation?: () => void
   readonly translation?: TranslationControls
 }
 
@@ -96,6 +98,8 @@ export class PopupController {
       h(Popup, {
         model,
         onTokenClick: this.lastHandlers?.onTokenClick,
+        onRequestKanji: this.lastHandlers?.onRequestKanji,
+        onRequestTranslation: this.lastHandlers?.onRequestTranslation,
         translation: this.lastHandlers?.translation,
         key: this.showCount,
       }),
@@ -217,6 +221,7 @@ export class PopupController {
         node.classList.contains('tokens') ||
         node.classList.contains('senses') ||
         node.classList.contains('grammar') ||
+        node.classList.contains('kanji-list') ||
         node.classList.contains('translate-result')
       ) {
         return false

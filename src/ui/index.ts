@@ -3,4 +3,4 @@
  * can never affect them (see popup.css for the isolation details).
  */
 export { Popup } from './Popup'
-export type { PopupModel, PopupProps, TranslationControls } from './Popup'
+export type { KanjiTabState, PopupModel, PopupProps, TranslationControls } from './Popup'

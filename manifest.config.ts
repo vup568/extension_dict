@@ -1,11 +1,13 @@
 import { defineManifest } from '@crxjs/vite-plugin'
 
 /**
- * Manifest V3. Permissions are intentionally minimal:
- * - content_scripts on <all_urls>: the product is "select text on any page",
- *   so the selection listener must run everywhere. all_frames covers iframes.
- * - storage: install-state/version flag for the dictionary import.
- * No tabs / activeTab / scripting / host_permissions beyond the above.
+ * Manifest V3. Permissions are intentionally minimal — the permissions array
+ * is EMPTY:
+ * - content_scripts on <all_urls> (a host-permission grant, not an API
+ *   permission): the product is "select text on any page", so the selection
+ *   listener must run everywhere; all_frames covers iframes.
+ * - IndexedDB needs no permission; the action badge needs none either.
+ * No storage / tabs / activeTab / scripting.
  */
 export default defineManifest({
   manifest_version: 3,
@@ -32,5 +34,4 @@ export default defineManifest({
       run_at: 'document_idle',
     },
   ],
-  permissions: ['storage'],
 })

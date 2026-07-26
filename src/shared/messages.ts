@@ -3,7 +3,7 @@
  * service worker. Every message is a member of a discriminated union so the
  * router can narrow on `type` exhaustively.
  */
-import type { DictionaryEntry, TokenInfo } from './types'
+import type { DictionaryEntry, TargetLang, TokenInfo } from './types'
 
 // ---------------------------------------------------------------------------
 // Requests (content script → service worker)
@@ -17,7 +17,16 @@ export interface DictStatusRequest {
   readonly type: 'dict-status'
 }
 
-export type BackgroundRequest = LookupRequest | DictStatusRequest
+export interface GetPrefsRequest {
+  readonly type: 'get-prefs'
+}
+
+export interface SetPrefsRequest {
+  readonly type: 'set-prefs'
+  readonly targetLang: TargetLang
+}
+
+export type BackgroundRequest = LookupRequest | DictStatusRequest | GetPrefsRequest | SetPrefsRequest
 
 // ---------------------------------------------------------------------------
 // Responses (service worker → content script)
@@ -51,4 +60,9 @@ export interface DictStatusResponse {
   readonly status: DictionaryStatus
 }
 
-export type BackgroundResponse = LookupResponse | DictStatusResponse
+export interface PrefsResponse {
+  readonly type: 'prefs'
+  readonly targetLang: TargetLang
+}
+
+export type BackgroundResponse = LookupResponse | DictStatusResponse | PrefsResponse

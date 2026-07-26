@@ -19,6 +19,7 @@
   --pill-bg: rgba(47, 95, 208, 0.1);
   --border: rgba(0, 0, 0, 0.14);
   --shadow: 0 6px 24px rgba(0, 0, 0, 0.18);
+  --error: #d93025;
 
   box-sizing: border-box;
   display: flex;
@@ -49,6 +50,7 @@
     --pill-bg: rgba(138, 180, 248, 0.16);
     --border: rgba(255, 255, 255, 0.14);
     --shadow: 0 6px 24px rgba(0, 0, 0, 0.55);
+    --error: #f28b82;
   }
 }
 
@@ -177,4 +179,79 @@
 
 .more-btn:hover {
   background: var(--pill-bg);
+}
+
+.translate {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px 12px 10px;
+  border-top: 1px solid var(--border);
+}
+
+.translate-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.translate-btn {
+  border: 1px solid var(--accent);
+  background: transparent;
+  color: var(--accent);
+  font: inherit;
+  font-size: 12.5px;
+  padding: 3px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.translate-btn:hover:not(:disabled) {
+  background: var(--pill-bg);
+}
+
+.translate-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.lang-toggle {
+  display: inline-flex;
+  gap: 2px;
+  margin-left: auto;
+}
+
+.lang-btn {
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--fg-muted);
+  font: inherit;
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.lang-btn.active {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--pill-bg);
+}
+
+.lang-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.translate-note {
+  font-size: 12px;
+  color: var(--fg-muted);
+}
+
+.translate-note.error {
+  color: var(--error);
+}
+
+.translate-result {
+  font-size: 13px;
 }

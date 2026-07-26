@@ -4,6 +4,7 @@
  * Content scripts never touch either directly, so both exist exactly once
  * instead of per-tab.
  */
+import { getDb } from '../core/dictionary/db'
 import { configureImporter, getDictionaryStatus, startImport } from '../core/dictionary/importer'
 import { lookupExact } from '../core/dictionary/lookup'
 import { configureTokenizer } from '../core/language/japanese/tokenizer'
@@ -14,7 +15,10 @@ import type {
   DictProgress,
   DictStatusResponse,
   LookupResponse,
+  PrefsResponse,
 } from '../shared/messages'
+import { DEFAULT_TARGET_LANG } from '../shared/types'
+import type { TargetLang } from '../shared/types'
 
 configureImporter({
   fileUrl: (name) => chrome.runtime.getURL(`dict/${name}`),
@@ -57,9 +61,38 @@ chrome.runtime.onMessage.addListener(
       case 'dict-status':
         void handleDictStatus().then(sendResponse)
         return true
+      case 'get-prefs':
+        void handleGetPrefs().then(sendResponse)
+        return true
+      case 'set-prefs':
+        void handleSetPrefs(message.targetLang).then(sendResponse)
+        return true
     }
   },
 )
+
+async function handleGetPrefs(): Promise<PrefsResponse> {
+  try {
+    const db = await getDb()
+    const prefs = await db.get('meta', 'prefs')
+    return {
+      type: 'prefs',
+      targetLang: prefs?.key === 'prefs' ? prefs.targetLang : DEFAULT_TARGET_LANG,
+    }
+  } catch {
+    return { type: 'prefs', targetLang: DEFAULT_TARGET_LANG }
+  }
+}
+
+async function handleSetPrefs(targetLang: TargetLang): Promise<PrefsResponse> {
+  try {
+    const db = await getDb()
+    await db.put('meta', { key: 'prefs', targetLang })
+  } catch (error) {
+    console.warn('[jpdict] failed to persist prefs:', error)
+  }
+  return { type: 'prefs', targetLang }
+}
 
 async function handleLookup(text: string): Promise<LookupResponse> {
   try {

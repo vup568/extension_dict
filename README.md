@@ -73,6 +73,15 @@ Non-obvious implementation notes:
 - **Shadow DOM isolation** (`content/popup-controller.ts`, `ui/popup.css`): closed shadow root (the only reference is held in the controller), `:host { all: initial }` severs inherited page styles, critical positioning styles are inline on a `<jpdict-popup>` host element with maximum z-index.
 - **kuromoji in a service worker** (`core/language/japanese/tokenizer.ts`): uses the `@aiktb/kuromoji` fork (fetch-based loader — stock kuromoji uses `XMLHttpRequest`, which doesn't exist in workers). The `dicPath` must be root-relative (`/kuromoji`) because kuromoji collapses `//` in URLs. Init (~1–2 s) is lazy and never blocks exact-match lookups.
 
+## Sentence translation
+
+Selecting a multi-word phrase or sentence adds a **Translate sentence** button to the popup (default target: **Vietnamese**, with a VI|EN toggle; the choice is remembered). It uses **Chrome's built-in Translator API** — translation runs on-device:
+
+- Requires **Chrome 138+** on desktop. On browsers without the API (Firefox, older Chrome) the button simply never appears.
+- The first translation per language pair downloads a Chrome-managed language pack (a few hundred MB, shared by all sites and extensions — not part of this extension). Progress is shown in the popup; after that it works **fully offline**. Japanese→Vietnamese pivots through English, so it needs two packs.
+- Because the Translator API is not exposed to workers, this is the one feature that runs in the **content script** instead of the service worker (see `src/core/translation/sentence-translator.ts`). The first download also legitimately requires a user gesture — which the button click provides.
+- Installed packs are visible at `chrome://on-device-translation-internals/`.
+
 ## Performance
 
 Target: **< 50 ms per lookup** once initialized. Verify from the service-worker console (`chrome://extensions` → *service worker*):

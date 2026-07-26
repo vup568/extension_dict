@@ -11,8 +11,14 @@
  */
 import { h, render } from 'preact'
 import { Popup } from '../ui'
-import type { PopupModel } from '../ui'
+import type { PopupModel, TranslationControls } from '../ui'
 import popupCss from '../ui/popup.css?inline'
+
+/** Callbacks the popup content needs; provided by the composition root. */
+export interface PopupHandlers {
+  readonly onTokenClick?: (lookupTerm: string) => void
+  readonly translation?: TranslationControls
+}
 
 /** Gap between the selection rectangle and the popup. */
 const GAP = 8
@@ -38,8 +44,9 @@ export class PopupController {
   private showCount = 0
   private lastInnerInteraction = 0
   private repositionQueued = false
+  private lastHandlers: PopupHandlers | undefined
 
-  show(model: PopupModel, range: Range, onTokenClick?: (lookupTerm: string) => void): void {
+  show(model: PopupModel, range: Range, handlers?: PopupHandlers): void {
     const parts = this.ensureHost()
     // Clone: the live Selection mutates its Range on the next selection,
     // which would corrupt our anchor for scroll repositioning.
@@ -47,7 +54,8 @@ export class PopupController {
     // New key per show() remounts <Popup>, resetting its internal state
     // (entry index, "show more") for every new selection.
     this.showCount += 1
-    render(h(Popup, { model, onTokenClick, key: this.showCount }), parts.mountPoint)
+    this.lastHandlers = handlers
+    this.renderPopup(model)
 
     if (!this.visible) {
       this.visible = true
@@ -56,6 +64,32 @@ export class PopupController {
     // Render hidden first; position once real dimensions are measurable.
     parts.host.style.visibility = 'hidden'
     requestAnimationFrame(() => this.reposition(true))
+  }
+
+  /**
+   * Re-render the popup content in place — SAME key, so the component tree
+   * is diffed instead of remounted and internal UI state (entry index,
+   * "show more") survives. Used for async state updates like translation
+   * progress. Repositions afterwards since the panel size may change.
+   */
+  update(model: PopupModel, handlers?: PopupHandlers): void {
+    if (!this.visible || this.parts === null) return
+    if (handlers !== undefined) this.lastHandlers = handlers
+    this.renderPopup(model)
+    this.onViewportChange()
+  }
+
+  private renderPopup(model: PopupModel): void {
+    if (this.parts === null) return
+    render(
+      h(Popup, {
+        model,
+        onTokenClick: this.lastHandlers?.onTokenClick,
+        translation: this.lastHandlers?.translation,
+        key: this.showCount,
+      }),
+      this.parts.mountPoint,
+    )
   }
 
   hide(): void {

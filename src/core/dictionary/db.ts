@@ -13,6 +13,7 @@
 import { openDB } from 'idb'
 import type { DBSchema, IDBPDatabase } from 'idb'
 import type { PackedEntry } from './packed-format'
+import type { TargetLang } from '../../shared/types'
 
 export interface StoredEntry extends PackedEntry {
   /** Searchable forms: unique union of kanji + kana texts. */
@@ -22,6 +23,7 @@ export interface StoredEntry extends PackedEntry {
 export type MetaRecord =
   | { key: 'dict'; dictVersion: string; entryCount: number; importedAt: number }
   | { key: 'importProgress'; dictVersion: string; chunksDone: number; chunkCount: number }
+  | { key: 'prefs'; targetLang: TargetLang }
 
 interface JpDictDB extends DBSchema {
   entries: {

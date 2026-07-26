@@ -10,6 +10,19 @@ export interface WordSense {
   readonly glosses: readonly string[]
 }
 
+/** Sentence-translation target languages offered in the UI. */
+export type TargetLang = 'en' | 'vi'
+
+export const DEFAULT_TARGET_LANG: TargetLang = 'vi'
+
+/** Lifecycle of one sentence-translation attempt in the popup. */
+export type TranslationState =
+  | { readonly status: 'idle' }
+  | { readonly status: 'downloading'; readonly pct: number }
+  | { readonly status: 'translating' }
+  | { readonly status: 'done'; readonly text: string; readonly target: TargetLang }
+  | { readonly status: 'error'; readonly message: string }
+
 /** One token of a tokenized selection, for the clickable token list. */
 export interface TokenInfo {
   /** The text exactly as it appears in the selection. */

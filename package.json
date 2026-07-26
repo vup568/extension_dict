@@ -1,0 +1,22 @@
+{
+  "name": "jp-dict-extension",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Chrome MV3 extension: select Japanese text on any page to see its reading and meaning.",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@crxjs/vite-plugin": "^2.7.1",
+    "@preact/preset-vite": "^2.10.6",
+    "@types/chrome": "^0.2.2",
+    "typescript": "5.9",
+    "vite": "^8.1.5"
+  },
+  "dependencies": {
+    "preact": "^10.29.7"
+  }
+}

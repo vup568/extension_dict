@@ -1,0 +1,18 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+.vite/
+
+# Generated dictionary artifacts — large, reproducible via `npm run prepare-dict`.
+# Never commit these; the README documents how to regenerate them.
+public/dict/
+public/kuromoji/
+data/
+
+# Editor / OS noise
+.DS_Store
+Thumbs.db
+*.local
+*.log

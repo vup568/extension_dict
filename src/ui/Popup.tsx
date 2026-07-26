@@ -4,15 +4,32 @@ import type { DictionaryEntry } from '../shared/types'
 /** Senses shown before the "show more" toggle kicks in. */
 const SENSE_CAP = 4
 
+/** Everything the popup can display. */
+export type PopupModel =
+  | { readonly kind: 'entries'; readonly entries: readonly DictionaryEntry[] }
+  /** Transient states: dictionary still importing, or unavailable. */
+  | { readonly kind: 'status'; readonly text: string }
+
 export interface PopupProps {
-  readonly entries: readonly DictionaryEntry[]
+  readonly model: PopupModel
+}
+
+export function Popup({ model }: PopupProps) {
+  if (model.kind === 'status') {
+    return (
+      <div class="panel" role="dialog" aria-label="Dictionary status">
+        <div class="status">{model.text}</div>
+      </div>
+    )
+  }
+  return <EntriesView entries={model.entries} />
 }
 
 /**
- * Dictionary popup. When several entries match, ‹ › cycles through them;
- * long sense lists are capped behind a "show more" toggle.
+ * Dictionary entries. When several match (homophones, multiple readings),
+ * ‹ › cycles through them; long sense lists are capped behind "show more".
  */
-export function Popup({ entries }: PopupProps) {
+function EntriesView({ entries }: { readonly entries: readonly DictionaryEntry[] }) {
   const [entryIndex, setEntryIndex] = useState(0)
   const [showAllSenses, setShowAllSenses] = useState(false)
 

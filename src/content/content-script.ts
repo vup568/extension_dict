@@ -1,46 +1,66 @@
 /**
- * Content script composition root: wires selection detection to the popup
- * controller. This is the ONLY place Japanese-specific knowledge enters the
- * content layer (as the containsJapanese predicate); everything else here is
- * language-agnostic.
+ * Content script composition root: wires selection detection to real
+ * dictionary lookups over the extension messaging layer. This is the ONLY
+ * place Japanese-specific knowledge enters the content layer (the
+ * containsJapanese predicate); everything else here is language-agnostic.
  */
 import { containsJapanese } from '../core/language/japanese/detect'
 import { PopupController } from './popup-controller'
 import { watchSelection } from './selection'
-import type { DictionaryEntry } from '../shared/types'
-
-/**
- * PHASE 2 MOCK — replaced by real lookups over chrome.runtime messaging in
- * Phase 4. Two entries so entry-cycling is testable; five senses on the
- * first so the "show more" cap is testable.
- */
-function mockEntries(selectedText: string): readonly DictionaryEntry[] {
-  const shown = selectedText.length <= 12 ? selectedText : `${selectedText.slice(0, 12)}…`
-  return [
-    {
-      id: 'mock-1',
-      expression: shown,
-      reading: 'もっく',
-      senses: [
-        { partsOfSpeech: ['n'], glosses: ['mock entry rendered for the current selection'] },
-        { partsOfSpeech: ['n'], glosses: ['placeholder sense', 'demo gloss'] },
-        { partsOfSpeech: ['adj-na'], glosses: ['third sense to fill space'] },
-        { partsOfSpeech: ['n'], glosses: ['fourth sense — last one shown before the cap'] },
-        { partsOfSpeech: ['exp'], glosses: ['fifth sense hidden behind "show more"'] },
-      ],
-    },
-    {
-      id: 'mock-2',
-      expression: '学生',
-      reading: 'がくせい',
-      senses: [{ partsOfSpeech: ['n'], glosses: ['student'] }],
-    },
-  ]
-}
+import type { LookupRequest, LookupResponse } from '../shared/messages'
+import type { PopupModel } from '../ui'
 
 const controller = new PopupController()
 
+/**
+ * Monotonic sequence number guarding against stale async responses: if the
+ * selection changed (or cleared) while a lookup was in flight, the late
+ * response must not resurrect an outdated popup.
+ */
+let requestSeq = 0
+
+async function requestLookup(text: string): Promise<LookupResponse | null> {
+  try {
+    return await chrome.runtime.sendMessage<LookupRequest, LookupResponse>({ type: 'lookup', text })
+  } catch (error) {
+    // Typical cause: the extension was reloaded/updated while this page's
+    // old content script kept running. Never break the host page over it.
+    console.debug('[jpdict] lookup failed:', error)
+    return null
+  }
+}
+
+function toModel(response: LookupResponse): PopupModel | null {
+  switch (response.status) {
+    case 'ready':
+      // No matches → no popup for now; Phase 5 adds the dedicated
+      // "No match found" state together with deinflection.
+      return response.matches.length > 0 ? { kind: 'entries', entries: response.matches } : null
+    case 'initializing': {
+      const { progress } = response
+      const pct =
+        progress === null || progress.chunkCount === 0
+          ? null
+          : Math.round((progress.chunksDone / progress.chunkCount) * 100)
+      return { kind: 'status', text: pct === null ? 'Preparing dictionary…' : `Preparing dictionary… ${pct}%` }
+    }
+    case 'unavailable':
+      return { kind: 'status', text: `Dictionary unavailable: ${response.reason}` }
+  }
+}
+
 watchSelection(containsJapanese, {
-  onSelect: (text, range) => controller.show(mockEntries(text), range),
-  onClear: () => controller.handleSelectionCleared(),
+  onSelect: (text, range) => {
+    const seq = ++requestSeq
+    void requestLookup(text).then((response) => {
+      if (seq !== requestSeq || response === null) return
+      const model = toModel(response)
+      if (model === null) controller.hide()
+      else controller.show(model, range)
+    })
+  },
+  onClear: () => {
+    requestSeq += 1
+    controller.handleSelectionCleared()
+  },
 })

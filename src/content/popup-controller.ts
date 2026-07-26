@@ -11,8 +11,8 @@
  */
 import { h, render } from 'preact'
 import { Popup } from '../ui'
+import type { PopupModel } from '../ui'
 import popupCss from '../ui/popup.css?inline'
-import type { DictionaryEntry } from '../shared/types'
 
 /** Gap between the selection rectangle and the popup. */
 const GAP = 8
@@ -39,7 +39,7 @@ export class PopupController {
   private lastInnerInteraction = 0
   private repositionQueued = false
 
-  show(entries: readonly DictionaryEntry[], range: Range): void {
+  show(model: PopupModel, range: Range): void {
     const parts = this.ensureHost()
     // Clone: the live Selection mutates its Range on the next selection,
     // which would corrupt our anchor for scroll repositioning.
@@ -47,7 +47,7 @@ export class PopupController {
     // New key per show() remounts <Popup>, resetting its internal state
     // (entry index, "show more") for every new selection.
     this.showCount += 1
-    render(h(Popup, { entries, key: this.showCount }), parts.mountPoint)
+    render(h(Popup, { model, key: this.showCount }), parts.mountPoint)
 
     if (!this.visible) {
       this.visible = true

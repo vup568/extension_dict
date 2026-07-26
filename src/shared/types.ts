@@ -88,6 +88,8 @@ export interface DictionaryEntry {
   /** Kana reading of the expression. */
   readonly reading: string
   readonly senses: readonly WordSense[]
+  /** Vietnamese gloss from the ja→vi dictionary, when it has this word. */
+  readonly viGloss: string | null
 }
 
 /** A kanji's Kangxi radical (bộ thủ), resolved for display. */

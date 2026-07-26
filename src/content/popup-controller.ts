@@ -225,6 +225,7 @@ export class PopupController {
         node.classList.contains('grammar') ||
         node.classList.contains('grammar-view') ||
         node.classList.contains('kanji-list') ||
+        node.classList.contains('vi-gloss') ||
         node.classList.contains('translate-result')
       ) {
         return false

@@ -296,6 +296,7 @@ function VocabView({
               {entry.reading}
             </span>
           </div>
+          {entry.viGloss !== null && <div class="vi-gloss">{entry.viGloss}</div>}
           <ol class="senses">
             {senses.map((sense, i) => (
               <li class="sense" key={i}>

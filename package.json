@@ -11,8 +11,9 @@
     "test-grammar": "tsx scripts/test-grammar.ts",
     "prepare-dict": "node --max-old-space-size=6144 --import tsx scripts/prepare-dict.ts",
     "prepare-kanji": "tsx scripts/prepare-kanji.ts",
+    "prepare-javi": "tsx scripts/prepare-javi.ts",
     "prepare-tokenizer": "tsx scripts/prepare-tokenizer.ts",
-    "prepare-data": "npm run prepare-dict && npm run prepare-kanji && npm run prepare-tokenizer"
+    "prepare-data": "npm run prepare-dict && npm run prepare-kanji && npm run prepare-javi && npm run prepare-tokenizer"
   },
   "devDependencies": {
     "@crxjs/vite-plugin": "^2.7.1",

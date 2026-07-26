@@ -316,6 +316,14 @@
   color: var(--fg-muted);
 }
 
+/* Vietnamese gloss — the headline meaning for Vietnamese users. */
+.vi-gloss {
+  padding: 4px 12px 0;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--accent);
+}
+
 .senses {
   margin: 6px 0 10px;
   padding: 0 12px 0 30px;

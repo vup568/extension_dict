@@ -12,8 +12,8 @@
  */
 import { getDb } from './db'
 import type { DictionaryDatabase, StoredEntry } from './db'
-import { DICT_FORMAT_VERSION, chunkFileName, kanjiChunkFileName } from './packed-format'
-import type { DictIndexFile, PackedEntry, PackedKanji } from './packed-format'
+import { DICT_FORMAT_VERSION, chunkFileName, javiChunkFileName, kanjiChunkFileName } from './packed-format'
+import type { DictIndexFile, PackedEntry, PackedJavi, PackedKanji } from './packed-format'
 import type { DictProgress, DictionaryStatus } from '../../shared/messages'
 
 export interface ImporterOptions {
@@ -82,10 +82,13 @@ async function runImport(opts: ImporterOptions): Promise<void> {
   // actually left this run, entries and kanji together.
   const entryNext = await prepareEntryImport(db, index)
   const kanjiNext = await prepareKanjiImport(db, index)
+  const javiNext = await prepareJaviImport(db, index)
   const kanjiInfo = index.kanji
+  const javiInfo = index.javi
   const pendingTotal =
     (entryNext === null ? 0 : index.chunkCount - entryNext) +
-    (kanjiNext === null || kanjiInfo === undefined ? 0 : kanjiInfo.kanjiChunkCount - kanjiNext)
+    (kanjiNext === null || kanjiInfo === undefined ? 0 : kanjiInfo.kanjiChunkCount - kanjiNext) +
+    (javiNext === null || javiInfo === undefined ? 0 : javiInfo.javiChunkCount - javiNext)
   let pendingDone = 0
   const reportChunk = (): void => {
     pendingDone += 1
@@ -143,6 +146,32 @@ async function runImport(opts: ImporterOptions): Promise<void> {
     void done.store.delete('kanjiImportProgress')
     await done.done
   }
+
+  if (javiNext !== null && javiInfo !== undefined) {
+    for (let i = javiNext; i < javiInfo.javiChunkCount; i++) {
+      const chunk = (await fetchPackagedJson(opts.fileUrl(javiChunkFileName(i)))) as PackedJavi[]
+      const tx = db.transaction(['javi', 'meta'], 'readwrite')
+      const javiStore = tx.objectStore('javi')
+      for (const packed of chunk) void javiStore.put(packed)
+      void tx.objectStore('meta').put({
+        key: 'javiImportProgress',
+        javiVersion: javiInfo.javiVersion,
+        chunksDone: i + 1,
+        chunkCount: javiInfo.javiChunkCount,
+      })
+      await tx.done
+      reportChunk()
+    }
+    const done = db.transaction('meta', 'readwrite')
+    void done.store.put({
+      key: 'javiDict',
+      javiVersion: javiInfo.javiVersion,
+      javiCount: javiInfo.javiCount,
+      importedAt: Date.now(),
+    })
+    void done.store.delete('javiImportProgress')
+    await done.done
+  }
 }
 
 /**
@@ -158,11 +187,12 @@ async function prepareEntryImport(db: DictionaryDatabase, index: DictIndexFile):
   }
   if (existing !== undefined || progress !== undefined) {
     // Data from a different dictionary version is (partially) present:
-    // rebuild from scratch. Clearing meta also drops the kanji markers, so
-    // the kanji import naturally reruns against the fresh package.
-    const tx = db.transaction(['entries', 'kanji', 'meta'], 'readwrite')
+    // rebuild from scratch. Clearing meta also drops the kanji/javi
+    // markers, so those imports naturally rerun against the fresh package.
+    const tx = db.transaction(['entries', 'kanji', 'javi', 'meta'], 'readwrite')
     void tx.objectStore('entries').clear()
     void tx.objectStore('kanji').clear()
+    void tx.objectStore('javi').clear()
     void tx.objectStore('meta').clear()
     await tx.done
   }
@@ -188,6 +218,26 @@ async function prepareKanjiImport(db: DictionaryDatabase, index: DictIndexFile):
     void tx.objectStore('kanji').clear()
     void tx.objectStore('meta').delete('kanjiDict')
     void tx.objectStore('meta').delete('kanjiImportProgress')
+    await tx.done
+  }
+  return 0
+}
+
+/** Same for the ja→vi gloss chunks. */
+async function prepareJaviImport(db: DictionaryDatabase, index: DictIndexFile): Promise<number | null> {
+  const info = index.javi
+  if (info === undefined) return null
+  const existing = await db.get('meta', 'javiDict')
+  if (existing?.key === 'javiDict' && existing.javiVersion === info.javiVersion) return null
+  const progress = await db.get('meta', 'javiImportProgress')
+  if (progress?.key === 'javiImportProgress' && progress.javiVersion === info.javiVersion) {
+    return progress.chunksDone
+  }
+  if (existing !== undefined || progress !== undefined) {
+    const tx = db.transaction(['javi', 'meta'], 'readwrite')
+    void tx.objectStore('javi').clear()
+    void tx.objectStore('meta').delete('javiDict')
+    void tx.objectStore('meta').delete('javiImportProgress')
     await tx.done
   }
   return 0

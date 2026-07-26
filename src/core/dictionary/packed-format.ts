@@ -59,6 +59,27 @@ export interface KanjiIndexInfo {
   kanjiChunkCount: number
 }
 
+/**
+ * One Japanese→Vietnamese gloss record (FVDP/OVDP data, GPL — see README),
+ * packed by scripts/prepare-javi.ts. Cleaned at pack time: pivot noise
+ * stripped, capped length.
+ */
+export interface PackedJavi {
+  /** Headword (kanji form or kana) — store key. */
+  h: string
+  /** Kana reading when the source states one (homograph disambiguation). */
+  r?: string
+  /** Vietnamese gloss, senses joined by "; ". */
+  v: string
+}
+
+/** Ja→vi gloss data present in the package. */
+export interface JaviIndexInfo {
+  javiVersion: string
+  javiCount: number
+  javiChunkCount: number
+}
+
 export interface DictIndexFile {
   formatVersion: number
   /** Source version identity, e.g. "3.6.1/2026-07-01/full". */
@@ -69,6 +90,7 @@ export interface DictIndexFile {
   /** JMdict tag code → human-readable description (e.g. "n" → "noun"). */
   tags: Record<string, string>
   kanji?: KanjiIndexInfo
+  javi?: JaviIndexInfo
 }
 
 export const DICT_FORMAT_VERSION = 1
@@ -79,4 +101,8 @@ export function chunkFileName(index: number): string {
 
 export function kanjiChunkFileName(index: number): string {
   return `kanji-${String(index).padStart(3, '0')}.json`
+}
+
+export function javiChunkFileName(index: number): string {
+  return `javi-${String(index).padStart(3, '0')}.json`
 }

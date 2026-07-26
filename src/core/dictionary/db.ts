@@ -9,14 +9,17 @@
  * Store `kanji` (schema v2) — one PackedKanji per character, keyed by the
  * literal, for the popup's Hán tự tab.
  *
- * Store `meta` — keyed records: `dict`/`kanjiDict` mark completed imports
- * (their presence = "ready"); `importProgress`/`kanjiImportProgress` track
- * chunks completed so an interrupted first import resumes instead of
- * restarting.
+ * Store `javi` (schema v3) — one PackedJavi per headword: Vietnamese
+ * glosses from the FVDP/OVDP ja→vi dictionary.
+ *
+ * Store `meta` — keyed records: `dict`/`kanjiDict`/`javiDict` mark
+ * completed imports (their presence = "ready"); the *ImportProgress
+ * records track chunks completed so an interrupted first import resumes
+ * instead of restarting.
  */
 import { openDB } from 'idb'
 import type { DBSchema, IDBPDatabase } from 'idb'
-import type { PackedEntry, PackedKanji } from './packed-format'
+import type { PackedEntry, PackedJavi, PackedKanji } from './packed-format'
 import type { TargetLang } from '../../shared/types'
 
 export interface StoredEntry extends PackedEntry {
@@ -29,6 +32,8 @@ export type MetaRecord =
   | { key: 'importProgress'; dictVersion: string; chunksDone: number; chunkCount: number }
   | { key: 'kanjiDict'; kanjiVersion: string; kanjiCount: number; importedAt: number }
   | { key: 'kanjiImportProgress'; kanjiVersion: string; chunksDone: number; chunkCount: number }
+  | { key: 'javiDict'; javiVersion: string; javiCount: number; importedAt: number }
+  | { key: 'javiImportProgress'; javiVersion: string; chunksDone: number; chunkCount: number }
   | { key: 'prefs'; targetLang: TargetLang }
 
 interface JpDictDB extends DBSchema {
@@ -41,6 +46,10 @@ interface JpDictDB extends DBSchema {
     key: string
     value: PackedKanji
   }
+  javi: {
+    key: string
+    value: PackedJavi
+  }
   meta: {
     key: MetaRecord['key']
     value: MetaRecord
@@ -52,7 +61,7 @@ export type DictionaryDatabase = IDBPDatabase<JpDictDB>
 let dbPromise: Promise<DictionaryDatabase> | null = null
 
 export function getDb(): Promise<DictionaryDatabase> {
-  dbPromise ??= openDB<JpDictDB>('jpdict', 2, {
+  dbPromise ??= openDB<JpDictDB>('jpdict', 3, {
     upgrade(db, oldVersion) {
       if (oldVersion < 1) {
         const entries = db.createObjectStore('entries', { keyPath: 'id' })
@@ -61,6 +70,9 @@ export function getDb(): Promise<DictionaryDatabase> {
       }
       if (oldVersion < 2) {
         db.createObjectStore('kanji', { keyPath: 'l' })
+      }
+      if (oldVersion < 3) {
+        db.createObjectStore('javi', { keyPath: 'h' })
       }
     },
   })

@@ -14,7 +14,10 @@ export default defineManifest({
   description: 'Select Japanese text on any page to see its reading and meaning. Works fully offline.',
   minimum_chrome_version: '120',
   background: {
-    service_worker: 'src/background/index.ts',
+    // NOTE: entry file names must be unique across entries (service-worker.ts
+    // vs content-script.ts) — with two entries both named index.ts, CRXJS
+    // emits colliding chunk names and wires the SW loader to the wrong chunk.
+    service_worker: 'src/background/service-worker.ts',
     type: 'module',
   },
   // No popup page — the action badge shows dictionary-import progress.
@@ -24,7 +27,7 @@ export default defineManifest({
   content_scripts: [
     {
       matches: ['<all_urls>'],
-      js: ['src/content/index.ts'],
+      js: ['src/content/content-script.ts'],
       all_frames: true,
       run_at: 'document_idle',
     },

@@ -67,6 +67,11 @@ export function watchSelection(
   }
 }
 
+/** Furigana-stripped text of an arbitrary Range (see extractText). */
+export function rangeText(range: Range): string {
+  return extractText(range.toString(), range)
+}
+
 /**
  * Selection text with ruby annotations (furigana) removed. Sites like NHK
  * Easy News wrap readings in <ruby>…<rt>…</rt></ruby>, and

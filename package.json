@@ -8,6 +8,7 @@
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
     "typecheck": "tsc --noEmit",
+    "test-grammar": "tsx scripts/test-grammar.ts",
     "prepare-dict": "node --max-old-space-size=6144 --import tsx scripts/prepare-dict.ts",
     "prepare-kanji": "tsx scripts/prepare-kanji.ts",
     "prepare-tokenizer": "tsx scripts/prepare-tokenizer.ts",

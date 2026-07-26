@@ -1,5 +1,14 @@
 import { useState } from 'preact/hooks'
-import type { DictionaryEntry, GrammarPart, KanjiInfo, TargetLang, TokenInfo, TranslationState } from '../shared/types'
+import type {
+  DictionaryEntry,
+  GrammarAnalysis,
+  GrammarPart,
+  KanjiInfo,
+  SentenceInfo,
+  TargetLang,
+  TokenInfo,
+  TranslationState,
+} from '../shared/types'
 
 /** Senses shown before the "show more" toggle kicks in. */
 const SENSE_CAP = 4
@@ -12,6 +21,13 @@ export type KanjiTabState =
   | 'idle'
   | 'loading'
   | { readonly ready: boolean; readonly kanji: readonly KanjiInfo[] }
+
+/** Ngữ pháp tab lifecycle — same lazy model as the Hán tự tab. */
+export type GrammarTabState =
+  | 'idle'
+  | 'loading'
+  | 'unavailable'
+  | { readonly analysis: GrammarAnalysis }
 
 /** Everything the popup can display. */
 export type PopupModel =
@@ -26,6 +42,9 @@ export type PopupModel =
       /** Unique kanji of the selection — the Hán tự tab count and query. */
       readonly kanjiChars: readonly string[]
       readonly kanjiTab: KanjiTabState
+      /** The sentence containing the selection (Ngữ pháp tab). */
+      readonly sentence: SentenceInfo | null
+      readonly grammarTab: GrammarTabState
       /** null → not started yet (single-word selections translate lazily). */
       readonly translation: TranslationState | null
     }
@@ -49,12 +68,14 @@ export interface PopupProps {
   readonly onTokenClick?: (token: TokenInfo) => void
   /** Fired when the Hán tự tab is opened while its data is still 'idle'. */
   readonly onRequestKanji?: () => void
+  /** Fired when the Ngữ pháp tab is opened while its data is still 'idle'. */
+  readonly onRequestGrammar?: () => void
   /** Fired when the Dịch tab is opened before any translation started. */
   readonly onRequestTranslation?: () => void
   readonly translation?: TranslationControls
 }
 
-export function Popup({ model, onTokenClick, onRequestKanji, onRequestTranslation, translation }: PopupProps) {
+export function Popup({ model, onTokenClick, onRequestKanji, onRequestGrammar, onRequestTranslation, translation }: PopupProps) {
   switch (model.kind) {
     case 'status':
       return (
@@ -76,6 +97,7 @@ export function Popup({ model, onTokenClick, onRequestKanji, onRequestTranslatio
           model={model}
           onTokenClick={onTokenClick}
           onRequestKanji={onRequestKanji}
+          onRequestGrammar={onRequestGrammar}
           onRequestTranslation={onRequestTranslation}
           translationControls={translation}
         />
@@ -92,18 +114,20 @@ function DragHandle() {
 // Tabbed result view
 
 type ResultModel = Extract<PopupModel, { kind: 'result' }>
-type TabId = 'vocab' | 'kanji' | 'translate'
+type TabId = 'vocab' | 'kanji' | 'grammar' | 'translate'
 
 function ResultView({
   model,
   onTokenClick,
   onRequestKanji,
+  onRequestGrammar,
   onRequestTranslation,
   translationControls,
 }: {
   readonly model: ResultModel
   readonly onTokenClick?: (token: TokenInfo) => void
   readonly onRequestKanji?: () => void
+  readonly onRequestGrammar?: () => void
   readonly onRequestTranslation?: () => void
   readonly translationControls?: TranslationControls
 }) {
@@ -111,6 +135,7 @@ function ResultView({
   const openTab = (tab: TabId): void => {
     setActive(tab)
     if (tab === 'kanji' && model.kanjiTab === 'idle') onRequestKanji?.()
+    if (tab === 'grammar' && model.grammarTab === 'idle') onRequestGrammar?.()
     if (tab === 'translate' && model.translation === null) onRequestTranslation?.()
   }
   const hasKanji = model.kanjiChars.length > 0
@@ -130,6 +155,7 @@ function ResultView({
       <div class="tabs" role="tablist">
         {tab('vocab', 'Từ vựng')}
         {hasKanji && tab('kanji', `Hán tự (${model.kanjiChars.length})`)}
+        {model.sentence !== null && tab('grammar', 'Ngữ pháp')}
         {tab('translate', 'Dịch')}
       </div>
       {active === 'vocab' && (
@@ -143,6 +169,9 @@ function ResultView({
         />
       )}
       {active === 'kanji' && <KanjiView state={model.kanjiTab} />}
+      {active === 'grammar' && model.sentence !== null && (
+        <GrammarView sentence={model.sentence} state={model.grammarTab} />
+      )}
       {active === 'translate' &&
         (model.translation !== null ? (
           <TranslateSection state={model.translation} controls={translationControls} />
@@ -351,6 +380,74 @@ function gradeLabel(grade: number): string {
   if (grade >= 1 && grade <= 6) return `lớp ${grade} tiểu học`
   if (grade === 8) return 'jōyō (trung học)'
   return 'kanji tên riêng'
+}
+
+// ---------------------------------------------------------------------------
+// Ngữ pháp tab
+
+/**
+ * The sentence containing the selection (selection emphasized), the JLPT
+ * patterns detected in it, and the conjugated-unit breakdowns.
+ */
+function GrammarView({ sentence, state }: { readonly sentence: SentenceInfo; readonly state: GrammarTabState }) {
+  if (state === 'idle' || state === 'loading') {
+    return <div class="status">Đang phân tích ngữ pháp…</div>
+  }
+  if (state === 'unavailable') {
+    return <div class="status">Chưa phân tích được (bộ tách từ chưa sẵn sàng) — thử lại sau nhé.</div>
+  }
+  const { patterns, units } = state.analysis
+  return (
+    <div class="grammar-view">
+      <div class="grammar-sentence" lang="ja">
+        {sentence.sentence.slice(0, sentence.selStart)}
+        <mark>{sentence.sentence.slice(sentence.selStart, sentence.selEnd)}</mark>
+        {sentence.sentence.slice(sentence.selEnd)}
+      </div>
+      {patterns.length === 0 ? (
+        <div class="status">Không nhận diện được cấu trúc ngữ pháp N5–N4 nào trong câu này.</div>
+      ) : (
+        <ul class="pattern-list">
+          {patterns.map((pattern) => (
+            <li class="pattern" key={pattern.display}>
+              <div class="pattern-head">
+                <span class="pattern-display" lang="ja">
+                  {pattern.display}
+                </span>
+                <span class="pattern-level">{pattern.level}</span>
+                <span class="pattern-surface" lang="ja">
+                  {pattern.surface}
+                </span>
+              </div>
+              <div class="pattern-desc">{pattern.description}</div>
+            </li>
+          ))}
+        </ul>
+      )}
+      {units.length > 0 && (
+        <div class="grammar">
+          <div class="section-label">Chia động từ / tính từ</div>
+          {units.map((unit) => (
+            <div class="unit" key={unit.surface}>
+              <div class="unit-surface" lang="ja">
+                {unit.surface}
+              </div>
+              <ul class="grammar-list">
+                {unit.parts.map((part, i) => (
+                  <li class="grammar-row" key={`${i}-${part.surface}`}>
+                    <span class="grammar-surface" lang="ja">
+                      {part.surface}
+                    </span>
+                    <span class="grammar-desc">{part.description}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  )
 }
 
 // ---------------------------------------------------------------------------

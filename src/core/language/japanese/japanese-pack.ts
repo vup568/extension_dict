@@ -126,7 +126,12 @@ function isAttachable(token: IpadicFeatures): boolean {
   ) {
     return true
   }
-  return (token.pos === '動詞' || token.pos === '形容詞') && token.pos_detail_1 === '非自立'
+  // 非自立 covers てform helpers (いる/しまう/おく…); 接尾 covers the
+  // passive/causative/desiderative verb suffixes られる/させる/がる.
+  return (
+    (token.pos === '動詞' || token.pos === '形容詞') &&
+    (token.pos_detail_1 === '非自立' || token.pos_detail_1 === '接尾')
+  )
 }
 
 function isNounStart(token: IpadicFeatures): boolean {
@@ -135,6 +140,14 @@ function isNounStart(token: IpadicFeatures): boolean {
 
 function baseForm(token: IpadicFeatures): string {
   return token.basic_form !== '*' && token.basic_form.length > 0 ? token.basic_form : token.surface_form
+}
+
+/**
+ * Public entry for the sentence-grammar analyzer: the same grammar-aware
+ * units the token strip uses (conjugated units carry their breakdown).
+ */
+export function buildTokenUnits(tokens: IpadicFeatures[]): Promise<TokenInfo[]> {
+  return buildUnits(tokens)
 }
 
 async function buildUnits(tokens: IpadicFeatures[]): Promise<TokenInfo[]> {
@@ -179,7 +192,7 @@ function grammarUnit(parts: IpadicFeatures[]): TokenInfo {
   if (stem === undefined) throw new Error('grammarUnit requires a stem token')
   const lookupTerm = baseForm(stem)
   const grammar: GrammarPart[] = [
-    { surface: stem.surface_form, description: `stem of ${lookupTerm}` },
+    { surface: stem.surface_form, description: `gốc của ${lookupTerm}` },
     ...parts.slice(1).map((part) => ({
       surface: part.surface_form,
       description: describeAuxiliary(baseForm(part), part.pos),

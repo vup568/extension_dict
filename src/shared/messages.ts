@@ -3,7 +3,7 @@
  * service worker. Every message is a member of a discriminated union so the
  * router can narrow on `type` exhaustively.
  */
-import type { DictionaryEntry, GrammarPart, KanjiInfo, TargetLang, TokenInfo } from './types'
+import type { DictionaryEntry, GrammarAnalysis, GrammarPart, KanjiInfo, TargetLang, TokenInfo } from './types'
 
 // ---------------------------------------------------------------------------
 // Requests (content script → service worker)
@@ -42,6 +42,12 @@ export interface KanjiRequest {
   readonly chars: readonly string[]
 }
 
+/** Grammar-pattern analysis of a sentence (the Ngữ pháp tab, lazy-loaded). */
+export interface AnalyzeGrammarRequest {
+  readonly type: 'analyze-grammar'
+  readonly text: string
+}
+
 export type BackgroundRequest =
   | LookupRequest
   | DictStatusRequest
@@ -49,6 +55,7 @@ export type BackgroundRequest =
   | SetPrefsRequest
   | TranslateCloudRequest
   | KanjiRequest
+  | AnalyzeGrammarRequest
 
 // ---------------------------------------------------------------------------
 // Responses (service worker → content script)
@@ -101,9 +108,14 @@ export interface KanjiResponse {
   readonly kanji: readonly KanjiInfo[]
 }
 
+export type AnalyzeGrammarResponse =
+  | { readonly type: 'analyze-grammar-result'; readonly ok: true; readonly analysis: GrammarAnalysis }
+  | { readonly type: 'analyze-grammar-result'; readonly ok: false; readonly reason: string }
+
 export type BackgroundResponse =
   | LookupResponse
   | DictStatusResponse
   | PrefsResponse
   | TranslateCloudResponse
   | KanjiResponse
+  | AnalyzeGrammarResponse

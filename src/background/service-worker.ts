@@ -10,9 +10,11 @@ import { getKanjiInfo } from '../core/dictionary/kanji'
 import { lookupExact } from '../core/dictionary/lookup'
 import { configureTokenizer } from '../core/language/japanese/tokenizer'
 import { uniqueKanji } from '../core/language/japanese/detect'
+import { analyzeGrammar } from '../core/language/japanese/grammar-analyzer'
 import { japanesePack } from '../core/language/japanese/japanese-pack'
 import { cloudTranslate } from '../core/translation/cloud-translator'
 import type {
+  AnalyzeGrammarResponse,
   BackgroundRequest,
   BackgroundResponse,
   DictProgress,
@@ -78,6 +80,9 @@ chrome.runtime.onMessage.addListener(
       case 'kanji':
         void handleKanji(message.chars).then(sendResponse)
         return true
+      case 'analyze-grammar':
+        void handleAnalyzeGrammar(message.text).then(sendResponse)
+        return true
     }
   },
 )
@@ -88,6 +93,18 @@ async function handleKanji(chars: readonly string[]): Promise<KanjiResponse> {
     return { type: 'kanji-result', ready: result.ready, kanji: result.kanji }
   } catch {
     return { type: 'kanji-result', ready: false, kanji: [] }
+  }
+}
+
+async function handleAnalyzeGrammar(text: string): Promise<AnalyzeGrammarResponse> {
+  try {
+    return { type: 'analyze-grammar-result', ok: true, analysis: await analyzeGrammar(text) }
+  } catch (error) {
+    return {
+      type: 'analyze-grammar-result',
+      ok: false,
+      reason: error instanceof Error ? error.message : String(error),
+    }
   }
 }
 
@@ -195,6 +212,7 @@ Object.assign(globalThis, {
     lookup: (text: string) => japanesePack.resolve(text),
     exact: lookupExact,
     kanji: (text: string) => getKanjiInfo(uniqueKanji(text)),
+    grammar: (text: string) => analyzeGrammar(text),
     status: getDictionaryStatus,
     bench,
   },

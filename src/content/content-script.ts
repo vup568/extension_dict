@@ -13,6 +13,7 @@ import { containsJapanese, uniqueKanji } from '../core/language/japanese/detect'
 import { PopupController } from './popup-controller'
 import type { PopupHandlers } from './popup-controller'
 import { LOOKUP_MAX_LENGTH, watchSelection } from './selection'
+import { extractSentence } from './sentence'
 import {
   downloadOfflinePack,
   offlinePackReady,
@@ -21,6 +22,8 @@ import {
   translatorApiPresent,
 } from './translation-flow'
 import type {
+  AnalyzeGrammarRequest,
+  AnalyzeGrammarResponse,
   GetPrefsRequest,
   KanjiRequest,
   KanjiResponse,
@@ -96,6 +99,7 @@ function makeHandlers(): PopupHandlers {
   return {
     onTokenClick: handleTokenClick,
     onRequestKanji: handleRequestKanji,
+    onRequestGrammar: handleRequestGrammar,
     onRequestTranslation: handleRequestTranslation,
     translation: {
       targetLang,
@@ -194,6 +198,28 @@ function handleRequestKanji(): void {
 }
 
 // ---------------------------------------------------------------------------
+// Ngữ pháp tab (lazy)
+
+function handleRequestGrammar(): void {
+  const model = currentResult()
+  if (model === null || model.grammarTab !== 'idle' || model.sentence === null) return
+  const seq = requestSeq
+  updateCurrent({ ...model, grammarTab: 'loading' })
+  const applyGrammar = (state: ResultModel['grammarTab']): void => {
+    if (seq !== requestSeq) return
+    const live = currentResult()
+    if (live !== null) updateCurrent({ ...live, grammarTab: state })
+  }
+  chrome.runtime
+    .sendMessage<AnalyzeGrammarRequest, AnalyzeGrammarResponse>({
+      type: 'analyze-grammar',
+      text: model.sentence.sentence,
+    })
+    .then((response) => applyGrammar(response.ok ? { analysis: response.analysis } : 'unavailable'))
+    .catch(() => applyGrammar('unavailable'))
+}
+
+// ---------------------------------------------------------------------------
 // Sentence-translation flow
 
 /** Applies translation states onto the live model, dropping stale ones. */
@@ -254,6 +280,9 @@ watchSelection(containsJapanese, {
       return
     }
     const seq = requestSeq
+    // Extract the containing sentence NOW — the live Range mutates with the
+    // next selection, so it can't be trusted inside the async callback.
+    const sentence = extractSentence(range) ?? { sentence: text, selStart: 0, selEnd: text.length }
     void requestLookup(text).then((response) => {
       if (seq !== requestSeq || response === null) return
       const transient = transientModel(response)
@@ -271,6 +300,8 @@ watchSelection(containsJapanese, {
         deinflectionAvailable: response.deinflectionAvailable,
         kanjiChars: uniqueKanji(text).slice(0, KANJI_TAB_CAP),
         kanjiTab: 'idle',
+        sentence,
+        grammarTab: 'idle',
         translation: translate ? { status: 'translating' } : null,
       }
       showCurrent(model, range)

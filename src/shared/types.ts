@@ -37,6 +37,37 @@ export interface GrammarPart {
   readonly description: string
 }
 
+/** One grammar pattern detected in a sentence (Ngữ pháp tab). */
+export interface GrammarPatternMatch {
+  /** Canonical form shown to the user, e.g. 〜くなる. */
+  readonly display: string
+  /** JLPT level of the pattern: 'N5' | 'N4' | … */
+  readonly level: string
+  /** Vietnamese explanation. */
+  readonly description: string
+  /** The text in the sentence that matched, e.g. 暑くなり. */
+  readonly surface: string
+}
+
+/** A conjugated unit in the analyzed sentence with its part breakdown. */
+export interface GrammarUnitBreakdown {
+  readonly surface: string
+  readonly parts: readonly GrammarPart[]
+}
+
+/** Result of analyzing one sentence for the Ngữ pháp tab. */
+export interface GrammarAnalysis {
+  readonly patterns: readonly GrammarPatternMatch[]
+  readonly units: readonly GrammarUnitBreakdown[]
+}
+
+/** The sentence containing the selection, with the selection's bounds. */
+export interface SentenceInfo {
+  readonly sentence: string
+  readonly selStart: number
+  readonly selEnd: number
+}
+
 /** One token of a tokenized selection, for the clickable token list. */
 export interface TokenInfo {
   /** The text exactly as it appears in the selection. */

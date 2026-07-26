@@ -20,6 +20,7 @@ import type { TokenInfo } from '../shared/types'
 export interface PopupHandlers {
   readonly onTokenClick?: (token: TokenInfo) => void
   readonly onRequestKanji?: () => void
+  readonly onRequestGrammar?: () => void
   readonly onRequestTranslation?: () => void
   readonly translation?: TranslationControls
 }
@@ -99,6 +100,7 @@ export class PopupController {
         model,
         onTokenClick: this.lastHandlers?.onTokenClick,
         onRequestKanji: this.lastHandlers?.onRequestKanji,
+        onRequestGrammar: this.lastHandlers?.onRequestGrammar,
         onRequestTranslation: this.lastHandlers?.onRequestTranslation,
         translation: this.lastHandlers?.translation,
         key: this.showCount,
@@ -221,6 +223,7 @@ export class PopupController {
         node.classList.contains('tokens') ||
         node.classList.contains('senses') ||
         node.classList.contains('grammar') ||
+        node.classList.contains('grammar-view') ||
         node.classList.contains('kanji-list') ||
         node.classList.contains('translate-result')
       ) {

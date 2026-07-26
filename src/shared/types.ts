@@ -90,6 +90,15 @@ export interface DictionaryEntry {
   readonly senses: readonly WordSense[]
 }
 
+/** A kanji's Kangxi radical (bộ thủ), resolved for display. */
+export interface KanjiRadicalInfo {
+  readonly glyph: string
+  /** Hán Việt name of the radical, e.g. "Thủy". */
+  readonly hanViet: string
+  /** In-kanji variant form when it differs (氵, ⻌, 亻 …). */
+  readonly variant: string | null
+}
+
 /** One character's KANJIDIC2 data, shown as a card in the Hán tự tab. */
 export interface KanjiInfo {
   readonly literal: string
@@ -101,11 +110,10 @@ export interface KanjiInfo {
   readonly kun: readonly string[]
   /** English meanings. */
   readonly meanings: readonly string[]
+  /** Vietnamese meaning from the ja-vi dictionary, when it has one. */
+  readonly viMeaning: string | null
   readonly strokes: number | null
-  /** Japanese school grade (1–6; 8 = other jōyō; 9/10 = name kanji). */
-  readonly grade: number | null
   /** JLPT level, modern N-scale (5,4,2,1 — converted from the old scale). */
   readonly jlpt: number | null
-  /** Newspaper frequency rank 1–2501. */
-  readonly freq: number | null
+  readonly radical: KanjiRadicalInfo | null
 }

@@ -42,16 +42,14 @@ export interface PackedKanji {
   m?: string[]
   /** Stroke count. */
   s?: number
-  /** Japanese school grade (1–6; 8 = other jōyō; 9/10 = name kanji). */
-  g?: number
   /**
    * JLPT level on the modern N-scale (5,4,2,1), converted at pack time from
    * KANJIDIC2's pre-2010 1–4 scale (4→N5, 3→N4, 2→N2, 1→N1; the old scale
    * had no N3 equivalent).
    */
   j?: number
-  /** Newspaper frequency rank 1–2501 (Mainichi Shimbun corpus). */
-  f?: number
+  /** Kangxi (classical) radical number 1–214 — the bộ thủ. */
+  b?: number
 }
 
 /** Kanji data present in the package — absent when only prepare-dict ran. */

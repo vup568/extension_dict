@@ -97,10 +97,12 @@ function packCharacter(char: Kanjidic2Character): PackedKanji | null {
   if (meanings.length > 0) packed.m = meanings
   const strokes = char.misc.strokeCounts[0]
   if (strokes !== undefined) packed.s = strokes
-  if (char.misc.grade !== null) packed.g = char.misc.grade
   const jlpt = char.misc.jlptLevel === null ? undefined : JLPT_OLD_TO_N[char.misc.jlptLevel]
   if (jlpt !== undefined) packed.j = jlpt
-  if (char.misc.frequency !== null) packed.f = char.misc.frequency
+  // Kangxi radical: exactly one 'classical' entry per character; never use
+  // radicals[0] — 721 characters carry an extra nelson_c entry.
+  const radical = char.radicals.find((r) => r.type === 'classical')
+  if (radical !== undefined) packed.b = radical.value
   return packed
 }
 
@@ -137,7 +139,9 @@ async function main(): Promise<void> {
 
   const index = JSON.parse(readFileSync(indexPath, 'utf8')) as DictIndexFile
   index.kanji = {
-    kanjiVersion: `${raw.version}/${raw.dictDate}`,
+    // The /pk2 suffix is the PACK format revision: bumping it makes the
+    // importer treat existing kanji data as stale and reimport.
+    kanjiVersion: `${raw.version}/${raw.dictDate}/pk2`,
     kanjiCount: packed.length,
     kanjiChunkCount: chunkCount,
   }

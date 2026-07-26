@@ -346,8 +346,12 @@ function KanjiCard({ info }: { readonly info: KanjiInfo }) {
   const meta: string[] = []
   if (info.strokes !== null) meta.push(`${info.strokes} nét`)
   if (info.jlpt !== null) meta.push(`JLPT N${info.jlpt}`)
-  if (info.grade !== null) meta.push(gradeLabel(info.grade))
-  if (info.freq !== null) meta.push(`top ${info.freq} báo chí`)
+  if (info.radical !== null) {
+    const variant = info.radical.variant === null ? '' : ` (${info.radical.variant})`
+    meta.push(`bộ ${info.radical.glyph}${variant} ${info.radical.hanViet}`)
+  }
+  // Vietnamese meaning wins the headline when the ja-vi dictionary has one.
+  const meaning = info.viMeaning ?? (info.meanings.length > 0 ? info.meanings.join('; ') : null)
   return (
     <div class="kanji-card">
       <div class="kanji-head">
@@ -356,7 +360,7 @@ function KanjiCard({ info }: { readonly info: KanjiInfo }) {
         </span>
         <span class="kanji-headline">
           {info.hanViet.length > 0 && <span class="kanji-hanviet">{info.hanViet.join(' · ')}</span>}
-          {info.meanings.length > 0 && <span class="kanji-meanings">{info.meanings.join('; ')}</span>}
+          {meaning !== null && <span class="kanji-meanings">{meaning}</span>}
         </span>
       </div>
       {info.on.length > 0 && (
@@ -374,12 +378,6 @@ function KanjiCard({ info }: { readonly info: KanjiInfo }) {
       {meta.length > 0 && <div class="kanji-meta">{meta.join(' · ')}</div>}
     </div>
   )
-}
-
-function gradeLabel(grade: number): string {
-  if (grade >= 1 && grade <= 6) return `lớp ${grade} tiểu học`
-  if (grade === 8) return 'jōyō (trung học)'
-  return 'kanji tên riêng'
 }
 
 // ---------------------------------------------------------------------------

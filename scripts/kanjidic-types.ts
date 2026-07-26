@@ -12,6 +12,8 @@ export interface Kanjidic2File {
 
 export interface Kanjidic2Character {
   literal: string
+  /** 'classical' = Kangxi radical number 1–214 (exactly one per char). */
+  radicals: { type: string; value: number }[]
   misc: {
     strokeCounts: number[]
     grade: number | null

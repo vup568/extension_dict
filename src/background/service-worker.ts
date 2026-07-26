@@ -1,11 +1,13 @@
 /**
- * Background service worker: owns the dictionary (IndexedDB) and — from
- * Phase 5 — the tokenizer, and routes typed messages from content scripts.
- * Content scripts never touch the dictionary directly, so the ~200k-entry
- * database exists exactly once instead of per-tab.
+ * Background service worker: owns the dictionary (IndexedDB) and the
+ * kuromoji tokenizer, and routes typed messages from content scripts.
+ * Content scripts never touch either directly, so both exist exactly once
+ * instead of per-tab.
  */
 import { configureImporter, getDictionaryStatus, startImport } from '../core/dictionary/importer'
 import { lookupExact } from '../core/dictionary/lookup'
+import { configureTokenizer } from '../core/language/japanese/tokenizer'
+import { japanesePack } from '../core/language/japanese/japanese-pack'
 import type {
   BackgroundRequest,
   BackgroundResponse,
@@ -29,6 +31,9 @@ configureImporter({
   },
 })
 
+// Root-relative on purpose — see the path gotcha note in tokenizer.ts.
+configureTokenizer('/kuromoji')
+
 void chrome.action.setBadgeBackgroundColor({ color: '#2f5fd0' })
 
 chrome.runtime.onInstalled.addListener(() => {
@@ -46,9 +51,6 @@ chrome.runtime.onMessage.addListener(
     sendResponse: (response: BackgroundResponse) => void,
   ): boolean => {
     switch (message.type) {
-      case 'ping':
-        sendResponse({ type: 'pong' })
-        return false
       case 'lookup':
         void handleLookup(message.text).then(sendResponse)
         return true // keep the channel open for the async response
@@ -63,8 +65,16 @@ async function handleLookup(text: string): Promise<LookupResponse> {
   try {
     const status = await getDictionaryStatus()
     switch (status.state) {
-      case 'ready':
-        return { type: 'lookup-result', status: 'ready', matches: await lookupExact(text) }
+      case 'ready': {
+        const resolution = await japanesePack.resolve(text)
+        return {
+          type: 'lookup-result',
+          status: 'ready',
+          matches: resolution.matches,
+          tokens: resolution.tokens,
+          deinflectionAvailable: resolution.deinflectionAvailable,
+        }
+      }
       case 'importing':
         startImport() // resume in case the worker restarted mid-import
         return { type: 'lookup-result', status: 'initializing', progress: status.progress }
@@ -97,12 +107,28 @@ async function updateBadge(progress: DictProgress): Promise<void> {
   await chrome.action.setBadgeText({ text: done ? '' : `${pct}%` })
 }
 
+/** Average resolve latency after warm-up — for the <50ms performance check. */
+async function bench(term: string, runs = 20): Promise<string> {
+  await japanesePack.resolve(term)
+  const start = performance.now()
+  for (let i = 0; i < runs; i++) await japanesePack.resolve(term)
+  const avg = (performance.now() - start) / runs
+  return `${avg.toFixed(2)} ms average over ${runs} lookups`
+}
+
 /**
- * Manual verification hook. Open the service-worker console from
- * chrome://extensions and run:
+ * Manual verification hooks. Open the service-worker console from
+ * chrome://extensions and run e.g.:
  *   await jpdictDebug.status()
- *   await jpdictDebug.lookup('学生')
+ *   await jpdictDebug.lookup('食べました')  // full resolution w/ deinflection
+ *   await jpdictDebug.exact('学生')         // raw exact match
+ *   await jpdictDebug.bench('食べました')   // perf target: <50ms
  */
 Object.assign(globalThis, {
-  jpdictDebug: { lookup: lookupExact, status: getDictionaryStatus },
+  jpdictDebug: {
+    lookup: (text: string) => japanesePack.resolve(text),
+    exact: lookupExact,
+    status: getDictionaryStatus,
+    bench,
+  },
 })

@@ -8,7 +8,9 @@
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
     "typecheck": "tsc --noEmit",
-    "prepare-dict": "node --max-old-space-size=6144 --import tsx scripts/prepare-dict.ts"
+    "prepare-dict": "node --max-old-space-size=6144 --import tsx scripts/prepare-dict.ts",
+    "prepare-tokenizer": "tsx scripts/prepare-tokenizer.ts",
+    "prepare-data": "npm run prepare-dict && npm run prepare-tokenizer"
   },
   "devDependencies": {
     "@crxjs/vite-plugin": "^2.7.1",
@@ -21,6 +23,7 @@
     "vite": "^8.1.5"
   },
   "dependencies": {
+    "@aiktb/kuromoji": "^1.0.2",
     "idb": "^8.0.3",
     "preact": "^10.29.7"
   }

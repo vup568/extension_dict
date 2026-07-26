@@ -39,7 +39,7 @@ export class PopupController {
   private lastInnerInteraction = 0
   private repositionQueued = false
 
-  show(model: PopupModel, range: Range): void {
+  show(model: PopupModel, range: Range, onTokenClick?: (lookupTerm: string) => void): void {
     const parts = this.ensureHost()
     // Clone: the live Selection mutates its Range on the next selection,
     // which would corrupt our anchor for scroll repositioning.
@@ -47,7 +47,7 @@ export class PopupController {
     // New key per show() remounts <Popup>, resetting its internal state
     // (entry index, "show more") for every new selection.
     this.showCount += 1
-    render(h(Popup, { model, key: this.showCount }), parts.mountPoint)
+    render(h(Popup, { model, onTokenClick, key: this.showCount }), parts.mountPoint)
 
     if (!this.visible) {
       this.visible = true
@@ -69,10 +69,12 @@ export class PopupController {
     }
   }
 
-  /** Called when the selection collapsed or became irrelevant. */
-  handleSelectionCleared(): void {
-    if (performance.now() - this.lastInnerInteraction < INNER_INTERACTION_GRACE_MS) return
-    this.hide()
+  /**
+   * True while a pointer interaction inside the popup just happened — the
+   * caller uses this to ignore the selection-collapse it causes.
+   */
+  hasRecentInnerInteraction(): boolean {
+    return performance.now() - this.lastInnerInteraction < INNER_INTERACTION_GRACE_MS
   }
 
   private ensureHost(): HostParts {

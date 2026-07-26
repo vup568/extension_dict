@@ -8,6 +8,7 @@ import { containsJapanese } from '../core/language/japanese/detect'
 import { PopupController } from './popup-controller'
 import { watchSelection } from './selection'
 import type { LookupRequest, LookupResponse } from '../shared/messages'
+import type { TokenInfo } from '../shared/types'
 import type { PopupModel } from '../ui'
 
 const controller = new PopupController()
@@ -18,6 +19,10 @@ const controller = new PopupController()
  * response must not resurrect an outdated popup.
  */
 let requestSeq = 0
+/** Anchor of the current selection — token clicks re-show at this spot. */
+let lastRange: Range | null = null
+/** Token list of the current selection, kept across token-click lookups. */
+let lastTokens: readonly TokenInfo[] | null = null
 
 async function requestLookup(text: string): Promise<LookupResponse | null> {
   try {
@@ -30,12 +35,11 @@ async function requestLookup(text: string): Promise<LookupResponse | null> {
   }
 }
 
-function toModel(response: LookupResponse): PopupModel | null {
+/** Model for the non-ready lookup states; null when status is 'ready'. */
+function transientModel(response: LookupResponse): PopupModel | null {
   switch (response.status) {
     case 'ready':
-      // No matches → no popup for now; Phase 5 adds the dedicated
-      // "No match found" state together with deinflection.
-      return response.matches.length > 0 ? { kind: 'entries', entries: response.matches } : null
+      return null
     case 'initializing': {
       const { progress } = response
       const pct =
@@ -49,18 +53,58 @@ function toModel(response: LookupResponse): PopupModel | null {
   }
 }
 
+function showModel(model: PopupModel, range: Range): void {
+  controller.show(model, range, handleTokenClick)
+}
+
+/** A token chip was clicked: look up its dictionary form, keep the strip. */
+function handleTokenClick(lookupTerm: string): void {
+  const range = lastRange
+  if (range === null) return
+  const seq = ++requestSeq
+  void requestLookup(lookupTerm).then((response) => {
+    if (seq !== requestSeq || response === null) return
+    const transient = transientModel(response)
+    if (transient !== null) {
+      showModel(transient, range)
+      return
+    }
+    if (response.status !== 'ready') return
+    const model: PopupModel =
+      response.matches.length > 0
+        ? { kind: 'entries', entries: response.matches, tokens: lastTokens }
+        : { kind: 'no-match', tokens: lastTokens, deinflectionAvailable: response.deinflectionAvailable }
+    showModel(model, range)
+  })
+}
+
 watchSelection(containsJapanese, {
   onSelect: (text, range) => {
+    lastRange = range.cloneRange()
     const seq = ++requestSeq
     void requestLookup(text).then((response) => {
       if (seq !== requestSeq || response === null) return
-      const model = toModel(response)
-      if (model === null) controller.hide()
-      else controller.show(model, range)
+      const transient = transientModel(response)
+      if (transient !== null) {
+        showModel(transient, range)
+        return
+      }
+      if (response.status !== 'ready') return
+      lastTokens = response.tokens
+      const model: PopupModel =
+        response.matches.length > 0
+          ? { kind: 'entries', entries: response.matches, tokens: response.tokens }
+          : { kind: 'no-match', tokens: response.tokens, deinflectionAvailable: response.deinflectionAvailable }
+      showModel(model, range)
     })
   },
   onClear: () => {
+    // Interactions inside the popup (token clicks, "show more") collapse
+    // the page selection; don't let that dismiss the popup.
+    if (controller.hasRecentInnerInteraction()) return
     requestSeq += 1
-    controller.handleSelectionCleared()
+    lastRange = null
+    lastTokens = null
+    controller.hide()
   },
 })

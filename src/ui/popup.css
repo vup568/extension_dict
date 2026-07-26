@@ -64,6 +64,35 @@
   color: var(--fg-muted);
 }
 
+.tokens {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+.tokens:last-child {
+  border-bottom: 0;
+}
+
+.token {
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--fg);
+  font: inherit;
+  font-size: 12.5px;
+  padding: 2px 7px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.token:hover {
+  background: var(--pill-bg);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
 .entry-nav {
   display: flex;
   align-items: center;

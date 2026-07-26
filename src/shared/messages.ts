@@ -3,14 +3,10 @@
  * service worker. Every message is a member of a discriminated union so the
  * router can narrow on `type` exhaustively.
  */
-import type { DictionaryEntry } from './types'
+import type { DictionaryEntry, TokenInfo } from './types'
 
 // ---------------------------------------------------------------------------
 // Requests (content script → service worker)
-
-export interface PingRequest {
-  readonly type: 'ping'
-}
 
 export interface LookupRequest {
   readonly type: 'lookup'
@@ -21,14 +17,10 @@ export interface DictStatusRequest {
   readonly type: 'dict-status'
 }
 
-export type BackgroundRequest = PingRequest | LookupRequest | DictStatusRequest
+export type BackgroundRequest = LookupRequest | DictStatusRequest
 
 // ---------------------------------------------------------------------------
 // Responses (service worker → content script)
-
-export interface PongResponse {
-  readonly type: 'pong'
-}
 
 export interface DictProgress {
   readonly chunksDone: number
@@ -42,7 +34,15 @@ export type DictionaryStatus =
   | { readonly state: 'unavailable'; readonly reason: string }
 
 export type LookupResponse =
-  | { readonly type: 'lookup-result'; readonly status: 'ready'; readonly matches: readonly DictionaryEntry[] }
+  | {
+      readonly type: 'lookup-result'
+      readonly status: 'ready'
+      readonly matches: readonly DictionaryEntry[]
+      /** Token list when the selection split into 2+ tokens, else null. */
+      readonly tokens: readonly TokenInfo[] | null
+      /** False when the tokenizer failed to load (exact match only). */
+      readonly deinflectionAvailable: boolean
+    }
   | { readonly type: 'lookup-result'; readonly status: 'initializing'; readonly progress: DictProgress | null }
   | { readonly type: 'lookup-result'; readonly status: 'unavailable'; readonly reason: string }
 
@@ -51,4 +51,4 @@ export interface DictStatusResponse {
   readonly status: DictionaryStatus
 }
 
-export type BackgroundResponse = PongResponse | LookupResponse | DictStatusResponse
+export type BackgroundResponse = LookupResponse | DictStatusResponse

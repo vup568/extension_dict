@@ -10,6 +10,14 @@ export interface WordSense {
   readonly glosses: readonly string[]
 }
 
+/** One token of a tokenized selection, for the clickable token list. */
+export interface TokenInfo {
+  /** The text exactly as it appears in the selection. */
+  readonly surface: string
+  /** Dictionary form to look up when clicked (deinflected when possible). */
+  readonly lookupTerm: string
+}
+
 export interface DictionaryEntry {
   readonly id: string
   /** Headword: the kanji form when one exists, otherwise the kana form. */

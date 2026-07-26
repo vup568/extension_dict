@@ -11,9 +11,9 @@
  * and unit-testable.
  */
 import { getDb } from './db'
-import type { StoredEntry } from './db'
-import { DICT_FORMAT_VERSION, chunkFileName } from './packed-format'
-import type { DictIndexFile, PackedEntry } from './packed-format'
+import type { DictionaryDatabase, StoredEntry } from './db'
+import { DICT_FORMAT_VERSION, chunkFileName, kanjiChunkFileName } from './packed-format'
+import type { DictIndexFile, PackedEntry, PackedKanji } from './packed-format'
 import type { DictProgress, DictionaryStatus } from '../../shared/messages'
 
 export interface ImporterOptions {
@@ -77,46 +77,120 @@ async function runImport(opts: ImporterOptions): Promise<void> {
     throw new Error(`Packaged dictionary has unsupported format version ${index.formatVersion}`)
   }
 
-  const existing = await db.get('meta', 'dict')
-  if (existing?.key === 'dict' && existing.dictVersion === index.dictVersion) return
+  // Resume points are computed up front (each also wipes stale data from a
+  // different version) so the badge percentage reflects the combined work
+  // actually left this run, entries and kanji together.
+  const entryNext = await prepareEntryImport(db, index)
+  const kanjiNext = await prepareKanjiImport(db, index)
+  const kanjiInfo = index.kanji
+  const pendingTotal =
+    (entryNext === null ? 0 : index.chunkCount - entryNext) +
+    (kanjiNext === null || kanjiInfo === undefined ? 0 : kanjiInfo.kanjiChunkCount - kanjiNext)
+  let pendingDone = 0
+  const reportChunk = (): void => {
+    pendingDone += 1
+    opts.onProgress?.({ chunksDone: pendingDone, chunkCount: pendingTotal })
+  }
 
+  if (entryNext !== null) {
+    for (let i = entryNext; i < index.chunkCount; i++) {
+      const chunk = (await fetchPackagedJson(opts.fileUrl(chunkFileName(i)))) as PackedEntry[]
+      const tx = db.transaction(['entries', 'meta'], 'readwrite')
+      const entryStore = tx.objectStore('entries')
+      for (const packed of chunk) void entryStore.put(toStored(packed))
+      void tx.objectStore('meta').put({
+        key: 'importProgress',
+        dictVersion: index.dictVersion,
+        chunksDone: i + 1,
+        chunkCount: index.chunkCount,
+      })
+      await tx.done
+      reportChunk()
+    }
+    const done = db.transaction('meta', 'readwrite')
+    void done.store.put({
+      key: 'dict',
+      dictVersion: index.dictVersion,
+      entryCount: index.entryCount,
+      importedAt: Date.now(),
+    })
+    void done.store.delete('importProgress')
+    await done.done
+  }
+
+  if (kanjiNext !== null && kanjiInfo !== undefined) {
+    for (let i = kanjiNext; i < kanjiInfo.kanjiChunkCount; i++) {
+      const chunk = (await fetchPackagedJson(opts.fileUrl(kanjiChunkFileName(i)))) as PackedKanji[]
+      const tx = db.transaction(['kanji', 'meta'], 'readwrite')
+      const kanjiStore = tx.objectStore('kanji')
+      for (const packed of chunk) void kanjiStore.put(packed)
+      void tx.objectStore('meta').put({
+        key: 'kanjiImportProgress',
+        kanjiVersion: kanjiInfo.kanjiVersion,
+        chunksDone: i + 1,
+        chunkCount: kanjiInfo.kanjiChunkCount,
+      })
+      await tx.done
+      reportChunk()
+    }
+    const done = db.transaction('meta', 'readwrite')
+    void done.store.put({
+      key: 'kanjiDict',
+      kanjiVersion: kanjiInfo.kanjiVersion,
+      kanjiCount: kanjiInfo.kanjiCount,
+      importedAt: Date.now(),
+    })
+    void done.store.delete('kanjiImportProgress')
+    await done.done
+  }
+}
+
+/**
+ * Where to resume the entry import, wiping (partial) data left by another
+ * dictionary version. Null when the packaged version is fully imported.
+ */
+async function prepareEntryImport(db: DictionaryDatabase, index: DictIndexFile): Promise<number | null> {
+  const existing = await db.get('meta', 'dict')
+  if (existing?.key === 'dict' && existing.dictVersion === index.dictVersion) return null
   const progress = await db.get('meta', 'importProgress')
-  let nextChunk = 0
   if (progress?.key === 'importProgress' && progress.dictVersion === index.dictVersion) {
-    nextChunk = progress.chunksDone
-  } else if (existing !== undefined || progress !== undefined) {
+    return progress.chunksDone
+  }
+  if (existing !== undefined || progress !== undefined) {
     // Data from a different dictionary version is (partially) present:
-    // rebuild from scratch.
-    const tx = db.transaction(['entries', 'meta'], 'readwrite')
+    // rebuild from scratch. Clearing meta also drops the kanji markers, so
+    // the kanji import naturally reruns against the fresh package.
+    const tx = db.transaction(['entries', 'kanji', 'meta'], 'readwrite')
     void tx.objectStore('entries').clear()
+    void tx.objectStore('kanji').clear()
     void tx.objectStore('meta').clear()
     await tx.done
   }
+  return 0
+}
 
-  for (let i = nextChunk; i < index.chunkCount; i++) {
-    const chunk = (await fetchPackagedJson(opts.fileUrl(chunkFileName(i)))) as PackedEntry[]
-    const tx = db.transaction(['entries', 'meta'], 'readwrite')
-    const entryStore = tx.objectStore('entries')
-    for (const packed of chunk) void entryStore.put(toStored(packed))
-    void tx.objectStore('meta').put({
-      key: 'importProgress',
-      dictVersion: index.dictVersion,
-      chunksDone: i + 1,
-      chunkCount: index.chunkCount,
-    })
-    await tx.done
-    opts.onProgress?.({ chunksDone: i + 1, chunkCount: index.chunkCount })
+/**
+ * Same for the kanji chunks. Must run AFTER prepareEntryImport (whose
+ * version-change wipe clears the kanji markers this reads). Null when up to
+ * date or when the package contains no kanji data.
+ */
+async function prepareKanjiImport(db: DictionaryDatabase, index: DictIndexFile): Promise<number | null> {
+  const info = index.kanji
+  if (info === undefined) return null
+  const existing = await db.get('meta', 'kanjiDict')
+  if (existing?.key === 'kanjiDict' && existing.kanjiVersion === info.kanjiVersion) return null
+  const progress = await db.get('meta', 'kanjiImportProgress')
+  if (progress?.key === 'kanjiImportProgress' && progress.kanjiVersion === info.kanjiVersion) {
+    return progress.chunksDone
   }
-
-  const done = db.transaction('meta', 'readwrite')
-  void done.store.put({
-    key: 'dict',
-    dictVersion: index.dictVersion,
-    entryCount: index.entryCount,
-    importedAt: Date.now(),
-  })
-  void done.store.delete('importProgress')
-  await done.done
+  if (existing !== undefined || progress !== undefined) {
+    const tx = db.transaction(['kanji', 'meta'], 'readwrite')
+    void tx.objectStore('kanji').clear()
+    void tx.objectStore('meta').delete('kanjiDict')
+    void tx.objectStore('meta').delete('kanjiImportProgress')
+    await tx.done
+  }
+  return 0
 }
 
 function toStored(packed: PackedEntry): StoredEntry {

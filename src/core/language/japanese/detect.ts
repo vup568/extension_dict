@@ -12,8 +12,24 @@
  *   U+F900–FAFF  CJK Compatibility Ideographs
  *   U+FF66–FF9F  halfwidth katakana
  */
-const JAPANESE_CHAR = /[々〆぀-ヿ㐀-䶿一-鿿豈-﫿ｦ-ﾟ]/
+const JAPANESE_CHAR = /[々〆぀-ヿ㐀-䶿一-鿿豈-﫿ｦ-ﾟ]/
 
 export function containsJapanese(text: string): boolean {
   return JAPANESE_CHAR.test(text)
+}
+
+/**
+ * Kanji only (no kana): Extension A, the unified block, compatibility
+ * ideographs, plus Extension B+ (U+20000 onward, e.g. 𠮟) — KANJIDIC2
+ * covers characters there too.
+ */
+const KANJI_CHAR = /^(?:[㐀-䶿一-鿿豈-﫿]|[\u{20000}-\u{2FFFF}])$/u
+
+/** Unique kanji characters of `text`, in order of first appearance. */
+export function uniqueKanji(text: string): string[] {
+  const seen = new Set<string>()
+  for (const ch of text) {
+    if (KANJI_CHAR.test(ch)) seen.add(ch)
+  }
+  return [...seen]
 }

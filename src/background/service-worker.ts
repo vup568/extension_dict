@@ -6,8 +6,10 @@
  */
 import { getDb } from '../core/dictionary/db'
 import { configureImporter, getDictionaryStatus, startImport } from '../core/dictionary/importer'
+import { getKanjiInfo } from '../core/dictionary/kanji'
 import { lookupExact } from '../core/dictionary/lookup'
 import { configureTokenizer } from '../core/language/japanese/tokenizer'
+import { uniqueKanji } from '../core/language/japanese/detect'
 import { japanesePack } from '../core/language/japanese/japanese-pack'
 import { cloudTranslate } from '../core/translation/cloud-translator'
 import type {
@@ -15,6 +17,7 @@ import type {
   BackgroundResponse,
   DictProgress,
   DictStatusResponse,
+  KanjiResponse,
   LookupResponse,
   PrefsResponse,
   TranslateCloudResponse,
@@ -72,9 +75,21 @@ chrome.runtime.onMessage.addListener(
       case 'translate-cloud':
         void handleCloudTranslate(message.text, message.target).then(sendResponse)
         return true
+      case 'kanji':
+        void handleKanji(message.chars).then(sendResponse)
+        return true
     }
   },
 )
+
+async function handleKanji(chars: readonly string[]): Promise<KanjiResponse> {
+  try {
+    const result = await getKanjiInfo(chars)
+    return { type: 'kanji-result', ready: result.ready, kanji: result.kanji }
+  } catch {
+    return { type: 'kanji-result', ready: false, kanji: [] }
+  }
+}
 
 async function handleCloudTranslate(text: string, target: TargetLang): Promise<TranslateCloudResponse> {
   try {
@@ -179,6 +194,7 @@ Object.assign(globalThis, {
   jpdictDebug: {
     lookup: (text: string) => japanesePack.resolve(text),
     exact: lookupExact,
+    kanji: (text: string) => getKanjiInfo(uniqueKanji(text)),
     status: getDictionaryStatus,
     bench,
   },

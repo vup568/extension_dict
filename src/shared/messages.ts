@@ -3,7 +3,7 @@
  * service worker. Every message is a member of a discriminated union so the
  * router can narrow on `type` exhaustively.
  */
-import type { DictionaryEntry, GrammarPart, TargetLang, TokenInfo } from './types'
+import type { DictionaryEntry, GrammarPart, KanjiInfo, TargetLang, TokenInfo } from './types'
 
 // ---------------------------------------------------------------------------
 // Requests (content script → service worker)
@@ -36,12 +36,19 @@ export interface TranslateCloudRequest {
   readonly target: TargetLang
 }
 
+/** KANJIDIC2 data for the given characters (the Hán tự tab, lazy-loaded). */
+export interface KanjiRequest {
+  readonly type: 'kanji'
+  readonly chars: readonly string[]
+}
+
 export type BackgroundRequest =
   | LookupRequest
   | DictStatusRequest
   | GetPrefsRequest
   | SetPrefsRequest
   | TranslateCloudRequest
+  | KanjiRequest
 
 // ---------------------------------------------------------------------------
 // Responses (service worker → content script)
@@ -86,4 +93,17 @@ export type TranslateCloudResponse =
   | { readonly type: 'translate-cloud-result'; readonly ok: true; readonly text: string }
   | { readonly type: 'translate-cloud-result'; readonly ok: false; readonly reason: string }
 
-export type BackgroundResponse = LookupResponse | DictStatusResponse | PrefsResponse | TranslateCloudResponse
+export interface KanjiResponse {
+  readonly type: 'kanji-result'
+  /** False while the kanji data set is still importing (or absent). */
+  readonly ready: boolean
+  /** Info for the requested characters that exist in KANJIDIC2, in order. */
+  readonly kanji: readonly KanjiInfo[]
+}
+
+export type BackgroundResponse =
+  | LookupResponse
+  | DictStatusResponse
+  | PrefsResponse
+  | TranslateCloudResponse
+  | KanjiResponse

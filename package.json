@@ -9,8 +9,9 @@
     "build": "tsc --noEmit && vite build",
     "typecheck": "tsc --noEmit",
     "prepare-dict": "node --max-old-space-size=6144 --import tsx scripts/prepare-dict.ts",
+    "prepare-kanji": "tsx scripts/prepare-kanji.ts",
     "prepare-tokenizer": "tsx scripts/prepare-tokenizer.ts",
-    "prepare-data": "npm run prepare-dict && npm run prepare-tokenizer"
+    "prepare-data": "npm run prepare-dict && npm run prepare-kanji && npm run prepare-tokenizer"
   },
   "devDependencies": {
     "@crxjs/vite-plugin": "^2.7.1",

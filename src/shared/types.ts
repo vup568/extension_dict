@@ -58,3 +58,23 @@ export interface DictionaryEntry {
   readonly reading: string
   readonly senses: readonly WordSense[]
 }
+
+/** One character's KANJIDIC2 data, shown as a card in the Hán tự tab. */
+export interface KanjiInfo {
+  readonly literal: string
+  /** Hán Việt (Sino-Vietnamese) readings, e.g. ["Học"]. */
+  readonly hanViet: readonly string[]
+  /** On readings (katakana). */
+  readonly on: readonly string[]
+  /** Kun readings (hiragana, may contain okurigana dots: まな.ぶ). */
+  readonly kun: readonly string[]
+  /** English meanings. */
+  readonly meanings: readonly string[]
+  readonly strokes: number | null
+  /** Japanese school grade (1–6; 8 = other jōyō; 9/10 = name kanji). */
+  readonly grade: number | null
+  /** JLPT level, modern N-scale (5,4,2,1 — converted from the old scale). */
+  readonly jlpt: number | null
+  /** Newspaper frequency rank 1–2501. */
+  readonly freq: number | null
+}

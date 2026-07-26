@@ -31,12 +31,23 @@ export type TranslationState =
     }
   | { readonly status: 'error'; readonly message: string }
 
+/** One piece of a conjugated grammar unit, with a short explanation. */
+export interface GrammarPart {
+  readonly surface: string
+  readonly description: string
+}
+
 /** One token of a tokenized selection, for the clickable token list. */
 export interface TokenInfo {
   /** The text exactly as it appears in the selection. */
   readonly surface: string
   /** Dictionary form to look up when clicked (deinflected when possible). */
   readonly lookupTerm: string
+  /**
+   * Present when this token is a grammar unit (verb/adjective stem plus
+   * auxiliaries, e.g. なりました): the per-part breakdown to display.
+   */
+  readonly grammar: readonly GrammarPart[] | null
 }
 
 export interface DictionaryEntry {

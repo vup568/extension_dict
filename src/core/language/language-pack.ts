@@ -4,12 +4,17 @@
  * shared message types — never on Japanese specifics directly — so other
  * languages can be plugged in later without touching those layers.
  */
-import type { DictionaryEntry, TokenInfo } from '../../shared/types'
+import type { DictionaryEntry, GrammarPart, TokenInfo } from '../../shared/types'
 
 export interface LookupResolution {
   readonly matches: readonly DictionaryEntry[]
   /** Present when the input splits into 2+ tokens; null otherwise. */
   readonly tokens: readonly TokenInfo[] | null
+  /**
+   * Breakdown of the whole selection when it is a single conjugated
+   * grammar unit (e.g. the selection 食べました itself).
+   */
+  readonly grammar: readonly GrammarPart[] | null
   /** False when the tokenizer failed to initialize (exact match only). */
   readonly deinflectionAvailable: boolean
 }

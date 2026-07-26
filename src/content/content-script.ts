@@ -27,7 +27,7 @@ import type {
   SetPrefsRequest,
 } from '../shared/messages'
 import { DEFAULT_TARGET_LANG } from '../shared/types'
-import type { TargetLang, TokenInfo, TranslationState } from '../shared/types'
+import type { GrammarPart, TargetLang, TokenInfo, TranslationState } from '../shared/types'
 import type { PopupModel } from '../ui'
 
 const controller = new PopupController()
@@ -77,6 +77,11 @@ function withTranslation(model: NonStatusModel, translation: TranslationState): 
     case 'translation':
       return { kind: 'translation', translation }
   }
+}
+
+/** Grammar shown for a token click: the chip's own breakdown. */
+function grammarForToken(token: TokenInfo): readonly GrammarPart[] | null {
+  return token.grammar
 }
 
 /** Translation applies to sentence-ish selections only (2+ tokens). */
@@ -145,11 +150,11 @@ function currentTranslation(): TranslationState | null {
 }
 
 /** A token chip was clicked: look up its dictionary form, keep the strip. */
-function handleTokenClick(lookupTerm: string): void {
+function handleTokenClick(token: TokenInfo): void {
   const range = lastRange
   if (range === null) return
   const seq = ++requestSeq
-  void requestLookup(lookupTerm).then((response) => {
+  void requestLookup(token.lookupTerm).then((response) => {
     if (seq !== requestSeq || response === null) return
     const transient = transientModel(response)
     if (transient !== null) {
@@ -157,14 +162,17 @@ function handleTokenClick(lookupTerm: string): void {
       return
     }
     if (response.status !== 'ready') return
-    // Keep the whole-selection translation visible while exploring tokens.
+    // Keep the whole-selection translation visible while exploring tokens;
+    // the grammar section shows the clicked chip's own breakdown.
     const translation = currentTranslation()
+    const grammar = grammarForToken(token)
     const model: PopupModel =
       response.matches.length > 0
-        ? { kind: 'entries', entries: response.matches, tokens: lastTokens, translation }
+        ? { kind: 'entries', entries: response.matches, tokens: lastTokens, grammar, translation }
         : {
             kind: 'no-match',
             tokens: lastTokens,
+            grammar,
             deinflectionAvailable: response.deinflectionAvailable,
             translation,
           }
@@ -239,10 +247,17 @@ watchSelection(containsJapanese, {
       const translation: TranslationState | null = translate ? { status: 'translating' } : null
       const model: PopupModel =
         response.matches.length > 0
-          ? { kind: 'entries', entries: response.matches, tokens: response.tokens, translation }
+          ? {
+              kind: 'entries',
+              entries: response.matches,
+              tokens: response.tokens,
+              grammar: response.grammar,
+              translation,
+            }
           : {
               kind: 'no-match',
               tokens: response.tokens,
+              grammar: response.grammar,
               deinflectionAvailable: response.deinflectionAvailable,
               translation,
             }

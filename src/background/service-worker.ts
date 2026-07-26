@@ -122,6 +122,7 @@ async function handleLookup(text: string): Promise<LookupResponse> {
           status: 'ready',
           matches: resolution.matches,
           tokens: resolution.tokens,
+          grammar: resolution.grammar,
           deinflectionAvailable: resolution.deinflectionAvailable,
         }
       }

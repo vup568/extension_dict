@@ -3,7 +3,7 @@
  * service worker. Every message is a member of a discriminated union so the
  * router can narrow on `type` exhaustively.
  */
-import type { DictionaryEntry, TargetLang, TokenInfo } from './types'
+import type { DictionaryEntry, GrammarPart, TargetLang, TokenInfo } from './types'
 
 // ---------------------------------------------------------------------------
 // Requests (content script → service worker)
@@ -64,6 +64,8 @@ export type LookupResponse =
       readonly matches: readonly DictionaryEntry[]
       /** Token list when the selection split into 2+ tokens, else null. */
       readonly tokens: readonly TokenInfo[] | null
+      /** Set when the whole selection is one conjugated grammar unit. */
+      readonly grammar: readonly GrammarPart[] | null
       /** False when the tokenizer failed to load (exact match only). */
       readonly deinflectionAvailable: boolean
     }

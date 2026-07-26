@@ -86,7 +86,9 @@ Selection handling details:
 
 - **Furigana-safe**: ruby annotations (`<rt>`/`<rp>`, as used by NHK Easy News) are stripped from selections before tokenizing, lookup, and translation — reading aids never pollute results.
 - **Long selections** (over ~500 characters, up to 2000): the popup switches to a translation-only view — no token strip or dictionary lookup, just the translated passage.
-- **Token strip cleanup**: pure digit/punctuation tokens are hidden, and adjacent tokens that form a JMdict compound are merged (IPADIC splits 熱中症 into 熱中+症; the strip shows the compound).
+- **Token strip cleanup**: pure digit/punctuation tokens are hidden; noun runs that form a JMdict compound are merged (IPADIC splits 熱中症 into 熱中+症; the strip shows the compound); and a verb/adjective absorbs its auxiliaries into one grammar unit (なり+まし+た → なりました, looked up as なる).
+- **Grammar breakdown**: selecting or tapping a conjugated unit adds a Grammar section explaining each part offline (なり — stem of なる, まし — polite 〜ます, た — past tense), driven by a rule table in `src/core/language/japanese/grammar.ts`.
+- **Draggable popup**: press and hold the grip bar (or any empty popup area — headword included) to move the popup anywhere; it stays pinned there until the next selection. Button, token-chip, and text areas keep their normal behavior so glosses stay copyable.
 
 ## Performance
 

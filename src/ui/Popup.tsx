@@ -1,5 +1,5 @@
 import { useState } from 'preact/hooks'
-import type { DictionaryEntry, TargetLang, TokenInfo, TranslationState } from '../shared/types'
+import type { DictionaryEntry, GrammarPart, TargetLang, TokenInfo, TranslationState } from '../shared/types'
 
 /** Senses shown before the "show more" toggle kicks in. */
 const SENSE_CAP = 4
@@ -10,12 +10,15 @@ export type PopupModel =
       readonly kind: 'entries'
       readonly entries: readonly DictionaryEntry[]
       readonly tokens: readonly TokenInfo[] | null
+      /** Breakdown of the conjugated unit being viewed, when there is one. */
+      readonly grammar: readonly GrammarPart[] | null
       /** null → sentence translation not offered for this selection. */
       readonly translation: TranslationState | null
     }
   | {
       readonly kind: 'no-match'
       readonly tokens: readonly TokenInfo[] | null
+      readonly grammar: readonly GrammarPart[] | null
       readonly deinflectionAvailable: boolean
       readonly translation: TranslationState | null
     }
@@ -36,7 +39,7 @@ export interface TranslationControls {
 
 export interface PopupProps {
   readonly model: PopupModel
-  readonly onTokenClick?: (lookupTerm: string) => void
+  readonly onTokenClick?: (token: TokenInfo) => void
   readonly translation?: TranslationControls
 }
 
@@ -45,24 +48,28 @@ export function Popup({ model, onTokenClick, translation }: PopupProps) {
     case 'status':
       return (
         <div class="panel" role="dialog" aria-label="Dictionary status">
+          <DragHandle />
           <div class="status">{model.text}</div>
         </div>
       )
     case 'no-match':
       return (
         <div class="panel" role="dialog" aria-label="Dictionary result">
+          <DragHandle />
           <div class="status">
             {model.deinflectionAvailable ? 'No match found' : 'No match found (tokenizer unavailable)'}
           </div>
           {model.tokens !== null && model.tokens.length > 0 && (
             <TokenStrip tokens={model.tokens} onTokenClick={onTokenClick} />
           )}
+          {model.grammar !== null && <GrammarSection parts={model.grammar} />}
           {model.translation !== null && <TranslateSection state={model.translation} controls={translation} />}
         </div>
       )
     case 'translation':
       return (
         <div class="panel" role="dialog" aria-label="Translation">
+          <DragHandle />
           <TranslateSection state={model.translation} controls={translation} />
         </div>
       )
@@ -71,12 +78,18 @@ export function Popup({ model, onTokenClick, translation }: PopupProps) {
         <EntriesView
           entries={model.entries}
           tokens={model.tokens}
+          grammar={model.grammar}
           onTokenClick={onTokenClick}
           translationState={model.translation}
           translationControls={translation}
         />
       )
   }
+}
+
+/** Grip strip: the popup can be dragged by this (or any empty panel area). */
+function DragHandle() {
+  return <div class="drag-handle" aria-hidden="true" />
 }
 
 /**
@@ -88,7 +101,7 @@ function TokenStrip({
   onTokenClick,
 }: {
   readonly tokens: readonly TokenInfo[]
-  readonly onTokenClick?: (lookupTerm: string) => void
+  readonly onTokenClick?: (token: TokenInfo) => void
 }) {
   return (
     <div class="tokens">
@@ -98,11 +111,30 @@ function TokenStrip({
           class="token"
           lang="ja"
           title={token.lookupTerm === token.surface ? undefined : token.lookupTerm}
-          onClick={() => onTokenClick?.(token.lookupTerm)}
+          onClick={() => onTokenClick?.(token)}
         >
           {token.surface}
         </button>
       ))}
+    </div>
+  )
+}
+
+/** Per-part breakdown of a conjugated grammar unit (なりました etc.). */
+function GrammarSection({ parts }: { readonly parts: readonly GrammarPart[] }) {
+  return (
+    <div class="grammar">
+      <div class="section-label">Grammar</div>
+      <ul class="grammar-list">
+        {parts.map((part, i) => (
+          <li class="grammar-row" key={`${i}-${part.surface}`}>
+            <span class="grammar-surface" lang="ja">
+              {part.surface}
+            </span>
+            <span class="grammar-desc">{part.description}</span>
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }
@@ -132,7 +164,7 @@ function TranslateSection({
   return (
     <div class="translate">
       <div class="translate-row">
-        <span class="translate-label">Translation</span>
+        <span class="section-label">Translation</span>
         <span class="lang-toggle">
           {langBtn('vi', 'VI')}
           {langBtn('en', 'EN')}
@@ -178,13 +210,15 @@ function TranslateSection({
 function EntriesView({
   entries,
   tokens,
+  grammar,
   onTokenClick,
   translationState,
   translationControls,
 }: {
   readonly entries: readonly DictionaryEntry[]
   readonly tokens: readonly TokenInfo[] | null
-  readonly onTokenClick?: (lookupTerm: string) => void
+  readonly grammar: readonly GrammarPart[] | null
+  readonly onTokenClick?: (token: TokenInfo) => void
   readonly translationState: TranslationState | null
   readonly translationControls?: TranslationControls
 }) {
@@ -204,6 +238,7 @@ function EntriesView({
 
   return (
     <div class="panel" role="dialog" aria-label="Dictionary entry">
+      <DragHandle />
       {tokens !== null && tokens.length > 0 && <TokenStrip tokens={tokens} onTokenClick={onTokenClick} />}
       {entries.length > 1 && (
         <div class="entry-nav">
@@ -239,6 +274,7 @@ function EntriesView({
           show {hiddenCount} more {hiddenCount > 1 ? 'senses' : 'sense'}
         </button>
       )}
+      {grammar !== null && <GrammarSection parts={grammar} />}
       {translationState !== null && <TranslateSection state={translationState} controls={translationControls} />}
     </div>
   )

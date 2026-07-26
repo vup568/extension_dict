@@ -14,9 +14,11 @@ import { Popup } from '../ui'
 import type { PopupModel, TranslationControls } from '../ui'
 import popupCss from '../ui/popup.css?inline'
 
+import type { TokenInfo } from '../shared/types'
+
 /** Callbacks the popup content needs; provided by the composition root. */
 export interface PopupHandlers {
-  readonly onTokenClick?: (lookupTerm: string) => void
+  readonly onTokenClick?: (token: TokenInfo) => void
   readonly translation?: TranslationControls
 }
 
@@ -37,6 +39,10 @@ interface HostParts {
   readonly mountPoint: HTMLElement
 }
 
+function clamp(value: number, min: number, max: number): number {
+  return Math.min(Math.max(value, min), Math.max(min, max))
+}
+
 export class PopupController {
   private parts: HostParts | null = null
   private anchorRange: Range | null = null
@@ -45,6 +51,9 @@ export class PopupController {
   private lastInnerInteraction = 0
   private repositionQueued = false
   private lastHandlers: PopupHandlers | undefined
+  /** True once the user dragged the popup: it stays where they put it. */
+  private userPinned = false
+  private dragState: { pointerId: number; offsetX: number; offsetY: number } | null = null
 
   show(model: PopupModel, range: Range, handlers?: PopupHandlers): void {
     const parts = this.ensureHost()
@@ -55,6 +64,8 @@ export class PopupController {
     // (entry index, "show more") for every new selection.
     this.showCount += 1
     this.lastHandlers = handlers
+    this.userPinned = false // a fresh selection re-anchors next to it
+    this.endDrag()
     this.renderPopup(model)
 
     if (!this.visible) {
@@ -96,6 +107,8 @@ export class PopupController {
     if (!this.visible) return
     this.visible = false
     this.anchorRange = null
+    this.userPinned = false
+    this.endDrag()
     this.detachGlobalListeners()
     if (this.parts !== null) {
       this.parts.host.style.visibility = 'hidden'
@@ -132,6 +145,9 @@ export class PopupController {
     }
     host.addEventListener('pointerdown', markInnerInteraction)
     host.addEventListener('pointerup', markInnerInteraction)
+    // Drag-to-move: listening on the shadow root sees the real inner
+    // targets (we own the closed root), unlike the retargeted host events.
+    shadow.addEventListener('pointerdown', this.onShadowPointerDown)
 
     document.documentElement.append(host)
     this.parts = { host, shadow, mountPoint }
@@ -143,6 +159,7 @@ export class PopupController {
    * clamp both axes into the viewport.
    */
   private reposition(reveal = false): void {
+    if (this.userPinned) return // dragged popups stay where the user put them
     if (!this.visible || this.parts === null || this.anchorRange === null) return
     const anchor = this.anchorRange.getBoundingClientRect()
     if (anchor.width === 0 && anchor.height === 0) {
@@ -167,6 +184,74 @@ export class PopupController {
     this.parts.host.style.left = `${Math.round(left)}px`
     this.parts.host.style.top = `${Math.round(top)}px`
     if (reveal) this.parts.host.style.visibility = 'visible'
+  }
+
+  /**
+   * Start dragging unless the press landed on interactive or copyable
+   * content (buttons, token chips, sense/translation text). The drag
+   * handle, headword, and empty panel background all move the popup.
+   */
+  private readonly onShadowPointerDown = (event: Event): void => {
+    if (!(event instanceof PointerEvent) || event.button !== 0) return
+    const parts = this.parts
+    if (parts === null || !this.isDraggableTarget(event)) return
+    event.preventDefault() // keep the press from starting a text selection
+    const rect = parts.host.getBoundingClientRect()
+    this.userPinned = true
+    this.dragState = {
+      pointerId: event.pointerId,
+      offsetX: event.clientX - rect.left,
+      offsetY: event.clientY - rect.top,
+    }
+    window.addEventListener('pointermove', this.onDragMove, true)
+    window.addEventListener('pointerup', this.onDragEnd, true)
+    window.addEventListener('pointercancel', this.onDragEnd, true)
+  }
+
+  private isDraggableTarget(event: PointerEvent): boolean {
+    for (const node of event.composedPath()) {
+      if (!(node instanceof HTMLElement)) continue
+      if (node.classList.contains('drag-handle')) return true
+      if (
+        node.tagName === 'BUTTON' ||
+        node.classList.contains('tokens') ||
+        node.classList.contains('senses') ||
+        node.classList.contains('grammar') ||
+        node.classList.contains('translate-result')
+      ) {
+        return false
+      }
+      if (node.classList.contains('panel')) return true
+    }
+    return false
+  }
+
+  private readonly onDragMove = (event: PointerEvent): void => {
+    const drag = this.dragState
+    const parts = this.parts
+    if (drag === null || parts === null || event.pointerId !== drag.pointerId) return
+    event.preventDefault()
+    this.lastInnerInteraction = performance.now()
+    const panel = parts.shadow.querySelector('.panel')
+    const width = panel instanceof HTMLElement ? panel.offsetWidth : 0
+    const height = panel instanceof HTMLElement ? panel.offsetHeight : 0
+    const left = clamp(event.clientX - drag.offsetX, MARGIN, window.innerWidth - MARGIN - width)
+    const top = clamp(event.clientY - drag.offsetY, MARGIN, window.innerHeight - MARGIN - height)
+    parts.host.style.left = `${Math.round(left)}px`
+    parts.host.style.top = `${Math.round(top)}px`
+  }
+
+  private readonly onDragEnd = (event: PointerEvent): void => {
+    if (this.dragState !== null && event.pointerId !== this.dragState.pointerId) return
+    this.endDrag()
+  }
+
+  private endDrag(): void {
+    if (this.dragState === null) return
+    this.dragState = null
+    window.removeEventListener('pointermove', this.onDragMove, true)
+    window.removeEventListener('pointerup', this.onDragEnd, true)
+    window.removeEventListener('pointercancel', this.onDragEnd, true)
   }
 
   private readonly onKeyDown = (event: KeyboardEvent): void => {

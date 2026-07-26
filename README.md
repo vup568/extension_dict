@@ -2,8 +2,8 @@
 
 Chrome (Manifest V3) extension: **select Japanese text on any web page and instantly explore it in a tabbed popup** — Từ vựng (vocabulary) | Hán tự (kanji) | Ngữ pháp (grammar) | Dịch (translation). Dictionary, kanji, and grammar work fully offline after setup; UI labels and grammar explanations are in Vietnamese.
 
-- **Từ vựng** — exact-match lookup over the full **JMdict** dictionary (~218k entries), indexed by both kanji form and kana reading; **deinflection** via the kuromoji morphological analyzer (食べました → 食べる, 高くない → 高い); **longest-prefix matching** plus a **clickable token strip** grouped into grammar-aware units
-- **Hán tự** — one card per kanji in the selection from **KANJIDIC2**: prominent **Hán Việt (Sino-Vietnamese) reading** (学 → HỌC), on/kun readings, English meanings, stroke count, JLPT level, school grade, newspaper frequency
+- **Từ vựng** — exact-match lookup over the full **JMdict** dictionary (~218k entries), indexed by both kanji form and kana reading; **deinflection** via the kuromoji morphological analyzer (食べました → 食べる, 高くない → 高い); **longest-prefix matching** plus a **clickable token strip** grouped into grammar-aware units. A prominent **Vietnamese gloss** (real dictionary data, ~72k headwords from FVDP/OVDP) tops the English senses when available
+- **Hán tự** — one card per kanji in the selection from **KANJIDIC2**: prominent **Hán Việt (Sino-Vietnamese) reading** (学 → HỌC), Vietnamese/English meaning, on/kun readings, stroke count, JLPT level, and the **Kangxi radical (bộ thủ)** with its Hán Việt name (海 → bộ 水 (氵) Thủy)
 - **Ngữ pháp** — extracts the **whole sentence containing the selection**, highlights the selection, and lists every **JLPT N5–N4 grammar pattern** detected in it (102 offline rules, Vietnamese explanations), plus per-part conjugation breakdowns
 - **Dịch** — hybrid sentence translation (on-device Chrome pack or online), Vietnamese by default
 - Popup rendered in a **closed Shadow DOM** — host-page CSS can never break it, its CSS never leaks out; light & dark mode; **draggable** and pinnable
@@ -24,7 +24,9 @@ npm install
 #    - downloads the latest jmdict-simplified English release (~11 MB zip),
 #      caches it in data/, converts it to compact chunks in public/dict/
 #    - downloads the kanjidic2-en release (~1.3 MB zip) and packs the kanji
-#      store (readings incl. Hán Việt, meanings, strokes, JLPT)
+#      store (readings incl. Hán Việt, meanings, strokes, JLPT, radical)
+#    - downloads the FVDP/OVDP ja→vi dictionary TSV (~40 MB) and packs the
+#      cleaned Vietnamese glosses (~72k headwords)
 #    - copies the kuromoji IPADIC files (~96 MB) to public/kuromoji/
 npm run prepare-data
 
@@ -41,7 +43,7 @@ Then load it in Chrome:
 
 After this, everything works with the network fully disabled. Subsequent browser starts skip the import entirely.
 
-Variants: `npm run prepare-dict -- --common` uses the smaller common-words-only edition; `npm run prepare-dict -- --file=path/to.json` uses a local jmdict-simplified JSON. Note `prepare-dict` wipes `public/dict/` entirely — run `npm run prepare-kanji` after it (or just use `prepare-data`, which runs everything in order). Re-run `npm run build` after changing data, then click the reload arrow on the extension card.
+Variants: `npm run prepare-dict -- --common` uses the smaller common-words-only edition; `npm run prepare-dict -- --file=path/to.json` uses a local jmdict-simplified JSON. Note `prepare-dict` wipes `public/dict/` entirely — run `npm run prepare-kanji` and `npm run prepare-javi` after it (or just use `prepare-data`, which runs everything in order; `prepare-javi` reads the packed JMdict chunks for part-of-speech data, so it must come after `prepare-dict`). Re-run `npm run build` after changing data, then click the reload arrow on the extension card.
 
 ## Permissions — why each one
 
@@ -72,7 +74,8 @@ Lookup resolution order (in `core/language/japanese/japanese-pack.ts`):
 
 Non-obvious implementation notes:
 
-- **IndexedDB schema** (`core/dictionary/db.ts`): one `entries` store keyed by JMdict id with a precomputed `f` array of all kanji+kana forms and a **multiEntry index** over it — one index query serves both 学生 and がくせい; plus a `kanji` store (schema v2) keyed by the character for the Hán tự tab. The import commits each chunk **and** its progress counter in the same transaction, so a killed MV3 worker resumes instead of restarting; the kanji chunks import after the entries under the same badge percentage.
+- **IndexedDB schema** (`core/dictionary/db.ts`): one `entries` store keyed by JMdict id with a precomputed `f` array of all kanji+kana forms and a **multiEntry index** over it — one index query serves both 学生 and がくせい; a `kanji` store (schema v2) keyed by the character for the Hán tự tab; and a `javi` store (schema v3) keyed by headword for the Vietnamese glosses. The import commits each chunk **and** its progress counter in the same transaction, so a killed MV3 worker resumes instead of restarting; the kanji and javi chunks import after the entries under one combined badge percentage.
+- **ja→vi gloss cleaning** (`scripts/prepare-javi.ts`): the FVDP data pivots most entries through its English–Vietnamese dictionary, so pack-time cleaning drops English-only residue (Vietnamese-diacritics test), keeps only the first usable sense fragment per pivoted English gloss, uses JMdict part-of-speech data to reject nominalized fragments for verb/adjective-only words (行く must not gloss as "sự đi"), and carries ~47 hand-curated glosses for core words where the pivot picks an absurd English homograph sense. Lookups attach the gloss reading-checked, so homographs (学生/学制) never mix.
 - **Tabbed popup, lazy tabs** (`ui/Popup.tsx`, `content/content-script.ts`): kanji data, sentence-grammar analysis, and single-word translations are fetched only when their tab is first opened; every async patch is guarded by a selection sequence number so late responses can't resurrect an outdated popup.
 - **Sentence extraction** (`content/sentence.ts`): two auxiliary Ranges cover the text before/after the selection inside its block container, each furigana-stripped and cut at the nearest sentence terminator (。！？…), 100 chars max per side — that is how the Ngữ pháp tab gets the full sentence even when you select a single word.
 - **Grammar rules** (`core/language/japanese/grammar-patterns.ts`): 102 N5–N4 patterns as token-sequence matchers over IPADIC features (surface / basic_form / pos / pos_detail_1 / conjugated_form), scanned longest-match-first so 〜たことがある beats plain 〜た. `npm run test-grammar` asserts every rule's example sentence still triggers it through the real tokenizer.
@@ -139,6 +142,8 @@ Adding another language later = implementing `LanguagePack` (detect/tokenize/res
 ## Data licenses & attribution
 
 - **JMdict** and **KANJIDIC2** — property of the [Electronic Dictionary Research and Development Group](https://www.edrdg.org/), used under its [CC BY-SA 4.0 licence](https://www.edrdg.org/edrdg/licence.html), via the [jmdict-simplified](https://github.com/scriptin/jmdict-simplified) JSON distributions. KANJIDIC2's Vietnamese (Hán Việt) readings were contributed to it by Minh Chau Pham. SKIP codes (a separately-licensed, non-commercial part of KANJIDIC2) are **not** imported.
+- **Japanese–Vietnamese glosses** — from the *Nhật-Việt* dictionary of Hồ Ngọc Đức's [Free Vietnamese Dictionary Project](https://en.wikipedia.org/wiki/H%E1%BB%93_Ng%E1%BB%8Dc_%C4%90%E1%BB%A9c) (FVDP), distributed under the **GNU General Public License** and mirrored by the [Open Vietnamese Dictionary Project](https://sourceforge.net/projects/ovdp/) (GPLv2); fetched via the [catusf/tudien](https://github.com/catusf/tudien) TSV mirror. This GPL data set is a separate data component (`public/dict/javi-*` / the `javi` store) and is **not** relicensed under CC BY-SA. A small number of glosses for core words are this project's own wording (see `OVERRIDES` in `scripts/prepare-javi.ts`).
+- **Kangxi radical names** (`src/core/language/japanese/radicals.ts`) — hand-authored table; Hán Việt names cross-checked against Vietnamese Wikipedia's [Bộ thủ Khang Hi](https://vi.wikipedia.org/wiki/B%E1%BB%99_th%E1%BB%A7_Khang_Hi) (CC BY-SA).
 - **Grammar patterns** (`src/core/language/japanese/grammar-patterns.ts`) — detection rules and Vietnamese explanations written for this project; JLPT point coverage and formations cross-checked against [jkindrix/japanese-language-data](https://github.com/jkindrix/japanese-language-data) (CC BY-SA 4.0). That data file is accordingly shared under CC BY-SA 4.0.
 - **kuromoji.js** (`@aiktb/kuromoji` fork) — Apache License 2.0.
 - **IPADIC** — the bundled morphological dictionary carries its own permissive licence (NAIST); see `node_modules/@aiktb/kuromoji/NOTICE.md`.

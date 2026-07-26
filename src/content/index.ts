@@ -1,18 +1,46 @@
 /**
- * Content script entry: will detect Japanese text selections and mount the
- * popup UI. Phase 1: a single one-shot ping to verify the service worker is
- * reachable (console.debug only, invisible unless verbose logging is on).
+ * Content script composition root: wires selection detection to the popup
+ * controller. This is the ONLY place Japanese-specific knowledge enters the
+ * content layer (as the containsJapanese predicate); everything else here is
+ * language-agnostic.
  */
-import type { BackgroundRequest, BackgroundResponse } from '../shared/messages'
+import { containsJapanese } from '../core/language/japanese/detect'
+import { PopupController } from './popup-controller'
+import { watchSelection } from './selection'
+import type { DictionaryEntry } from '../shared/types'
 
-async function verifyServiceWorker(): Promise<void> {
-  try {
-    const request: BackgroundRequest = { type: 'ping' }
-    const response = await chrome.runtime.sendMessage<BackgroundRequest, BackgroundResponse>(request)
-    console.debug('[jpdict] service worker reachable:', response.type === 'pong')
-  } catch (error) {
-    console.debug('[jpdict] service worker not reachable:', error)
-  }
+/**
+ * PHASE 2 MOCK — replaced by real lookups over chrome.runtime messaging in
+ * Phase 4. Two entries so entry-cycling is testable; five senses on the
+ * first so the "show more" cap is testable.
+ */
+function mockEntries(selectedText: string): readonly DictionaryEntry[] {
+  const shown = selectedText.length <= 12 ? selectedText : `${selectedText.slice(0, 12)}…`
+  return [
+    {
+      id: 'mock-1',
+      expression: shown,
+      reading: 'もっく',
+      senses: [
+        { partsOfSpeech: ['n'], glosses: ['mock entry rendered for the current selection'] },
+        { partsOfSpeech: ['n'], glosses: ['placeholder sense', 'demo gloss'] },
+        { partsOfSpeech: ['adj-na'], glosses: ['third sense to fill space'] },
+        { partsOfSpeech: ['n'], glosses: ['fourth sense — last one shown before the cap'] },
+        { partsOfSpeech: ['exp'], glosses: ['fifth sense hidden behind "show more"'] },
+      ],
+    },
+    {
+      id: 'mock-2',
+      expression: '学生',
+      reading: 'がくせい',
+      senses: [{ partsOfSpeech: ['n'], glosses: ['student'] }],
+    },
+  ]
 }
 
-void verifyServiceWorker()
+const controller = new PopupController()
+
+watchSelection(containsJapanese, {
+  onSelect: (text, range) => controller.show(mockEntries(text), range),
+  onClear: () => controller.handleSelectionCleared(),
+})

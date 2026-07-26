@@ -1,5 +1,6 @@
 /**
  * Popup UI components, rendered inside a closed Shadow DOM so host-page CSS
- * can never affect them. Implemented in Phase 2.
+ * can never affect them (see popup.css for the isolation details).
  */
-export {}
+export { Popup } from './Popup'
+export type { PopupProps } from './Popup'

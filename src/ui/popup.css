@@ -1,0 +1,145 @@
+/*
+ * Injected into the closed shadow root. Two-way isolation:
+ *  - page CSS cannot reach inside a shadow root, and
+ *  - `:host { all: initial }` severs *inherited* styles (font, color,
+ *    line-height, direction…) that would otherwise cross the boundary.
+ * The critical positioning styles (position:fixed, left/top, z-index) are
+ * inline on the host element; inline declarations win per-property over
+ * this stylesheet reset, so they survive it.
+ */
+:host {
+  all: initial;
+}
+
+.panel {
+  --bg: #ffffff;
+  --fg: #1c1e21;
+  --fg-muted: #5f6368;
+  --accent: #2f5fd0;
+  --pill-bg: rgba(47, 95, 208, 0.1);
+  --border: rgba(0, 0, 0, 0.14);
+  --shadow: 0 6px 24px rgba(0, 0, 0, 0.18);
+
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  width: max-content;
+  max-width: min(340px, calc(100vw - 16px));
+  max-height: min(420px, calc(100vh - 16px));
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--fg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  font-family:
+    -apple-system, 'Segoe UI', Roboto,
+    'Hiragino Kaku Gothic ProN', 'Yu Gothic UI', Meiryo, sans-serif;
+  font-size: 13px;
+  line-height: 1.45;
+  text-align: left;
+}
+
+@media (prefers-color-scheme: dark) {
+  .panel {
+    --bg: #212327;
+    --fg: #e8eaed;
+    --fg-muted: #9aa0a6;
+    --accent: #8ab4f8;
+    --pill-bg: rgba(138, 180, 248, 0.16);
+    --border: rgba(255, 255, 255, 0.14);
+    --shadow: 0 6px 24px rgba(0, 0, 0, 0.55);
+  }
+}
+
+.panel * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.entry-nav {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px 0;
+  font-size: 11px;
+  color: var(--fg-muted);
+}
+
+.nav-btn {
+  border: 0;
+  background: transparent;
+  color: var(--accent);
+  font: inherit;
+  font-size: 15px;
+  line-height: 1;
+  padding: 2px 6px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.nav-btn:hover {
+  background: var(--pill-bg);
+}
+
+.headword {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 10px 12px 2px;
+}
+
+.expression {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.reading {
+  font-size: 14px;
+  color: var(--fg-muted);
+}
+
+.senses {
+  margin: 6px 0 10px;
+  padding: 0 12px 0 30px;
+  overflow-y: auto;
+  list-style: decimal;
+}
+
+.sense {
+  margin: 3px 0;
+}
+
+.sense::marker {
+  color: var(--fg-muted);
+  font-size: 11px;
+}
+
+.pos {
+  display: inline-block;
+  margin-right: 6px;
+  padding: 1px 5px;
+  border-radius: 6px;
+  font-size: 10px;
+  vertical-align: 1px;
+  color: var(--accent);
+  background: var(--pill-bg);
+}
+
+.more-btn {
+  border: 0;
+  border-top: 1px solid var(--border);
+  background: transparent;
+  color: var(--accent);
+  font: inherit;
+  font-size: 12px;
+  padding: 6px 12px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.more-btn:hover {
+  background: var(--pill-bg);
+}

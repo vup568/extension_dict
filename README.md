@@ -1,10 +1,17 @@
 # Japanese Dictionary Popup
 
+> [!WARNING]
+> This README describes the legacy/prototype implementation.
+>
+> The target product direction is defined in `docs/REQUIREMENT.md`.
+> The project is undergoing a v2 architecture redesign and parts of this
+> README may no longer represent the intended future architecture.
+
 Chrome (Manifest V3) extension: **select Japanese text on any web page and instantly explore it in a tabbed popup** — Từ vựng (vocabulary) | Hán tự (kanji) | Ngữ pháp (grammar) | Dịch (translation). Dictionary, kanji, and grammar work fully offline after setup; UI labels and grammar explanations are in Vietnamese.
 
 - **Từ vựng** — exact-match lookup over the full **JMdict** dictionary (~218k entries), indexed by both kanji form and kana reading; **deinflection** via the kuromoji morphological analyzer (食べました → 食べる, 高くない → 高い); **longest-prefix matching** plus a **clickable token strip** grouped into grammar-aware units. A prominent **Vietnamese gloss** (real dictionary data, ~72k headwords from FVDP/OVDP) tops the English senses when available
 - **Hán tự** — one card per kanji in the selection from **KANJIDIC2**: prominent **Hán Việt (Sino-Vietnamese) reading** (学 → HỌC), Vietnamese/English meaning, on/kun readings, stroke count, JLPT level, and the **Kangxi radical (bộ thủ)** with its Hán Việt name (海 → bộ 水 (氵) Thủy)
-- **Ngữ pháp** — extracts the **whole sentence containing the selection**, highlights the selection, and lists every **JLPT N5–N4 grammar pattern** detected in it (102 offline rules, Vietnamese explanations), plus per-part conjugation breakdowns
+- **Ngữ pháp** — extracts the **whole sentence containing the selection**, highlights the selection, detects fixed **JMdict expressions** anywhere in it (including inflected forms such as 気を付けて → 気を付ける), then lists every **JLPT N5–N4 grammar pattern** detected in it (102 offline rules, Vietnamese explanations) and per-part conjugation breakdowns
 - **Dịch** — hybrid sentence translation (on-device Chrome pack or online), Vietnamese by default
 - Popup rendered in a **closed Shadow DOM** — host-page CSS can never break it, its CSS never leaks out; light & dark mode; **draggable** and pinnable
 - Dictionary + kanji data live **once** in IndexedDB inside the service worker — not per tab
@@ -78,7 +85,8 @@ Non-obvious implementation notes:
 - **ja→vi gloss cleaning** (`scripts/prepare-javi.ts`): the FVDP data pivots most entries through its English–Vietnamese dictionary, so pack-time cleaning drops English-only residue (Vietnamese-diacritics test), keeps only the first usable sense fragment per pivoted English gloss, uses JMdict part-of-speech data to reject nominalized fragments for verb/adjective-only words (行く must not gloss as "sự đi"), and carries ~47 hand-curated glosses for core words where the pivot picks an absurd English homograph sense. Lookups attach the gloss reading-checked, so homographs (学生/学制) never mix.
 - **Tabbed popup, lazy tabs** (`ui/Popup.tsx`, `content/content-script.ts`): kanji data, sentence-grammar analysis, and single-word translations are fetched only when their tab is first opened; every async patch is guarded by a selection sequence number so late responses can't resurrect an outdated popup.
 - **Sentence extraction** (`content/sentence.ts`): two auxiliary Ranges cover the text before/after the selection inside its block container, each furigana-stripped and cut at the nearest sentence terminator (。！？…), 100 chars max per side — that is how the Ngữ pháp tab gets the full sentence even when you select a single word.
-- **Grammar rules** (`core/language/japanese/grammar-patterns.ts`): 102 N5–N4 patterns as token-sequence matchers over IPADIC features (surface / basic_form / pos / pos_detail_1 / conjugated_form), scanned longest-match-first so 〜たことがある beats plain 〜た. `npm run test-grammar` asserts every rule's example sentence still triggers it through the real tokenizer.
+- **Fixed expressions** (`core/language/japanese/expression-matcher.ts`): a lazy 13k-entry index generated from all JMdict `exp` records is scanned at every Kuromoji token boundary. Literal and deinflected terminal forms are tried, longest containing matches win, and offsets stay tied to the original sentence. Vietnamese glosses win; English JMdict glosses remain as the fallback.
+- **Grammar rules** (`core/language/japanese/grammar-patterns.ts`): 102 N5–N4 patterns as token-sequence matchers over IPADIC features (surface / basic_form / pos / pos_detail_1 / conjugated_form), scanned longest-match-first so 〜たことがある beats plain 〜た. `npm test` runs both this rule corpus and the fixed-expression integration cases through the real tokenizer and generated data.
 - **Shadow DOM isolation** (`content/popup-controller.ts`, `ui/popup.css`): closed shadow root (the only reference is held in the controller), `:host { all: initial }` severs inherited page styles, critical positioning styles are inline on a `<jpdict-popup>` host element with maximum z-index.
 - **kuromoji in a service worker** (`core/language/japanese/tokenizer.ts`): uses the `@aiktb/kuromoji` fork (fetch-based loader — stock kuromoji uses `XMLHttpRequest`, which doesn't exist in workers). The `dicPath` must be root-relative (`/kuromoji`) because kuromoji collapses `//` in URLs. Init (~1–2 s) is lazy and never blocks exact-match lookups.
 
@@ -128,10 +136,10 @@ src/
   core/
     dictionary/     packed format, IndexedDB schema, import, word + kanji queries
     language/       LanguagePack interface; japanese/ implementation
-                    (tokenizer, grammar units, grammar-patterns + matcher)
+                    (tokenizer, grammar units, grammar patterns + expressions)
   shared/           cross-layer types + typed message contracts
 scripts/            prepare-dict/kanji/tokenizer (data generation),
-                    test-grammar (rule self-test), dev-tokenize (dev dump)
+                    grammar + expression integration tests, dev-tokenize
 public/dict/        generated dictionary + kanji chunks (gitignored)
 public/kuromoji/    IPADIC tokenizer data               (gitignored)
 data/               cached source JSON                  (gitignored)

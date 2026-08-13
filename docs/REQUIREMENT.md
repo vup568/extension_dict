@@ -1,7 +1,7 @@
 # JP Reading Platform — Product Requirements v2
 
-**Status:** Draft for Approval
-**Version:** 2.0.0-draft
+**Status:**  Approved
+**Version:** 2.0.0
 **Product:** Japanese Reading & Learning Platform
 **Primary Language:** Vietnamese
 **Secondary Language:** English
@@ -1429,3 +1429,94 @@ Trước khi Product Requirements v2 được coi là approved, Product Owner c�
 * [ ] Paid proprietary data không phải dependency của MVP.
 * [ ] Raw selected text không được persist trong logs mặc định.
 * [ ] Các technology choices chưa chốt sẽ được quyết định ở Plan.
+
+---
+## Additional Correctness and Contract Requirements
+
+### Japanese Text Detection
+
+Japanese text detection SHALL correctly distinguish Japanese text
+from unrelated Unicode scripts, symbols, and emoji.
+
+Valid Japanese characters, including supplementary CJK ideographs
+used in Japanese, SHALL be supported.
+
+Hangul, emoji, musical symbols, Deseret characters, and other
+unrelated Unicode content SHALL NOT be classified as Japanese
+solely because they fall inside broad code-point ranges.
+
+
+### Stable Domain Identifiers
+
+Dictionary entries and grammar rules exposed by the backend
+SHALL preserve stable canonical identifiers.
+
+Where an upstream dataset provides a stable identifier, the
+normalized domain model SHOULD preserve its relationship to that
+upstream identifier.
+
+Saved learning resources SHALL reference canonical identifiers
+rather than copied presentation text whenever possible.
+
+
+### Dictionary Match Provenance
+
+Dictionary analysis SHALL preserve match provenance for the
+user's input, including:
+
+- the matched written form,
+- the matched reading,
+- the applicable sense or senses,
+- relevant upstream form/reading/sense restrictions when provided
+  by the source dataset.
+
+The system SHALL NOT discard source restrictions in a way that
+can associate a meaning with an incompatible form or reading.
+
+
+### Grammar Match Identity
+
+Each detected grammar occurrence SHALL preserve:
+
+- the canonical grammar rule identifier,
+- an unambiguous occurrence span relative to the analyzed text.
+
+Multiple occurrences of the same grammar rule SHALL NOT be
+silently collapsed into a single result.
+
+The API contract SHALL define a consistent span/offset convention
+shared by all clients and the backend.
+
+
+### Ruby-Safe Selection Normalization
+
+When Japanese text is extracted from browser DOM content for
+linguistic analysis, ruby annotation text from `<rt>` and `<rp>`
+elements SHALL NOT pollute the underlying Japanese text.
+
+The base text represented by the ruby element SHALL be preserved.
+
+
+### Shared API Contracts
+
+The Extension and Web clients SHALL communicate with the Backend
+through shared, versioned API contracts.
+
+API inputs and outputs SHALL be runtime-validatable at system
+boundaries.
+
+Backend errors exposed to clients SHALL use structured,
+machine-readable error responses rather than relying only on
+free-form error messages.
+
+
+### Stale Async Result Protection
+
+An asynchronous response associated with an older selection or
+request SHALL NOT overwrite UI state belonging to a newer
+selection or request.
+
+This rule SHALL apply to analysis, translation, and other
+selection-dependent asynchronous operations.
+
+---

@@ -16,8 +16,8 @@ import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, statSync, wri
 import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { unzipSync } from 'fflate'
-import { DICT_FORMAT_VERSION, chunkFileName } from '../src/core/dictionary/packed-format'
-import type { DictIndexFile, PackedEntry, PackedSense } from '../src/core/dictionary/packed-format'
+import { DICT_FORMAT_VERSION, EXPRESSION_INDEX_FILE, chunkFileName } from '../src/core/dictionary/packed-format'
+import type { DictIndexFile, PackedEntry, PackedExpressionIndex, PackedSense } from '../src/core/dictionary/packed-format'
 import type { JmdictFile, JmdictWord } from './jmdict-types'
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url))
@@ -106,6 +106,24 @@ async function main(): Promise<void> {
   }
   console.log(`Packed ${entries.length} entries (${raw.words.length - entries.length} skipped without English glosses)`)
 
+  const expressionEntries = entries
+    .filter((entry) => entry.s.some((sense) => sense.p.includes('exp')))
+    .map((entry) => ({
+      id: entry.id,
+      forms: [...new Set([...entry.k, ...entry.r].map((form) => form.normalize('NFC')))],
+      common: entry.c,
+    }))
+    .filter((entry) => entry.forms.length > 0)
+    .sort((a, b) => Number(b.common) - Number(a.common) || a.id.localeCompare(b.id))
+  const expressionIndex: PackedExpressionIndex = {
+    version: 1,
+    maxFormLength: expressionEntries.reduce(
+      (max, entry) => Math.max(max, ...entry.forms.map((form) => form.length)),
+      0,
+    ),
+    entries: expressionEntries,
+  }
+
   rmSync(OUT_DIR, { recursive: true, force: true })
   mkdirSync(OUT_DIR, { recursive: true })
   const chunkCount = Math.ceil(entries.length / CHUNK_SIZE)
@@ -121,9 +139,13 @@ async function main(): Promise<void> {
     tags: raw.tags,
   }
   writeFileSync(join(OUT_DIR, 'index.json'), JSON.stringify(indexFile))
+  writeFileSync(join(OUT_DIR, EXPRESSION_INDEX_FILE), JSON.stringify(expressionIndex))
 
   const totalBytes = readdirSync(OUT_DIR).reduce((sum, f) => sum + statSync(join(OUT_DIR, f)).size, 0)
-  console.log(`Wrote ${chunkCount} chunks + index.json to public/dict (${(totalBytes / 1024 / 1024).toFixed(1)} MB)`)
+  console.log(
+    `Wrote ${chunkCount} chunks + index.json + ${EXPRESSION_INDEX_FILE} ` +
+      `(${expressionEntries.length} expressions) to public/dict (${(totalBytes / 1024 / 1024).toFixed(1)} MB)`,
+  )
   console.log('Run `npm run build` to package the dictionary into the extension.')
 }
 

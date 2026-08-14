@@ -49,6 +49,20 @@ export interface GrammarPatternMatch {
   readonly surface: string
 }
 
+/** A fixed JMdict expression found inside the analyzed sentence. */
+export interface ExpressionMatch {
+  readonly entryId: string
+  readonly canonical: string
+  readonly reading: string
+  readonly surface: string
+  /** UTF-16 offsets into the sentence passed to the analyzer. */
+  readonly start: number
+  readonly end: number
+  readonly meaningVi: string | null
+  readonly glossesEn: readonly string[]
+  readonly formDescription: string | null
+}
+
 /** A conjugated unit in the analyzed sentence with its part breakdown. */
 export interface GrammarUnitBreakdown {
   readonly surface: string
@@ -57,6 +71,7 @@ export interface GrammarUnitBreakdown {
 
 /** Result of analyzing one sentence for the Ngữ pháp tab. */
 export interface GrammarAnalysis {
+  readonly expressions: readonly ExpressionMatch[]
   readonly patterns: readonly GrammarPatternMatch[]
   readonly units: readonly GrammarUnitBreakdown[]
 }

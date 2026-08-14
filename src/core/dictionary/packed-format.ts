@@ -24,6 +24,17 @@ export interface PackedEntry {
   s: PackedSense[]
 }
 
+/** Compact lazy-loaded index of all JMdict entries tagged as expressions. */
+export interface PackedExpressionIndex {
+  readonly version: 1
+  readonly maxFormLength: number
+  readonly entries: readonly {
+    readonly id: string
+    readonly forms: readonly string[]
+    readonly common: boolean
+  }[]
+}
+
 /**
  * One KANJIDIC2 character, packed by scripts/prepare-kanji.ts. Optional
  * fields are simply absent when the source has no data — with 13k records
@@ -94,6 +105,7 @@ export interface DictIndexFile {
 }
 
 export const DICT_FORMAT_VERSION = 1
+export const EXPRESSION_INDEX_FILE = 'expressions.json'
 
 export function chunkFileName(index: number): string {
   return `chunk-${String(index).padStart(3, '0')}.json`

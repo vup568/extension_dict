@@ -9,6 +9,7 @@ import { configureImporter, getDictionaryStatus, startImport } from '../core/dic
 import { getKanjiInfo } from '../core/dictionary/kanji'
 import { lookupExact } from '../core/dictionary/lookup'
 import { configureTokenizer } from '../core/language/japanese/tokenizer'
+import { configureExpressionIndex } from '../core/language/japanese/expression-index'
 import { uniqueKanji } from '../core/language/japanese/detect'
 import { analyzeGrammar } from '../core/language/japanese/grammar-analyzer'
 import { japanesePack } from '../core/language/japanese/japanese-pack'
@@ -44,6 +45,7 @@ configureImporter({
 
 // Root-relative on purpose — see the path gotcha note in tokenizer.ts.
 configureTokenizer('/kuromoji')
+configureExpressionIndex(chrome.runtime.getURL('dict/expressions.json'))
 
 void chrome.action.setBadgeBackgroundColor({ color: '#2f5fd0' })
 

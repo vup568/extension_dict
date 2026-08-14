@@ -184,6 +184,63 @@
   font-weight: 700;
 }
 
+.grammar-group {
+  margin-top: 8px;
+}
+
+.grammar-group > .section-label {
+  padding: 0 12px 4px;
+}
+
+.grammar.grammar-group > .section-label {
+  padding: 0;
+}
+
+.expression-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.expression-card {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.expression-card:last-child {
+  border-bottom: 0;
+}
+
+.expression-head {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 3px;
+}
+
+.expression-canonical {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.expression-reading,
+.expression-surface,
+.expression-form {
+  font-size: 12px;
+  color: var(--fg-muted);
+}
+
+.expression-meaning {
+  font-size: 12.5px;
+}
+
+.expression-form {
+  padding-top: 1px;
+}
+
 .pattern-list {
   list-style: none;
   display: flex;

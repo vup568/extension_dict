@@ -29,7 +29,7 @@ const CHUNK_SIZE = 5000
 const SOURCE_URL = 'https://raw.githubusercontent.com/catusf/tudien/master/dict/star_nhatviet.tab'
 const SOURCE_FILE = 'star_nhatviet.tab'
 /** Data-cleaning revision — bump to force clients to reimport. */
-const PACK_REVISION = 'jv1'
+const PACK_REVISION = 'jv2'
 
 /** Vietnamese-specific letters — the "is this actually Vietnamese?" test. */
 const VI_CHARS = /[àáảãạăằắẳẵặâầấẩẫậèéẻẽẹêềếểễệìíỉĩịòóỏõọôồốổỗộơờớởỡợùúủũụưừứửữựỳýỷỹỵđ]/i
@@ -50,6 +50,9 @@ const NOUNISH = /^(?:sự|việc|cuộc|cái|con|người|đồ|thức|chỗ|nơ
  * fabric sense of "say") or has no Vietnamese at all (続く).
  */
 const OVERRIDES: Record<string, string> = {
+  気をつける: 'cẩn thận; chú ý; để tâm',
+  気を付ける: 'cẩn thận; chú ý; để tâm',
+  きをつける: 'cẩn thận; chú ý; để tâm',
   言う: 'nói, bảo; gọi là',
   見る: 'nhìn, xem, thấy',
   売る: 'bán',

@@ -395,7 +395,7 @@ function GrammarView({ sentence, state }: { readonly sentence: SentenceInfo; rea
   if (state === 'unavailable') {
     return <div class="status">Chưa phân tích được (bộ tách từ chưa sẵn sàng) — thử lại sau nhé.</div>
   }
-  const { patterns, units } = state.analysis
+  const { expressions, patterns, units } = state.analysis
   return (
     <div class="grammar-view">
       <div class="grammar-sentence" lang="ja">
@@ -403,28 +403,62 @@ function GrammarView({ sentence, state }: { readonly sentence: SentenceInfo; rea
         <mark>{sentence.sentence.slice(sentence.selStart, sentence.selEnd)}</mark>
         {sentence.sentence.slice(sentence.selEnd)}
       </div>
-      {patterns.length === 0 ? (
-        <div class="status">Không nhận diện được cấu trúc ngữ pháp N5–N4 nào trong câu này.</div>
-      ) : (
-        <ul class="pattern-list">
-          {patterns.map((pattern) => (
-            <li class="pattern" key={pattern.display}>
-              <div class="pattern-head">
-                <span class="pattern-display" lang="ja">
-                  {pattern.display}
-                </span>
-                <span class="pattern-level">{pattern.level}</span>
-                <span class="pattern-surface" lang="ja">
-                  {pattern.surface}
-                </span>
-              </div>
-              <div class="pattern-desc">{pattern.description}</div>
-            </li>
-          ))}
-        </ul>
+      {expressions.length > 0 && (
+        <section class="grammar-group">
+          <div class="section-label">Cụm từ / cách nói</div>
+          <ul class="expression-list">
+            {expressions.map((expression) => {
+              const meaning = expression.meaningVi ?? expression.glossesEn.join('; ')
+              return (
+                <li class="expression-card" key={`${expression.entryId}:${expression.start}:${expression.end}`}>
+                  <div class="expression-head">
+                    <span class="expression-canonical" lang="ja">
+                      {expression.canonical}
+                    </span>
+                    <span class="expression-reading" lang="ja">
+                      （{expression.reading}）
+                    </span>
+                  </div>
+                  <div class="expression-surface">
+                    Dạng trong câu: <span lang="ja">{expression.surface}</span>
+                  </div>
+                  {meaning.length > 0 && <div class="expression-meaning">{meaning}</div>}
+                  {expression.formDescription !== null && (
+                    <div class="expression-form" lang="ja">
+                      {expression.formDescription}
+                    </div>
+                  )}
+                </li>
+              )
+            })}
+          </ul>
+        </section>
       )}
+      <section class="grammar-group">
+        <div class="section-label">Mẫu ngữ pháp</div>
+        {patterns.length === 0 ? (
+          <div class="status">Không nhận diện được cấu trúc ngữ pháp N5–N4 nào trong câu này.</div>
+        ) : (
+          <ul class="pattern-list">
+            {patterns.map((pattern) => (
+              <li class="pattern" key={pattern.display}>
+                <div class="pattern-head">
+                  <span class="pattern-display" lang="ja">
+                    {pattern.display}
+                  </span>
+                  <span class="pattern-level">{pattern.level}</span>
+                  <span class="pattern-surface" lang="ja">
+                    {pattern.surface}
+                  </span>
+                </div>
+                <div class="pattern-desc">{pattern.description}</div>
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
       {units.length > 0 && (
-        <div class="grammar">
+        <div class="grammar grammar-group">
           <div class="section-label">Chia động từ / tính từ</div>
           {units.map((unit) => (
             <div class="unit" key={unit.surface}>

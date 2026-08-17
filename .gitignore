@@ -16,3 +16,6 @@ data/
 Thumbs.db
 *.local
 *.log
+
+# Local reference material (not part of the V2 source baseline)
+spec-driven-&-agent-driven-development.pdf

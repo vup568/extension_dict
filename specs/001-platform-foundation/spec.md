@@ -1,6 +1,6 @@
 # Feature Specification: Platform Foundation
 
-**Feature Branch**: `codex/expression-detection`
+**Feature Branch**: `dev`
 
 **Created**: 2026-08-14
 

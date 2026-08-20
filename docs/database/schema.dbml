@@ -1,0 +1,302 @@
+// JP Reading Platform V2 — Database Schema (DBML)
+// Generated: 2026-08-20
+// Target: PostgreSQL 16 | Management: EF Core Migrations (ARCH-007)
+// Render: https://dbdiagram.io
+
+// ============================================================
+// GROUP 1: KNOWLEDGE CORE
+// ============================================================
+
+Table dictionary_entries {
+  id bigserial [pk, increment]
+  canonical_id text [not null, unique, note: 'format: dictionary:xxxxx (ID-005)']
+  created_at timestamptz [not null, default: `now()`]
+  updated_at timestamptz [not null, default: `now()`]
+
+  Note: 'Canonical lexical entry. Identity stable across revisions (ID-001, ID-005, ID-006).'
+}
+
+Table written_forms {
+  id bigserial [pk, increment]
+  entry_id bigint [not null, ref: > dictionary_entries.id]
+  form text [not null, note: 'e.g. 食べる']
+  priority smallint
+  is_common boolean [not null, default: false]
+  info text[]
+  created_at timestamptz [not null, default: `now()`]
+  updated_at timestamptz [not null, default: `now()`]
+
+  indexes {
+    form [name: 'idx_written_forms_form']
+    entry_id [name: 'idx_written_forms_entry_id']
+    (entry_id, form) [unique, name: 'uq_written_forms_entry_form']
+  }
+
+  Note: 'Orthographic representation of a Dictionary Entry.'
+}
+
+Table readings {
+  id bigserial [pk, increment]
+  entry_id bigint [not null, ref: > dictionary_entries.id]
+  reading text [not null, note: 'e.g. たべる']
+  priority smallint
+  is_common boolean [not null, default: false]
+  info text[]
+  restricted_to_forms text[] [note: 'NULL = applies to all forms (re_restr)']
+  created_at timestamptz [not null, default: `now()`]
+  updated_at timestamptz [not null, default: `now()`]
+
+  indexes {
+    reading [name: 'idx_readings_reading']
+    entry_id [name: 'idx_readings_entry_id']
+    (entry_id, reading) [unique, name: 'uq_readings_entry_reading']
+  }
+
+  Note: 'Kana reading, optionally restricted to specific written forms.'
+}
+
+Table dictionary_senses {
+  id bigserial [pk, increment]
+  entry_id bigint [not null, ref: > dictionary_entries.id]
+  sense_key text [not null, note: 'stable key within parent entry']
+  part_of_speech text[]
+  position smallint [not null, default: 0]
+  created_at timestamptz [not null, default: `now()`]
+  updated_at timestamptz [not null, default: `now()`]
+
+  indexes {
+    entry_id [name: 'idx_dictionary_senses_entry_id']
+    (entry_id, sense_key) [unique, name: 'uq_dictionary_senses_entry_key']
+  }
+
+  Note: 'Language-neutral semantic unit with POS (VOC-007, VOC-008).'
+}
+
+Table localized_glosses {
+  id bigserial [pk, increment]
+  sense_id bigint [not null, ref: > dictionary_senses.id]
+  language_tag text [not null, note: 'vi or en (I18N-003)']
+  gloss_text text [not null]
+  source_record_id bigint [ref: > source_records.id]
+  review_status text [note: 'pending, approved, rejected']
+  position smallint [not null, default: 0]
+  created_at timestamptz [not null, default: `now()`]
+  updated_at timestamptz [not null, default: `now()`]
+
+  indexes {
+    (sense_id, language_tag) [name: 'idx_localized_glosses_sense_lang']
+  }
+
+  Note: 'Localized meaning per language tag. Provenance via source_record_id (OD-009).'
+}
+
+Table sense_applicabilities {
+  id bigserial [pk, increment]
+  sense_id bigint [not null, ref: > dictionary_senses.id]
+  written_form_id bigint [ref: > written_forms.id]
+  reading_id bigint [ref: > readings.id]
+  created_at timestamptz [not null, default: `now()`]
+
+  indexes {
+    (sense_id, written_form_id, reading_id) [unique, name: 'uq_sense_applicabilities_combo']
+  }
+
+  Note: 'Restricts which senses apply to which forms/readings. No rows = applies to all.'
+}
+
+// ============================================================
+// GROUP 2: KANJI
+// ============================================================
+
+Table kanji_records {
+  id bigserial [pk, increment]
+  canonical_id text [not null, unique, note: 'format: kanji:xxxxx']
+  character text [not null, unique, note: 'e.g. 食']
+  stroke_count smallint
+  grade smallint [note: 'MEXT school grade (1-6, 8, 9-10)']
+  jlpt_level smallint [note: 'derived/approximate (KAN-002)']
+  jlpt_provenance text [note: 'authoritative, derived, approximate']
+  frequency smallint
+  unicode_codepoint text [not null, note: 'e.g. U+98DF']
+  radical_number smallint [note: 'classical radical 1-214']
+  han_viet text [note: 'Hán Việt reading, e.g. THỰC']
+  on_readings text[]
+  kun_readings text[]
+  meanings_en text[]
+  meanings_vi text[]
+  nanori_readings text[]
+  source_metadata jsonb [not null, default: '{}']
+  created_at timestamptz [not null, default: `now()`]
+  updated_at timestamptz [not null, default: `now()`]
+
+  Note: 'Canonical kanji record. Distinguishes authoritative vs derived values (KAN-002).'
+}
+
+// ============================================================
+// GROUP 3: GRAMMAR
+// ============================================================
+
+Table grammar_rules {
+  id bigserial [pk, increment]
+  canonical_id text [not null, unique, note: 'format: grammar:xxxxx']
+  pattern text [not null, note: 'e.g. ～ている']
+  jlpt_level text [note: 'N5, N4, N3, N2, N1']
+  meaning_vi text [note: 'Vietnamese-first (CONJ-002)']
+  meaning_en text
+  formation text
+  examples jsonb [not null, default: '[]']
+  matcher_metadata jsonb [not null, default: '{}', note: 'Flexible matcher config (OD-008)']
+  notes text
+  source_metadata jsonb [not null, default: '{}']
+  created_at timestamptz [not null, default: `now()`]
+  updated_at timestamptz [not null, default: `now()`]
+
+  Note: 'Canonical grammar pattern. Versioned data independent from matching engine (GRM-005).'
+}
+
+// ============================================================
+// GROUP 4: KNOWLEDGE OPERATIONS
+// ============================================================
+
+Table source_manifests {
+  id bigserial [pk, increment]
+  source_name text [not null, note: 'JMdict, KANJIDIC2, etc.']
+  publisher text
+  version text [not null]
+  license text
+  attribution text
+  checksum text [note: 'SHA256 of source file']
+  record_count integer
+  rejected_count integer
+  transformation_id text [note: 'pipeline version/commit']
+  validation_result text
+  metadata jsonb [not null, default: '{}']
+  created_at timestamptz [not null, default: `now()`]
+
+  indexes {
+    (source_name, version) [unique, name: 'uq_source_manifests_name_version']
+  }
+
+  Note: 'Dataset provenance record (DATA-001). Required evidence for Knowledge Release.'
+}
+
+Table source_records {
+  id bigserial [pk, increment]
+  manifest_id bigint [not null, ref: > source_manifests.id]
+  source_identity text [not null, note: 'upstream ID, e.g. JMdict ent_seq']
+  record_data jsonb [not null]
+  created_at timestamptz [not null, default: `now()`]
+
+  indexes {
+    (manifest_id, source_identity) [unique, name: 'uq_source_records_manifest_identity']
+    source_identity [name: 'idx_source_records_identity']
+  }
+
+  Note: 'Individual fact from a source dataset (ID-004).'
+}
+
+Table editorial_mappings {
+  id bigserial [pk, increment]
+  source_record_id bigint [not null, ref: > source_records.id]
+  target_resource_type text [not null, note: 'dictionary, kanji, grammar']
+  target_resource_id bigint [not null]
+  mapping_type text [not null, note: 'link, merge, split, retire']
+  decision_reason text
+  reviewed_by text
+  reviewed_at timestamptz
+  created_at timestamptz [not null, default: `now()`]
+
+  indexes {
+    (source_record_id, target_resource_type, target_resource_id) [unique, name: 'uq_editorial_mappings_source_target']
+    (target_resource_type, target_resource_id) [name: 'idx_editorial_mappings_target']
+  }
+
+  Note: 'Reviewed link between source record and canonical resource (ID-004, ID-006).'
+}
+
+Table knowledge_releases {
+  id bigserial [pk, increment]
+  version text [not null, unique]
+  description text
+  published_at timestamptz [note: 'NULL if draft']
+  is_current boolean [not null, default: false, note: 'max one true via partial unique index']
+  created_at timestamptz [not null, default: `now()`]
+
+  Note: 'Immutable snapshot of linguistic data (DATA-005). Only controlled publication changes current facts.'
+}
+
+Table knowledge_release_manifests {
+  release_id bigint [not null, ref: > knowledge_releases.id]
+  manifest_id bigint [not null, ref: > source_manifests.id]
+
+  indexes {
+    (release_id, manifest_id) [pk]
+  }
+
+  Note: 'M:N join between Knowledge Release and Source Manifest.'
+}
+
+Table resource_revisions {
+  id bigserial [pk, increment]
+  release_id bigint [not null, ref: > knowledge_releases.id]
+  resource_type text [not null, note: 'dictionary, kanji, grammar']
+  resource_id bigint [not null]
+  revision_data jsonb [not null, default: '{}']
+  created_at timestamptz [not null, default: `now()`]
+
+  indexes {
+    (release_id, resource_type, resource_id) [unique, name: 'uq_resource_revisions_release_resource']
+  }
+
+  Note: 'Snapshot of a canonical resource within a release. Immutable after publish (ID-006).'
+}
+
+// ============================================================
+// GROUP 5: USER & LEARNING
+// ============================================================
+
+Table users {
+  id bigserial [pk, increment]
+  email text [not null, unique]
+  display_name text
+  password_hash text [note: 'NULL for OAuth-only users. BCrypt/Argon2id (SEC-005)']
+  email_verified_at timestamptz
+  created_at timestamptz [not null, default: `now()`]
+  updated_at timestamptz [not null, default: `now()`]
+
+  Note: 'User account. Hybrid auth: email/password + Google OAuth (AUTH-003).'
+}
+
+Table user_external_logins {
+  id bigserial [pk, increment]
+  user_id bigint [not null, ref: > users.id]
+  provider text [not null, note: 'google']
+  provider_user_id text [not null]
+  provider_email text
+  created_at timestamptz [not null, default: `now()`]
+
+  indexes {
+    (provider, provider_user_id) [unique, name: 'uq_user_external_logins_provider_uid']
+    user_id [name: 'idx_user_external_logins_user_id']
+  }
+
+  Note: 'OAuth provider links. One user can have multiple providers.'
+}
+
+Table learning_references {
+  id bigserial [pk, increment]
+  user_id bigint [not null, ref: > users.id]
+  resource_type text [not null, note: 'dictionary or grammar']
+  resource_id bigint [not null]
+  saved_at timestamptz [not null, default: `now()`]
+  deleted_at timestamptz [note: 'soft delete (LEARN-008)']
+  created_at timestamptz [not null, default: `now()`]
+  updated_at timestamptz [not null, default: `now()`]
+
+  indexes {
+    (user_id, resource_type, resource_id) [unique, name: 'uq_learning_references_active', note: 'WHERE deleted_at IS NULL']
+    (user_id, resource_type) [name: 'idx_learning_references_user_active', note: 'WHERE deleted_at IS NULL']
+  }
+
+  Note: 'User-owned saved vocabulary/grammar. Soft delete, no active duplicates (LEARN-007).'
+}

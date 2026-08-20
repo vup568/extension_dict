@@ -1,0 +1,1 @@
+E:/jp-dict-extension/.agents/AGENTS.md

@@ -1,6 +1,6 @@
 ---
 name: "speckit-converge"
-description: "Assess the current codebase against the feature's spec, plan, and tasks, then append any remaining unbuilt work as new tasks to tasks.md so implement can complete it."
+description: "Assess the current codebase against the feature's spec, plan, and tasks, then append any remaining unbuilt work as new tasks to TASKS.md so implement can complete it."
 compatibility: "Requires spec-kit project structure with .specify/ directory"
 metadata:
   author: "github-spec-kit"
@@ -60,13 +60,13 @@ You **MUST** consider the user input before proceeding (if not empty).
 ## Goal
 
 Close the gap between what a feature's specification, plan, and tasks call for and what the
-codebase currently implements. Read `spec.md`, `plan.md`, and `tasks.md` as the **sole
+codebase currently implements. Read `SPEC.md`, `PLAN.md`, and `TASKS.md` as the **sole
 source of intent** (with the constitution as governing constraints), assess the current
 state of the code, determine which requirements, acceptance criteria, plan decisions, and
 existing tasks are unmet, incomplete, or only partially satisfied, and **append each piece
-of remaining work as a new, traceable task** at the bottom of `tasks.md` so that
+of remaining work as a new, traceable task** at the bottom of `TASKS.md` so that
 `$speckit-implement` can complete it. This command MUST run only after
-`$speckit-implement` has run on the current `tasks.md`, and after `$speckit-tasks` has produced a complete `tasks.md`.
+`$speckit-implement` has run on the current `TASKS.md`, and after `$speckit-tasks` has produced a complete `TASKS.md`.
 
 This is **not** a diff tool and does **not** track changes. It assesses the present state
 of the code relative to the feature's artifacts — no git, no branch comparison, no history.
@@ -74,18 +74,18 @@ of the code relative to the feature's artifacts — no git, no branch comparison
 ## Operating Constraints
 
 **APPEND-ONLY, NEVER REWRITE**: The command's **only** write is appending a new
-`## Phase N: Convergence` section to `tasks.md`. It MUST NOT:
+`## Phase N: Convergence` section to `TASKS.md`. It MUST NOT:
 
-- modify `spec.md` or `plan.md` in any way;
+- modify `SPEC.md` or `PLAN.md` in any way;
 - rewrite, renumber, reorder, or delete any existing task (including tasks from a prior
   Convergence phase);
 - modify, create, or delete any application code — completing the appended tasks is the
   job of `$speckit-implement`.
 
-When the codebase already satisfies everything, the command MUST leave `tasks.md`
+When the codebase already satisfies everything, the command MUST leave `TASKS.md`
 **byte-for-byte unchanged** (no empty Convergence header) and report a clean result.
 
-**Constitution Authority**: The project constitution (`.specify/memory/constitution.md`) is
+**Constitution Authority**: The project constitution (`.sdd/constitution.md`) is
 **non-negotiable**. Code that violates a MUST principle is the highest-severity finding and
 produces a corresponding remediation task. If the constitution is an unfilled template,
 skip constitution checks gracefully rather than failing.
@@ -96,11 +96,11 @@ skip constitution checks gracefully rather than failing.
 
 Run `.specify/scripts/powershell/check-prerequisites.ps1 -Json -RequireTasks -IncludeTasks` once from repo root and parse JSON for FEATURE_DIR and AVAILABLE_DOCS. Derive absolute paths:
 
-- SPEC = FEATURE_DIR/spec.md
-- PLAN = FEATURE_DIR/plan.md
-- TASKS = FEATURE_DIR/tasks.md
-- CONSTITUTION = `.specify/memory/constitution.md` (if present)
-If `spec.md`, `plan.md`, or `tasks.md` is missing, STOP with a clear, actionable message naming the
+- SPEC = FEATURE_DIR/SPEC.md
+- PLAN = FEATURE_DIR/PLAN.md
+- TASKS = FEATURE_DIR/TASKS.md
+- CONSTITUTION = `.sdd/constitution.md` (if present)
+If `SPEC.md`, `PLAN.md`, or `TASKS.md` is missing, STOP with a clear, actionable message naming the
 prerequisite command to run (`$speckit-specify` for a missing spec, `$speckit-plan` for a missing plan,
 `$speckit-tasks` for missing tasks). Do not produce partial output.
 For single quotes in args like "I'm Groot", use escape syntax: e.g 'I'\''m Groot' (or double-quote if possible: "I'm Groot").
@@ -109,7 +109,7 @@ For single quotes in args like "I'm Groot", use escape syntax: e.g 'I'\''m Groot
 
 Load only the minimal necessary context from each artifact:
 
-**From spec.md:**
+**From SPEC.md:**
 
 - Functional Requirements (FR-###)
 - Success Criteria (SC-###) — include only items requiring buildable work; exclude
@@ -117,14 +117,14 @@ Load only the minimal necessary context from each artifact:
 - User Stories and their Acceptance Scenarios
 - Edge Cases (if present)
 
-**From plan.md:**
+**From PLAN.md:**
 
 - Architecture/stack choices and technical decisions
 - Data Model references
 - Phases and named touch-points (files/components the plan says will be created or edited)
 - Technical constraints
 
-**From tasks.md:**
+**From TASKS.md:**
 
 - Task IDs (to compute the next ID and next phase number)
 - Descriptions, phase grouping, and referenced file paths
@@ -140,7 +140,7 @@ Create an internal model (do not echo raw artifacts):
 - **Requirements inventory**: one stable key per FR-### / SC-### / user-story acceptance
   scenario (e.g. `US1/AC2`), plus the plan decisions and constitution principles that
   impose buildable obligations.
-- **Code-scope map**: from the file paths named in `plan.md` and `tasks.md`, plus a keyword
+- **Code-scope map**: from the file paths named in `PLAN.md` and `TASKS.md`, plus a keyword
   search for the concepts each requirement describes, derive the set of source files and
   components in scope for assessment. Bound the assessment to these — do **not** infer
   scope beyond what the artifacts define.
@@ -186,7 +186,7 @@ Before appending anything, output a compact, severity-graded summary (no file wr
 
 | ID | Gap Type | Severity | Source | Evidence | Remaining Work |
 |----|----------|----------|--------|----------|----------------|
-| F1 | missing  | HIGH     | FR-008 | Example: no append-only guard detected in path/to/module.py when writing tasks.md | Add append-only enforcement |
+| F1 | missing  | HIGH     | FR-008 | Example: no append-only guard detected in path/to/module.py when writing TASKS.md | Add append-only enforcement |
 
 **Summary metrics:**
 
@@ -200,7 +200,7 @@ Before appending anything, output a compact, severity-graded summary (no file wr
 
 **If there are one or more actionable findings** (`tasks_appended` outcome):
 
-Append to the **end** of `tasks.md`, per the append contract:
+Append to the **end** of `TASKS.md`, per the append contract:
 
 1. Scan all existing task IDs; let `M` be the maximum. Determine the next phase number `N`
    (highest existing phase + 1).
@@ -224,7 +224,7 @@ Append to the **end** of `tasks.md`, per the append contract:
 
 **If there are no actionable findings** (`converged` outcome):
 
-- Do **not** modify `tasks.md` at all — no empty phase header.
+- Do **not** modify `TASKS.md` at all — no empty phase header.
 - Report: **"✅ Converged — the implementation satisfies the spec, plan, and tasks."**
 - Include the summary counts of what was checked.
 

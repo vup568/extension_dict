@@ -114,7 +114,7 @@ $repoRoot = Get-RepoRoot
 
 Set-Location $repoRoot
 
-$specsDir = Join-Path $repoRoot 'specs'
+$specsDir = Join-Path $repoRoot '.sdd/specs'
 if (-not $DryRun) {
     New-Item -ItemType Directory -Path $specsDir -Force | Out-Null
 }
@@ -250,7 +250,7 @@ if ($branchName -ne $originalBranchName) {
 }
 
 $featureDir = Join-Path $specsDir $branchName
-$specFile = Join-Path $featureDir 'spec.md'
+$specFile = Join-Path $featureDir 'SPEC.md'
 
 if (-not $DryRun) {
     if ((Test-Path -LiteralPath $featureDir -PathType Container) -and -not $AllowExistingBranch) {

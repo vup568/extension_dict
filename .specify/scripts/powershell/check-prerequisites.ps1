@@ -9,8 +9,8 @@
 #
 # OPTIONS:
 #   -Json               Output in JSON format
-#   -RequireTasks       Require tasks.md to exist (for implementation phase)
-#   -IncludeTasks       Include tasks.md in AVAILABLE_DOCS list
+#   -RequireTasks       Require TASKS.md to exist (for implementation phase)
+#   -IncludeTasks       Include TASKS.md in AVAILABLE_DOCS list
 #   -PathsOnly          Only output path variables (no validation)
 #   -Template NAME      Include composed template content in JSON output
 #   -Help, -h           Show help message
@@ -36,17 +36,17 @@ Consolidated prerequisite checking for Spec-Driven Development workflow.
 
 OPTIONS:
   -Json               Output in JSON format
-  -RequireTasks       Require tasks.md to exist (for implementation phase)
-  -IncludeTasks       Include tasks.md in AVAILABLE_DOCS list
+    -RequireTasks       Require TASKS.md to exist (for implementation phase)
+    -IncludeTasks       Include TASKS.md in AVAILABLE_DOCS list
   -PathsOnly          Only output path variables (no prerequisite validation)
   -Template NAME      Include composed template content in JSON output
   -Help, -h           Show this help message
 
 EXAMPLES:
-  # Check task prerequisites (plan.md required)
+# Check task prerequisites (PLAN.md required)
   .\check-prerequisites.ps1 -Json
 
-  # Check implementation prerequisites (plan.md + tasks.md required)
+# Check implementation prerequisites (PLAN.md + TASKS.md required)
   .\check-prerequisites.ps1 -Json -RequireTasks -IncludeTasks
 
   # Get feature paths only (no validation)
@@ -99,15 +99,15 @@ if (-not (Test-Path $paths.FEATURE_DIR -PathType Container)) {
 }
 
 if (-not (Test-Path $paths.IMPL_PLAN -PathType Leaf)) {
-    [Console]::Error.WriteLine("ERROR: plan.md not found in $($paths.FEATURE_DIR)")
+    [Console]::Error.WriteLine("ERROR: PLAN.md not found in $($paths.FEATURE_DIR)")
     $planCommand = '$speckit-plan'
     [Console]::Error.WriteLine("Run $planCommand first to create the implementation plan.")
     exit 1
 }
 
-# Check for tasks.md if required
+# Check for TASKS.md if required
 if ($RequireTasks -and -not (Test-Path $paths.TASKS -PathType Leaf)) {
-    [Console]::Error.WriteLine("ERROR: tasks.md not found in $($paths.FEATURE_DIR)")
+        [Console]::Error.WriteLine("ERROR: TASKS.md not found in $($paths.FEATURE_DIR)")
     $tasksCommand = '$speckit-tasks'
     [Console]::Error.WriteLine("Run $tasksCommand first to create the task list.")
     exit 1
@@ -127,9 +127,9 @@ if ((Test-Path $paths.CONTRACTS_DIR) -and (Get-ChildItem -Path $paths.CONTRACTS_
 
 if (Test-Path $paths.QUICKSTART) { $docs += 'quickstart.md' }
 
-# Include tasks.md if requested and it exists
+# Include TASKS.md if requested and it exists
 if ($IncludeTasks -and (Test-Path $paths.TASKS)) {
-    $docs += 'tasks.md'
+    $docs += 'TASKS.md'
 }
 
 $templateContent = $null
@@ -164,6 +164,6 @@ if ($Json) {
     Test-FileExists -Path $paths.QUICKSTART -Description 'quickstart.md' | Out-Null
 
     if ($IncludeTasks) {
-        Test-FileExists -Path $paths.TASKS -Description 'tasks.md' | Out-Null
+    Test-FileExists -Path $paths.TASKS -Description 'TASKS.md' | Out-Null
     }
 }

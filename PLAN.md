@@ -102,7 +102,6 @@ Thiết kế Logical Database Schema tổng thể cho PostgreSQL 16, ánh xạ c
 - [x] 2.2 Tạo EF Core DbContext (`AppDbContext.cs`) và 17 Fluent API Configurations trong `src/infra/Persistence/Configurations/`
 - [x] 2.3 Clean Architecture boundary verified: Domain có 0 import EF Core, 0 Data Annotations, 0 using statements ngoài namespace riêng
 - [x] 2.4 Human review hoàn thành — chốt Phase 2 (2026-08-20)
-
 ### Phase 3 — Visualization & Documentation (KHÔNG chỉnh sửa schema)
 
 - [x] 3.1 Generate `docs/database/schema.dbml` — now 18 tables, DBML chuẩn cho dbdiagram.io
@@ -112,15 +111,15 @@ Thiết kế Logical Database Schema tổng thể cho PostgreSQL 16, ánh xạ c
 
 ### Phase 4 — Verification & Traceability (KHÔNG chỉnh sửa schema)
 
-- [ ] 4.1 Cross-check schema với requirement files:
-  - `REQUIREMENT.md` §6 (Conceptual Data Model — Entity Catalog)
-  - `REQUIREMENT.md` §9 (Functional Requirements: ID-*, VOC-*, KAN-*, GRM-*, CONJ-*, TRN-*, AUTH-*, LEARN-*, DATA-*)
-  - `REQUIREMENT.md` §10 (Non-Functional: PRIV-*, SEC-*, I18N-*)
-  - `MIGRATION_DECISION.md` §5 (Assets to Migrate)
-- [ ] 4.2 Lập **Requirement Coverage Matrix**: Mỗi requirement ID có bảng/cột nào phục vụ
-- [ ] 4.3 Xác định và báo cáo **Gap Report**: Requirement nào chưa được schema cover rõ ràng
-- [ ] 4.4 Báo cáo **Potential Improvements** riêng biệt (nếu phát hiện) — CHỈ báo cáo, KHÔNG tự sửa schema
-- [ ] 4.5 Cập nhật `SDD.md` với các quyết định database design được chấp thuận
+- [x] 4.1 Cross-check schema với requirement files:
+  - `REQUIREMENT.md` §6 (Conceptual Data Model — Entity Catalog) — 19/19 entities covered
+  - `REQUIREMENT.md` §9 (Functional Requirements: ID-*, VOC-*, KAN-*, GRM-*, CONJ-*, TRN-*, AUTH-*, LEARN-*, DATA-*) — all covered
+  - `REQUIREMENT.md` §10 (Non-Functional: PRIV-*, SEC-*, I18N-*) — all covered
+  - `MIGRATION_DECISION.md` §5 (Assets to Migrate) — 8/8 (6 full + 2 partial/runtime)
+- [x] 4.2 Lập **Requirement Coverage Matrix**: 117 requirement IDs mapped to tables/columns (2026-08-21)
+- [x] 4.3 Xác định và báo cáo **Gap Report**: 0 immediate gaps; 5 deferred behind approval gates (2026-08-21)
+- [x] 4.4 Báo cáo **Potential Improvements**: 6 items — CHỈ báo cáo, KHÔNG sửa schema (2026-08-21)
+- [x] 4.5 Cập nhật `SDD.md` với các quyết định database design được chấp thuận (2026-08-21)
 
 ### Deliverables
 
@@ -133,13 +132,10 @@ Thiết kế Logical Database Schema tổng thể cho PostgreSQL 16, ánh xạ c
 | 5 | DBML cho dbdiagram.io | `docs/database/schema.dbml` |
 | 6 | Schema Overview | `docs/database/schema-overview.md` |
 | 7 | DATABASE.md (Root Index) | `DATABASE.md` |
-| 8 | Requirement Coverage Matrix | Trong artifact report |
-| 9 | Gap Report & Potential Improvements | Trong artifact report |
+| 8 | Requirement Coverage Matrix | Artifact `phase4_verification_traceability.md` |
+| 9 | Gap Report & Potential Improvements | Artifact `phase4_verification_traceability.md` |
 
 ---
-
-## Current Task — MVP API Contract Documentation (2026-08-21)
-
 - [x] Shadow Plan approved; scope excludes the existing standalone Dictionary Lookup endpoint.
 - [x] Reconcile authoritative product, architecture, privacy, data, and database sources.
 - [x] Author the proposed MVP API contract without a URL version segment.

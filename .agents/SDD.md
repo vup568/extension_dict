@@ -134,3 +134,9 @@ Mã nguồn Backend trong thư mục `src/` bắt buộc phải tuân thủ nghi
 
 *   Theo chỉ đạo của project owner, contract API MVP mới dùng prefix `/api/` và không version trong URL. Yêu cầu versioned contracts (`API-002`) vẫn được giữ bằng metadata/header contract; cơ chế compatibility chính xác được ghi là proposed cho tới khi feature SPEC phê duyệt.
 *   Endpoint Dictionary Lookup hiện có nằm ngoài scope của baseline này và không bị sửa đổi. `docs/api/mvp-api-contract.md` phân tách requirements đã chốt với HTTP/API shapes đề xuất, để tài liệu không bị hiểu nhầm là runtime contract đã triển khai.
+
+### 2026-08-21 — UI/UX Design Direction Baseline
+
+*   `DESIGN.md` chốt hướng UI/UX content-first, accessible và low-latency cho Extension/Web, với Accessible & Ethical là reference chính; Flat Design Mobile và Japanese Elegant typography là hai reference phụ. Lựa chọn được xếp hạng theo traceability requirement, không theo aesthetic similarity.
+*   Popup Extension ưu tiên shell tức thời, trạng thái async truthful, linguistic-first result hierarchy, anonymous reading và explicit translation disclosure. Tài liệu loại trừ landing/pricing/testimonial patterns, selected-text history mặc định và hiệu ứng trang trí nặng.
+*   Các token, palette chi tiết, popup positioning, dark mode và navigation model được ghi rõ là design decision mới hoặc open choice; implementation chỉ được chốt trong feature SPEC sau và phải validate accessibility/cross-browser.

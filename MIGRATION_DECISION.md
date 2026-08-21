@@ -1,4 +1,4 @@
-# JP Reading Platform — V2 Migration Decision
+# JP Reading Platform â€” V2 Migration Decision
 
 **Status:** Approved for V2 Architecture Design  
 **Version:** 1.0.0  
@@ -48,20 +48,20 @@ The migration principle is:
 
 ```text
 Legacy Prototype
-       │
-       ▼
+       â”‚
+       â–¼
 Extract Knowledge + Tests + Data
-       │
-       ▼
+       â”‚
+       â–¼
 Design V2 Architecture
-       │
-       ▼
+       â”‚
+       â–¼
 Reimplement Required Capabilities
-       │
-       ▼
+       â”‚
+       â–¼
 Validate Against Regression Corpus
-       │
-       ▼
+       â”‚
+       â–¼
 Remove Obsolete Legacy Runtime
 ```
 
@@ -202,7 +202,7 @@ upstream values.
 
 ## 5.3 Grammar Knowledge
 
-The existing N5–N4 grammar corpus SHALL be migrated as knowledge, not copied as
+The existing N5â€“N4 grammar corpus SHALL be migrated as knowledge, not copied as
 runtime TypeScript rules.
 
 Each grammar record SHOULD support:
@@ -685,7 +685,7 @@ Include:
 - emoji;
 - musical symbols;
 - supplementary Unicode;
-- `𠮟`;
+- `ð ®Ÿ`;
 - unrelated scripts.
 
 Known incorrect legacy results SHALL be represented as bug regressions, not
@@ -746,9 +746,9 @@ Include representative cases for:
 
 Existing useful examples such as:
 
-- `食べました → 食べる`;
-- `高くなかった → 高い`;
-- `熱中症`;
+- `é£Ÿã¹ã¾ã—ãŸ â†’ é£Ÿã¹ã‚‹`;
+- `é«˜ããªã‹ã£ãŸ â†’ é«˜ã„`;
+- `ç†±ä¸­ç—‡`;
 
 SHOULD be retained.
 
@@ -791,7 +791,7 @@ Include representative:
 - common kanji;
 - rare kanji;
 - supplementary ideographs;
-- Hán Việt normalization;
+- HÃ¡n Viá»‡t normalization;
 - radical variations;
 - missing fields;
 - missing/derived JLPT values.
@@ -996,13 +996,13 @@ scattered invisibly through runtime implementation.
 The expected conceptual direction is:
 
 ```text
-Browser Extension ─┐
-                   │
-                   ▼
+Browser Extension â”€â”
+                   â”‚
+                   â–¼
               Backend API
-                   ▲
-                   │
-Web Application ───┘
+                   â–²
+                   â”‚
+Web Application â”€â”€â”€â”˜
 ```
 
 The Backend SHALL be the authoritative runtime boundary for:
@@ -1028,16 +1028,16 @@ Examples:
 
 ```text
 SavedVocabulary
-→ userId
-→ canonicalDictionaryEntryId
+â†’ userId
+â†’ canonicalDictionaryEntryId
 ```
 
 and:
 
 ```text
 SavedGrammar
-→ userId
-→ canonicalGrammarId
+â†’ userId
+â†’ canonicalGrammarId
 ```
 
 Localized descriptions or presentation strings SHOULD NOT be the primary
@@ -1102,13 +1102,26 @@ being frozen by this document.
 
 # 19. Explicit Non-Decisions
 
+When this document was first approved, the following technology choices were
+explicitly deferred. Since then, several have been resolved by approved
+architecture decisions.
+
+## 19.1 Resolved Since Initial Approval
+
+The following items have been decided and are no longer non-decisions:
+
+| Item | Decision | Authority |
+|---|---|---|
+| Backend programming language | .NET 10 (C# 14) | AGENTS.md §2, ARCH-001 |
+| Backend framework | .NET 10 | AGENTS.md §2, ARCH-001 |
+| Web framework | React 19 + TypeScript + Vite | AGENTS.md §2, ARCH-004 |
+| Database technology | PostgreSQL 16 | AGENTS.md §2, ARCH-005 |
+| ORM | EF Core Migrations | AGENTS.md §2, ARCH-007 |
+
+## 19.2 Remaining Non-Decisions
+
 This document intentionally does NOT decide:
 
-- backend programming language;
-- backend framework;
-- web framework;
-- database technology;
-- ORM;
 - hosting provider;
 - cloud provider;
 - cache technology;
@@ -1123,7 +1136,7 @@ This document intentionally does NOT decide:
 - final rate-limit thresholds.
 
 These decisions belong to architecture specification, clarification, and
-planning.
+planning. See REQUIREMENT.md §15 Open Decisions for current status.
 
 ---
 

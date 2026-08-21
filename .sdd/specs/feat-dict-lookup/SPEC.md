@@ -1,7 +1,7 @@
 # FEATURE SPEC: Dictionary Lookup API
 # Version: 0.1.0 (DRAFT) | Owner: @lead-dev | Date: 2026-08-17
 # Inherits: .sdd/constraints/global.md, .sdd/constraints/business.md, .sdd/constraints/safety.md
-# Target Stack: .NET 10 (C#) Backend, SQL Server (MSSQL), SQLite (In-Memory Tests)
+# Target Stack: .NET 10 (C#) Backend, PostgreSQL 16 (ARCH-005), Docker Testcontainers (ARCH-006)
 
 --------------------------------------------------------------------------------
 
@@ -13,7 +13,7 @@ Người học tiếng Nhật khi đọc văn bản thực tế phải tra cứu
 Xây dựng một API tra cứu từ điển tập trung (Server-Authoritative) trên Backend .NET 10 [MIGRATION 6.3, 15]. API này sẽ thực hiện tra cứu từ vựng tiếng Nhật (JMdict), trả về kết quả tiếng Việt ưu tiên (kèm âm đọc Hiragana/Katakana) nhanh chóng dưới 200ms để phục vụ tính năng popup thời gian thực của Extension và Web App [REQ P-03, P-04, VOC-003, VOC-004, PERF-002].
 
 ### Success Metrics:
-*   Độ trễ phản hồi Backend (P95 Latency) cho tác vụ tra cứu từ đơn lẻ < 200ms [REQ PERF-002].
+*   Độ trễ phản hồi Backend (P95 Latency) cho core analysis **SHOULD** đạt p95 ≤ 800ms khi service warm và trong normal operating profile [REQ PERF-002]. Threshold cuối cùng cần benchmark và phê duyệt tại OD-005.
 *   Độ bao phủ của dữ liệu đạt 100% các từ thuộc tập dữ liệu canonical JMdict đã nạp [REQ DATA-003].
 
 --------------------------------------------------------------------------------
@@ -64,50 +64,22 @@ Xây dựng một API tra cứu từ điển tập trung (Server-Authoritative) 
 
 --------------------------------------------------------------------------------
 
-## 5. Data Model (SQL Server Schema - Conceptual)
+## 5. Data Model
 
-Để đảm bảo hiệu năng đọc cực lớn (Read-Heavy), database SQL Server sẽ lưu trữ dữ liệu từ điển canonical thông qua các bảng được tối ưu hóa chỉ mục (Indexes) bằng công cụ SSMS:
-
-```sql
--- 1. Bảng lưu mục từ vựng gốc (JMdict Entry)
-CREATE TABLE jmdict_entries (
-    id INT IDENTITY(1,1) PRIMARY KEY,
-    sequence_id INT NOT NULL UNIQUE, -- ID canonical từ upstream JMdict
-    created_at DATETIME2 DEFAULT GETUTCDATE()
-);
-CREATE NONCLUSTERED INDEX idx_jmdict_seq ON jmdict_entries(sequence_id);
-
--- 2. Bảng lưu các dạng viết (Orthography/Kanji)
-CREATE TABLE jmdict_written_forms (
-    id INT IDENTITY(1,1) PRIMARY KEY,
-    entry_id INT NOT NULL FOREIGN KEY REFERENCES jmdict_entries(id),
-    value NVARCHAR(100) NOT NULL, -- Ví dụ: 食べる, 漢字
-    is_primary BIT NOT NULL DEFAULT 0,
-    CONSTRAINT fk_written_entry FOREIGN KEY (entry_id) REFERENCES jmdict_entries(id) ON DELETE CASCADE
-);
-CREATE NONCLUSTERED INDEX idx_written_val ON jmdict_written_forms(value);
-
--- 3. Bảng lưu các cách đọc (Readings/Kana)
-CREATE TABLE jmdict_readings (
-    id INT IDENTITY(1,1) PRIMARY KEY,
-    entry_id INT NOT NULL,
-    value NVARCHAR(100) NOT NULL, -- Ví dụ: たべる, かんじ
-    is_primary BIT NOT NULL DEFAULT 0,
-    CONSTRAINT fk_reading_entry FOREIGN KEY (entry_id) REFERENCES jmdict_entries(id) ON DELETE CASCADE
-);
-CREATE NONCLUSTERED INDEX idx_reading_val ON jmdict_readings(value);
-
--- 4. Bảng lưu các nét nghĩa (Senses) phân tách theo ngôn ngữ
-CREATE TABLE jmdict_senses (
-    id INT IDENTITY(1,1) PRIMARY KEY,
-    entry_id INT NOT NULL,
-    language_code VARCHAR(10) NOT NULL DEFAULT 'vi', -- 'vi' hoặc 'en' [REQ P-02]
-    gloss NVARCHAR(MAX) NOT NULL, -- Nghĩa dịch phân tách bằng dấu chấm phẩy
-    pos_tags VARCHAR(255) NULL, -- Các nhãn từ loại (dạng chuỗi)
-    CONSTRAINT fk_sense_entry FOREIGN KEY (entry_id) REFERENCES jmdict_entries(id) ON DELETE CASCADE
-);
-CREATE NONCLUSTERED INDEX idx_sense_lang ON jmdict_senses(entry_id, language_code);
-```
+> **Database chính thức:** PostgreSQL 16 (ARCH-005), quản lý bằng EF Core Migrations (ARCH-007).
+>
+> Schema conceptual trong bản draft v0.1.0 này đã được **supersede** bởi thiết kế chính thức.
+> Tham khảo các tài liệu sau:
+>
+> | Tài liệu | Vị trí |
+> |---|---|
+> | Schema Overview | [`docs/database/schema-overview.md`](../../../docs/database/schema-overview.md) |
+> | Schema DBML | [`docs/database/schema.dbml`](../../../docs/database/schema.dbml) |
+> | Domain Entities | [`src/domain/Entities/`](../../../src/domain/Entities/) |
+> | EF Core Configurations | [`src/infra/Persistence/Configurations/`](../../../src/infra/Persistence/Configurations/) |
+>
+> Các bảng chính liên quan đến Dictionary Lookup: `dictionary_entries`, `written_forms`, `readings`,
+> `dictionary_senses`, `localized_glosses`, `sense_applicabilities`.
 
 --------------------------------------------------------------------------------
 
@@ -126,7 +98,7 @@ CREATE NONCLUSTERED INDEX idx_sense_lang ON jmdict_senses(entry_id, language_cod
 *   **EARS[Unwanted]:** WHERE từ khóa `q` không tìm thấy bất kỳ kết quả khớp nào trong cơ sở dữ liệu, 
     **THE system SHALL** trả về mã trạng thái **HTTP 200 OK** với một danh sách rỗng `[]` để tránh làm vỡ giao diện popup và giảm thiểu logic xử lý biệt lệ không cần thiết ở Frontend client.
 
-*   **EARS[Unwanted]:** WHERE kết nối đến SQL Server bị mất hoặc truy vấn bị quá thời gian (Timeout > 5 giây) [REQ PERF-004], 
+*   **EARS[Unwanted]:** WHERE kết nối đến PostgreSQL bị mất hoặc truy vấn bị quá thời gian (Timeout > 5 giây) [REQ PERF-004], 
     **THE system SHALL** trả về mã lỗi **HTTP 503 Service Unavailable** [MIGRATION 9.9], tự động ghi log lỗi chi tiết kèm `request_id` lên hệ thống giám sát và hiển thị thông điệp an toàn cho người dùng:
     ```json
     {
@@ -161,6 +133,6 @@ CREATE NONCLUSTERED INDEX idx_sense_lang ON jmdict_senses(entry_id, language_cod
 
 Để hoàn tất quy trình SDD Pha 1 và chính thức "khóa" bản đặc tả này lên phiên bản v1.0.0, bạn vui lòng cho tôi xin ý kiến phản hồi về **3 câu hỏi lớn** sau đây:
 
-1.  **Về Cấu trúc Dữ liệu nghĩa dịch (Senses):** Trong database canonical JMdict, một từ có thể có rất nhiều nét nghĩa và mỗi nghĩa lại tương ứng với các từ loại (nouns, verbs) khác nhau. Đối với MVP, chúng ta có nên **gộp chung (collapse)** tất cả các nét nghĩa dịch thành một chuỗi duy nhất để Frontend dễ hiển thị, hay **giữ nguyên phân cấu trúc dạng mảng (Array of Senses)** để sau này làm tính năng lưu từ vựng (My Vocabulary) có thể chọn lưu cụ thể nét nghĩa mong muốn? *(Khuyến nghị: Giữ cấu trúc dạng mảng để bảo vệ tính toàn vẹn dữ liệu [REQ 73]).*
+1.  **~~Về Cấu trúc Dữ liệu nghĩa dịch (Senses):~~** ĐÃ GIẢI QUYẾT — REQUIREMENT.md §6 Clarification 2026-08-18 chốt giữ cấu trúc phân tách: `Dictionary Sense` (language-neutral) → `Localized Gloss` (theo language tag). Schema đã implement tại `dictionary_senses` + `localized_glosses` + `sense_applicabilities`.
 2.  **Về API Versioning:** API Endpoint trong spec này tôi đang để tạm là `/api/v2/dictionary/lookup`. Bạn có muốn tuân thủ đúng chuẩn API-First của Hiến pháp là cấu hình định dạng API theo tiền tố `/api/v2/...` hay đổi sang một quy ước định tuyến khác?
 3.  **Về Thư viện Tokenizer Sidecar:** Ở bước tra cứu từ biến đổi (Deinflection - Mục 3.2), .NET Backend sẽ gọi sang một Sidecar API để bóc tách từ loại. Bạn có dự định dựng Sidecar này bằng ngôn ngữ nào (Go hay Python) và sử dụng tokenizer nào (MeCab, Sudachi hay IPADIC) cho môi trường Dev cục bộ trước? *(Khuyến nghị: Go + Sudachi/MeCab vì cực nhẹ và khởi chạy container tức thời dưới 1 giây [MIGRATION 8.2]).*

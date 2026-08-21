@@ -129,3 +129,8 @@ Mã nguồn Backend trong thư mục `src/` bắt buộc phải tuân thủ nghi
 *   `AGENTS.md` là nguồn có thẩm quyền hiện hành cho tech stack: .NET 10, React 19 và PostgreSQL 16.
 *   Project Memory đã loại bỏ SQL Server/SQLite khỏi baseline hiện hành. ADR-002 và các feature spec cũ còn tham chiếu SQL Server/SQLite được ghi nhận là artifact cần supersede hoặc cập nhật qua một nhiệm vụ tài liệu riêng.
 *   Product Requirements được chuẩn hóa theo hướng mỗi hành vi có một requirement ID canonical; các phần scope, journey, Definition of Done và roadmap chỉ tham chiếu ID để tránh nhiều nguồn sự thật.
+
+### 2026-08-21 — API Contract Documentation Baseline
+
+*   Theo chỉ đạo của project owner, contract API MVP mới dùng prefix `/api/` và không version trong URL. Yêu cầu versioned contracts (`API-002`) vẫn được giữ bằng metadata/header contract; cơ chế compatibility chính xác được ghi là proposed cho tới khi feature SPEC phê duyệt.
+*   Endpoint Dictionary Lookup hiện có nằm ngoài scope của baseline này và không bị sửa đổi. `docs/api/mvp-api-contract.md` phân tách requirements đã chốt với HTTP/API shapes đề xuất, để tài liệu không bị hiểu nhầm là runtime contract đã triển khai.

@@ -1,7 +1,7 @@
 # Database Schema Overview — JP Reading Platform V2
 
 > **Database:** PostgreSQL 16 | **Schema Management:** EF Core Migrations (ARCH-007)
-> **Tổng cộng:** 17 bảng / 5 nhóm nghiệp vụ
+> **Tổng cộng:** 18 bảng / 5 nhóm nghiệp vụ
 
 ---
 
@@ -32,7 +32,7 @@ Nhóm trung tâm chứa toàn bộ dữ liệu từ điển canonical — là n�
 |---|---|
 | `grammar_rules` | Canonical grammar pattern (ví dụ `～ている`). Meaning inline (`meaning_vi`, `meaning_en`) vì chỉ ~100 rules. `matcher_metadata JSONB` linh hoạt cho engine phát hiện pattern (OD-008). `examples JSONB` chứa ví dụ có cấu trúc. Grammar knowledge là versioned data tách khỏi matching engine (GRM-005). |
 
-### 1.4 Knowledge Operations (6 bảng)
+### 1.4 Knowledge Operations (7 bảng)
 
 Nhóm quản lý provenance, phiên bản và quy trình import dữ liệu ngôn ngữ.
 
@@ -41,7 +41,8 @@ Nhóm quản lý provenance, phiên bản và quy trình import dữ liệu ngô
 | `source_manifests` | Metadata provenance của một dataset release (ví dụ: JMdict v2026-08, KANJIDIC2 v2026). Ghi nhận publisher, version, license, checksum, pipeline version (DATA-001). |
 | `source_records` | Từng record gốc trong một manifest. `record_data JSONB` giữ nguyên dữ liệu upstream. `source_identity` là upstream ID (ví dụ JMdict `ent_seq`). |
 | `editorial_mappings` | Quyết định editorial liên kết source record với canonical resource. Polymorphic FK qua `target_resource_type` + `target_resource_id`. Mapping phải được review — không tự suy ra từ form/reading trùng (ID-004). |
-| `knowledge_releases` | Snapshot immutable đã được validate và publish. `is_current` có partial unique index đảm bảo chỉ **1 release** là current tại mọi thời điểm (DATA-005). |
+| `knowledge_releases` | Candidate/published snapshot. Published row bị PostgreSQL trigger chặn UPDATE/DELETE; structural publication yêu cầu ít nhất một manifest membership (DATA-005). DATA-001 validation/approval gate chưa được triển khai trong schema này. |
+| `current_knowledge_release` | Singleton pointer tới published release hiện hành. Tách current-status khỏi snapshot; trigger chỉ cho phép đổi trong controlled-publication transaction và không cho xóa pointer. |
 | `knowledge_release_manifests` | Bảng trung gian M:N giữa release và manifest. `ON DELETE RESTRICT` cho manifest để ngăn xóa manifest đang thuộc release đã publish. |
 | `resource_revisions` | Snapshot dữ liệu của một canonical resource trong một release. `revision_data JSONB` chứa facts tại thời điểm publish. Immutable sau khi publish (ID-006). |
 
@@ -67,7 +68,8 @@ source_manifests   (1) ──→ (N) source_records        CASCADE
 source_records     (1) ──→ (N) editorial_mappings    CASCADE
 source_records     (1) ──→ (N) localized_glosses     SET NULL
 knowledge_releases (M) ←──→ (N) source_manifests     via knowledge_release_manifests
-knowledge_releases (1) ──→ (N) resource_revisions    CASCADE
+current_knowledge_release (1) ──→ (1) knowledge_releases RESTRICT
+knowledge_releases (1) ──→ (N) resource_revisions    RESTRICT
 users              (1) ──→ (N) user_external_logins  CASCADE
 users              (1) ──→ (N) learning_references   CASCADE
 ```
@@ -78,7 +80,9 @@ users              (1) ──→ (N) learning_references   CASCADE
 
 | Loại | Bảng | Constraint | Mục đích |
 |---|---|---|---|
-| Partial Unique | `knowledge_releases` | `WHERE is_current = TRUE` | Chỉ 1 release là current |
+| Singleton + FK | `current_knowledge_release` | `singleton_id = 1`, unique `release_id` | Tối đa một current pointer, chỉ trỏ tới release tồn tại |
+| Trigger | `current_knowledge_release` | controlled transaction + target `published_at IS NOT NULL` | Draft/thao tác ngoài publication không thể đổi current; pointer không thể bị xóa |
+| Trigger + row lock | release/revisions/manifests | serialize child write với publish; block mutation after publish | Published snapshot không thể sửa/xóa hoặc thêm/bớt child, kể cả transaction cạnh tranh |
 | Partial Unique | `learning_references` | `WHERE deleted_at IS NULL` | Không duplicate active items (LEARN-007) |
 | CHECK | `localized_glosses` | `language_tag IN ('vi','en')` | Chỉ chấp nhận 2 ngôn ngữ MVP |
 | CHECK | `grammar_rules` | `jlpt_level IN ('N5'...'N1')` | Validate JLPT level |

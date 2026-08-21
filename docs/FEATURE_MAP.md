@@ -222,7 +222,7 @@ Người học tiếng Nhật khi đọc văn bản thực tế phải chuyển 
 * **Goal**: Quy trình nạp, kiểm thử, quản lý phiên bản và publish dữ liệu ngôn ngữ (JMdict, KANJIDIC2, Grammar) đảm bảo tính tái lập và nguồn gốc (provenance).
 * **Actor**: Data Operator, System.
 * **Trigger**: Khi chuẩn bị phát hành bản cập nhật dữ liệu từ điển/ngữ pháp mới.
-* **Main flow**: Thu thập dataset gốc kèm metadata provenance → Chạy pipeline ETL tái lập → Validate schema & constraint → Lưu trữ `source_manifests` & `source_records` → Tạo `knowledge_releases` snapshot immutable → Publish bản mới (cập nhật `is_current = TRUE`).
+* **Main flow**: Thu thập dataset gốc kèm metadata provenance → Chạy pipeline ETL tái lập → Validate schema & constraint → Lưu trữ `source_manifests` & `source_records` → Tạo `knowledge_releases` snapshot immutable → Publish bản mới và chuyển singleton pointer `current_knowledge_release`.
 * **Constraints**: Phải ghi nhận checksum, license, version (DATA-001); không phụ thuộc dataset thương mại đóng (DATA-002); pipeline phải reproducible (DATA-003); bản publish là immutable (DATA-005).
 * **MVP Status**: **Must** (DATA-001–DATA-005).
 
@@ -348,7 +348,7 @@ Người học tiếng Nhật khi đọc văn bản thực tế phải chuyển 
   3. Chạy pipeline chuyển đổi dữ liệu chuẩn hóa, ghi log các record bị từ chối (nếu có).
   4. Đưa dữ liệu vào snapshot `knowledge_releases`.
   5. Tiến hành kiểm thử tự động về tính toàn vẹn dữ liệu.
-  6. Đánh dấu cờ `is_current = TRUE` để đưa phiên bản dữ liệu mới vào vận hành.
+  6. Chuyển `current_knowledge_release` sang published release mới trong cùng transaction để đưa phiên bản dữ liệu vào vận hành mà không sửa snapshot cũ.
 * **Postconditions**: Hệ thống Backend tra cứu dữ liệu mới mà không làm vỡ các ID canonical đã lưu của người dùng.
 
 ---

@@ -158,3 +158,10 @@ Mã nguồn Backend trong thư mục `src/` bắt buộc phải tuân thủ nghi
 
 *   Compose no longer contains database credentials. Actual local PostgreSQL configuration is stored only in ignored `.env`; Compose requires every database variable, binds PostgreSQL to localhost, and has a readiness healthcheck.
 *   The existing PostgreSQL volume was preserved while the database role password was rotated to the local secret. Compose validation, TCP authentication using the new secret, and the PostgreSQL Testcontainers migration test passed.
+
+### 2026-08-21 — Knowledge Release Structural Immutability
+
+*   Current-status is stored in the singleton `current_knowledge_release` pointer rather than on a release row. Controlled publication can therefore switch current facts without mutating the previous published snapshot.
+*   Published release metadata, resource revisions and release-manifest memberships are protected by PostgreSQL triggers, restrictive foreign keys and per-release transaction locks. A transaction-local guard rejects ordinary direct mutations outside the internal publication path; this is not a substitute for the deferred runtime DB-role/operator authorization boundary.
+*   The internal publication use case and EF transaction publish a candidate and switch the pointer atomically after verifying Source Manifest membership. PostgreSQL Testcontainers cover immutability, draft/direct-SQL rejection, pointer switching/deletion, transaction rollback/retry, child-write concurrency and upgrade backfill from the original `is_current` column.
+*   This is structural immutability for the modeled release boundary, not the DATA-001 validation/approval pipeline. Full DATA-005 snapshot coverage for SourceManifest metadata, SourceRecord and EditorialMapping remains a separate design decision because mappings do not yet carry a ReleaseId.

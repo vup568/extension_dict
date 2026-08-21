@@ -1,0 +1,6 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <ItemGroup>
+    <ProjectReference Include="..\usecase\Application.csproj" />
+    <ProjectReference Include="..\infra\Infrastructure.csproj" />
+  </ItemGroup>
+</Project>

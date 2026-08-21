@@ -174,3 +174,44 @@ Thiết kế Logical Database Schema tổng thể cho PostgreSQL 16, ánh xạ c
 - [x] Validate Globality, Evidence, Prematurity, Authority và Future freedom.
 - [x] Đổi title sang `Project Design Principles` để tránh nhầm với `.sdd/constitution.md`.
 - [x] Làm rõ project-level governance principles nằm ngoài feature-decision taxonomy, không tạo category thứ tư.
+
+---
+
+## Current Task — Ratify PRD and Platform Foundation (2026-08-21)
+
+- [x] Receive Product Owner approvals for MVP scope, technical baseline, and deferred-decision gates.
+- [x] Reconcile the PRD, API baseline, feature map, and roadmap after removing Export from MVP.
+- [x] Record Product Owner `VuPM`, approval date `2026-08-21`, and the approved/deferred decision status.
+- [x] Promote the Platform Foundation specification after the consistency review.
+- [x] Validate the resulting authority, scope, traceability, and links; record the ratification in Project Memory.
+
+---
+
+## Current Task — Align Database Governance Baseline (2026-08-21)
+
+- [x] Confirm the approved PostgreSQL/Testcontainers baseline and identify conflicting ADR-002/global constraints.
+- [x] Receive Product Owner direction to rewrite ADR-002 in place rather than create a replacement ADR.
+- [x] Rewrite ADR-002 for PostgreSQL 16, Npgsql EF Core Migrations and PostgreSQL Testcontainers.
+- [x] Synchronize global constraints, PRD alignment notes, API contract and Project Memory.
+- [x] Validate that no SQL Server/SQLite runtime or integration-test baseline remains in the governed documents.
+
+---
+
+## Current Task — Buildable .NET Foundation (2026-08-21)
+
+- [x] Verify .NET 10 SDK is available locally and approve the scaffold scope plus NuGet dependencies.
+- [x] Add solution, Clean Architecture project manifests, local EF CLI tooling and central package versions.
+- [x] Restore dependencies and prove the solution builds on .NET 10.
+- [x] Generate the initial PostgreSQL EF Core migration from the existing model.
+- [x] Execute unit tests and PostgreSQL Testcontainers integration test after Docker is available.
+
+### Issues Encountered
+
+- Resolved: Docker Desktop is available. The Testcontainers integration test passed on 2026-08-21; the sandbox alone cannot access the Docker named pipe, so that verification was run with the required local Docker permission.
+
+## Current Task — Secure Local PostgreSQL Compose Configuration (2026-08-21)
+
+- [x] Inspect the existing PostgreSQL container and persistent volume before credential rotation.
+- [x] Move actual local PostgreSQL credentials into ignored .env and remove all committed credentials.
+- [x] Rotate the existing PostgreSQL role without deleting the persistent volume.
+- [x] Validate the Compose configuration, healthcheck and secret hygiene.

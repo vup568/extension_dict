@@ -14,8 +14,14 @@ data/
 # Editor / OS noise
 .DS_Store
 Thumbs.db
+.env
 *.local
 *.log
+
+# .NET build output
+**/bin/
+**/obj/
+TestResults/
 
 # Local reference material (not part of the V2 source baseline)
 spec-driven-&-agent-driven-development.pdf

@@ -10,7 +10,7 @@
 
 | Document | Path | Role | Version/Status |
 |---|---|---|---|
-| **REQUIREMENT.md** | `REQUIREMENT.md` | Product behavior & scope authority | v2.1.0-draft, Pending Re-approval |
+| **REQUIREMENT.md** | `REQUIREMENT.md` | Product behavior & scope authority | v2.1.0, Approved 2026-08-21 |
 | **AGENTS.md** | `AGENTS.md` | Approved engineering baseline & execution protocol | Active (v2.0.0) |
 | **SDD.md** | `SDD.md` | Project Memory — ADR, Lessons Learned | Active |
 | **MIGRATION_DECISION.md** | `MIGRATION_DECISION.md` | Legacy asset disposition authority | v1.0.0 Approved (Updated §19) |
@@ -210,13 +210,13 @@ Người học tiếng Nhật khi đọc văn bản thực tế phải chuyển 
 * **Constraints**: Không chứa dữ liệu đã bị soft-delete (REV-001); ẩn đáp án trước khi người dùng chủ động xem (REV-002); **KHÔNG** phụ thuộc vào thuật toán SRS phức tạp trong MVP (REV-004).
 * **MVP Status**: **Must** (REV-001, REV-002, REV-004), **May** (REV-003 tùy chọn nút Đã biết/Chưa biết).
 
-### F-19: Export to Anki / Quizlet
+### F-19: Export to Anki / Quizlet (Post-MVP)
 * **Goal**: Xuất dữ liệu từ vựng/ngữ pháp đã lưu ra định dạng CSV/TSV chuẩn để import vào Anki/Quizlet.
 * **Actor**: Authenticated Learner.
 * **Trigger**: Người dùng nhấn "Xuất dữ liệu Anki/Quizlet" trên Web App.
 * **Main flow**: Chọn danh sách cần xuất → Hệ thống tạo file UTF-8 CSV/TSV với các cột được format chuẩn (Front, Back, Reading, Example) → Trả về file tải xuống.
-* **Constraints**: Định dạng UTF-8 mã hóa chuẩn xác chữ tiếng Nhật và tiếng Việt (EXP-004); không tự động sync 2 chiều với Anki (EXP-005); hoạt động độc lập không cần liên kết tài khoản Anki (EXP-001).
-* **MVP Status**: **Must** (EXP-001–EXP-005).
+* **Constraints**: Định dạng UTF-8 mã hóa chuẩn xác chữ tiếng Nhật và tiếng Việt (EXP-004); MVP không tự động sync 2 chiều với Anki/Quizlet (EXP-005); hoạt động độc lập không cần liên kết tài khoản Anki (EXP-001).
+* **Release Status**: **Post-MVP** (EXP-001–EXP-004); cần Export SPEC riêng và quyết định `OD-007` trước implementation.
 
 ### F-20: Knowledge Operations & Data Pipeline
 * **Goal**: Quy trình nạp, kiểm thử, quản lý phiên bản và publish dữ liệu ngôn ngữ (JMdict, KANJIDIC2, Grammar) đảm bảo tính tái lập và nguồn gốc (provenance).
@@ -327,7 +327,7 @@ Người học tiếng Nhật khi đọc văn bản thực tế phải chuyển 
   4. Người dùng nhấn "Tiếp theo" để chuyển thẻ.
 * **Postconditions**: Người dùng củng cố lại kiến thức đã lưu một cách nhanh chóng.
 
-### UC-08: Export Learning Data to Anki / Quizlet
+### UC-08: Export Learning Data to Anki / Quizlet (Post-MVP)
 * **Actor**: Authenticated Learner
 * **Preconditions**: Người dùng có danh sách từ vựng/ngữ pháp trong kho cá nhân.
 * **Trigger**: Người dùng nhấn nút "Xuất Anki (CSV)" trên trang quản lý.
@@ -379,7 +379,7 @@ F-13 (Authentication) ──→ Auth Provider (OD-002)
   ├→ F-16 (My Vocabulary) ──→ F-14
   ├→ F-17 (My Grammar) ──→ F-15
   ├→ F-18 (Quick Review) ──→ F-16, F-17
-  └→ F-19 (Export) ──→ F-16, F-17
+   └→ F-19 (Export, Post-MVP) ──→ F-16, F-17
 
 F-20 (Knowledge Operations) ──→ Tiền đề dữ liệu cho F-06, F-07, F-08
 F-21 (Shared API Contracts) ──→ Tiền đề hạ tầng giao tiếp client-backend
@@ -393,14 +393,15 @@ F-22 (Reliability/Operations) ──→ Hạ tầng bảo mật & an toàn hệ 
 | **Extension Reading Flow** | F-01 → F-02 → F-03 → F-04 → F-05 → (F-06 / F-07 / F-08 / F-09) → F-10 | UC-01, UC-02 |
 | **Save Vocabulary Flow** | F-06 → F-13 (Auth check) → F-14 → F-16 | UC-03 |
 | **Save Grammar Flow** | F-08 → F-13 (Auth check) → F-15 → F-17 | UC-04 |
-| **Web Learning & Export** | F-11 → F-14/F-15 → F-16/F-17 → F-18 → F-19 | UC-05, UC-07, UC-08 |
+| **Web Learning** | F-11 → F-14/F-15 → F-16/F-17 → F-18 | UC-05, UC-07 |
+| **Post-MVP Export** | F-16/F-17 → F-19 | UC-08 |
 | **Knowledge Publish Flow** | F-20 (Vận hành độc lập ở Backend) | UC-09 |
 
 ---
 
 ## 6. MVP Feature Scope Summary
 
-Tất cả 22 tính năng trên đều nằm trong phạm vi **MVP (Minimum Viable Product)** đã được phê duyệt chính thức theo `REQUIREMENT.md` §7.1. 
+Mọi feature trừ F-19 nằm trong phạm vi **MVP (Minimum Viable Product)** đã được phê duyệt chính thức theo `REQUIREMENT.md` §7.1. F-19 là Post-MVP.
 
 | Nhóm chức năng | Danh sách Features trong MVP |
 |---|---|
@@ -408,7 +409,8 @@ Tất cả 22 tính năng trên đều nằm trong phạm vi **MVP (Minimum Viab
 | **Linguistic Backend** | F-06 (Vocabulary), F-07 (Kanji), F-08 (Grammar N5-N4), F-09 (Conjugation) |
 | **Services & Ops** | F-10 (Translation), F-20 (Knowledge Ops), F-21 (Shared API), F-22 (Operations & Security) |
 | **Web Application** | F-11 (Web Search), F-12 (Grammar Library) |
-| **Auth & Learning** | F-13 (Auth), F-14 (Save Vocab), F-15 (Save Grammar), F-16 (My Vocab), F-17 (My Grammar), F-18 (Quick Review), F-19 (Anki Export) |
+| **Auth & Learning** | F-13 (Auth), F-14 (Save Vocab), F-15 (Save Grammar), F-16 (My Vocab), F-17 (My Grammar), F-18 (Quick Review) |
+| **Post-MVP** | F-19 (Anki / Quizlet Export) |
 
 ---
 
@@ -424,7 +426,7 @@ Dưới đây là danh sách 20 điểm mâu thuẫn / câu hỏi mở đã đư
 | 4 | **OD-004** | Ngưỡng Rate-Limit chính thức & vòng đời định danh ẩn danh | An toàn hệ thống cho F-22 |
 | 5 | **OD-005** | Profiling Benchmark & Latency SLO chính thức (P95 ≤ 800ms) | Tiêu chuẩn nghiệm thu Backend |
 | 6 | **OD-006** | Chọn công nghệ Caching (Redis/Memory), TTL & quy tắc cache invalidation | Tối ưu hiệu năng Backend cho F-22 |
-| 7 | **OD-007** | Định dạng chi tiết các cột khi Export ra Anki / Quizlet | **Blocker hoàn thiện F-19** |
+| 7 | **OD-007** | Định dạng chi tiết các cột khi Export ra Anki / Quizlet | **Blocker Post-MVP F-19** |
 | 8 | **OD-008** | Cấu trúc Matcher Metadata & chiến lược cắt câu an toàn (Safe Sentence Boundary) | Độ chính xác nhận diện ngữ pháp (F-08) |
 | 9 | **OD-009** | Đánh giá bản quyền & chất lượng tập dữ liệu nghĩa dịch Việt (FVDP/OVDP) | Ảnh hưởng chất lượng nghĩa dịch (F-06) |
 | 10 | **OD-010** | Ngôn ngữ & Thư viện cho Tokenizer Sidecar (Go/Python, Sudachi/MeCab) | **Blocker triển khai Deinflection (F-06, F-08, F-09)** |
@@ -463,7 +465,7 @@ Dưới đây là danh sách 20 điểm mâu thuẫn / câu hỏi mở đã đư
 | **F-16** | My Vocabulary | Learner, Web App | UC-03 | **Must** | LEARN-004, LEARN-006, LEARN-008 |
 | **F-17** | My Grammar | Learner, Web App | UC-04 | **Must** | LEARN-005, LEARN-006, LEARN-008 |
 | **F-18** | Quick Review | Learner, Web App | UC-07 | **Must** | REV-001–004 |
-| **F-19** | Export to Anki / Quizlet | Learner | UC-08 | **Must** | EXP-001–005 |
+| **F-19** | Export to Anki / Quizlet | Learner | UC-08 | **Post-MVP** | EXP-001–004 |
 | **F-20** | Knowledge Operations | Data Operator, Backend | UC-09 | **Must** | DATA-001–005 |
 | **F-21** | Shared API Contracts | All Clients & Backend | Tất cả UCs | **Must** | API-001–004 |
 | **F-22** | Reliability & Operations | Backend, System Ops | Tất cả UCs | **Must** | NET, RATE, CACHE, PRIV, SEC |

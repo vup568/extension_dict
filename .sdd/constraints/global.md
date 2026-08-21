@@ -1,5 +1,5 @@
 # .sdd/constraints/global.md — Ràng buộc Kỹ thuật Toàn cục (Global Constraints)
-# Phiên bản: 1.0.0 | Cập nhật: 2026-08-17 | Trách nhiệm: Tech Lead
+# Phiên bản: 1.1.0 | Cập nhật: 2026-08-21 | Trách nhiệm: Tech Lead
 # Áp dụng cho: Mọi AI Agent, Mọi Developer, Hệ thống CI/CD, Môi trường Thực thi
 
 ## 1. TECHNOLOGY STACK (Hệ công nghệ Cố định)
@@ -9,8 +9,8 @@ Hệ thống **JP Reading Platform V2** chạy trên các nền tảng kỹ thu�
 *   **Runtime & Ngôn ngữ:** .NET 10 (C# 14) [MIGRATION 13.4, 19].
 *   **Web Framework:** ASP.NET Core Minimal APIs (Không sử dụng Controllers truyền thống cho các REST API mới để tối giản overhead và tối ưu latency) [MIGRATION 13.4].
 *   **Database ORM/Driver:** Entity Framework Core 10 (EF Core) [MIGRATION 13.4].
-*   **Database Thực thi (Dev/Prod):** SQL Server (MSSQL) [ADR-002].
-*   **Database Kiểm thử tích hợp (Integration Test):** SQLite In-Memory [MIGRATION 13.4, ADR-002].
+*   **Database Thực thi (Dev/Prod):** PostgreSQL 16 [ADR-002, ARCH-005].
+*   **Database Kiểm thử tích hợp (Integration Test):** PostgreSQL 16 qua Docker Testcontainers [ADR-002, ARCH-006].
 *   **Caching & Session Storage:** Redis (go-redis tương đương được chuyển dịch sang StackExchange.Redis trong .NET) [MIGRATION 7.2].
 *   **API Documentation:** Microsoft.AspNetCore.OpenApi (Sinh tài liệu OpenAPI/Swagger tích hợp mặc định) [MIGRATION 18 (Step 10), REQ BROWSER-001].
 
@@ -30,8 +30,8 @@ Hệ thống **JP Reading Platform V2** chạy trên các nền tảng kỹ thu�
 AI Agent chỉ được phép sử dụng các thư viện nằm trong danh sách được duyệt dưới đây. Mọi thư viện mới phát sinh bắt buộc phải có giải trình và được Tech Lead ký duyệt [MIGRATION 17, 19].
 
 ### 2.1 Backend (.NET NuGet Packages)
-*   `Microsoft.EntityFrameworkCore.SqlServer` — Provider kết nối SQL Server chính [ADR-002].
-*   `Microsoft.EntityFrameworkCore.Sqlite` — Provider SQLite dùng riêng cho Integration Tests [MIGRATION 13.4].
+*   `Npgsql.EntityFrameworkCore.PostgreSQL` — Provider EF Core cho PostgreSQL, bao gồm EF Core Migrations [ADR-002, ARCH-007].
+*   `Testcontainers.PostgreSql` — Khởi tạo PostgreSQL 16 thật cho database-dependent integration tests [ADR-002, ARCH-006].
 *   `StackExchange.Redis` — Thư viện caching kết nối Redis [MIGRATION 7.2].
 *   `FluentValidation.AspNetCore` — Thư viện validate runtime dữ liệu ở ranh giới hệ thống [MIGRATION 6.12, REQ 60].
 *   `System.Text.Json` — Trình phân giải JSON native của .NET (Không dùng Newtonsoft.Json do tối ưu hiệu năng).
@@ -72,5 +72,5 @@ Sự nhất quán trong cấu trúc code giúp AI hiểu dự án nhanh hơn và
 ---
 
 ## 5. ENVIRONMENT COHERENCE (Môi trường & Đồng bộ)
-*   **Cấu hình biến môi trường:** Mọi connection strings đến SQL Server, Redis, URL của Sidecar Tokenizer, API key của dịch vụ dịch thuật ngoài bắt buộc phải đọc từ file `.env` hoặc `appsettings.json` thông qua cơ chế `IConfiguration` của .NET. **CẤM TUYỆT ĐỐI** nhúng cứng (hardcode) secrets vào mã nguồn [MIGRATION 13.3].
-*   **Đồng bộ DB Schema:** Schema database cho môi trường SQLite dùng để chạy test tự động (`tests/integration/`) phải đồng bộ 100% với schema SQL Server chạy thật trên môi trường Dev/Prod. Không viết code SQL đặc thù của riêng một hệ quản trị DB [MIGRATION 13.4].
+*   **Cấu hình biến môi trường:** Connection string PostgreSQL, Redis, URL Sidecar Tokenizer và API key dịch thuật ngoài phải lấy qua environment variables hoặc secret store, được đọc bằng `IConfiguration`. Không commit secrets hay connection string thật vào source control [ADR-002, SEC-002].
+*   **Đồng bộ DB Schema:** `tests/integration/` phải khởi tạo PostgreSQL 16 bằng Testcontainers, apply cùng EF Core Migrations với runtime và kiểm tra behavior phụ thuộc provider. Provider-specific PostgreSQL SQL/mapping được phép khi cần cho schema đã duyệt [ADR-002, ARCH-006, ARCH-007].

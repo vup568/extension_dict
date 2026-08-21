@@ -227,9 +227,9 @@ function Get-FeaturePathsEnv {
         REPO_ROOT     = $repoRoot
         CURRENT_BRANCH = $currentBranch
         FEATURE_DIR   = $featureDir
-        FEATURE_SPEC  = Join-Path $featureDir 'spec.md'
-        IMPL_PLAN     = Join-Path $featureDir 'plan.md'
-        TASKS         = Join-Path $featureDir 'tasks.md'
+        FEATURE_SPEC  = Join-Path $featureDir 'SPEC.md'
+        IMPL_PLAN     = Join-Path $featureDir 'PLAN.md'
+        TASKS         = Join-Path $featureDir 'TASKS.md'
         RESEARCH      = Join-Path $featureDir 'research.md'
         DATA_MODEL    = Join-Path $featureDir 'data-model.md'
         QUICKSTART    = Join-Path $featureDir 'quickstart.md'

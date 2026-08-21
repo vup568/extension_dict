@@ -2,7 +2,7 @@
 
 **Branch**: `[###-feature-name]` | **Date**: [DATE] | **Spec**: [link]
 
-**Input**: Feature specification from `/specs/[###-feature-name]/spec.md`
+**Input**: Feature specification from `/.sdd/specs/[feat-feature-name]/SPEC.md`
 
 **Note**: This template is filled in by the `$speckit-plan` command; its definition describes the execution workflow.
 
@@ -47,13 +47,13 @@
 ### Documentation (this feature)
 
 ```text
-specs/[###-feature]/
-├── plan.md              # This file ($speckit-plan command output)
+.sdd/specs/[feat-feature]/
+├── PLAN.md              # This file ($speckit-plan command output)
 ├── research.md          # Phase 0 output ($speckit-plan command)
 ├── data-model.md        # Phase 1 output ($speckit-plan command)
 ├── quickstart.md        # Phase 1 output ($speckit-plan command)
 ├── contracts/           # Phase 1 output ($speckit-plan command)
-└── tasks.md             # Phase 2 output ($speckit-tasks command - NOT created by $speckit-plan)
+└── TASKS.md             # Phase 2 output ($speckit-tasks command - NOT created by $speckit-plan)
 ```
 
 ### Source Code (repository root)

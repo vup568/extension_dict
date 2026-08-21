@@ -73,7 +73,7 @@ and commands read the constitution at runtime and are not modified here.
 
 ## Outline
 
-You are updating the project constitution at `.specify/memory/constitution.md`. The active
+You are updating the project constitution at `.sdd/constitution.md`. The active
 constitution scaffold is resolved at command time from `constitution-template` through the Spec Kit
 preset/template resolution stack.
 
@@ -84,7 +84,7 @@ Follow this execution flow:
      before the core template fallback. It MUST succeed before continuing.
    - If it fails, stop and report the resolution error; do not continue with only one contributing
      template layer.
-   - If `.specify/memory/constitution.md` exists, load it as the source of current project-specific
+   - If `.sdd/constitution.md` exists, load it as the source of current project-specific
      values and amendments. Preserve information that is still applicable when applying the newly
      resolved scaffold.
    - If it does not exist, use the resolved template as the initial document.
@@ -121,7 +121,7 @@ Follow this execution flow:
    - Dates ISO format YYYY-MM-DD.
    - Principles are declarative, testable, and free of vague language ("should" → replace with MUST/SHOULD rationale where appropriate).
 
-6. Write the completed constitution back to `.specify/memory/constitution.md` (overwrite).
+6. Write the completed constitution back to `.sdd/constitution.md` (overwrite).
 
 7. Output a final summary to the user with:
    - New version and bump rationale.
@@ -140,7 +140,7 @@ If the user supplies partial updates (e.g., only one principle revision), still 
 
 If critical info missing (e.g., ratification date truly unknown), insert `TODO(<FIELD_NAME>): explanation` and include in the Sync Impact Report under deferred items.
 
-Write only `.specify/memory/constitution.md`; do not create or modify template source files.
+Write only `.sdd/constitution.md`; do not create or modify template source files.
 
 ## Post-Execution Checks
 

@@ -11,13 +11,13 @@ code is added.
 
 ## Authoritative artifacts
 
-- [Product Requirements](docs/REQUIREMENT.md) - approved product scope and
+- [Product Requirements](REQUIREMENT.md) - approved product scope and
   system requirements.
-- [Migration Decision](docs/MIGRATION_DECISION.md) - rules for preserving,
+- [Migration Decision](MIGRATION_DECISION.md) - rules for preserving,
   migrating, reimplementing, investigating, or removing V1 assets.
-- [Project Constitution](.specify/memory/constitution.md) - non-negotiable
+- [Project Constitution](.sdd/constitution.md) - non-negotiable
   engineering and governance principles.
-- [Platform Foundation Spec](specs/001-platform-foundation/spec.md) - current
+- [Platform Foundation Spec](.sdd/specs/feat-platform-foundation/SPEC.md) - current
   specification for the shared V2 foundation.
 
 ## Branches

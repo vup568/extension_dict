@@ -25,7 +25,7 @@
 *   **ADR-002: PostgreSQL 16 + EF Core + PostgreSQL Testcontainers [Ref: AGENTS.md, Section 2]**
     *   *Quyết định hiện hành:* Sử dụng **PostgreSQL 16** làm RDBMS chính và quản lý schema bằng **EF Core Migrations**. Integration Tests chạy với PostgreSQL thật qua **Docker Testcontainers**.
     *   *Lý do:* Dùng cùng database engine cho production và integration test giúp phát hiện khác biệt về kiểu dữ liệu, collation, indexing, transaction và SQL semantics mà SQLite in-memory không thể đại diện đáng tin cậy.
-    *   *Migration note:* `.sdd/rfcs/adr-002-database-choice.md` ngày 2026-08-17 còn ghi SQL Server/SQLite và phải được supersede bằng một ADR được phê duyệt riêng trước khi implementation dựa vào ADR đó.
+*   *Implementation note:* ADR-002, global constraints và feature-spec inheritance đã được đồng bộ trực tiếp ngày 2026-08-21; SQL Server/SQLite không còn là provider được hỗ trợ cho V2 runtime, migrations hoặc integration tests.
 
 *   **ADR-003: Server-Authoritative Analysis & Dictionary Lookup**
     *   *Quyết định:* Chuyển toàn bộ cơ chế tra cứu từ điển (JMdict, Kanjidic2), phân tích từ loại (Morphology/Tokenizer), phân tích biến đổi từ (Conjugation) và phát hiện ngữ pháp từ Client lên Backend.
@@ -127,7 +127,7 @@ Mã nguồn Backend trong thư mục `src/` bắt buộc phải tuân thủ nghi
 ### 2026-08-18 — Đồng bộ baseline tài liệu
 
 *   `AGENTS.md` là nguồn có thẩm quyền hiện hành cho tech stack: .NET 10, React 19 và PostgreSQL 16.
-*   Project Memory đã loại bỏ SQL Server/SQLite khỏi baseline hiện hành. ADR-002 và các feature spec cũ còn tham chiếu SQL Server/SQLite được ghi nhận là artifact cần supersede hoặc cập nhật qua một nhiệm vụ tài liệu riêng.
+*   Project Memory, ADR-002 và global constraints thống nhất PostgreSQL 16, Npgsql EF Core Migrations và PostgreSQL Testcontainers. Không áp dụng dual-provider compatibility cho V2.
 *   Product Requirements được chuẩn hóa theo hướng mỗi hành vi có một requirement ID canonical; các phần scope, journey, Definition of Done và roadmap chỉ tham chiếu ID để tránh nhiều nguồn sự thật.
 
 ### 2026-08-21 — API Contract Documentation Baseline
@@ -140,3 +140,28 @@ Mã nguồn Backend trong thư mục `src/` bắt buộc phải tuân thủ nghi
 *   `DESIGN.md` chốt hướng UI/UX content-first, accessible và low-latency cho Extension/Web, với Accessible & Ethical là reference chính; Flat Design Mobile và Japanese Elegant typography là hai reference phụ. Lựa chọn được xếp hạng theo traceability requirement, không theo aesthetic similarity.
 *   Popup Extension ưu tiên shell tức thời, trạng thái async truthful, linguistic-first result hierarchy, anonymous reading và explicit translation disclosure. Tài liệu loại trừ landing/pricing/testimonial patterns, selected-text history mặc định và hiệu ứng trang trí nặng.
 *   Các token, palette chi tiết, popup positioning, dark mode và navigation model được ghi rõ là design decision mới hoặc open choice; implementation chỉ được chốt trong feature SPEC sau và phải validate accessibility/cross-browser.
+
+### 2026-08-21 — PRD and Platform Foundation Ratification
+
+*   Product Owner **VuPM** approved `REQUIREMENT.md` v2.1.0 on 2026-08-21. Browser Extension and Web Application remain MVP clients; .NET 10/C# 14, React 19/TypeScript/Vite, PostgreSQL 16, EF Core Migrations, PostgreSQL Testcontainers, and the provider-neutral tokenizer sidecar remain the approved technical baseline.
+*   Export to Anki/Quizlet is **Post-MVP** (`EXP-001`–`EXP-004`); automatic bidirectional synchronization remains outside MVP (`EXP-005`). The future Export feature requires a dedicated specification plus `OD-007` before implementation.
+*   `OD-001`–`OD-014` are deferred under controlled gates: Delivery Team prepares evidence or a proposal, and VuPM approves the decision at the documented feature or operational gate.
+*   Database governance alignment completed on 2026-08-21: ADR-002 was rewritten in place by Product Owner direction; PostgreSQL 16, Npgsql EF Core Migrations and PostgreSQL Testcontainers are the single V2 baseline.
+
+### 2026-08-21 — Buildable .NET Foundation
+
+*   `JPReadingPlatform.sln` now contains `Domain`, `Application`, `Infrastructure`, `WebApi`, `UnitTests`, and `IntegrationTests`, all targeting .NET 10/C# 14. References flow inward: Domain ← Application ← Infrastructure ← WebApi; the test projects do not make Domain depend on EF Core.
+*   PostgreSQL persistence uses Npgsql EF Core 10.0.3 with aligned EF Core design tooling 10.0.4. The initial migration is versioned under `src/infra/Persistence/Migrations/`; the EF CLI is pinned as a local tool rather than altering the user global tool.
+*   `dotnet build JPReadingPlatform.sln --no-restore`, the isolated unit suite, and the PostgreSQL Testcontainers migration test passed on 2026-08-21. Persistence is verified against the production database provider locally.
+
+### 2026-08-21 — Local PostgreSQL Secret Hygiene
+
+*   Compose no longer contains database credentials. Actual local PostgreSQL configuration is stored only in ignored `.env`; Compose requires every database variable, binds PostgreSQL to localhost, and has a readiness healthcheck.
+*   The existing PostgreSQL volume was preserved while the database role password was rotated to the local secret. Compose validation, TCP authentication using the new secret, and the PostgreSQL Testcontainers migration test passed.
+
+### 2026-08-21 — Knowledge Release Structural Immutability
+
+*   Current-status is stored in the singleton `current_knowledge_release` pointer rather than on a release row. Controlled publication can therefore switch current facts without mutating the previous published snapshot.
+*   Published release metadata, resource revisions and release-manifest memberships are protected by PostgreSQL triggers, restrictive foreign keys and per-release transaction locks. A transaction-local guard rejects ordinary direct mutations outside the internal publication path; this is not a substitute for the deferred runtime DB-role/operator authorization boundary.
+*   The internal publication use case and EF transaction publish a candidate and switch the pointer atomically after verifying Source Manifest membership. PostgreSQL Testcontainers cover immutability, draft/direct-SQL rejection, pointer switching/deletion, transaction rollback/retry, child-write concurrency and upgrade backfill from the original `is_current` column.
+*   This is structural immutability for the modeled release boundary, not the DATA-001 validation/approval pipeline. Full DATA-005 snapshot coverage for SourceManifest metadata, SourceRecord and EditorialMapping remains a separate design decision because mappings do not yet carry a ReleaseId.

@@ -6,14 +6,15 @@
 |---|---|
 | Product | JP Reading Platform V2 |
 | Document type | Product Requirements Document (PRD) |
-| Version | `2.1.0-draft` |
-| Status | **Draft — Pending Re-approval** |
+| Version | `2.1.0` |
+| Status | **Approved** |
 | Primary language | Vietnamese |
 | Secondary content language | English |
 | MVP clients | Browser Extension và Web Application |
 | MVP browsers | Chrome, Edge, Brave, Firefox |
-| Product owner | TBD |
-| Last updated | 2026-08-18 |
+| Product owner | VuPM |
+| Approval date | 2026-08-21 |
+| Last updated | 2026-08-21 |
 
 ### Change Summary
 
@@ -27,6 +28,7 @@ Phiên bản này tái cấu trúc PRD 2.0.0 nhằm:
 - ghi nhận technical baseline đã được chốt trong `AGENTS.md` thay vì tiếp tục xem là open decision;
 - bổ sung Conceptual Data Model sau năm clarification có tác động cao về sense, canonical identity, nguồn dữ liệu, release và retention;
 - đưa tài liệu về trạng thái chờ Product Owner tái phê duyệt do có thay đổi chuẩn tắc.
+- tái phê duyệt ngày 2026-08-21; Export/Anki/Quizlet interoperability được chuyển khỏi MVP.
 
 ### Document Authority
 
@@ -40,7 +42,7 @@ Phiên bản này tái cấu trúc PRD 2.0.0 nhằm:
 
 ## 1.1 Vision
 
-JP Reading Platform là nền tảng hỗ trợ người học **đọc, hiểu và lưu lại kiến thức tiếng Nhật ngay trong ngữ cảnh thực tế**. Sản phẩm kết hợp một Browser Extension ít gây gián đoạn với Web Application dành cho tra cứu, quản lý nội dung đã lưu, ôn tập nhanh và export.
+JP Reading Platform là nền tảng hỗ trợ người học **đọc, hiểu và lưu lại kiến thức tiếng Nhật ngay trong ngữ cảnh thực tế**. Sản phẩm kết hợp một Browser Extension ít gây gián đoạn với Web Application dành cho tra cứu, quản lý nội dung đã lưu và ôn tập nhanh.
 
 Hệ thống được định vị là **Japanese Reading Assistant + Learning Platform**, không chỉ là một dictionary extension.
 
@@ -57,7 +59,7 @@ Hiểu ngay trong ngữ cảnh
       ↓
 Lưu tài nguyên học tập quan trọng
       ↓
-Ôn tập nhanh hoặc export
+Ôn tập nhanh
 ```
 
 ## 1.3 Product Goals
@@ -73,7 +75,7 @@ Lưu tài nguyên học tập quan trọng
 
 ## 1.4 Non-Goals
 
-MVP không nhằm thay thế hệ thống SRS chuyên dụng, không cung cấp full offline dictionary, không xây chatbot gia sư, không cung cấp mobile app và không đồng bộ hai chiều tự động với Anki hoặc Quizlet.
+MVP không nhằm thay thế hệ thống SRS chuyên dụng, không cung cấp full offline dictionary, không xây chatbot gia sư, không cung cấp mobile app, export sang Anki/Quizlet hoặc đồng bộ hai chiều tự động với Anki hoặc Quizlet.
 
 ## 1.5 Product Principles
 
@@ -127,18 +129,18 @@ Mỗi requirement có một ID duy nhất. Khi requirement thay đổi về ngh�
 | Actor | Type | Mục tiêu / trách nhiệm |
 |---|---|---|
 | Anonymous Reader | Primary user | Đọc, tra cứu, phân tích và dịch mà không cần account |
-| Authenticated Learner | Primary user | Lưu, quản lý, review và export learning resources |
+| Authenticated Learner | Primary user | Lưu, quản lý và review learning resources |
 | Product Owner | Governance | Phê duyệt scope, requirement và quyết định sản phẩm còn mở |
 | Browser Host Page | External system | Cung cấp DOM, selection và page lifecycle cho Extension |
 | Browser Extension | Client system | Tích hợp trang, hiển thị popup và gọi Backend |
-| Web Application | Client system | Tra cứu, quản lý library, review và export |
+| Web Application | Client system | Tra cứu, quản lý library và review |
 | Backend | Authoritative system | Điều phối knowledge, analysis, identity, learning và provider |
 | Translation Provider | External provider | Cung cấp dịch vụ dịch qua boundary do Backend quản lý |
 | Tokenizer Sidecar | External runtime component | Cung cấp tokenization/morphology qua adapter chuẩn hóa |
 | Authentication Provider | External/provider role | Cung cấp capability identity nếu được lựa chọn |
 | Data Operator / Linguistic Editor | Operational actor | Chuẩn bị, kiểm tra, xuất bản và chỉnh sửa linguistic data |
 | System Operator | Operational actor | Vận hành, quan sát, xử lý abuse và incident |
-| Anki / Quizlet | External destination | Nhận dữ liệu do user export; không đồng bộ hai chiều trong MVP |
+| Anki / Quizlet | External destination | Post-MVP: nhận dữ liệu do user export; không đồng bộ hai chiều tự động |
 | Delivery Team | Delivery actor | Triển khai và xác minh các solution constraint đã duyệt |
 
 ---
@@ -200,7 +202,7 @@ Mỗi requirement có một ID duy nhất. Khi requirement thay đổi về ngh�
 | Identity & Access | Reader, Learner | Anonymous reading, shared account identity, authorization | Account linking refinements |
 | Learning Library | Learner | Save/list/delete vocabulary và grammar | Notes, tags, richer organization |
 | Review | Learner | Quick Review, reveal | Advanced SRS, statistics |
-| Export | Learner, Anki/Quizlet | UTF-8 CSV/TSV compatible export | Two-way synchronization |
+| Export | Learner, Anki/Quizlet | — | UTF-8 CSV/TSV compatible export và two-way synchronization |
 | Knowledge Operations | Data Operator | Provenance, reproducible pipeline, controlled data | Additional sources/editorial tooling |
 | Platform/API | Extension, Web, Backend | Shared contracts, validation, structured error | Version lifecycle refinements |
 | Reliability & Safety | All actors | Timeout, stale protection, cache, rate limit, privacy, security | Graceful offline mode |
@@ -285,7 +287,7 @@ Mô hình này xác định business entities, identity, ownership, relationship
 ## 7.1 MVP In Scope
 
 - Browser Extension: selection popup, vocabulary, kanji, grammar, conjugation, on-demand translation, Save Vocabulary và Save Grammar.
-- Web Application: Japanese search/analyze, dictionary, kanji, Grammar Library, translation, My Vocabulary, My Grammar, Quick Review và export.
+- Web Application: Japanese search/analyze, dictionary, kanji, Grammar Library, translation, My Vocabulary, My Grammar và Quick Review.
 - Backend: shared analysis, knowledge services, translation orchestration, authentication boundary, learning persistence, rate limiting, caching và structured API contracts.
 - Linguistic coverage: current reviewed N5–N4 grammar knowledge, JMdict/KANJIDIC2-derived capabilities sau khi đáp ứng provenance/licensing.
 
@@ -294,6 +296,7 @@ Mô hình này xác định business entities, identity, ownership, relationship
 - full N3/N2/N1 grammar corpus;
 - full English UI;
 - notes và tags cho saved resources;
+- export sang Anki hoặc Quizlet;
 - automatic Anki/Quizlet bidirectional synchronization;
 - full offline dictionary hoặc offline translation engine;
 - offline save queue;
@@ -450,10 +453,10 @@ Chi tiết solution design thuộc Constitution, ADR, SPEC và plan. Các constr
 
 | ID | Actor | Release | Priority | Normative statement | Acceptance criteria |
 |---|---|---|---|---|---|
-| EXP-001 | Authenticated Learner | MVP | Must | MVP **SHALL** ưu tiên export compatibility thay vì automatic synchronization. | AC-EXP-001: export flow độc lập external account/linking state. |
-| EXP-002 | Authenticated Learner, Anki | MVP | Must | Learner **SHALL** có thể export selected vocabulary/grammar theo format import được vào Anki. | AC-EXP-002: fixture import thành công theo mapping được phê duyệt tại `OD-007`. |
-| EXP-003 | Authenticated Learner, Quizlet | MVP | Must | Learner **SHALL** có thể export selected vocabulary/grammar theo format import được vào Quizlet. | AC-EXP-003: fixture import thành công theo mapping được phê duyệt tại `OD-007`. |
-| EXP-004 | Authenticated Learner | MVP | Must | Export **SHALL** hỗ trợ UTF-8 CSV hoặc TSV với escaping hợp lệ. | AC-EXP-004: Unicode, quote, delimiter và newline corpus round-trip không làm hỏng Japanese/Vietnamese text. |
+| EXP-001 | Authenticated Learner | Post-MVP | Must | Post-MVP **SHALL** ưu tiên export compatibility thay vì automatic synchronization. | AC-EXP-001: export flow độc lập external account/linking state. |
+| EXP-002 | Authenticated Learner, Anki | Post-MVP | Must | Learner **SHALL** có thể export selected vocabulary/grammar theo format import được vào Anki. | AC-EXP-002: fixture import thành công theo mapping được phê duyệt tại `OD-007`. |
+| EXP-003 | Authenticated Learner, Quizlet | Post-MVP | Must | Learner **SHALL** có thể export selected vocabulary/grammar theo format import được vào Quizlet. | AC-EXP-003: fixture import thành công theo mapping được phê duyệt tại `OD-007`. |
+| EXP-004 | Authenticated Learner | Post-MVP | Must | Export **SHALL** hỗ trợ UTF-8 CSV hoặc TSV với escaping hợp lệ. | AC-EXP-004: Unicode, quote, delimiter và newline corpus round-trip không làm hỏng Japanese/Vietnamese text. |
 | EXP-005 | Anki, Quizlet | MVP | Must | Automatic bidirectional synchronization với Anki/Quizlet **SHALL NOT** nằm trong MVP. | AC-EXP-005: MVP không yêu cầu external sync state, conflict resolution hoặc remote deletion handling. |
 
 ## 9.13 Knowledge and Data Operations
@@ -590,8 +593,7 @@ Các journey là minh họa để liên kết requirement; requirement có ID v�
 
 1. Reader nhập một Japanese sentence theo `WEB-001`.
 2. Web hiển thị shared analysis theo `WEB-002`, `WEB-003`.
-3. Learner lưu vocabulary/grammar, mở library, chạy Quick Review theo `REV-001`, `REV-002`.
-4. Learner export theo `EXP-002` đến `EXP-004`.
+3. Learner lưu vocabulary/grammar, mở library và chạy Quick Review theo `REV-001`, `REV-002`.
 
 ---
 
@@ -606,7 +608,7 @@ Các journey là minh họa để liên kết requirement; requirement có ID v�
 | Web | `WEB-001`–`WEB-005` |
 | Contracts/platform | `ARCH-001`–`ARCH-009`, `API-001`–`API-004` |
 | Authentication/Learning | `AUTH-001`–`AUTH-004`, `LEARN-001`–`LEARN-008` |
-| Review/Export | `REV-001`–`REV-004`, `EXP-001`–`EXP-005` |
+| Review | `REV-001`–`REV-004` |
 | Knowledge/data | `DATA-001`–`DATA-005` |
 | Privacy/operations | `PRIV-001`–`PRIV-006`, `RATE-001`–`RATE-004`, `CACHE-001`–`CACHE-002` |
 | Reliability/performance | `NET-001`–`NET-006`, `PERF-001`–`PERF-004` |
@@ -641,7 +643,8 @@ Acceptance evidence dùng mã AC được định nghĩa cùng requirement; test
 | AUTH-001–AUTH-004 | Reader, Learner, Backend | AC-AUTH-001–AC-AUTH-004 | MVP |
 | LEARN-001–LEARN-008 | Learner, Backend, Web | AC-LEARN-001–AC-LEARN-008 | MVP |
 | REV-001–REV-004 | Learner, Web | AC-REV-001–AC-REV-004 | MVP |
-| EXP-001–EXP-005 | Learner, Anki, Quizlet | AC-EXP-001–AC-EXP-005 | MVP |
+| EXP-001–EXP-004 | Learner, Anki, Quizlet | AC-EXP-001–AC-EXP-004 | Post-MVP |
+| EXP-005 | Anki, Quizlet | AC-EXP-005 | MVP |
 | DATA-001–DATA-005 | Data Operator, Product Owner | AC-DATA-001–AC-DATA-005 | Foundation/MVP |
 | PRIV-001–PRIV-006 | Backend, Operator, Provider | AC-PRIV-001–AC-PRIV-006 | Foundation/MVP |
 | RATE-001–RATE-004 | Backend, Operator | AC-RATE-001–AC-RATE-004 | MVP |
@@ -661,8 +664,8 @@ Roadmap là planning summary và không tạo requirement mới.
 
 | Phase | Nội dung | Requirement references |
 |---|---|---|
-| Phase 1 — MVP | Extension, Web, Backend, N5/N4, Save, Review, Export | MVP references tại mục 11 |
-| Phase 2 — Learning Improvements | offline save queue, cached lookup, notes, tags, review improvements, AnkiConnect exploration | `OFF-001`–`OFF-003`; notes/tags cần SPEC mới |
+| Phase 1 — MVP | Extension, Web, Backend, N5/N4, Save, Review | MVP references tại mục 11 |
+| Phase 2 — Learning Improvements | offline save queue, cached lookup, notes, tags, review improvements, optional export interoperability | `OFF-001`–`OFF-003`; notes/tags và export cần SPEC mới |
 | Phase 3 — Knowledge Expansion | N3, N2, N1, examples, Vietnamese explanations | `GRM-004` và SPEC theo từng knowledge release |
 | Phase 4 — Internationalization | Full English UI, English grammar content | `I18N-003`, `I18N-004` và SPEC riêng |
 | Phase 5 — Advanced Learning | SRS, statistics, personalized review, synchronization | SPEC mới; ngoài scope PRD MVP hiện tại |
@@ -671,58 +674,58 @@ Roadmap là planning summary và không tạo requirement mới.
 
 # 15. Open Decisions
 
-Các mục dưới đây còn mở vì đáp án không thể suy ra an toàn từ product intent hiện có. Mỗi quyết định cần owner và record trước feature gate liên quan.
+Các mục dưới đây được Product Owner phê duyệt để **deferred có kiểm soát** ngày 2026-08-21. Delivery Team chuẩn bị đề xuất/evidence; VuPM phê duyệt quyết định tại blocking gate tương ứng.
 
-| ID | Decision | Tác động | Blocking gate |
-|---|---|---|---|
-| OD-001 | Translation provider cụ thể và fallback strategy | Privacy, cost, quality, latency | Translation production readiness |
-| OD-002 | Authentication provider, session lifecycle, recovery và account-linking flow | AUTH UX, security | Auth feature approval |
-| OD-003 | Shared span convention: UTF-16 code unit, Unicode code point hoặc convention khác | Grammar/client parity | Grammar/API contract freeze |
-| OD-004 | Final rate-limit thresholds và anonymous identifier lifecycle | Abuse, privacy, cost | Production operations approval |
-| OD-005 | Final benchmark profiles và locked SLO thresholds | Performance release gate | MVP performance sign-off |
-| OD-006 | Cache technology, TTL, invalidation và version-key policy | Correctness, operations | Cache implementation plan |
-| OD-007 | Exact Anki/Quizlet field mapping, delimiter default và export template version | Interoperability | Export SPEC approval |
-| OD-008 | Grammar matcher/storage schema và safe sentence-boundary strategy | Linguistic correctness | Grammar SPEC/plan |
-| OD-009 | FVDP/OVDP source, license, redistribution và linking quality | Vietnamese meanings | Production data approval |
-| OD-010 | Tokenizer sidecar implementation language/provider (Go/Python, Sudachi/MeCab hoặc candidate approved khác) | Morphology quality/operations | NLP adapter selection |
-| OD-011 | Shadow DOM open/closed mode và detailed focus/positioning behavior | Accessibility, host integration | Extension UI plan |
-| OD-012 | Quick Review ordering và semantics/persistence của optional `Again`/`Know` | Learning behavior | Review SPEC approval nếu actions được triển khai |
-| OD-013 | Soft-delete retention, restore policy và eventual purge | Privacy, support, data lifecycle | Learning data lifecycle approval |
-| OD-014 | Maximum input/selection/context length và truncation/rejection behavior | Privacy, latency, linguistic correctness | Analysis/API contract freeze |
+| ID | Decision | Tác động | Status | Owner | Blocking gate |
+|---|---|---|---|---|---|
+| OD-001 | Translation provider cụ thể và fallback strategy | Privacy, cost, quality, latency | Deferred | Delivery Team / VuPM | Translation production readiness |
+| OD-002 | Authentication provider, session lifecycle, recovery và account-linking flow | AUTH UX, security | Deferred | Delivery Team / VuPM | Auth feature approval |
+| OD-003 | Shared span convention: UTF-16 code unit, Unicode code point hoặc convention khác | Grammar/client parity | Deferred | Delivery Team / VuPM | Grammar/API contract freeze |
+| OD-004 | Final rate-limit thresholds và anonymous identifier lifecycle | Abuse, privacy, cost | Deferred | Delivery Team / VuPM | Production operations approval |
+| OD-005 | Final benchmark profiles và locked SLO thresholds | Performance release gate | Deferred | Delivery Team / VuPM | MVP performance sign-off |
+| OD-006 | Cache technology, TTL, invalidation và version-key policy | Correctness, operations | Deferred | Delivery Team / VuPM | Cache implementation plan |
+| OD-007 | Exact Anki/Quizlet field mapping, delimiter default và export template version | Interoperability | Deferred | Delivery Team / VuPM | Post-MVP Export SPEC approval |
+| OD-008 | Grammar matcher/storage schema và safe sentence-boundary strategy | Linguistic correctness | Deferred | Delivery Team / VuPM | Grammar SPEC/plan |
+| OD-009 | FVDP/OVDP source, license, redistribution và linking quality | Vietnamese meanings | Deferred | Data Operator / VuPM | Production data approval |
+| OD-010 | Tokenizer sidecar implementation language/provider (Go/Python, Sudachi/MeCab hoặc candidate approved khác) | Morphology quality/operations | Deferred | Delivery Team / VuPM | NLP adapter selection |
+| OD-011 | Shadow DOM open/closed mode và detailed focus/positioning behavior | Accessibility, host integration | Deferred | Delivery Team / VuPM | Extension UI plan |
+| OD-012 | Quick Review ordering và semantics/persistence của optional `Again`/`Know` | Learning behavior | Deferred | Delivery Team / VuPM | Review SPEC approval nếu actions được triển khai |
+| OD-013 | Soft-delete retention, restore policy và eventual purge | Privacy, support, data lifecycle | Deferred | Delivery Team / VuPM | Learning data lifecycle approval |
+| OD-014 | Maximum input/selection/context length và truncation/rejection behavior | Privacy, latency, linguistic correctness | Deferred | Delivery Team / VuPM | Analysis/API contract freeze |
 
 ## 15.1 Document Alignment Issues
 
-Đây không phải product decisions mới nhưng cần được đồng bộ sau khi PRD được tái phê duyệt:
+Đây không phải product decisions mới nhưng cần được đồng bộ sau khi PRD được phê duyệt:
 
-- `SDD.md` đã được đồng bộ sang PostgreSQL 16 + Testcontainers trong lần sửa này; `.sdd/rfcs/adr-002-database-choice.md` và `.sdd/constraints/*` vẫn mô tả SQL Server + SQLite và cần được supersede/cập nhật.
-- `MIGRATION_DECISION.md` vẫn liệt kê backend/frontend/database/ORM là explicit non-decisions, trong khi `AGENTS.md` đã tuyên bố baseline được phê duyệt.
-- `.sdd/specs/feat-dict-lookup/SPEC.md` hiện phụ thuộc SQL Server/SQLite và có performance target riêng; cần reconcile với `ARCH-001` và `PERF-002` trước khi phê duyệt feature spec.
+- `ADR-002`, `.sdd/constraints/global.md`, SDD và feature-spec inheritance đã thống nhất PostgreSQL 16, Npgsql EF Core Migrations và PostgreSQL Testcontainers ngày 2026-08-21. SQL Server/SQLite không thuộc baseline V2.
+- `MIGRATION_DECISION.md` đã ghi PostgreSQL 16 trong resolved decisions; mọi implementation phải tuân theo ADR-002 thay vì dual-provider compatibility.
+- `.sdd/specs/feat-dict-lookup/SPEC.md` đã cùng baseline PostgreSQL/Testcontainers; performance target riêng vẫn cần reconcile với `ARCH-001` và `PERF-002` trước khi phê duyệt feature spec.
 - `.sdd/specs/feat-auth/SPEC.md` hiện rỗng; auth business flows chi tiết chưa được đặc tả.
 
 ---
 
-# 16. Re-approval Gate and Next Steps
+# 16. Approval Record and Next Steps
 
 ## 16.1 Product Owner Checklist
 
-- [ ] Xác nhận product identity là Japanese Reading Assistant + Learning Platform.
-- [ ] Xác nhận Extension và Web đều thuộc MVP.
-- [ ] Xác nhận Vietnamese UI là primary; JP→EN translation bắt buộc; full English UI ngoài MVP.
-- [ ] Xác nhận anonymous reading và authenticated learning persistence.
-- [ ] Xác nhận Save Vocabulary và Save Grammar là hai flow riêng.
-- [ ] Xác nhận notes/tags nằm ở Phase 2, không thuộc MVP.
-- [ ] Xác nhận soft delete user-visible semantics và chấp nhận `OD-013` còn mở.
-- [ ] Xác nhận N5–N4 là grammar coverage MVP sau review corpus.
-- [ ] Xác nhận export là MVP; automatic two-way sync ngoài MVP.
-- [ ] Xác nhận Chrome, Edge, Brave, Firefox là browser targets; Safari ngoài MVP.
-- [ ] Xác nhận on-demand translation và privacy disclosure.
-- [ ] Xác nhận technical baseline `ARCH-001`–`ARCH-009`.
-- [ ] Review toàn bộ Open Decisions và chỉ định owner/mốc giải quyết.
-- [ ] Ghi Product Owner, approval date và chuyển Status sang Approved khi tất cả blocker đã đóng.
+- [x] VuPM xác nhận product identity là Japanese Reading Assistant + Learning Platform.
+- [x] VuPM xác nhận Extension và Web đều thuộc MVP.
+- [x] VuPM xác nhận Vietnamese UI là primary; JP→EN translation bắt buộc; full English UI ngoài MVP.
+- [x] VuPM xác nhận anonymous reading và authenticated learning persistence.
+- [x] VuPM xác nhận Save Vocabulary và Save Grammar là hai flow riêng.
+- [x] VuPM xác nhận notes/tags nằm ở Phase 2, không thuộc MVP.
+- [x] VuPM xác nhận soft delete user-visible semantics và chấp nhận `OD-013` deferred.
+- [x] VuPM xác nhận N5–N4 là grammar coverage MVP sau review corpus.
+- [x] VuPM xác nhận export và Anki/Quizlet synchronization đều ngoài MVP.
+- [x] VuPM xác nhận Chrome, Edge, Brave, Firefox là browser targets; Safari ngoài MVP.
+- [x] VuPM xác nhận on-demand translation và privacy disclosure.
+- [x] VuPM xác nhận technical baseline `ARCH-001`–`ARCH-009`.
+- [x] VuPM review toàn bộ Open Decisions; các mục được deferred với owner và blocking gate tại §15.
+- [x] VuPM được ghi là Product Owner; approval date 2026-08-21; Status là Approved.
 
 ## 16.2 Next Steps After Approval
 
-1. Supersede ADR-002 cũ và đồng bộ `MIGRATION_DECISION.md`, `.sdd/constraints/*` cùng feature specs với baseline đã duyệt.
+1. Duy trì ADR-002 và `.sdd/constraints/*` theo PostgreSQL 16/Npgsql/Testcontainers; rà soát lại khi có thay đổi provider hoặc major database version.
 2. Tạo hoặc cập nhật feature SPEC theo từng domain và ánh xạ AC tới automated/manual evidence.
 3. Giải quyết open decisions trước blocking gate tương ứng.
 4. Chạy consistency analysis giữa PRD, Constitution, Migration Decision, SPEC, PLAN và TASKS trước implementation.

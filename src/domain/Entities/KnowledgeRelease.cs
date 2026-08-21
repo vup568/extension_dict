@@ -15,15 +15,26 @@ public class KnowledgeRelease
 
     public string? Description { get; set; }
 
-    /// <summary>NULL nếu draft, set khi publish.</summary>
-    public DateTime? PublishedAt { get; set; }
-
-    /// <summary>Chỉ một release được đánh dấu current tại một thời điểm.</summary>
-    public bool IsCurrent { get; set; }
+    /// <summary>NULL nếu draft, set đúng một lần khi publish.</summary>
+    public DateTime? PublishedAt { get; private set; }
 
     public DateTime CreatedAt { get; set; }
 
     // Navigation properties
     public ICollection<KnowledgeReleaseManifest> ReleaseManifests { get; set; } = [];
     public ICollection<ResourceRevision> Revisions { get; set; } = [];
+
+    /// <summary>
+    /// EARS[State]: WHILE a Knowledge Release is already published,
+    /// the Backend SHALL reject a second publication transition (DATA-005).
+    /// </summary>
+    public void Publish(DateTime publishedAt)
+    {
+        if (PublishedAt is not null)
+        {
+            throw new InvalidOperationException("The knowledge release is already published.");
+        }
+
+        PublishedAt = publishedAt;
+    }
 }

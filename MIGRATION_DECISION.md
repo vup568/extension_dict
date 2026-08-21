@@ -841,7 +841,7 @@ Include:
 - idempotent Save;
 - duplicate prevention;
 - user/tenant isolation;
-- Unicode-safe CSV/TSV export.
+- Unicode-safe CSV/TSV export regression evidence for a future Post-MVP export capability.
 
 ---
 
@@ -1090,7 +1090,7 @@ The intended high-level migration order is:
 16. Implement translation abstraction.
 17. Implement Web and Extension clients.
 18. Implement authentication and learning persistence.
-19. Implement review/export capabilities.
+19. Implement review capabilities; implement export only in a separately approved Post-MVP feature.
 20. Validate v2 against the approved regression corpus.
 21. Remove obsolete legacy runtime and dependencies.
 22. Replace legacy README documentation.

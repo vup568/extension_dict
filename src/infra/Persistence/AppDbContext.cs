@@ -5,7 +5,7 @@ namespace Infrastructure.Persistence;
 
 /// <summary>
 /// EF Core DbContext chính cho JP Reading Platform V2.
-/// Quản lý toàn bộ 17 bảng PostgreSQL 16 theo ARCH-005, ARCH-007.
+/// Quản lý toàn bộ 18 bảng PostgreSQL 16 theo ARCH-005, ARCH-007.
 /// Fluent API configuration được tách ra từng file IEntityTypeConfiguration riêng.
 /// </summary>
 public class AppDbContext : DbContext
@@ -31,6 +31,7 @@ public class AppDbContext : DbContext
     public DbSet<SourceRecord> SourceRecords => Set<SourceRecord>();
     public DbSet<EditorialMapping> EditorialMappings => Set<EditorialMapping>();
     public DbSet<KnowledgeRelease> KnowledgeReleases => Set<KnowledgeRelease>();
+    public DbSet<CurrentKnowledgeRelease> CurrentKnowledgeRelease => Set<CurrentKnowledgeRelease>();
     public DbSet<KnowledgeReleaseManifest> KnowledgeReleaseManifests => Set<KnowledgeReleaseManifest>();
     public DbSet<ResourceRevision> ResourceRevisions => Set<ResourceRevision>();
 

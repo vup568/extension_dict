@@ -69,7 +69,7 @@ Thiết kế Logical Database Schema tổng thể cho PostgreSQL 16, ánh xạ c
 - **Soft Delete**: `learning_references` dùng `deleted_at TIMESTAMPTZ NULL` + Partial Index (LEARN-008, AGENTS.md §5.4)
 - **Audit columns**: Mọi bảng đều có `created_at`, `updated_at` với trigger auto-update
 - **Multilingual-capable**: `localized_glosses` dùng `language_tag` (vi, en) (I18N-003, I18N-004)
-- **Immutable Knowledge Release**: `knowledge_releases` có `published_at`, `is_current` (DATA-005)
+- **Immutable Knowledge Release**: `knowledge_releases` có `published_at`; singleton `current_knowledge_release` giữ current-status tách khỏi snapshot (DATA-005)
 - **EF Core Migrations**: Output cuối cùng là C# Entities + Fluent API, không phải raw SQL (ARCH-007)
 
 ### Rủi ro đã nhận diện
@@ -85,7 +85,7 @@ Thiết kế Logical Database Schema tổng thể cho PostgreSQL 16, ánh xạ c
 
 ### Phase 1 — Schema Design (Logical Design)
 
-- [x] 1.1 Thiết kế ERD (Mermaid diagram) bao phủ 5 nhóm bảng (17 tables):
+- [x] 1.1 Thiết kế ERD (Mermaid diagram) bao phủ 5 nhóm bảng (now 18 tables):
   - **Knowledge Core** (6): `dictionary_entries`, `written_forms`, `readings`, `dictionary_senses`, `localized_glosses`, `sense_applicabilities`
   - **Kanji** (1): `kanji_records`
   - **Grammar** (1): `grammar_rules`
@@ -102,25 +102,24 @@ Thiết kế Logical Database Schema tổng thể cho PostgreSQL 16, ánh xạ c
 - [x] 2.2 Tạo EF Core DbContext (`AppDbContext.cs`) và 17 Fluent API Configurations trong `src/infra/Persistence/Configurations/`
 - [x] 2.3 Clean Architecture boundary verified: Domain có 0 import EF Core, 0 Data Annotations, 0 using statements ngoài namespace riêng
 - [x] 2.4 Human review hoàn thành — chốt Phase 2 (2026-08-20)
-
 ### Phase 3 — Visualization & Documentation (KHÔNG chỉnh sửa schema)
 
-- [x] 3.1 Generate `docs/database/schema.dbml` — 17 tables, DBML chuẩn cho dbdiagram.io
+- [x] 3.1 Generate `docs/database/schema.dbml` — now 18 tables, DBML chuẩn cho dbdiagram.io
 - [x] 3.2 Generate `docs/database/schema-overview.md` — 5 sections: domains, relationships, constraints, core tables, review points
-- [x] 3.3 Verify DBML khớp schema: 17 DBML tables = 17 DDL tables = 17 Entities = 17 Configurations ✅ zero sai lệch
+- [x] 3.3 Verify DBML khớp schema: now 18 DBML tables = 18 DDL tables = 18 Entities = 18 Configurations ✅ zero sai lệch
 - [x] 3.4 Generate `DATABASE.md` tại root — index file với nguyên tắc thiết kế, liên kết tài liệu, migration strategy
 
 ### Phase 4 — Verification & Traceability (KHÔNG chỉnh sửa schema)
 
-- [ ] 4.1 Cross-check schema với requirement files:
-  - `REQUIREMENT.md` §6 (Conceptual Data Model — Entity Catalog)
-  - `REQUIREMENT.md` §9 (Functional Requirements: ID-*, VOC-*, KAN-*, GRM-*, CONJ-*, TRN-*, AUTH-*, LEARN-*, DATA-*)
-  - `REQUIREMENT.md` §10 (Non-Functional: PRIV-*, SEC-*, I18N-*)
-  - `MIGRATION_DECISION.md` §5 (Assets to Migrate)
-- [ ] 4.2 Lập **Requirement Coverage Matrix**: Mỗi requirement ID có bảng/cột nào phục vụ
-- [ ] 4.3 Xác định và báo cáo **Gap Report**: Requirement nào chưa được schema cover rõ ràng
-- [ ] 4.4 Báo cáo **Potential Improvements** riêng biệt (nếu phát hiện) — CHỈ báo cáo, KHÔNG tự sửa schema
-- [ ] 4.5 Cập nhật `SDD.md` với các quyết định database design được chấp thuận
+- [x] 4.1 Cross-check schema với requirement files:
+  - `REQUIREMENT.md` §6 (Conceptual Data Model — Entity Catalog) — 19/19 entities covered
+  - `REQUIREMENT.md` §9 (Functional Requirements: ID-*, VOC-*, KAN-*, GRM-*, CONJ-*, TRN-*, AUTH-*, LEARN-*, DATA-*) — all covered
+  - `REQUIREMENT.md` §10 (Non-Functional: PRIV-*, SEC-*, I18N-*) — all covered
+  - `MIGRATION_DECISION.md` §5 (Assets to Migrate) — 8/8 (6 full + 2 partial/runtime)
+- [x] 4.2 Lập **Requirement Coverage Matrix**: 117 requirement IDs mapped to tables/columns (2026-08-21)
+- [x] 4.3 Xác định và báo cáo **Gap Report**: 0 immediate gaps; 5 deferred behind approval gates (2026-08-21)
+- [x] 4.4 Báo cáo **Potential Improvements**: 6 items — CHỈ báo cáo, KHÔNG sửa schema (2026-08-21)
+- [x] 4.5 Cập nhật `SDD.md` với các quyết định database design được chấp thuận (2026-08-21)
 
 ### Deliverables
 
@@ -133,13 +132,10 @@ Thiết kế Logical Database Schema tổng thể cho PostgreSQL 16, ánh xạ c
 | 5 | DBML cho dbdiagram.io | `docs/database/schema.dbml` |
 | 6 | Schema Overview | `docs/database/schema-overview.md` |
 | 7 | DATABASE.md (Root Index) | `DATABASE.md` |
-| 8 | Requirement Coverage Matrix | Trong artifact report |
-| 9 | Gap Report & Potential Improvements | Trong artifact report |
+| 8 | Requirement Coverage Matrix | Artifact `phase4_verification_traceability.md` |
+| 9 | Gap Report & Potential Improvements | Artifact `phase4_verification_traceability.md` |
 
 ---
-
-## Current Task — MVP API Contract Documentation (2026-08-21)
-
 - [x] Shadow Plan approved; scope excludes the existing standalone Dictionary Lookup endpoint.
 - [x] Reconcile authoritative product, architecture, privacy, data, and database sources.
 - [x] Author the proposed MVP API contract without a URL version segment.
@@ -174,3 +170,66 @@ Thiết kế Logical Database Schema tổng thể cho PostgreSQL 16, ánh xạ c
 - [x] Validate Globality, Evidence, Prematurity, Authority và Future freedom.
 - [x] Đổi title sang `Project Design Principles` để tránh nhầm với `.sdd/constitution.md`.
 - [x] Làm rõ project-level governance principles nằm ngoài feature-decision taxonomy, không tạo category thứ tư.
+
+---
+
+## Current Task — Ratify PRD and Platform Foundation (2026-08-21)
+
+- [x] Receive Product Owner approvals for MVP scope, technical baseline, and deferred-decision gates.
+- [x] Reconcile the PRD, API baseline, feature map, and roadmap after removing Export from MVP.
+- [x] Record Product Owner `VuPM`, approval date `2026-08-21`, and the approved/deferred decision status.
+- [x] Promote the Platform Foundation specification after the consistency review.
+- [x] Validate the resulting authority, scope, traceability, and links; record the ratification in Project Memory.
+
+---
+
+## Current Task — Align Database Governance Baseline (2026-08-21)
+
+- [x] Confirm the approved PostgreSQL/Testcontainers baseline and identify conflicting ADR-002/global constraints.
+- [x] Receive Product Owner direction to rewrite ADR-002 in place rather than create a replacement ADR.
+- [x] Rewrite ADR-002 for PostgreSQL 16, Npgsql EF Core Migrations and PostgreSQL Testcontainers.
+- [x] Synchronize global constraints, PRD alignment notes, API contract and Project Memory.
+- [x] Validate that no SQL Server/SQLite runtime or integration-test baseline remains in the governed documents.
+
+---
+
+## Current Task — Buildable .NET Foundation (2026-08-21)
+
+- [x] Verify .NET 10 SDK is available locally and approve the scaffold scope plus NuGet dependencies.
+- [x] Add solution, Clean Architecture project manifests, local EF CLI tooling and central package versions.
+- [x] Restore dependencies and prove the solution builds on .NET 10.
+- [x] Generate the initial PostgreSQL EF Core migration from the existing model.
+- [x] Execute unit tests and PostgreSQL Testcontainers integration test after Docker is available.
+
+### Issues Encountered
+
+- Resolved: Docker Desktop is available. The Testcontainers integration test passed on 2026-08-21; the sandbox alone cannot access the Docker named pipe, so that verification was run with the required local Docker permission.
+
+## Current Task — Secure Local PostgreSQL Compose Configuration (2026-08-21)
+
+- [x] Inspect the existing PostgreSQL container and persistent volume before credential rotation.
+- [x] Move actual local PostgreSQL credentials into ignored .env and remove all committed credentials.
+- [x] Rotate the existing PostgreSQL role without deleting the persistent volume.
+- [x] Validate the Compose configuration, healthcheck and secret hygiene.
+
+## Current Task — Knowledge Release Structural Immutability (2026-08-21)
+
+- [x] Reproduce the missing immutability guards on PostgreSQL and confirm the approved DATA-005 scope.
+- [x] Approve a separate current-release pointer and a new forward-only migration.
+- [x] Add failing domain and PostgreSQL integration tests for release lifecycle and immutable children.
+- [x] Implement the domain lifecycle, current pointer, persistence configuration and controlled publication transaction.
+- [x] Generate and validate the immutability migration on PostgreSQL 16.
+- [x] Run the full build/test suite, independent review and documentation sync.
+
+### Scope Boundary
+
+- This task enforces release metadata, resource revisions and release-manifest membership immutability. Freezing SourceManifest metadata, SourceRecord and EditorialMapping requires a separately approved snapshot-boundary design because mappings currently have no ReleaseId.
+
+### Traceability Matrix
+
+| Requirement / acceptance criterion | Implementation | Verification |
+|---|---|---|
+| DATA-005 — published release immutable | Domain one-way publish lifecycle, PostgreSQL release/child triggers, restrictive FKs | `KnowledgeReleaseLifecycleTests`, `KnowledgeReleaseImmutabilityTests` |
+| AC-DATA-005 — switch current without modifying old release | Singleton `current_knowledge_release`, serializable EF publication transaction | `Switching_current_pointer_does_not_update_the_old_release`, `KnowledgeReleasePublicationTests` |
+| DATA-005 — only controlled publication changes current facts | Transaction-local publication guard, pointer trigger, atomic publish service | direct-SQL rejection, pointer deletion, rollback/retry and concurrency integration tests |
+| Migration compatibility | Forward migration backfills legacy `is_current` into singleton pointer | `KnowledgeReleaseMigrationUpgradeTests` |

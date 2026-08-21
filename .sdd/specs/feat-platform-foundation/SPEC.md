@@ -4,7 +4,11 @@
 
 **Created**: 2026-08-14
 
-**Status**: Draft
+**Status**: Approved
+
+**Approved by**: VuPM
+
+**Approval date**: 2026-08-21
 
 **Input**: User description: "Define the minimum shared platform foundation for the Backend, Browser Extension, Web Application, linguistic knowledge, external providers, identity, privacy, asynchronous behavior, regression protection, and controlled legacy transition."
 
@@ -318,8 +322,8 @@ As a future feature team or maintainer, I can replace an external provider and r
 - **Stale asynchronous protection**: FR-039 through FR-041 and FR-051 through FR-054 make current interaction identity—not cancellation—the correctness mechanism.
 - **Regression and migration safeguards**: FR-055 through FR-059 require provider-neutral semantic evidence and a recoverable checkpoint before destructive cleanup.
 - **Human approval gates**: FR-060 and FR-061 require explicit artifact impact and approval before later phases or exceptions.
-- **Conflicts and exceptions**: None identified; no constitutional exception is proposed by this specification.
+- **Conflicts and exceptions**: The stale database-baseline artifacts recorded in `REQUIREMENT.md` §15.1 remain a documentation-alignment follow-up; they are not a constitutional exception and must be resolved before dependent implementation.
 
 ## Unresolved Clarifications
 
-None. Choices deliberately left open are bounded planning or downstream-feature decisions listed above and do not prevent this foundation from being specified and tested.
+No unresolved clarification blocks this foundation approval. Decisions deliberately deferred by Product Owner VuPM are recorded in `REQUIREMENT.md` §15 with owners and blocking gates; they must be resolved before their dependent feature is implemented.

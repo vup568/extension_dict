@@ -6,9 +6,9 @@ Tài liệu này là contract baseline cho các capability MVP dùng chung bởi
 
 ### Phạm vi
 
-- Bao phủ: analysis, kanji, grammar, translation, authentication, learning library, quick review, export và knowledge operations.
+- Bao phủ: analysis, kanji, grammar, translation, authentication, learning library, quick review và knowledge operations.
 - Không bao phủ: standalone Dictionary Lookup đang tồn tại trong feature draft khác. Route đó không được sửa, thay thế hoặc lặp lại tại đây.
-- Ngoài MVP: offline cache/outbox, SRS scheduling nâng cao, auto-translation, Anki/Quizlet two-way sync và grammar N3–N1.
+- Ngoài MVP: export Anki/Quizlet, offline cache/outbox, SRS scheduling nâng cao, auto-translation, Anki/Quizlet two-way sync và grammar N3–N1.
 
 ### Trạng thái contract
 
@@ -29,14 +29,14 @@ Thứ tự sử dụng nguồn:
 
 Routes mới bắt đầu bằng `/api/`, không version trong URL theo quyết định project owner ngày 2026-08-21. Điều này không loại bỏ yêu cầu `API-002`: clients gửi `X-Contract-Version: 1` (proposed) và server trả `contract_version` trong response metadata. Compatibility window và version-negotiation policy vẫn `Deferred`.
 
-`.sdd/constraints/global.md` còn nêu SQL Server/SQLite, trong khi AGENTS.md và SDD.md đã chốt PostgreSQL 16/Testcontainers. Tài liệu này theo baseline hiện hành, không theo artifact cũ.
+ADR-002, global constraints, AGENTS.md và SDD.md thống nhất PostgreSQL 16, Npgsql EF Core Migrations và PostgreSQL Testcontainers làm baseline kỹ thuật.
 
 ## Quy ước chung
 
 ### Transport và encoding
 
 - Production public boundary dùng HTTPS (`SEC-001`).
-- Request/response JSON dùng `application/json; charset=utf-8`, trừ export file.
+- Request/response JSON dùng `application/json; charset=utf-8`.
 - Field names là `snake_case`; timestamps là ISO 8601 UTC; IDs là opaque string.
 - Canonical linguistic ID phải mang resource type, ví dụ `dictionary:12345`, `kanji:日`, `grammar:n5-te-iru` (`ID-005`). Display text không được dùng thay ID (`ID-003`).
 - `interaction_id` là UUID do client tạo cho mọi thao tác phụ thuộc selection/input. Client chỉ render response nếu interaction đó vẫn current (`ASYNC-001`, `ASYNC-002`).
@@ -105,7 +105,6 @@ Reading, analysis, kanji, grammar và translation là anonymous (`AUTH-001`). Ro
 | Vocabulary library | GET, PUT, DELETE | `/api/me/learning/vocabulary/{dictionary_id}` | Authenticated | Proposed HTTP contract |
 | Grammar library | GET, PUT, DELETE | `/api/me/learning/grammar/{grammar_id}` | Authenticated | Proposed HTTP contract |
 | Quick review | GET | `/api/me/review` | Authenticated | Proposed HTTP contract |
-| Learning export | POST | `/api/me/exports` | Authenticated | Proposed HTTP contract |
 | Knowledge releases | GET, POST | `/api/operator/knowledge-releases/*` | Operator | Proposed control-plane contract |
 
 ## Analysis
@@ -242,22 +241,11 @@ List item shape:
 
 The `resource` projection is display data resolved from the canonical resource, never the stored primary identity (`LEARN-002`). Soft-deleted records are excluded from active lists but are not physically deleted (`LEARN-008`).
 
-## Quick review and export
+## Quick review
 
 ### `GET /api/me/review`
 
 Proposed query: `resource_type` (`vocabulary`, `grammar`, or `all`) and `limit`. It returns active, current-user review cards with `prompt` and hidden `answer`. The client reveals the answer locally after user action (`REV-001`, `REV-002`). `Again`/`Know` persistence is deferred because it is optional and requires its own behavior SPEC (`REV-003`).
-
-### `POST /api/me/exports`
-
-```json
-{
-  "format": "anki_csv",
-  "resource_ids": ["dictionary:12345", "grammar:n5-te-iru"]
-}
-```
-
-Allowed format identifiers are proposed: `anki_csv`, `quizlet_tsv`. Successful response is a UTF-8 downloadable CSV/TSV attachment; quote, delimiter and newline escaping must round-trip Japanese and Vietnamese (`EXP-002`–`EXP-004`). No endpoint may synchronize with Anki or Quizlet (`EXP-005`). Exact approved column mapping is deferred to `OD-007`.
 
 ## Knowledge operations control plane
 
@@ -291,7 +279,7 @@ ETL transport, source upload/storage, operator identity, publish concurrency and
 | Kanji and grammar | KAN-001–KAN-002, GRM-001–GRM-008, WEB-004–WEB-005 |
 | Translation | TRN-001–TRN-004, I18N-002, PRIV-004 |
 | Authentication and learning | AUTH-001–AUTH-004, LEARN-001–LEARN-008, PRIV-005 |
-| Review and export | REV-001–REV-004, EXP-001–EXP-005 |
+| Review | REV-001–REV-004 |
 | Knowledge operations | DATA-001–DATA-005 |
 | Privacy, security, rate and failure | PRIV-001–PRIV-006, RATE-001–RATE-004, NET-001–NET-006, SEC-001–SEC-005 |
 
@@ -303,8 +291,7 @@ ETL transport, source upload/storage, operator identity, publish concurrency and
 4. Session transport, external provider selection, recovery and account-linking flows.
 5. Final translation provider, disclosure UX and provider timeout/retry policy.
 6. Grammar matcher metadata projection safe for clients.
-7. Export column mapping (`OD-007`) and whether large exports need an asynchronous job.
-8. Operator authorization and data-ingestion transport.
+7. Operator authorization and data-ingestion transport.
 
 ## References
 

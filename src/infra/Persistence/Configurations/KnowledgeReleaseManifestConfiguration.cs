@@ -18,7 +18,7 @@ public class KnowledgeReleaseManifestConfiguration : IEntityTypeConfiguration<Kn
         builder.HasOne(e => e.Release)
             .WithMany(r => r.ReleaseManifests)
             .HasForeignKey(e => e.ReleaseId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasOne(e => e.Manifest)
             .WithMany(m => m.ReleaseManifests)

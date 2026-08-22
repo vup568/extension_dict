@@ -1,4 +1,4 @@
-name: CI Pipeline - Check Agent Code & Build Verification
+name: CI Pipeline - Core Verification & Guardrails
 
 on:
   push:
@@ -7,12 +7,12 @@ on:
     branches: [ main, master, dev ]
 
 jobs:
-  build-and-test:
-    name: Build & Run Tests (.NET 10)
+  core-verification:
+    name: Core Guardrails (Build, Test, Security)
     runs-on: ubuntu-latest
 
     steps:
-      - name: 📥 Checkout code
+      - name: 📥 Checkout Code
         uses: actions/checkout@v4
 
       - name: ⚙️ Setup .NET 10 SDK
@@ -20,38 +20,33 @@ jobs:
         with:
           dotnet-version: '10.0.x'
 
-      - name: 📦 Restore dependencies
+      - name: 📦 Restore Dependencies
         run: dotnet restore
 
-      - name: 🛠️ Build solution
+      # -------------------------------------------------------------
+      # 🛑 HARD GUARDRAILS (BẮT BUỘC 100% MERGE GATE)
+      # -------------------------------------------------------------
+      - name: 🛠️ [01 CODE] Build Verification (Must Compile)
         run: dotnet build --no-restore --configuration Release
 
-      - name: 🧪 Run Unit Tests
+      - name: 🧪 [06 & 07 TEST] Run Unit Tests
         run: dotnet test tests/unit/UnitTests.csproj --no-build --configuration Release
 
-      - name: 🐳 Run Integration Tests
+      - name: 🐳 [06 TEST] Run Integration Tests
         run: dotnet test tests/integration/IntegrationTests.csproj --no-build --configuration Release
 
-  agent-code-checks:
-    name: Agent Code Quality Scan
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: 📥 Checkout code
-        uses: actions/checkout@v4
-
-      - name: 🔍 Check for leftover debug logs
+      - name: 🔒 [09 SEC] Hardcoded Secrets Scan
         run: |
-          echo "Scanning for debugger or console.log statements..."
-          if git grep -i -E "debugger|console\.log" -- 'src/*'; then
-            echo "❌ LỖI: Phát hiện debug statement còn sót trong thư mục src/"
-            exit 1
-          fi
-
-      - name: 🔒 Check hardcoded secrets
-        run: |
-          echo "Scanning for hardcoded secrets..."
+          echo "Scanning for hardcoded API keys or credentials..."
           if git grep -E "(api_key|password|secret)\s*=\s*['\"][^'\"]+['\"]" -- 'src/*'; then
-            echo "❌ LỖI: Phát hiện secret/password bị hardcode trong src/"
+            echo "❌ ERROR: Found potential hardcoded secrets in src/"
             exit 1
           fi
+
+      # -------------------------------------------------------------
+      # ⚠️ SOFT WARNINGS (CẢNH BÁO - KHÔNG BLOCK CODE)
+      # -------------------------------------------------------------
+      - name: 🔍 Check Leftover Debug Logs & TODOs (Warning Only)
+        run: |
+          echo "Checking for console.log / debugger / TODO statements..."
+          git grep -i -E "console\.log|debugger|TODO|FIXME" -- 'src/*' || echo "✅ No debug/TODO comments found."

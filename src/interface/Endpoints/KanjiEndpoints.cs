@@ -1,18 +1,19 @@
-using Application.Dictionary;
+using Application.Kanji;
+using Application.Kanji.Models;
 using Microsoft.AspNetCore.Mvc;
 using Npgsql;
 
 namespace WebApi.Endpoints;
 
-public static class DictionaryEndpoints
+public static class KanjiEndpoints
 {
-    public static IEndpointRouteBuilder MapDictionaryEndpoints(this IEndpointRouteBuilder app)
+    public static IEndpointRouteBuilder MapKanjiEndpoints(this IEndpointRouteBuilder app)
     {
         var group = app.MapGroup("/api");
 
-        group.MapGet("/dictionary/lookup", HandleLookupAsync)
-            .WithName("LookupWord")
-            .WithTags("Dictionary")
+        group.MapPost("/kanji/lookup", HandleLookupAsync)
+            .WithName("LookupKanji")
+            .WithTags("Kanji")
             .Produces(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status400BadRequest)
             .Produces(StatusCodes.Status503ServiceUnavailable)
@@ -22,8 +23,8 @@ public static class DictionaryEndpoints
     }
 
     private static async Task<IResult> HandleLookupAsync(
-        [FromQuery] string? q,
-        [FromServices] LookupWordUseCase useCase,
+        [FromBody] KanjiLookupRequestDto? request,
+        [FromServices] LookupKanjiUseCase useCase,
         HttpContext httpContext,
         CancellationToken cancellationToken)
     {
@@ -31,21 +32,21 @@ public static class DictionaryEndpoints
 
         try
         {
-            if (q is null)
+            if (request is null || string.IsNullOrWhiteSpace(request.Text))
             {
                 return Results.Json(new
                 {
                     error_code = "VALIDATION_FAILED",
-                    message = "Từ khóa tra cứu không được trống.",
+                    message = "Nội dung tra cứu không được trống.",
                     request_id = requestId
                 }, statusCode: StatusCodes.Status400BadRequest);
             }
 
-            var result = await useCase.ExecuteAsync(q, cancellationToken);
+            var result = await useCase.ExecuteAsync(request.Text, cancellationToken);
 
             return Results.Ok(new
             {
-                data = result,
+                data = result.Matches,
                 meta = new
                 {
                     request_id = requestId,
@@ -67,7 +68,7 @@ public static class DictionaryEndpoints
             return Results.Json(new
             {
                 error_code = "SERVICE_UNAVAILABLE",
-                message = "Dịch vụ lưu trữ từ điển tạm thời không khả dụng. Vui lòng thử lại sau.",
+                message = "Dịch vụ lưu trữ dữ liệu Kanji tạm thời không khả dụng. Vui lòng thử lại sau.",
                 request_id = requestId
             }, statusCode: StatusCodes.Status503ServiceUnavailable);
         }

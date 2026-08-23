@@ -14,6 +14,7 @@ var app = builder.Build();
 
 app.MapHealthChecks("/health/live");
 app.MapDictionaryEndpoints();
+app.MapKanjiEndpoints();
 
 app.Run();
 

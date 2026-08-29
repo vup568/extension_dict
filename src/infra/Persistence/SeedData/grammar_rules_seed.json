@@ -1,0 +1,47 @@
+[
+  {
+    "canonical_id": "grammar:n5:te-iru",
+    "pattern": "〜ている",
+    "jlpt_level": "N5",
+    "meaning_vi": "Diễn tả hành động đang diễn ra hoặc trạng thái kết quả kéo dài.",
+    "meaning_en": "Expresses an action in progress or a continuous state.",
+    "formation": "V-て + いる",
+    "matcher_metadata": "[{\"surface\":\"て|で\"},{\"base\":\"いる\"}]"
+  },
+  {
+    "canonical_id": "grammar:n4:te-wa-ikenai",
+    "pattern": "〜てはいけない",
+    "jlpt_level": "N4",
+    "meaning_vi": "Cấm đoán, không được phép làm gì.",
+    "meaning_en": "Must not do (prohibition).",
+    "formation": "V-て + は + いけない",
+    "matcher_metadata": "[{\"surface\":\"て|で\"},{\"surface\":\"は\"},{\"base\":\"いける\"},{\"base\":\"ない\"}]"
+  },
+  {
+    "canonical_id": "grammar:n5:nai-de",
+    "pattern": "〜ないで",
+    "jlpt_level": "N5",
+    "meaning_vi": "Xin đừng làm gì / Làm việc này mà không làm việc kia.",
+    "meaning_en": "Please don't do / Without doing.",
+    "formation": "V-ない + で",
+    "matcher_metadata": "[{\"base\":\"ない\"},{\"surface\":\"で\"}]"
+  },
+  {
+    "canonical_id": "grammar:n5:te-kara",
+    "pattern": "〜てから",
+    "jlpt_level": "N5",
+    "meaning_vi": "Sau khi làm gì thì làm tiếp việc khác.",
+    "meaning_en": "After doing something.",
+    "formation": "V-て + から",
+    "matcher_metadata": "[{\"surface\":\"て|で\"},{\"surface\":\"から\"}]"
+  },
+  {
+    "canonical_id": "grammar:n5:hou-ga-ii",
+    "pattern": "〜ほうがいい",
+    "jlpt_level": "N5",
+    "meaning_vi": "Khuyên nên hoặc không nên làm gì.",
+    "meaning_en": "Had better do / It is better to...",
+    "formation": "V-た / V-ない + ほう + が + いい",
+    "matcher_metadata": "[{\"base\":\"ほう\"},{\"surface\":\"が\"},{\"base\":\"いい\"}]"
+  }
+]

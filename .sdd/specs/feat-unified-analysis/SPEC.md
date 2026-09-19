@@ -1,5 +1,5 @@
 # FEATURE SPEC: Unified Analysis API
-# Version: 0.1.0 | Owner: @lead-dev | Date: 2026-08-24
+# Version: 0.2.0 | Owner: @lead-dev | Date: 2026-09-04 (Updated from 0.1.0 2026-08-24)
 # Inherits: .sdd/constraints/global.md
 # Target Stack: .NET 10 (C# 14) Backend, PostgreSQL 16 (ARCH-005), Docker Testcontainers (ARCH-006)
 
@@ -31,23 +31,22 @@ Xây dựng **Unified Analysis API** (`POST /api/analysis`) trên Backend .NET 1
 Feature này là **orchestrator endpoint** gom các capabilities đã có:
 - **F-06 (Dictionary Lookup)** — `LookupWordUseCase` cung cấp `dictionary_matches`.
 - **F-07 (Kanji Lookup)** — `LookupKanjiUseCase` cung cấp `kanji`.
-- **F-08 (Grammar Detection)** — tương lai, cung cấp `grammar_occurrences`.
+- **F-08 (Grammar Detection)** — `DetectGrammarUseCase` cung cấp `grammar_occurrences` (**đã implement**, hoàn thành 2026-08-30).
 - **F-09 (Conjugation)** — tương lai, cung cấp `conjugations`.
 
 Feature này **KHÔNG** bao gồm:
 - Translation (F-10) — gọi riêng qua `POST /api/translations` sau explicit user action.
-- Standalone Dictionary/Kanji endpoints — vẫn tồn tại song song, không bị thay thế.
-- Grammar Detection logic (F-08) — chỉ gọi use case khi available.
+- Standalone Dictionary/Kanji/Grammar endpoints — vẫn tồn tại song song, không bị thay thế.
 - Save/Learning features (F-14, F-15).
 
 ### 1.4 Extensibility Design
 
 Unified Analysis **phải** được thiết kế để **thêm capability mới mà không thay đổi contract structure**:
-- Khi F-08 (Grammar) chưa được implement, `grammar_occurrences` trả `[]` và `capabilities.grammar` trả `"unavailable"`.
+- **F-08 (Grammar) đã implement** — `DetectGrammarUseCase` trả `grammar_occurrences`. Khi Tokenizer Sidecar (gRPC Sudachi) không khả dụng, Grammar graceful degrade trả `"failed"` thay vì crash toàn bộ analysis.
 - Khi F-09 (Conjugation) chưa được implement, `conjugations` trả `[]` và `capabilities.conjugation` trả `"unavailable"`.
-- Khi Tokenizer Sidecar (ARCH-003) chưa được triển khai, `tokens` trả `[]` và `capabilities.morphology` trả `"unavailable"`.
+- Khi Tokenizer Sidecar (ARCH-003) chưa được triển khai cho vocabulary tokenization, `tokens` trả `[]` và `capabilities.morphology` trả `"unavailable"`.
 
-Điều này cho phép **ship Unified Analysis ngay** với vocabulary + kanji, rồi bổ sung grammar/conjugation/morphology sau mà không breaking change.
+Điều này cho phép **ship Unified Analysis ngay** với vocabulary + kanji + grammar, rồi bổ sung conjugation/morphology sau mà không breaking change.
 
 --------------------------------------------------------------------------------
 
@@ -97,14 +96,14 @@ Unified Analysis **phải** được thiết kế để **thêm capability mới
 
 ### 3.2 Capability Orchestration
 
-*   **EARS[Ubiquitous]:** THE system SHALL điều phối các capabilities sau (khi available):
+*   **EARS[Ubiquitous]:** THE system SHALL điều phối các capabilities sau:
     1. **Vocabulary Lookup** — Gọi `LookupWordUseCase` với nguyên `text` → trả `dictionary_matches`. Vocabulary thực hiện exact match và deinflection; hoạt động tốt cho **từ đơn hoặc cụm từ ngắn** (ví dụ `食べました`, `学生`), trả rỗng cho **câu dài** chưa được tokenize (ví dụ `日本語を勉強する`). Đây là giới hạn được chấp nhận cho đến khi Tokenizer Sidecar (OD-010) sẵn sàng [Clarification 2026-08-24].
     2. **Kanji Lookup** — Gọi `LookupKanjiUseCase` với `text` → trả `kanji`. Kanji tự trích xuất per-character, hoạt động với mọi độ dài input.
-    3. **Morphology/Tokenization** — Gọi Tokenizer adapter (khi available) → trả `tokens`. Khi có tokenizer, vocabulary sẽ được nâng cấp để lookup từng token thay vì nguyên text.
-    4. **Conjugation** — Gọi conjugation use case (khi available) → trả `conjugations`.
-    5. **Grammar Detection** — Gọi grammar use case (khi available) → trả `grammar_occurrences`.
+    3. **Grammar Detection** — Gọi `DetectGrammarUseCase.ExecuteAsync()` với `GrammarDetectionRequestDto(text, context)` → trả `grammar_occurrences`. **Lưu ý quan trọng:** Grammar Detection **phụ thuộc ngầm vào Tokenizer Sidecar** (gRPC Python Sudachi) — khi Sidecar không khả dụng, use case tự graceful degrade trả `Status: "failed"`. Orchestrator **PHẢI** wrap Grammar call trong try/catch riêng để đảm bảo Sidecar failure chỉ degrade Grammar section, không crash toàn bộ analysis [NET-006].
+    4. **Morphology/Tokenization** — Gọi Tokenizer adapter (khi available) → trả `tokens`. Khi có tokenizer, vocabulary sẽ được nâng cấp để lookup từng token thay vì nguyên text.
+    5. **Conjugation** — Gọi conjugation use case (khi available) → trả `conjugations`.
 
-*   **EARS[Ubiquitous]:** Các capabilities **SHOULD** được thực thi song song khi không có dependency giữa chúng. Vocabulary lookup và kanji lookup không phụ thuộc nhau và có thể chạy đồng thời.
+*   **EARS[Ubiquitous]:** Các capabilities **SHOULD** được thực thi song song khi không có dependency giữa chúng. Vocabulary lookup, kanji lookup và grammar detection không phụ thuộc lẫn nhau và có thể chạy đồng thời (`Task.WhenAll`).
 
 *   **EARS[Ubiquitous]:** Translation **SHALL NOT** được gọi bởi analysis endpoint. Translation chỉ được kích hoạt qua endpoint riêng (`POST /api/translations`) sau explicit user action [TRN-004].
 
@@ -135,9 +134,9 @@ Unified Analysis **phải** được thiết kế để **thêm capability mới
         "capabilities": {
           "vocabulary": "completed",
           "kanji": "completed",
+          "grammar": "completed",
           "morphology": "unavailable",
-          "conjugation": "unavailable",
-          "grammar": "unavailable"
+          "conjugation": "unavailable"
         }
       },
       "meta": {
@@ -227,17 +226,23 @@ Feature này **không tạo table mới**. Nó orchestrate các use cases đã c
 |---|---|---|
 | `dictionary_entries` + related | `LookupWordUseCase` | Vocabulary lookup |
 | `kanji_records` | `LookupKanjiUseCase` | Kanji lookup |
-| (future) `grammar_rules` | Grammar use case | Grammar detection |
+| `grammar_rules` | `DetectGrammarUseCase` | Grammar detection (đã implement, F-08 completed 2026-08-30) |
 
 ### 5.2 Response Data Structures
 
-Các DTO trong response sử dụng lại cấu trúc từ F-06 và F-07:
+Các DTO trong response sử dụng lại cấu trúc từ F-06, F-07 và F-08:
 
 - `dictionary_matches[]` — Reuse `EntryMatchDto` từ F-06, giữ `matched_written_form`, `matched_reading`, `senses[]` với restrictions [VOC-007, VOC-008].
 - `kanji[]` — Reuse `KanjiDetailDto` từ F-07, giữ canonical info với JLPT provenance [KAN-001, KAN-002].
+- `grammar_occurrences[]` — Reuse `GrammarOccurrenceDto` từ F-08 với cấu trúc đã implement:
+  - `grammar_id` (string): Canonical ID, e.g. `"grammar:n5:te-form"`.
+  - `pattern` (string): Display pattern, e.g. `"〜ている"`.
+  - `jlpt_level` (string?): `"N5"` | `"N4"`.
+  - `meaning_vi` (string?): Nghĩa tiếng Việt.
+  - `matched_text` (string): Text thực tế khớp, e.g. `"食べている"`.
+  - `span` (`TextSpanDto`): `{ start, end }` character offset trong input text.
 - `tokens[]` — Future: morphology tokens với `surface`, `base_form`, `part_of_speech`, `span`.
 - `conjugations[]` — Future: conjugation explanations với `surface`, `base_form`, `explanation` (Vietnamese-first) [CONJ-001, CONJ-002].
-- `grammar_occurrences[]` — Future: detected grammar patterns với `grammar_id`, `span`, canonical rule info [GRM-007, GRM-008].
 - `capabilities` — Map trạng thái mỗi capability: `"completed"` | `"unavailable"` | `"failed"`.
 
 --------------------------------------------------------------------------------
@@ -298,7 +303,7 @@ Các DTO trong response sử dụng lại cấu trúc từ F-06 và F-07:
 
 | ID | Tiêu chí | Expected Result |
 |---|---|---|
-| AC-001 | `POST /api/analysis` với `text=食べました` | HTTP 200, response chứa `dictionary_matches` (≥1), `kanji` (≥1 cho `食`), `capabilities` map |
+| AC-001 | `POST /api/analysis` với `text=食べました` | HTTP 200, response chứa `dictionary_matches` (≥1), `kanji` (≥1 cho `食`), `grammar_occurrences` (≥0), `capabilities` map |
 | AC-002 | Response chứa `meta.request_id` và `meta.contract_version` | Cả hai field present và non-null |
 | AC-003 | Request có `interaction_id`, response echo lại | `meta.interaction_id` khớp giá trị gửi |
 | AC-004 | Request không có `interaction_id` | `meta.interaction_id` là `null` — không lỗi |
@@ -308,7 +313,9 @@ Các DTO trong response sử dụng lại cấu trúc từ F-06 và F-07:
 | ID | Tiêu chí | Expected Result |
 |---|---|---|
 | AC-005 | Vocabulary thành công, kanji thất bại (DB error) | HTTP 200, `dictionary_matches` có data, `kanji` là `[]`, `capabilities.vocabulary` = `"completed"`, `capabilities.kanji` = `"failed"` |
-| AC-006 | Grammar/conjugation/morphology chưa implement | `capabilities.grammar` = `"unavailable"`, `capabilities.conjugation` = `"unavailable"`, `capabilities.morphology` = `"unavailable"`, sections tương ứng là `[]` |
+| AC-006 | Conjugation/morphology chưa implement | `capabilities.conjugation` = `"unavailable"`, `capabilities.morphology` = `"unavailable"`, sections tương ứng là `[]` |
+| AC-006a | Grammar thành công (Tokenizer Sidecar khả dụng) | `capabilities.grammar` = `"completed"`, `grammar_occurrences` chứa detected patterns (nếu text có grammar N5–N4) |
+| AC-006b | Grammar thất bại (Tokenizer Sidecar không khả dụng) | `capabilities.grammar` = `"failed"`, `grammar_occurrences` là `[]`, các capabilities khác không bị ảnh hưởng |
 | AC-007 | Tất cả capabilities thất bại | HTTP 503, structured error `SERVICE_UNAVAILABLE` |
 
 ### Input Validation
@@ -334,6 +341,7 @@ Các DTO trong response sử dụng lại cấu trúc từ F-06 và F-07:
 |---|---|---|
 | AC-015 | Vocabulary results trong analysis | Semantic equivalent với standalone `POST /api/dictionary/lookup` cho cùng input |
 | AC-016 | Kanji results trong analysis | Semantic equivalent với standalone `POST /api/kanji/lookup` cho cùng input |
+| AC-016a | Grammar results trong analysis | Semantic equivalent với standalone `POST /api/grammar/detect` cho cùng input |
 | AC-017 | Domain layer zero external imports | `src/domain/` không có `using Microsoft.*`, `using Npgsql.*` |
 
 --------------------------------------------------------------------------------
@@ -343,14 +351,13 @@ Các DTO trong response sử dụng lại cấu trúc từ F-06 và F-07:
 | # | Excluded Feature | Lý do | Reference |
 |---|---|---|---|
 | 1 | Translation orchestration | Gọi riêng qua `POST /api/translations` sau explicit user action | TRN-004 |
-| 2 | Grammar detection logic | Thuộc F-08, chưa implement; analysis sẽ tích hợp khi sẵn sàng | GRM-002 |
-| 3 | Conjugation logic | Thuộc F-09, chưa implement | CONJ-001 |
-| 4 | Morphology/Tokenization | Cần Tokenizer Sidecar (OD-010); analysis sẽ tích hợp khi sẵn sàng | ARCH-003 |
-| 5 | Standalone Dictionary/Kanji endpoints | Không bị thay thế, vẫn hoạt động song song | — |
-| 6 | Save/Learning features | Thuộc F-14, F-15 | LEARN-001, LEARN-003 |
-| 7 | Caching layer | Chờ OD-006 | CACHE-001 |
-| 8 | Rate limiting implementation | Thuộc F-22 (Reliability & Operations) | RATE-001 |
-| 9 | Client-side stale response rejection | Client responsibility [ASYNC-002] | ASYNC-002 |
+| 2 | Conjugation logic | Thuộc F-09, chưa implement | CONJ-001 |
+| 3 | Morphology/Tokenization | Cần Tokenizer Sidecar (OD-010) cho vocabulary tokenization; analysis sẽ tích hợp khi sẵn sàng | ARCH-003 |
+| 4 | Standalone Dictionary/Kanji/Grammar endpoints | Không bị thay thế, vẫn hoạt động song song | — |
+| 5 | Save/Learning features | Thuộc F-14, F-15 | LEARN-001, LEARN-003 |
+| 6 | Caching layer | Chờ OD-006 | CACHE-001 |
+| 7 | Rate limiting implementation | Thuộc F-22 (Reliability & Operations) | RATE-001 |
+| 8 | Client-side stale response rejection | Client responsibility [ASYNC-002] | ASYNC-002 |
 
 > **Nguyên tắc:** Nếu có nghi ngờ một tính năng có thuộc scope hay không, mặc định là **OUT**. Chỉ đưa vào khi có requirement ID cụ thể trong `REQUIREMENT.md` và được human approve.
 
@@ -358,13 +365,14 @@ Các DTO trong response sử dụng lại cấu trúc từ F-06 và F-07:
 
 ## 9. Assumptions
 
-- `LookupWordUseCase` và `LookupKanjiUseCase` đã được implement và đăng ký DI (F-06, F-07 đã xong).
+- `LookupWordUseCase`, `LookupKanjiUseCase` và `DetectGrammarUseCase` đã được implement và đăng ký DI (F-06, F-07, F-08 đã xong).
 - **Vocabulary nhận nguyên `text` (Phương án A)**: `LookupWordUseCase` xử lý input như exact match + deinflect. Hoạt động cho từ đơn (`食べました` → tìm `食べる`), trả rỗng cho câu dài chưa tokenize. Khi Tokenizer Sidecar sẵn sàng, analysis sẽ tách câu thành tokens rồi lookup từng từ — không breaking change.
-- Vocabulary và kanji capabilities không phụ thuộc nhau và có thể chạy song song.
-- Grammar, conjugation và morphology capabilities sẽ được tích hợp khi F-08, F-09 và Tokenizer Sidecar hoàn thành — analysis endpoint không cần thay đổi contract.
+- Vocabulary, kanji và grammar capabilities không phụ thuộc lẫn nhau và có thể chạy song song (`Task.WhenAll`).
+- **Grammar Detection phụ thuộc ngầm vào Tokenizer Sidecar** (gRPC Python Sudachi trên port 50051). Khi Sidecar không chạy, `DetectGrammarUseCase` tự graceful degrade trả `Status: "failed"` — Unified Analysis orchestrator chỉ cần map status này vào `capabilities.grammar = "failed"`, không cần xử lý đặc biệt thêm.
+- Conjugation và morphology capabilities sẽ được tích hợp khi F-09 và Tokenizer Sidecar (cho vocabulary) hoàn thành — analysis endpoint không cần thay đổi contract.
 - `interaction_id` là client-generated UUID; server chỉ echo lại, không validate semantics (chỉ validate format UUID).
-- Input length limit baseline là 1000 ký tự, chờ OD-014 chốt chính thức. Vocabulary use case có giới hạn riêng 255 ký tự — nếu `text` vượt 255 chars, vocabulary sẽ bị cắt hoặc skip.
-- `context` field hiện tại không được sử dụng (grammar chưa implement); khi grammar sẵn sàng, context sẽ được truyền cho grammar use case.
+- Input length limit baseline là 1000 ký tự, chờ OD-014 chốt chính thức. Vocabulary use case có giới hạn riêng 255 ký tự — nếu `text` vượt 255 chars, vocabulary sẽ bị cắt hoặc skip. Grammar use case có giới hạn riêng 2000 ký tự.
+- `context` field có thể được truyền cho Grammar use case để hỗ trợ phân tích ngữ pháp trong ngữ cảnh câu khi cần [GRM-001].
 
 --------------------------------------------------------------------------------
 

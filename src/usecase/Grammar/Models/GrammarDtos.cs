@@ -17,7 +17,8 @@ public record NormalizedTokenDto(
 /// Yêu cầu tra cứu ngữ pháp.
 /// </summary>
 public record GrammarDetectionRequestDto(
-    [property: JsonPropertyName("text")] string Text
+    [property: JsonPropertyName("text")] string Text,
+    [property: JsonPropertyName("context")] string? Context = null
 );
 
 /// <summary>

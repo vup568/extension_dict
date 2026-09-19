@@ -24,8 +24,12 @@ public static class DependencyInjection
         var connectionString = configuration.GetConnectionString("DefaultConnection");
         if (!string.IsNullOrEmpty(connectionString))
         {
-            services.AddDbContext<AppDbContext>(options =>
-                options.UseNpgsql(connectionString));
+            // Analysis dispatches independent capabilities concurrently. Each
+            // repository/use case must therefore receive its own DbContext:
+            // EF Core does not permit concurrent operations on one context.
+            services.AddDbContext<AppDbContext>(
+                options => options.UseNpgsql(connectionString),
+                contextLifetime: ServiceLifetime.Transient);
         }
 
         services.AddScoped<IDictionaryRepository, EfDictionaryRepository>();

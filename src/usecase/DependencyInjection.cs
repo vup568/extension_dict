@@ -1,3 +1,4 @@
+using Application.Analysis;
 using Application.Dictionary;
 using Application.Grammar;
 using Application.Grammar.Helpers;
@@ -14,6 +15,7 @@ public static class DependencyInjection
         services.AddScoped<LookupKanjiUseCase>();
         services.AddSingleton<GrammarSequenceMatcher>();
         services.AddScoped<DetectGrammarUseCase>();
+        services.AddScoped<AnalyzeTextUseCase>();
         return services;
     }
 }

@@ -1,16 +1,11 @@
-using Application;
 using Infrastructure;
 using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
-using WebApi.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Register Layer Services
-builder.Services.AddApplicationServices();
-builder.Services.AddInfrastructureServices(builder.Configuration);
-
-builder.Services.AddHealthChecks();
+WebApi.ApiComposition.RegisterServices(builder);
 
 var app = builder.Build();
 
@@ -28,10 +23,7 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
-app.MapHealthChecks("/health/live");
-app.MapDictionaryEndpoints();
-app.MapKanjiEndpoints();
-app.MapGrammarEndpoints();
+WebApi.ApiComposition.MapEndpoints(app);
 
 app.Run();
 

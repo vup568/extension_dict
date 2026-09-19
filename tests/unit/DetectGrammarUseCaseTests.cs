@@ -56,6 +56,51 @@ public class DetectGrammarUseCaseTests
     }
 
     [Fact]
+    public async Task ExecuteAsync_ContextTokensAreFilteredAndRemappedToSelectedText()
+    {
+        var request = new GrammarDetectionRequestDto("ている", "雨が降っている");
+        _tokenizerPort.TokenizeAsync("雨が降っている", Arg.Any<CancellationToken>())
+            .Returns([
+                new("雨", "雨", "名詞,一般,*,*,*,*", 0, 1),
+                new("が", "が", "助詞,格助詞,*,*,*,*", 1, 2),
+                new("降っ", "降る", "動詞,一般,*,*,*,*", 2, 4),
+                new("て", "て", "助詞,接続助詞,*,*,*,*", 4, 5),
+                new("いる", "いる", "動詞,非自立可能,*,*,*,*", 5, 7)
+            ]);
+        _grammarRepository.GetAllActiveRulesAsync(Arg.Any<CancellationToken>())
+            .Returns([
+                new GrammarRule
+                {
+                    CanonicalId = "grammar:001",
+                    Pattern = "〜ている",
+                    MatcherMetadata = """[ { "surface": "て" }, { "base": "いる" } ]"""
+                }
+            ]);
+
+        var result = await _useCase.ExecuteAsync(request, CancellationToken.None);
+
+        await _tokenizerPort.Received(1)
+            .TokenizeAsync("雨が降っている", Arg.Any<CancellationToken>());
+        var occurrence = Assert.Single(result.Occurrences);
+        Assert.Equal("ている", occurrence.MatchedText);
+        Assert.Equal(0, occurrence.Span.Start);
+        Assert.Equal(3, occurrence.Span.End);
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_CancellationIsPropagated()
+    {
+        using var cancellation = new CancellationTokenSource();
+        cancellation.Cancel();
+        var request = new GrammarDetectionRequestDto("雨が降っている");
+        _tokenizerPort.TokenizeAsync(Arg.Any<string>(), cancellation.Token)
+            .ThrowsAsync(new OperationCanceledException(cancellation.Token));
+
+        await Assert.ThrowsAsync<OperationCanceledException>(() =>
+            _useCase.ExecuteAsync(request, cancellation.Token));
+    }
+
+    [Fact]
     public async Task ExecuteAsync_ValidRequest_ReturnsCompletedStatusWithOccurrences()
     {
         // Arrange

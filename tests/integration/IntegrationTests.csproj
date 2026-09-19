@@ -25,15 +25,5 @@
     <PackageReference Include="FluentAssertions" />
     <PackageReference Include="NSubstitute" />
     <PackageReference Include="Testcontainers.PostgreSql" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" VersionOverride="8.0.3" />
   </ItemGroup>
-  <!-- Testcontainers 4.x still loads the net8 logging abstraction at runtime;
-       the net10 ASP.NET shared framework alone does not copy that assembly. -->
-  <Target Name="CopyTestcontainersLoggingDependency" AfterTargets="Build">
-    <Copy
-      SourceFiles="$(NuGetPackageRoot)microsoft.extensions.logging.abstractions\8.0.3\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.dll"
-      DestinationFolder="$(TargetDir)"
-      Condition="Exists('$(NuGetPackageRoot)microsoft.extensions.logging.abstractions\8.0.3\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.dll')"
-      SkipUnchangedFiles="true" />
-  </Target>
 </Project>

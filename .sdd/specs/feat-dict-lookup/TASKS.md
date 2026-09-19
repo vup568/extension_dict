@@ -83,7 +83,7 @@
 - [x] **Task 3.1: Create Minimal API Endpoint**
   - File: `src/interface/Endpoints/DictionaryEndpoints.cs`
   - Details:
-    - Route: `GET /api/v1/dictionary/lookup` & `GET /api/dictionary/lookup`
+    - Route: `GET /api/dictionary/lookup`
     - Map parameters `[FromQuery] string q`.
 
 - [x] **Task 3.2: Create Response Envelope & Structured Error Handler**

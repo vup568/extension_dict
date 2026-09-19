@@ -1,20 +1,29 @@
-using Application;
 using Infrastructure;
-using WebApi.Endpoints;
+using Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Register Layer Services
-builder.Services.AddApplicationServices();
-builder.Services.AddInfrastructureServices();
-
-builder.Services.AddHealthChecks();
+WebApi.ApiComposition.RegisterServices(builder);
 
 var app = builder.Build();
 
-app.MapHealthChecks("/health/live");
-app.MapDictionaryEndpoints();
-app.MapKanjiEndpoints();
+// Tự động đảm bảo schema Database PostgreSQL được khởi tạo/cập nhật bảng đầy đủ
+using (var scope = app.Services.CreateScope())
+{
+    try
+    {
+        var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+        dbContext.Database.Migrate();
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"[Warning] Lỗi khi tự động migrate database: {ex.Message}");
+    }
+}
+
+WebApi.ApiComposition.MapEndpoints(app);
 
 app.Run();
 

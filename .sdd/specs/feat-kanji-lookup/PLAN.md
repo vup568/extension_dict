@@ -28,7 +28,7 @@ Triển khai tính năng **Kanji Lookup API** (`POST /api/kanji/lookup`) cho ph�
 | **Application** | `src/usecase/Kanji/Helpers/KanjiExtractor.cs` | Helper trích xuất các ký tự CJK Unified Ideographs unique từ input text, hỗ trợ Unicode Surrogate Pairs (supplementary CJK) & bảo toàn first-occurrence order |
 | **Application** | `src/usecase/Kanji/LookupKanjiUseCase.cs` | Use Case chính điều phối validate, extract kanji, query DB, map sang DTOs |
 | **Infrastructure**| `src/infra/Persistence/Repositories/EfKanjiRepository.cs` | EF Core implementation truy vấn `AppDbContext.KanjiRecords` không theo dõi trạng thái (`AsNoTracking`) |
-| **WebApi** | `src/interface/Endpoints/KanjiEndpoints.cs` | Minimal API endpoint `POST /api/kanji/lookup` & `POST /api/v1/kanji/lookup` với error handling chuẩn |
+| **WebApi** | `src/interface/Endpoints/KanjiEndpoints.cs` | Minimal API endpoint `POST /api/kanji/lookup` với error handling chuẩn |
 | **Unit Tests** | `tests/unit/LookupKanjiUseCaseTests.cs` | Test suite kiểm tra Use Case: Unicode extraction, validation, ordering, empty result, duplicate kanji |
 | **Integration**| `tests/integration/KanjiLookupIntegrationTests.cs` | Test suite kiểm tra End-to-End API với PostgreSQL Docker Testcontainers |
 

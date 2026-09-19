@@ -165,3 +165,9 @@ Mã nguồn Backend trong thư mục `src/` bắt buộc phải tuân thủ nghi
 *   Published release metadata, resource revisions and release-manifest memberships are protected by PostgreSQL triggers, restrictive foreign keys and per-release transaction locks. A transaction-local guard rejects ordinary direct mutations outside the internal publication path; this is not a substitute for the deferred runtime DB-role/operator authorization boundary.
 *   The internal publication use case and EF transaction publish a candidate and switch the pointer atomically after verifying Source Manifest membership. PostgreSQL Testcontainers cover immutability, draft/direct-SQL rejection, pointer switching/deletion, transaction rollback/retry, child-write concurrency and upgrade backfill from the original `is_current` column.
 *   This is structural immutability for the modeled release boundary, not the DATA-001 validation/approval pipeline. Full DATA-005 snapshot coverage for SourceManifest metadata, SourceRecord and EditorialMapping remains a separate design decision because mappings do not yet carry a ReleaseId.
+
+### 2026-09-19 — Unified Analysis API Verification
+
+*   F-05 Unified Analysis API is verified with Docker Testcontainers: `dotnet build --no-restore` completed with zero warnings/errors; unit tests passed 51/51 and integration tests passed 50/50. The endpoint orchestrates vocabulary, kanji and grammar with partial-result status, while morphology and conjugation remain explicitly unavailable.
+*   Concurrent capability execution requires an independent EF Core `AppDbContext` per capability; the infrastructure registration is transient to prevent EF Core's single-context concurrent-operation failure.
+*   Sentence context is used only when it contains the selected text once. Grammar tokens are restricted to that selection and their offsets remapped, so every returned grammar span remains relative to the public analysis input.

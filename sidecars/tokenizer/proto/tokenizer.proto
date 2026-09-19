@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package tokenizer.v1;
+
+option csharp_namespace = "Infrastructure.Adapters.Grpc";
+
+service TokenizerService {
+  rpc Tokenize (TokenizeRequest) returns (TokenizeResponse);
+}
+
+message TokenizeRequest {
+  string text = 1;
+  string mode = 2;
+}
+
+message TokenSpec {
+  string surface = 1;
+  string base_form = 2;
+  string pos = 3;
+  int32 span_start = 4;
+  int32 span_end = 5;
+}
+
+message TokenizeResponse {
+  repeated TokenSpec tokens = 1;
+}

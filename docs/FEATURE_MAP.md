@@ -128,7 +128,7 @@ Người học tiếng Nhật khi đọc văn bản thực tế phải chuyển 
 * **Trigger**: Analysis request.
 * **Main flow**: Input text → grammar engine phân tích theo rule patterns (N5–N4) → trả về từng occurrence kèm canonical grammar ID và unambiguous span.
 * **Constraints**: Dùng sentence context khi safe (GRM-001); N5–N4 coverage (GRM-003); repeated occurrences không bị collapse (GRM-008); meaningful overlaps phải biểu diễn được.
-* **MVP Status**: **Must** (GRM-002, GRM-003, GRM-005, GRM-007, GRM-008).
+* **MVP Status**: **Must** (GRM-002, GRM-003, GRM-005, GRM-007, GRM-008) — **Completed (2026-08-30)**.
 
 ### F-09: Conjugation Explanation
 * **Goal**: Giải thích các bước biến đổi ngữ pháp từ dạng observed về dạng gốc (base form).
@@ -454,7 +454,7 @@ Dưới đây là danh sách 20 điểm mâu thuẫn / câu hỏi mở đã đư
 | **F-05** | Unified Analysis Request | Extension, Backend | UC-01 | **Must** | EXT-006 |
 | **F-06** | Vocabulary Lookup | Reader, Backend | UC-01, UC-05 | **Must** | VOC-001–008 |
 | **F-07** | Kanji Information | Reader, Backend | UC-01, UC-05 | **Must** | KAN-001–002 |
-| **F-08** | Grammar Detection | Reader, Backend | UC-01, UC-05 | **Must** | GRM-001–008 |
+| **F-08** | Grammar Detection | Reader, Backend | UC-01, UC-05 | **Completed** | GRM-001–008 |
 | **F-09** | Conjugation Explanation | Reader, Backend | UC-01, UC-05 | **Must / Should** | CONJ-001–002 |
 | **F-10** | On-Demand Translation | Reader, Backend, Provider | UC-02 | **Must** | TRN-001–004, PRIV-004 |
 | **F-11** | Web Search & Analyze | Reader, Web App | UC-05 | **Must** | WEB-001–003 |

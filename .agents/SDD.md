@@ -171,3 +171,9 @@ Mã nguồn Backend trong thư mục `src/` bắt buộc phải tuân thủ nghi
 *   F-05 Unified Analysis API is verified with Docker Testcontainers: `dotnet build --no-restore` completed with zero warnings/errors; unit tests passed 51/51 and integration tests passed 50/50. The endpoint orchestrates vocabulary, kanji and grammar with partial-result status, while morphology and conjugation remain explicitly unavailable.
 *   Concurrent capability execution requires an independent EF Core `AppDbContext` per capability; the infrastructure registration is transient to prevent EF Core's single-context concurrent-operation failure.
 *   Sentence context is used only when it contains the selected text once. Grammar tokens are restricted to that selection and their offsets remapped, so every returned grammar span remains relative to the public analysis input.
+
+### 2026-09-20 — F-01 Japanese Text Detection Implementation
+
+*   F-01 now has a framework-free TypeScript detector and local boundary under extension/, backed by a deterministic 25-range policy generated from pinned Unicode 17.0.0 Scripts, PropList, UnicodeData and Blocks sources with verified checksums.
+*   The regression corpus preserves supplementary code points, malformed UTF-16 units, literal mojibake/entity cases, long-input behavior and distinct invalid/unexpected errors. The local run passed 116 unit tests, the 85% coverage gate, type check, Vite build and 10 Chrome/Edge browser privacy/parity tests.
+*   Brave and Firefox evidence remains explicitly pending because neither executable is installed locally. Detector threshold approval also remains pending OD-005; measurements are recorded without claiming the end-to-end popup budget.

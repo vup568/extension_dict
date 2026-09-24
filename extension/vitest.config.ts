@@ -7,6 +7,8 @@ export default defineConfig({
     coverage: {
       provider: "v8",
       include: ["src/**/*.ts"],
+      // DOM/Selection behavior is exercised in mandatory real-browser Playwright tests.
+      exclude: ["src/browser/**"],
       thresholds: {
         branches: 85,
         functions: 85,

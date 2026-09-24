@@ -4,6 +4,10 @@ node_modules/
 # Build output
 dist/
 .vite/
+coverage/
+playwright-report/
+test-results/
+extension/.unicode-cache/
 
 # Generated dictionary artifacts — large, reproducible via `npm run prepare-dict`.
 # Never commit these; the README documents how to regenerate them.

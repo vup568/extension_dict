@@ -1,0 +1,42 @@
+{
+  "policy": {
+    "name": "jp-reading-platform-japanese-trigger-policy",
+    "version": "1.0.0",
+    "unicodeVersion": "17.0.0"
+  },
+  "license": {
+    "notice": "Unicode Character Database files are copyright Unicode, Inc.",
+    "termsUrl": "https://www.unicode.org/terms_of_use.html"
+  },
+  "sources": [
+    {
+      "file": "Scripts.txt",
+      "url": "https://www.unicode.org/Public/17.0.0/ucd/Scripts.txt",
+      "sha256": "9f5e50d3abaee7d6ce09480f325c706f485ae3240912527e651954d2d6b035bf"
+    },
+    {
+      "file": "PropList.txt",
+      "url": "https://www.unicode.org/Public/17.0.0/ucd/PropList.txt",
+      "sha256": "130dcddcaadaf071008bdfce1e7743e04fdfbc910886f017d9f9ac931d8c64dd"
+    },
+    {
+      "file": "UnicodeData.txt",
+      "url": "https://www.unicode.org/Public/17.0.0/ucd/UnicodeData.txt",
+      "sha256": "2e1efc1dcb59c575eedf5ccae60f95229f706ee6d031835247d843c11d96470c"
+    },
+    {
+      "file": "Blocks.txt",
+      "url": "https://www.unicode.org/Public/17.0.0/ucd/Blocks.txt",
+      "sha256": "c0edefaf1a19771e830a82735472716af6bf3c3975f6c2a23ffbe2580fbbcb15"
+    }
+  ],
+  "generator": {
+    "file": "unicode/generate-trigger-ranges.ts",
+    "algorithmVersion": "1.0.0",
+    "command": "npm run unicode:generate"
+  },
+  "generatedArtifact": {
+    "file": "src/core/unicode17TriggerRanges.generated.ts",
+    "sha256": "b46a981ebcc331220a81dafbc8c1f35bf17b1859cf016fa52a8c0dd6fec39bf9"
+  }
+}

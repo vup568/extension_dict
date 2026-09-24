@@ -233,3 +233,37 @@ Thiết kế Logical Database Schema tổng thể cho PostgreSQL 16, ánh xạ c
 | AC-DATA-005 — switch current without modifying old release | Singleton `current_knowledge_release`, serializable EF publication transaction | `Switching_current_pointer_does_not_update_the_old_release`, `KnowledgeReleasePublicationTests` |
 | DATA-005 — only controlled publication changes current facts | Transaction-local publication guard, pointer trigger, atomic publish service | direct-SQL rejection, pointer deletion, rollback/retry and concurrency integration tests |
 | Migration compatibility | Forward migration backfills legacy `is_current` into singleton pointer | `KnowledgeReleaseMigrationUpgradeTests` |
+
+## Current Task — F-01 Specification Refinement (2026-09-19)
+
+- [x] Read the current specification, requirements, migration decisions, Constitution and Spec Kit template.
+- [x] Verify Unicode semantics against versioned Unicode Character Database references.
+- [x] Refine the existing F-01 spec using the user's question-based structure.
+- [x] Validate requirement-to-acceptance traceability, boundary cases and the quality checklist.
+
+### Scope and Risks
+
+- User requested a detailed specification ready for subsequent planning; this task changes documentation only.
+- Main risks: ambiguous Han/kana policy, supplementary tests masked by adjacent kana, accidental symbol acceptance, and confusing detection failure with a valid negative result.
+- Feature decisions and limitations are recorded in the SPEC; no new project-wide architecture decision is introduced.
+
+## Current Task — F-01 Implementation (2026-09-20)
+
+- [x] Synchronize local dev with origin/dev and create feat/japanese-text-detection.
+- [x] Record explicit approval for the exact Extension build/test dependencies.
+- [x] Bootstrap and verify the Extension workspace.
+- [x] Generate and validate the Unicode 17.0.0 policy table.
+- [x] Implement the detector and boundary using test-first coverage.
+- [x] Run unit, browser/privacy and performance evidence appropriate to available browsers.
+- [x] Complete acceptance traceability and final review.
+
+### Implementation Risks
+
+- Brave and Firefox are not installed locally, so their parity evidence must remain pending unless an approved environment becomes available.
+- The detector performance budget remains pending OD-005; measurements must not be presented as a passed threshold without approval.
+- Unicode source generation must use pinned release URLs, verified checksums and deterministic output.
+
+### Issues Encountered
+
+- Environment-blocked: the existing .NET integration suite could not start because Testcontainers could not connect to the local Docker Engine pipe (`npipe://./pipe/docker_engine`). The Release build and all 51 .NET unit tests passed; the 50 integration failures occurred during fixture startup before feature assertions.
+- Resolved: sandboxed Vite/Vitest revalidation could not write generated config modules under `extension/node_modules/.vite-temp`; the same locked commands passed outside the sandbox with the required local permission.

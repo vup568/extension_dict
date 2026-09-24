@@ -50,3 +50,39 @@ jobs:
         run: |
           echo "Checking for console.log / debugger / TODO statements..."
           git grep -i -E "console\.log|debugger|TODO|FIXME" -- 'src/*' || echo "✅ No debug/TODO comments found."
+
+  extension-verification:
+    name: Extension F-01 (Unicode, Build, Test, Browser)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: extension
+
+    steps:
+      - name: 📥 Checkout Code
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Setup Node.js 22.15
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.15.0'
+          cache: npm
+          cache-dependency-path: extension/package-lock.json
+
+      - name: 📦 Install Locked Extension Dependencies
+        run: npm ci
+
+      - name: 🔏 Verify Unicode 17 Generated Policy
+        run: npm run unicode:verify
+
+      - name: 🔎 Type Check
+        run: npm run typecheck
+
+      - name: 🧪 Unit Tests and Coverage
+        run: npm run test:coverage
+
+      - name: 🛠️ Build Extension Core
+        run: npm run build
+
+      - name: 🌐 Chrome Browser Contract
+        run: npm run test:browser -- --project=chrome

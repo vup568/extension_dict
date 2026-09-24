@@ -22,6 +22,7 @@
   "include": [
     "src/**/*.ts",
     "tests/corpus/**/*.ts",
+    "tests/browser/**/*.ts",
     "tests/unit/**/*.ts",
     "unicode/unicodePolicyRanges.ts"
   ]

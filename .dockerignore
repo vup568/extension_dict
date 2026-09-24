@@ -1,0 +1,16 @@
+node_modules/
+.git/
+Dockerfile*
+.dockerignore
+*.log*
+.env*
+coverage/
+dist/
+build/
+bin/
+obj/
+TestResults/
+playwright-report/
+test-results/
+.vscode/
+.idea/

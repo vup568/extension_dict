@@ -19,8 +19,13 @@ data/
 .DS_Store
 Thumbs.db
 .env
+.env*
 *.local
 *.log
+*.tmp
+*.swp
+.vscode/
+.idea/
 
 # .NET build output
 **/bin/

@@ -267,3 +267,40 @@ Thiết kế Logical Database Schema tổng thể cho PostgreSQL 16, ánh xạ c
 
 - Environment-blocked: the existing .NET integration suite could not start because Testcontainers could not connect to the local Docker Engine pipe (`npipe://./pipe/docker_engine`). The Release build and all 51 .NET unit tests passed; the 50 integration failures occurred during fixture startup before feature assertions.
 - Resolved: sandboxed Vite/Vitest revalidation could not write generated config modules under `extension/node_modules/.vite-temp`; the same locked commands passed outside the sandbox with the required local permission.
+
+## Current Task — F-02 Ruby-Safe DOM Extraction Specification (2026-09-24)
+
+- [x] Read F-02 product authority, migration cases, Constitution, Spec Kit template and current F-01 boundary.
+- [x] Resolve product decisions for line boundaries, iframe locality and multi-range behavior with the owner.
+- [x] Create a dedicated specification branch and feature directory.
+- [x] Create `feat/ruby-safe-dom-extraction` from the completed specification state for planning and later implementation.
+- [x] Write the F-02 specification using the requested eight-question structure plus mandatory Spec Kit sections.
+- [x] Validate requirements, acceptance coverage, privacy, browser parity, scope and constitutional impact.
+- [x] Generate Phase 0 research and Phase 1 design artifacts for F-02.
+- [x] Create implementation-ready PLAN.md and dependency-ordered TASKS.md on feat/ruby-safe-dom-extraction.
+- [x] Implement the content-free result contract, pure text accumulator and isolated DOM selection adapter.
+- [x] Add exact ruby, partial range, structure, Unicode, contenteditable, frame, error, privacy and side-effect regressions.
+- [x] Verify the complete Extension suite on installed Chrome, Edge and Brave without downloading browsers.
+- [x] Record performance, parity, final review and requirement-level traceability evidence.
+- [x] Run Extension and .NET regressions, including PostgreSQL Testcontainers with Docker.
+
+### Scope and Decisions
+
+- Structural boundaries use `LF`: selected `br` and block transitions preserve meaningful line separation without artificial outer breaks.
+- Extraction is local to the frame where the selection occurs and never aggregates parent/sibling-frame content.
+- MVP accepts exactly one non-collapsed range; multi-range selection fails explicitly without partial text.
+- Brave and Chrome are primary manual-validation browsers, while the approved Chrome/Edge/Brave/Firefox parity contract remains unchanged.
+- Runtime F-02 is implemented without new dependencies; popup behavior, selection listeners, debounce and Backend integration remain outside scope for later features.
+
+### Implementation Status and Limitations
+
+- F-02 returns complete ruby-safe text or one of six content-free error codes and exports the boundary without changing F-01 behavior.
+- Chrome, Edge and Brave pass the complete local suite; Firefox evidence remains pending because no compatible executable is installed.
+- Node coverage is above the 85% gate, browser-only behavior has real-browser coverage, and all existing .NET unit/integration regressions pass.
+- PERF-001 contribution measurements are recorded without claiming an unapproved standalone threshold.
+
+### Issues Encountered
+
+- Resolved: sandboxed Vitest required approved local write access for Vite temporary files.
+- Resolved: final design review restored `hr`/`search` to the fixed semantic block policy and made multi-range validation authoritative before collapsed-state handling.
+- Pending evidence only: Firefox parity cannot be executed on the current machine.

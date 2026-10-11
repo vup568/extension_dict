@@ -1,0 +1,2 @@
+# The Unicode generator emits and verifies this artifact byte-for-byte with LF.
+extension/src/core/unicode17TriggerRanges.generated.ts text eol=lf

@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>F-02 Ruby-safe selection harness</title>
+  </head>
+  <body>
+    <main>
+      <div id="fixture" data-f02-fixture></div>
+
+      <section id="reference-fixtures" hidden>
+        <p id="reference-plain">日本語</p>
+        <p id="reference-ruby"><ruby>日本<rt>にほん</rt></ruby></p>
+        <p id="reference-rp">
+          <ruby>日本<rp>(</rp><rt>にほん</rt><rp>)</rp></ruby>
+        </p>
+        <p id="reference-nested"><span>今日は</span><b>晴れ</b></p>
+        <p id="reference-repeated"><ruby>かな<rt>かな</rt></ruby></p>
+        <p id="reference-partial"><span>日本</span><rt>にほん</rt></p>
+        <p id="reference-annotation"><rt>注音のみ</rt></p>
+      </section>
+    </main>
+
+    <script type="module" src="./ruby-safe-selection-harness.ts"></script>
+  </body>
+</html>

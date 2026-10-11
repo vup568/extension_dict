@@ -8,7 +8,11 @@ test("does not mutate DOM, style, focus, selection, or input", async ({
   const result = await page.evaluate(() => {
     const focusTarget = document.querySelector<HTMLInputElement>("#focus-target");
     const selectionTarget = document.querySelector("#selection-target");
-    if (focusTarget === null || selectionTarget?.firstChild === null) {
+    if (
+      focusTarget === null ||
+      selectionTarget === null ||
+      selectionTarget.firstChild === null
+    ) {
       throw new Error("Harness sentinel missing");
     }
 

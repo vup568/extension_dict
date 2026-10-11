@@ -7,7 +7,9 @@
     "node": ">=22.12.0"
   },
   "scripts": {
-    "build": "vite build",
+    "build": "vite build && node --experimental-strip-types build-extension.mjs",
+    "build:library": "vite build",
+    "build:extension": "node --experimental-strip-types build-extension.mjs",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
@@ -18,9 +20,20 @@
   },
   "devDependencies": {
     "@playwright/test": "1.63.0",
+    "@tailwindcss/vite": "4.3.3",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
     "@vitest/coverage-v8": "5.0.1",
+    "tailwindcss": "4.3.3",
     "typescript": "7.0.2",
     "vite": "8.3.0",
     "vitest": "5.0.1"
+  },
+  "dependencies": {
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  },
+  "overrides": {
+    "source-map-js": "1.2.2"
   }
 }

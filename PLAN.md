@@ -304,3 +304,47 @@ Thiết kế Logical Database Schema tổng thể cho PostgreSQL 16, ánh xạ c
 - Resolved: sandboxed Vitest required approved local write access for Vite temporary files.
 - Resolved: final design review restored `hr`/`search` to the fixed semantic block policy and made multi-range validation authoritative before collapsed-state handling.
 - Pending evidence only: Firefox parity cannot be executed on the current machine.
+
+## Current Task — F-02 Delivery and F-03/F-04 Selection Popup (2026-10-11)
+
+- [x] Review product/design authority, F-01/F-02 boundaries and actual unified API DTOs; approve feature-local plan.
+- [x] Merge F-02 into `dev`, push remote and verify `e01ee19d2458403d3dc9d9a18df0ffc4e0426dc4`.
+- [x] Create `feat/selection-popup-stale-protection` and approved feature SPEC/PLAN/TASKS.
+- [x] Install approved React 19.3.0/Tailwind 4.3.3 and locked transitives; patch `source-map-js` to 1.2.2, audit 0 vulnerabilities.
+- [x] Implement actual DTO/runtime validation, frame-local selection and immediate interaction invalidation.
+- [x] Implement React/open Shadow DOM popup with loading, capability results, errors/Retry, keyboard/focus and selection anchoring.
+- [x] Add restricted background transport, Chromium/Firefox packaging; preserve `dist/index.js` library build.
+- [x] Verify 223 unit tests and coverage, typecheck, Unicode policy and production builds.
+- [x] Verify .NET Release build with no warnings/errors and 51 unit tests.
+- [x] Verify packaged real MV3 transport on Brave from an ordinary HTTP host page.
+- [x] Complete full browser regression/popup gates: 112/112 pass (Chrome37, Edge37, Brave37, packaged MV3 Brave1).
+- [x] Complete independent review with no outstanding P1/P2 findings and update project documentation.
+- [x] Finish feature traceability/evidence sync in the feature directory.
+- [ ] Commit/push the finished feature branch and verify remote state as authorized.
+
+### Scope, decisions and remaining release limits
+
+- Shell/loading appears before request; request debounce 300ms and independent
+  5s deadline. New selection invalidates generation/UUID immediately, including
+  during debounce; stale success/error/partial cannot replace current state.
+- Feature-local open Shadow DOM/nonmodal popup uses manual native popover top
+  layer to isolate ancestor transform/overflow, with fixed-host fallback.
+  Lifecycle/positioning include visualViewport events and BFCache recovery.
+- Only background fetches configured backend origin; HTTPS except local loopback,
+  omitted cookies, rejected redirects, no page-context/history/raw-content logs.
+- Existing API/schema/datasets remain linguistic authority. Morphology and
+  conjugation remain unavailable; deinflection is null-adapter, vocabulary is
+  whole-selection lookup and grammar seed contains 5 patterns.
+- Input/textarea selection has no DOM Range and is unsupported. Backend limit
+  1000 trimmed UTF-16 units is rejected visibly, never truncated.
+- Firefox execution and approved PERF-001 benchmark remain pending. Existing
+  Docker startup failure prevents current PostgreSQL Testcontainers verification;
+  no Docker reset or user-data deletion was performed.
+
+### Evidence
+
+Feature completion gates and AC mapping:
+`.sdd/specs/feat-selection-popup/{SPEC.md,PLAN.md,TASKS.md,evidence/}`.
+Coverage: 96.74% statements, 93.58% branches, 98.24% functions, 97.85% lines.
+Report: `.sdd/specs/feat-selection-popup/evidence/validation-report.md`.
+Feature delivery commit/remote verification stays open until performed.

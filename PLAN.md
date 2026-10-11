@@ -320,7 +320,7 @@ Thiết kế Logical Database Schema tổng thể cho PostgreSQL 16, ánh xạ c
 - [x] Complete full browser regression/popup gates: 112/112 pass (Chrome37, Edge37, Brave37, packaged MV3 Brave1).
 - [x] Complete independent review with no outstanding P1/P2 findings and update project documentation.
 - [x] Finish feature traceability/evidence sync in the feature directory.
-- [ ] Commit/push the finished feature branch and verify remote state as authorized.
+- [x] Commit/push the finished feature branch and verify remote state as authorized.
 
 ### Scope, decisions and remaining release limits
 
@@ -347,4 +347,7 @@ Feature completion gates and AC mapping:
 `.sdd/specs/feat-selection-popup/{SPEC.md,PLAN.md,TASKS.md,evidence/}`.
 Coverage: 96.74% statements, 93.58% branches, 98.24% functions, 97.85% lines.
 Report: `.sdd/specs/feat-selection-popup/evidence/validation-report.md`.
-Feature delivery commit/remote verification stays open until performed.
+Feature delivery verified on origin/feat/selection-popup-stale-protection at
+`86cd930c1e05bbc8c68a590b452a63d2d3f5e8df` (implementation `99c2634`, tests `18035fa`,
+configuration `5a0ff1a`). Remote SHA equals local HEAD. Feature stays on its reviewable
+branch; dev retains the authorized F-02 merge `e01ee19`.

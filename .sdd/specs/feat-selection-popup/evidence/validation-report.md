@@ -4,6 +4,12 @@ Branch: feat/selection-popup-stale-protection.
 F-02 prerequisite merged and pushed to origin/dev at
 e01ee19d2458403d3dc9d9a18df0ffc4e0426dc4; remote SHA verified.
 
+F-03/F-04 implementation, tests and documentation were normally pushed to
+origin/feat/selection-popup-stale-protection at 86cd930c1e05bbc8c68a590b452a63d2d3f5e8df,
+verified equal to local HEAD. Implementation commit: 99c2634; test commit: 18035fa.
+The feature remains separate from dev; a subsequent documentation-only commit
+records this already-verified delivery milestone without changing runtime code.
+
 ## Current results
 
 | Gate | Result |

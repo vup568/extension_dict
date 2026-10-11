@@ -58,6 +58,8 @@ Separating popup render timing from request debounce preserves perceived
 responsiveness. Cancellation alone cannot prove currentness; success, errors,
 partial results and timeouts need the same identity guard. Documentation now
 distinguishes MVP scope, implemented contracts and environment-dependent
-verification. Finish feature traceability and commit/push verification, then
-pursue remaining linguistic/data work. Firefox/Docker/approved benchmark limits
+verification. Traceability and normal feature-branch push were completed; remote
+SHA `86cd930c1e05bbc8c68a590b452a63d2d3f5e8df` was verified equal to local HEAD.
+The implementation remains on its feature branch for review; dev has the F-02 merge.
+Next work can pursue remaining linguistic/data coverage. Firefox/Docker/approved benchmark limits
 remain visible rather than being counted as passed.

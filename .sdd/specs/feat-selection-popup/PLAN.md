@@ -1,6 +1,6 @@
 # F-03/F-04 Implementation Plan
 
-Status: implemented and verified on installed targets; delivery in progress.
+Status: implemented, locally verified and delivered to its remote feature branch.
 Branch: feat/selection-popup-stale-protection.
 Date: 2026-10-11. Reviewed against source requirements and UI designer analysis.
 
@@ -39,8 +39,9 @@ Environment -> preserve Firefox/Docker pending status rather than fabricate pass
 - [x] Tests, independent review and traceability.
 - [x] Documentation, traceability and verification handoff prepared.
 
-Implementation and local verification are complete. Authorized remote delivery is
-tracked separately in the root PLAN.md; Firefox/Docker/approved benchmark gates remain
+Implementation and local verification are complete. Authorized remote delivery was
+verified at 86cd930c1e05bbc8c68a590b452a63d2d3f5e8df on origin/feat/selection-popup-stale-protection;
+Firefox/Docker/approved benchmark gates remain
 explicit limits rather than unchecked implementation work.
 
 ## Issues encountered

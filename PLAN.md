@@ -360,7 +360,7 @@ branch; dev retains the authorized F-02 merge `e01ee19`.
 - [x] Run focused F-06 unit/integration slices: 13/13 and 6/6 passed.
 - [x] Reproduce and fix NullTokenizer capability mismatch with a PostgreSQL regression test.
 - [x] Synchronize F-06 SPEC/PLAN/TASKS, validation evidence and Project Memory.
-- [ ] Review, commit and push the revalidated feature branch.
+- [x] Review, commit and push the revalidated feature branch.
 - [ ] Merge remote feature branch into `dev`, run post-merge smoke gates and push `dev`.
 
 ### Remaining scope

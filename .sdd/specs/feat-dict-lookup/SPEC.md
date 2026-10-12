@@ -1,7 +1,14 @@
 # FEATURE SPEC: Dictionary Lookup API
-# Version: 1.0.0 | Owner: @lead-dev | Date: 2026-08-22
+# Version: 1.1.0 | Owner: @lead-dev | Updated: 2026-10-12
 # Inherits: .sdd/constraints/global.md, .sdd/constraints/business.md, .sdd/constraints/safety.md
 # Target Stack: .NET 10 (C# 14) Backend, PostgreSQL 16 (ARCH-005), Docker Testcontainers (ARCH-006)
+
+> **Implementation status (2026-10-12):** Exact form/reading lookup, Vietnamese-first
+> fallback, provenance, blank/length validation, structured errors and anonymous endpoint wiring are
+> implemented. PostgreSQL Testcontainers verification passes. Production deinflection
+> remains pending `OD-010`; the default `NullTokenizerAdapter` reports morphology as
+> `unavailable` without breaking exact lookup. This status note does not weaken the
+> requirements below.
 
 --------------------------------------------------------------------------------
 
@@ -317,7 +324,7 @@ Các tính năng sau **SHALL NOT** được triển khai trong feature này:
 | 1 | **OD-010:** Tokenizer Sidecar dùng Go hay Python? MeCab hay Sudachi? | Blocker cho §3.2 Deinflection | ⏳ Pending |
 | 2 | **OD-005:** Final P95 latency SLO sau benchmark? | Nghiệm thu NFR-PERF-01/02 | ⏳ Pending |
 | 3 | **OD-009:** Nguồn dữ liệu nghĩa Việt (FVDP/OVDP) — bản quyền và chất lượng? | Chất lượng `localized_glosses` vi | ⏳ Pending |
-| 4 | API route: dùng standalone `/api/dictionary/lookup` hay chỉ embed trong `/api/analysis`? | Quyết định route structure | ⏳ Pending |
+| 4 | API route: dùng standalone `/api/dictionary/lookup` hay chỉ embed trong `/api/analysis`? | Quyết định route structure | ✅ Resolved — cả standalone lookup và unified analysis đang được map |
 
 --------------------------------------------------------------------------------
 

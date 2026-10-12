@@ -351,3 +351,20 @@ Feature delivery verified on origin/feat/selection-popup-stale-protection at
 `86cd930c1e05bbc8c68a590b452a63d2d3f5e8df` (implementation `99c2634`, tests `18035fa`,
 configuration `5a0ff1a`). Remote SHA equals local HEAD. Feature stays on its reviewable
 branch; dev retains the authorized F-02 merge `e01ee19`.
+
+## Current Task — Docker Revalidation, F-06 Sync and Feature Merge (2026-10-12)
+
+- [x] Confirm Docker Engine and PostgreSQL 16 Compose service are healthy.
+- [x] Run Release build and full unit suite: 0 warnings/errors, 53/53 passed.
+- [x] Run full PostgreSQL Testcontainers integration suite: 51/51 passed.
+- [x] Run focused F-06 unit/integration slices: 13/13 and 6/6 passed.
+- [x] Reproduce and fix NullTokenizer capability mismatch with a PostgreSQL regression test.
+- [x] Synchronize F-06 SPEC/PLAN/TASKS, validation evidence and Project Memory.
+- [ ] Review, commit and push the revalidated feature branch.
+- [ ] Merge remote feature branch into `dev`, run post-merge smoke gates and push `dev`.
+
+### Remaining scope
+
+- Production Sidecar/deinflection remains blocked by OD-010; exact lookup does not imply AC-010 completion.
+- Approved performance certification remains blocked by OD-005.
+- Public HTTP response shapes and database schema are unchanged by the capability fix.

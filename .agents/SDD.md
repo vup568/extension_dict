@@ -69,11 +69,11 @@
 
 ### 2.3 Current Sprint Notes
 
-*   **Workstream hiện tại (2026-10-11):** F-02 delivery và F-03/F-04 Extension selection-to-analysis trên baseline .NET 10/React 19 đã dựng.
+*   **Workstream hiện tại (2026-10-12):** F-03/F-04 Extension selection-to-analysis đã hoàn tất trên feature branch; F-06 exact lookup được tái kiểm chứng với PostgreSQL 16.
 *   **Đã delivery:** F-02 merge/push `dev` tại `e01ee19d2458403d3dc9d9a18df0ffc4e0426dc4`; backend dictionary/kanji/grammar/unified analysis đã có runtime.
-*   **Mục tiêu hiện tại:** Hoàn tất traceability/evidence và commit/push trên `feat/selection-popup-stale-protection`; popup/current-interaction protection đã kiểm chứng trên Chrome/Edge/Brave.
+*   **Mục tiêu hiện tại:** Merge/push `feat/selection-popup-stale-protection` vào `dev` sau khi toàn bộ gate sau sửa F-06 đạt.
 *   **Spec đang hoạt động:** `.sdd/specs/feat-selection-popup/{SPEC.md,PLAN.md,TASKS.md}`; evidence cuối ghi riêng, không suy diễn từ mức ưu tiên MVP.
-*   **Giới hạn còn lại:** Morphology/conjugation unavailable, dictionary mặc định NullTokenizerAdapter, grammar seed 5 mẫu; Web/auth/translation/learning chưa triển khai. Firefox runtime và approved benchmark pending; Docker startup đang giới hạn Testcontainers. Review nghĩa Việt production vẫn là gate dữ liệu riêng.
+*   **Giới hạn còn lại:** Morphology/conjugation unavailable, dictionary mặc định NullTokenizerAdapter báo capability unavailable, grammar seed 5 mẫu; Web/auth/translation/learning chưa triển khai. Firefox runtime và approved benchmark pending. Docker/PostgreSQL Testcontainers hiện hoạt động; review nghĩa Việt production vẫn là gate dữ liệu riêng.
 
 ---
 
@@ -193,3 +193,9 @@ Mã nguồn Backend trong thư mục `src/` bắt buộc phải tuân thủ nghi
 *   Verified gates: 223/223 units, 96.74% statements/93.58% branches/98.24% functions/97.85% lines coverage; typecheck, Unicode verification, library/extension builds, .NET Release 0 warnings/errors and 51/51 units pass. Full browser suite 112/112 (Chrome 37, Edge 37, Brave 37, packaged MV3 Brave 1), no skip/flaky/failure; real background POST from an ordinary HTTP host uses minimal payload/no cookies/storage. Independent review has no outstanding P1/P2. Evidence: `.sdd/specs/feat-selection-popup/evidence/validation-report.md`.
 *   Remaining limits: Firefox execution pending, PostgreSQL Testcontainers blocked by existing Docker startup failure, approved PERF-001 benchmark pending. Input/textarea selection unsupported, whole-selection vocabulary lookup unsegmented, default NullTokenizerAdapter and grammar seed5 patterns remain as before.
 *   Delivery verified: `origin/feat/selection-popup-stale-protection` equals local `86cd930c1e05bbc8c68a590b452a63d2d3f5e8df` after a normal push; implementation `99c2634`, tests `18035fa`, external DB configuration `5a0ff1a`. This feature was not merged into dev; dev remains the authorized F-02 merge `e01ee19`.
+
+### 2026-10-12 — F-06 PostgreSQL Revalidation and Capability Truthfulness
+
+*   Docker Engine and the local PostgreSQL 16 Compose service are healthy. The Release solution build passes with zero warnings/errors; unit tests pass 53/53 and PostgreSQL Testcontainers integration tests pass 51/51. Focused F-06 slices pass 13/13 unit and 6/6 integration tests.
+*   `DeinflectionResult` now distinguishes an available provider with no match from an unavailable provider. The default `NullTokenizerAdapter` therefore keeps exact lookup usable while truthfully reporting morphology `unavailable`, matching AC-011 and Unified Analysis behavior.
+*   F-06 exact lookup, Vietnamese-first fallback, provenance and blank/length validation are verified. Control-character policy remains a recorded gap. Production deinflection remains pending OD-010; performance certification remains pending OD-005. Evidence: `.sdd/specs/feat-dict-lookup/evidence/validation-report.md`.

@@ -43,6 +43,8 @@ if (firefoxExecutable !== undefined && firefoxExecutable.length > 0) {
   });
 }
 
+projects.push({ name: "packaged", testDir: "./tests/packaged", use: {} });
+
 export default defineConfig({
   testDir: "./tests/browser",
   fullyParallel: true,

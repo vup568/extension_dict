@@ -20,7 +20,7 @@ public sealed class DictionaryLookupIntegrationTests(PostgreSqlFixture fixture) 
     }
 
     [Fact]
-    public async Task AC001_ExactMatchLookup_ReturnsEntryWithCorrectFormsReadingsAndGlosses()
+    public async Task AC002_ExactMatchLookup_ReturnsEntryWithCorrectFormsReadingsAndGlosses()
     {
         // Arrange
         var options = CreateDbContextOptions();
@@ -66,10 +66,12 @@ public sealed class DictionaryLookupIntegrationTests(PostgreSqlFixture fixture) 
         match.Readings.Should().ContainSingle(r => r.ReadingText == "にほんご");
         match.Senses[0].Glosses[0].LanguageTag.Should().Be("vi");
         match.Senses[0].Glosses[0].GlossText.Should().Be("Tiếng Nhật");
+        // EARS[State]: WHILE the tokenizer sidecar is unavailable, exact results remain available.
+        result.Capabilities.Morphology.Should().Be("unavailable");
     }
 
     [Fact]
-    public async Task AC002_LanguagePriority_PrioritizesVietnameseGlossOverEnglish()
+    public async Task AC003_LanguagePriority_PrioritizesVietnameseGlossOverEnglish()
     {
         // Arrange
         var options = CreateDbContextOptions();
@@ -116,7 +118,7 @@ public sealed class DictionaryLookupIntegrationTests(PostgreSqlFixture fixture) 
     }
 
     [Fact]
-    public async Task AC003_EmptyResult_ReturnsEmptyMatchesWhenWordNotFound()
+    public async Task AC007_AC011_EmptyResult_ReturnsEmptyMatchesAndMarksNullTokenizerUnavailable()
     {
         // Arrange
         var options = CreateDbContextOptions();
@@ -136,11 +138,12 @@ public sealed class DictionaryLookupIntegrationTests(PostgreSqlFixture fixture) 
         // Assert
         result.Should().NotBeNull();
         result.Matches.Should().BeEmpty();
-        result.Capabilities.Morphology.Should().Be("completed");
+        // EARS[State]: WHILE the tokenizer sidecar is unavailable, morphology is explicitly unavailable.
+        result.Capabilities.Morphology.Should().Be("unavailable");
     }
 
     [Fact]
-    public async Task AC004_Validation_ThrowsArgumentExceptionForInvalidQueries()
+    public async Task AC006_Validation_ThrowsArgumentExceptionForInvalidQueries()
     {
         // Arrange
         var options = CreateDbContextOptions();
@@ -158,7 +161,7 @@ public sealed class DictionaryLookupIntegrationTests(PostgreSqlFixture fixture) 
     }
 
     [Fact]
-    public async Task AC005_RestrictionProvenance_LoadsSenseApplicabilitiesAccurately()
+    public async Task AC004_RestrictionProvenance_LoadsSenseApplicabilitiesAccurately()
     {
         // Arrange
         var options = CreateDbContextOptions();
@@ -220,5 +223,43 @@ public sealed class DictionaryLookupIntegrationTests(PostgreSqlFixture fixture) 
         restrictions.Should().HaveCount(1);
         restrictions[0].WrittenFormId.Should().Be(writtenFormId);
         restrictions[0].ReadingId.Should().Be(readingId);
+    }
+
+    [Fact]
+    public async Task VOC001_ReadingExactMatch_ReturnsEntryForKanaReading()
+    {
+        // Arrange
+        var options = CreateDbContextOptions();
+        await using (var setupContext = new AppDbContext(options))
+        {
+            await setupContext.Database.MigrateAsync(TestContext.Current.CancellationToken);
+            setupContext.DictionaryEntries.Add(new DictionaryEntry
+            {
+                CanonicalId = $"dictionary:test-{Guid.NewGuid():N}",
+                WrittenForms = [new WrittenForm { Form = "辞書", IsCommon = true }],
+                Readings = [new Reading { ReadingText = "じしょ", IsCommon = true }],
+                Senses =
+                [
+                    new DictionarySense
+                    {
+                        SenseKey = "1",
+                        Position = 1,
+                        Glosses = [new LocalizedGloss { LanguageTag = "vi", GlossText = "từ điển", Position = 1 }]
+                    }
+                ]
+            });
+            await setupContext.SaveChangesAsync(TestContext.Current.CancellationToken);
+        }
+
+        // Act
+        await using var dbContext = new AppDbContext(options);
+        var useCase = new LookupWordUseCase(new EfDictionaryRepository(dbContext), new NullTokenizerAdapter());
+        var result = await useCase.ExecuteAsync("じしょ", TestContext.Current.CancellationToken);
+
+        // Assert
+        result.Matches.Should().ContainSingle();
+        result.Matches[0].MatchedReading.Should().Be("じしょ");
+        result.Matches[0].WrittenForms.Should().ContainSingle(form => form.Form == "辞書");
+        result.Capabilities.Morphology.Should().Be("unavailable");
     }
 }

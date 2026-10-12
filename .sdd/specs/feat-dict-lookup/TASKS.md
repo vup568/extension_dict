@@ -1,6 +1,6 @@
 # Task Checklist: Dictionary Lookup API (`feat-dict-lookup`)
 
-**Version:** 1.0.0 | **Date:** 2026-08-22  
+**Version:** 1.1.0 | **Updated:** 2026-10-12
 **Target Feature:** `feat-dict-lookup` (F-06 Vocabulary Lookup API)  
 **Spec Reference:** [SPEC.md](./SPEC.md) | **Plan Reference:** [PLAN.md](./PLAN.md)
 
@@ -11,7 +11,7 @@
 | Phase | Description | Task Count | Status |
 |---|---|---|---|
 | **Phase 1** | Application Layer Core Abstractions & Use Case | 5 tasks | ✅ Completed |
-| **Phase 2** | Infrastructure Implementation (EF Core & Sidecar) | 3 tasks | ✅ Completed |
+| **Phase 2** | Infrastructure Implementation (EF Core & Sidecar) | 4 tasks | ⚠️ Fallback complete; production Sidecar pending OD-010 |
 | **Phase 3** | WebApi Layer & Endpoint Registration | 3 tasks | ✅ Completed |
 | **Phase 4** | Integration Testing & Verification | 2 tasks | ✅ Completed |
 
@@ -66,10 +66,14 @@
     - Query `AppDbContext.DictionaryEntries` with eager loading (`Include`/`ThenInclude`) for `WrittenForms`, `Readings`, `Senses`, `Glosses` (on Sense), and `Applicabilities` (on Sense).
     - Ensure queries use indexes on `written_forms.form` (`idx_written_forms_form`) and `readings.reading` (`idx_readings_reading`).
 
-- [x] **Task 2.2: Implement Fallback Tokenizer Adapter (`NullTokenizerAdapter`)**
+- [x] **Task 2.2a: Implement unavailable-provider adapter (`NullTokenizerAdapter`)**
   - File: `src/infra/Adapters/NullTokenizerAdapter.cs`
   - Details:
-    - Return `DeinflectionResult.Empty` to allow standalone execution without a running sidecar container.
+    - Return an explicit unavailable result so exact lookup remains usable without falsely claiming morphology completed.
+
+- [ ] **Task 2.2b: Implement production Tokenizer Sidecar adapter**
+  - Blocked by `OD-010` (Go/Python and MeCab/Sudachi selection).
+  - Required for production AC-010 deinflection; not part of the current verified exact-lookup slice.
 
 - [x] **Task 2.3: Create Infrastructure Extension Registration**
   - File: `src/infra/DependencyInjection.cs`
@@ -106,12 +110,14 @@
 - [x] **Task 4.1: Create Integration Test Suite**
   - File: `tests/integration/DictionaryLookupIntegrationTests.cs`
   - Details:
-    - Test AC-001 (Exact Match with `日本語`).
-    - Test AC-002 (Language Priority `vi` > `en`).
-    - Test AC-003 (Empty result for unknown word).
-    - Test AC-004 (Validation error for invalid query).
-    - Test AC-005 (Restriction provenance integrity).
+    - Test SPEC AC-002 exact match with `日本語` and VOC-001 exact lookup by kana reading.
+    - Test SPEC AC-003 language priority `vi` > `en`.
+    - Test SPEC AC-007 empty result plus AC-011 unavailable-provider capability.
+    - Test SPEC AC-006 use-case validation for invalid query.
+    - Test SPEC AC-004 restriction provenance integrity.
 
 - [x] **Task 4.2: Final Verification & Solution Build**
-  - Command: `dotnet build` -> 0 errors, 0 warnings.
-  - Command: `dotnet test tests/unit/UnitTests.csproj` -> 14/14 unit tests pass.
+  - 2026-10-12 Release build: 0 errors, 0 warnings.
+  - Full unit suite: 53/53; F-06-focused unit slice: 13/13.
+  - Full PostgreSQL Testcontainers suite: 51/51; F-06-focused integration slice: 6/6.
+  - Evidence: [evidence/validation-report.md](./evidence/validation-report.md).

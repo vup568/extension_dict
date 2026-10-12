@@ -17,6 +17,7 @@ public class LookupWordUseCaseTests
 
     public LookupWordUseCaseTests()
     {
+        _tokenizerAdapter.IsAvailable.Returns(true);
         _sut = new LookupWordUseCase(_dictionaryRepository, _tokenizerAdapter);
     }
 
@@ -68,6 +69,44 @@ public class LookupWordUseCaseTests
         result.Matches[0].MatchedWrittenForm.Should().Be("日本語");
         result.Matches[0].Senses[0].Glosses[0].GlossText.Should().Be("Tiếng Nhật");
         result.Conjugation.Should().BeNull();
+        result.Capabilities.Morphology.Should().Be("completed");
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_ShouldReportMorphologyUnavailable_WhenProviderIsNotConfiguredAndExactMatchExists()
+    {
+        // Arrange
+        const string query = "日本語";
+        _tokenizerAdapter.IsAvailable.Returns(false);
+        _dictionaryRepository.SearchByFormOrReadingAsync(query, Arg.Any<CancellationToken>())
+            .Returns([CreateSampleEntry("dictionary:1001", query, "にほんご", "Tiếng Nhật", "vi")]);
+
+        // Act
+        var result = await _sut.ExecuteAsync(query, TestContext.Current.CancellationToken);
+
+        // Assert
+        result.Matches.Should().HaveCount(1);
+        result.Capabilities.Morphology.Should().Be("unavailable");
+        await _tokenizerAdapter.DidNotReceive().DeinflectAsync(
+            Arg.Any<string>(),
+            Arg.Any<CancellationToken>());
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_ShouldKeepMorphologyCompleted_WhenAvailableProviderFindsNoDeinflection()
+    {
+        // Arrange
+        const string query = "未登録語";
+        _dictionaryRepository.SearchByFormOrReadingAsync(query, Arg.Any<CancellationToken>())
+            .Returns([]);
+        _tokenizerAdapter.DeinflectAsync(query, Arg.Any<CancellationToken>())
+            .Returns(DeinflectionResult.Empty(query));
+
+        // Act
+        var result = await _sut.ExecuteAsync(query, TestContext.Current.CancellationToken);
+
+        // Assert
+        result.Matches.Should().BeEmpty();
         result.Capabilities.Morphology.Should().Be("completed");
     }
 

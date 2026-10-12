@@ -1,6 +1,6 @@
 # F-03/F-04 Implementation Plan
 
-Status: implemented, locally verified and delivered to its remote feature branch.
+Status: implemented and verified on the local dev merge; remote delivery tracked by PR #10.
 Branch: feat/selection-popup-stale-protection.
 Date: 2026-10-11. Reviewed against source requirements and UI designer analysis.
 
@@ -26,7 +26,7 @@ Abort ignored -> generation plus UUID correlation, checked before every state up
 Host CORS -> extension background fetch restricted to configured backend origin.
 Host CSS/focus -> Shadow DOM, host reset, nonmodal focus policy and browser fixtures.
 Text retention -> no storage/logging, clear controller and DOM on close/invalidation.
-Environment -> preserve Firefox/Docker pending status rather than fabricate pass.
+Environment -> keep Firefox/approved benchmark pending; Docker verification passed on 2026-10-12.
 
 ## Progress
 
@@ -41,8 +41,9 @@ Environment -> preserve Firefox/Docker pending status rather than fabricate pass
 
 Implementation and local verification are complete. Authorized remote delivery was
 verified at 86cd930c1e05bbc8c68a590b452a63d2d3f5e8df on origin/feat/selection-popup-stale-protection;
-Firefox/Docker/approved benchmark gates remain
-explicit limits rather than unchecked implementation work.
+Local dev merge b3d187d passed post-merge gates on 2026-10-12.
+Remote delivery is tracked by [PR #10](https://github.com/vup568/extension_dict/pull/10).
+Firefox and approved benchmark gates remain explicit limits.
 
 ## Issues encountered
 
@@ -50,9 +51,9 @@ explicit limits rather than unchecked implementation work.
   1.2.2 fixes the approved locked dependency graph; npm audit now reports zero findings.
 - Review fixed BFCache listener lifetime, visualViewport size, transformed-host placement
   using a manual top-layer popover, open-shadow host focus restoration, and HTTP-safe UUIDs.
-- Current .NET build succeeds with zero warnings/errors and unit suite passes 51/51.
+- .NET build succeeds with zero warnings/errors; 2026-10-12 unit suite passes 53/53.
 - Current Extension Node suite passes 223/223; statement coverage 96.74%, branches 93.58%.
 - Full browser suite passes 112/112, with 19/19 additional final-polish checks;
   independent review has no remaining P1/P2 blocker. Full report and preview archived.
-- Docker Desktop startup fails at dockerInference socket. PostgreSQL integration rerun
-  remains environment-blocked; prior F-02 50/50 results are historical, not a current pass.
+- Docker startup issue resolved on 2026-10-12: PostgreSQL 16 Testcontainers suite passes
+  51/51, including F-06-focused 6/6. See the F-06 validation report for reproduction commands.

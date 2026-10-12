@@ -4,7 +4,7 @@ Trợ lý đọc tiếng Nhật dành cho người Việt: Extension mỏng dùn
 .NET 10, PostgreSQL 16 và tokenizer sidecar. Dự án phát triển theo SDD; yêu cầu
 đã phê duyệt là nguồn xác định phạm vi sản phẩm.
 
-## Trạng thái triển khai — 2026-10-11
+## Trạng thái triển khai — 2026-10-12
 
 - Backend đã có tra từ vựng, kanji, engine ngữ pháp và `POST /api/analysis` với
   kết quả từng phần. Morphology và conjugation vẫn trả `unavailable`.
@@ -15,6 +15,9 @@ Trợ lý đọc tiếng Nhật dành cho người Việt: Extension mỏng dùn
   300 ms, timeout 5 giây, Retry và bảo vệ interaction hiện hành. Native popover
   top layer cách ly transform/overflow của trang; có fixed-host fallback.
   Kết quả được ghi trong [validation report](.sdd/specs/feat-selection-popup/evidence/validation-report.md).
+- Delivery vào `dev` qua [PR #10](https://github.com/vup568/extension_dict/pull/10).
+  Cây merge đã kiểm chứng: .NET 53 unit tests, 51 PostgreSQL Testcontainers tests;
+  Extension typecheck, 223 unit tests và production build đều đạt.
 - Web App, dịch thuật, authentication và thư viện học cá nhân chưa triển khai.
 
 [Feature Map](docs/FEATURE_MAP.md) phân biệt mức ưu tiên MVP với tiến độ thực tế.

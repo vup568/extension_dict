@@ -361,7 +361,15 @@ branch; dev retains the authorized F-02 merge `e01ee19`.
 - [x] Reproduce and fix NullTokenizer capability mismatch with a PostgreSQL regression test.
 - [x] Synchronize F-06 SPEC/PLAN/TASKS, validation evidence and Project Memory.
 - [x] Review, commit and push the revalidated feature branch.
-- [ ] Merge remote feature branch into `dev`, run post-merge smoke gates and push `dev`.
+- [x] Merge remote feature branch locally into `dev` at b3d187d and run post-merge gates.
+
+### Remote delivery
+
+Direct push to `dev` was rejected because GitHub requires a pull request.
+Delivery proceeds through [PR #10](https://github.com/vup568/extension_dict/pull/10);
+its merged state is the authoritative remote completion record.
+Post-merge gates: Release build 0 warnings/errors, 53/53 .NET units, 51/51 PostgreSQL
+Testcontainers tests, Extension typecheck/223 units/production build.
 
 ### Remaining scope
 

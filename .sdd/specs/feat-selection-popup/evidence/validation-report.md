@@ -7,10 +7,11 @@ e01ee19d2458403d3dc9d9a18df0ffc4e0426dc4; remote SHA verified.
 F-03/F-04 implementation, tests and documentation were normally pushed to
 origin/feat/selection-popup-stale-protection at 86cd930c1e05bbc8c68a590b452a63d2d3f5e8df,
 verified equal to local HEAD. Implementation commit: 99c2634; test commit: 18035fa.
-The feature remains separate from dev; a subsequent documentation-only commit
-records this already-verified delivery milestone without changing runtime code.
+This was the initial feature-branch delivery. The local dev merge b3d187d passed
+post-merge gates on 2026-10-12; remote delivery is tracked by
+[PR #10](https://github.com/vup568/extension_dict/pull/10), as dev requires a pull request.
 
-## Current results
+## Recorded results (browser/coverage 2026-10-11; backend rerun 2026-10-12)
 
 | Gate | Result |
 |---|---|
@@ -26,8 +27,8 @@ records this already-verified delivery milestone without changing runtime code.
 | Brave | PASS — 37/37, including 16 F-01/F-02 regressions and 21 popup tests |
 | Packaged Chromium MV3 | PASS — 1/1 on installed Brave, actual content/background transport |
 | .NET Release solution build | PASS — 0 warnings, 0 errors |
-| .NET unit regression | PASS — 51/51 |
-| PostgreSQL integration rerun | BLOCKED — local Docker Desktop startup socket error |
+| .NET unit regression | PASS — 53/53 on 2026-10-12 |
+| PostgreSQL integration rerun | PASS — 51/51 on 2026-10-12, PostgreSQL 16 Testcontainers |
 | Firefox runtime | PENDING — compatible executable unavailable |
 | Approved PERF-001 benchmark | PENDING — shell before dispatch verified, no approved p95 certification claimed |
 
@@ -73,9 +74,9 @@ No remaining P1/P2 finding was reported after the full browser run.
 
 ## Limitations and final polish
 
-Firefox build is available but not an inferred runtime pass. Docker startup fails at
-dockerInference socket; no Docker reset/data deletion was performed. Previous F-02
-50/50 PostgreSQL results are historical and are not counted as current verification.
+Firefox build is available but not an inferred runtime pass. Docker startup failed at
+dockerInference socket during the 2026-10-11 run; the issue was resolved by 2026-10-12,
+when the PostgreSQL Testcontainers suite passed 51/51 on the merged tree.
 Closed host shadow-root focus remains opaque. Input/textarea non-Range selection is unsupported.
 Existing linguistic data/segmentation/deinflection limits remain described in README.
 

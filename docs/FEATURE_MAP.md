@@ -67,7 +67,7 @@ Người học tiếng Nhật khi đọc văn bản thực tế phải chuyển 
 ## 3. Comprehensive Feature Map (F-01 to F-22)
 
 `MVP Status` dưới đây là mức ưu tiên/phạm vi yêu cầu, **không phải tiến độ**.
-Trạng thái implementation tại checkout ngày 2026-10-11:
+Trạng thái implementation tại checkout ngày 2026-10-12:
 
 | Feature | Implementation và giới hạn | Bằng chứng |
 |---|---|---|
@@ -84,8 +84,10 @@ Trạng thái implementation tại checkout ngày 2026-10-11:
 [Verification F-03/F-04](../.sdd/specs/feat-selection-popup/evidence/validation-report.md):
 223/223 units, statement coverage 96.74%; 112/112 browser cases
 (Chrome37/Edge37/Brave37 và real packaged MV3 Brave1); build/typecheck/Unicode,
-.NET Release/51 units pass; npm audit0. Firefox runtime, PostgreSQL integration
-do Docker startup và approved PERF-001 benchmark vẫn pending. Không suy diễn
+.NET Release/53 units và 51 PostgreSQL Testcontainers tests pass ngày 2026-10-12;
+npm audit0 được ghi ngày 2026-10-11. Delivery vào dev qua
+[PR #10](https://github.com/vup568/extension_dict/pull/10).
+Firefox runtime và approved PERF-001 benchmark vẫn pending. Không suy diễn
 hoàn thành MVP từ các dòng **Must/Should** hoặc gates đã pass trên ba browsers.
 
 ### F-01: Japanese Text Detection

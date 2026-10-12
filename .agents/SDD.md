@@ -71,7 +71,7 @@
 
 *   **Workstream hiện tại (2026-10-12):** F-03/F-04 Extension selection-to-analysis đã hoàn tất trên feature branch; F-06 exact lookup được tái kiểm chứng với PostgreSQL 16.
 *   **Đã delivery:** F-02 merge/push `dev` tại `e01ee19d2458403d3dc9d9a18df0ffc4e0426dc4`; backend dictionary/kanji/grammar/unified analysis đã có runtime.
-*   **Mục tiêu hiện tại:** Merge/push `feat/selection-popup-stale-protection` vào `dev` sau khi toàn bộ gate sau sửa F-06 đạt.
+*   **Delivery hiện tại:** Local merge b3d187d đã qua toàn bộ post-merge gates. Remote delivery qua [PR #10](https://github.com/vup568/extension_dict/pull/10), do `dev` yêu cầu pull request; trạng thái merged của PR là bằng chứng hoàn tất.
 *   **Spec đang hoạt động:** `.sdd/specs/feat-selection-popup/{SPEC.md,PLAN.md,TASKS.md}`; evidence cuối ghi riêng, không suy diễn từ mức ưu tiên MVP.
 *   **Giới hạn còn lại:** Morphology/conjugation unavailable, dictionary mặc định NullTokenizerAdapter báo capability unavailable, grammar seed 5 mẫu; Web/auth/translation/learning chưa triển khai. Firefox runtime và approved benchmark pending. Docker/PostgreSQL Testcontainers hiện hoạt động; review nghĩa Việt production vẫn là gate dữ liệu riêng.
 

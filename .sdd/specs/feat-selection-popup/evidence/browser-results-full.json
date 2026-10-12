@@ -1,0 +1,4269 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "E:\\jp-dict-extension\\extension\\node_modules\\@playwright\\test\\cli.js",
+      "test"
+    ],
+    "configFile": "E:\\jp-dict-extension\\extension\\playwright.config.ts",
+    "rootDir": "E:/jp-dict-extension/extension/tests/browser",
+    "failOnFlakyTests": false,
+    "forbidOnly": true,
+    "fullyParallel": true,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 2
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "E:/jp-dict-extension/extension/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 2
+        },
+        "id": "chrome",
+        "name": "chrome",
+        "testDir": "E:/jp-dict-extension/extension/tests/browser",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "E:/jp-dict-extension/extension/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 2
+        },
+        "id": "edge",
+        "name": "edge",
+        "testDir": "E:/jp-dict-extension/extension/tests/browser",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "E:/jp-dict-extension/extension/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 2
+        },
+        "id": "brave",
+        "name": "brave",
+        "testDir": "E:/jp-dict-extension/extension/tests/browser",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "E:/jp-dict-extension/extension/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 2
+        },
+        "id": "packaged",
+        "name": "packaged",
+        "testDir": "E:/jp-dict-extension/extension/tests/packaged",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "line",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results/browser-results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 2,
+    "webServer": {
+      "command": "vite --host 127.0.0.1 --port 4173",
+      "port": 4173,
+      "reuseExistingServer": false
+    }
+  },
+  "suites": [
+    {
+      "title": "host-page-no-side-effects.test.ts",
+      "file": "host-page-no-side-effects.test.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "does not mutate DOM, style, focus, selection, or input",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 359,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:31:49.045Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ecca560f9fe2a125850c-12d3fda462ebdc8bb09e",
+          "file": "host-page-no-side-effects.test.ts",
+          "line": 3,
+          "column": 1
+        },
+        {
+          "title": "does not mutate DOM, style, focus, selection, or input",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "edge",
+              "projectName": "edge",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 324,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:06.176Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ecca560f9fe2a125850c-64a70eabce642bde9bf1",
+          "file": "host-page-no-side-effects.test.ts",
+          "line": 3,
+          "column": 1
+        },
+        {
+          "title": "does not mutate DOM, style, focus, selection, or input",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "brave",
+              "projectName": "brave",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 317,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:24.008Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ecca560f9fe2a125850c-c4d5e306e082a1473d08",
+          "file": "host-page-no-side-effects.test.ts",
+          "line": 3,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "japanese-text-detection-environment.test.ts",
+      "file": "japanese-text-detection-environment.test.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "is invariant across connectivity and simulated page/user state",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 419,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:31:49.030Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f9e5aed85726b5e5ad01-4306c2b260cb0bf1d147",
+          "file": "japanese-text-detection-environment.test.ts",
+          "line": 3,
+          "column": 1
+        },
+        {
+          "title": "is invariant across connectivity and simulated page/user state",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "edge",
+              "projectName": "edge",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 459,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:06.707Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f9e5aed85726b5e5ad01-9d4392d97be09767e450",
+          "file": "japanese-text-detection-environment.test.ts",
+          "line": 3,
+          "column": 1
+        },
+        {
+          "title": "is invariant across connectivity and simulated page/user state",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "brave",
+              "projectName": "brave",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 317,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:24.234Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f9e5aed85726b5e5ad01-dd6121e55f8359b5a83f",
+          "file": "japanese-text-detection-environment.test.ts",
+          "line": 3,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "japanese-text-detection-parity.test.ts",
+      "file": "japanese-text-detection-parity.test.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "runs the complete classification corpus with Unicode 17 semantics",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [
+                {
+                  "type": "browser-version",
+                  "description": "154.0.8037.99"
+                },
+                {
+                  "type": "unicode-policy",
+                  "description": "17.0.0"
+                }
+              ],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 838,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:31:49.645Z",
+                  "annotations": [
+                    {
+                      "type": "browser-version",
+                      "description": "154.0.8037.99"
+                    },
+                    {
+                      "type": "unicode-policy",
+                      "description": "17.0.0"
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "70c8f760923f7aa4b610-d010e4648ad036e430da",
+          "file": "japanese-text-detection-parity.test.ts",
+          "line": 8,
+          "column": 1
+        },
+        {
+          "title": "runs the complete classification corpus with Unicode 17 semantics",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [
+                {
+                  "type": "browser-version",
+                  "description": "155.0.4283.45"
+                },
+                {
+                  "type": "unicode-policy",
+                  "description": "17.0.0"
+                }
+              ],
+              "expectedStatus": "passed",
+              "projectId": "edge",
+              "projectName": "edge",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 900,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:06.805Z",
+                  "annotations": [
+                    {
+                      "type": "browser-version",
+                      "description": "155.0.4283.45"
+                    },
+                    {
+                      "type": "unicode-policy",
+                      "description": "17.0.0"
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "70c8f760923f7aa4b610-3b7971e4cd3a85ae092d",
+          "file": "japanese-text-detection-parity.test.ts",
+          "line": 8,
+          "column": 1
+        },
+        {
+          "title": "runs the complete classification corpus with Unicode 17 semantics",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [
+                {
+                  "type": "browser-version",
+                  "description": "155.0.8059.40"
+                },
+                {
+                  "type": "unicode-policy",
+                  "description": "17.0.0"
+                }
+              ],
+              "expectedStatus": "passed",
+              "projectId": "brave",
+              "projectName": "brave",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 733,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:24.661Z",
+                  "annotations": [
+                    {
+                      "type": "browser-version",
+                      "description": "155.0.8059.40"
+                    },
+                    {
+                      "type": "unicode-policy",
+                      "description": "17.0.0"
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "70c8f760923f7aa4b610-8e8396b3aaa116ba5eb5",
+          "file": "japanese-text-detection-parity.test.ts",
+          "line": 8,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "japanese-text-detection-privacy.test.ts",
+      "file": "japanese-text-detection-privacy.test.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "does not request, persist, or log classification input",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 257,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:31:49.660Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "6917baca15b261af49df-13c4d756b1658d30c6aa",
+          "file": "japanese-text-detection-privacy.test.ts",
+          "line": 5,
+          "column": 1
+        },
+        {
+          "title": "does not expose marker content on invalid or unexpected failure results",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 224,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:31:49.932Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "6917baca15b261af49df-3f1c8f455f8d4724e4d7",
+          "file": "japanese-text-detection-privacy.test.ts",
+          "line": 35,
+          "column": 1
+        },
+        {
+          "title": "does not request, persist, or log classification input",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "edge",
+              "projectName": "edge",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 292,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:07.537Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "6917baca15b261af49df-60f2b15a02142ab6c198",
+          "file": "japanese-text-detection-privacy.test.ts",
+          "line": 5,
+          "column": 1
+        },
+        {
+          "title": "does not expose marker content on invalid or unexpected failure results",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "edge",
+              "projectName": "edge",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 235,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:07.726Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "6917baca15b261af49df-6aa593ee1d7661e00847",
+          "file": "japanese-text-detection-privacy.test.ts",
+          "line": 35,
+          "column": 1
+        },
+        {
+          "title": "does not request, persist, or log classification input",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "brave",
+              "projectName": "brave",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 213,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:24.813Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "6917baca15b261af49df-7b43b1c906165713ccb5",
+          "file": "japanese-text-detection-privacy.test.ts",
+          "line": 5,
+          "column": 1
+        },
+        {
+          "title": "does not expose marker content on invalid or unexpected failure results",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "brave",
+              "projectName": "brave",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 217,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:25.037Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "6917baca15b261af49df-0eedc7806443dfb3e2d5",
+          "file": "japanese-text-detection-privacy.test.ts",
+          "line": 35,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "ruby-safe-selection-contenteditable-unicode.test.ts",
+      "file": "ruby-safe-selection-contenteditable-unicode.test.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "preserves editable content and exact Unicode without mutation",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 239,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:31:50.179Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "fac6b85f3e21c4722c6f-ef073bb334b715c4c479",
+          "file": "ruby-safe-selection-contenteditable-unicode.test.ts",
+          "line": 12,
+          "column": 1
+        },
+        {
+          "title": "preserves editable content and exact Unicode without mutation",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "edge",
+              "projectName": "edge",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 252,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:07.848Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "fac6b85f3e21c4722c6f-df6071fa953c23ea626d",
+          "file": "ruby-safe-selection-contenteditable-unicode.test.ts",
+          "line": 12,
+          "column": 1
+        },
+        {
+          "title": "preserves editable content and exact Unicode without mutation",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "brave",
+              "projectName": "brave",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 236,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:25.281Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "fac6b85f3e21c4722c6f-3aa27c8540b6db27667b",
+          "file": "ruby-safe-selection-contenteditable-unicode.test.ts",
+          "line": 12,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "ruby-safe-selection-environment.test.ts",
+      "file": "ruby-safe-selection-environment.test.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "is deterministic across environment state and repeated calls",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 234,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:31:50.442Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a6b294f09cfde4ec5c95-c670bbe14320d64bfb4d",
+          "file": "ruby-safe-selection-environment.test.ts",
+          "line": 5,
+          "column": 1
+        },
+        {
+          "title": "is deterministic across environment state and repeated calls",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "edge",
+              "projectName": "edge",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 220,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:07.988Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a6b294f09cfde4ec5c95-758547c30c712fc3466c",
+          "file": "ruby-safe-selection-environment.test.ts",
+          "line": 5,
+          "column": 1
+        },
+        {
+          "title": "is deterministic across environment state and repeated calls",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "brave",
+              "projectName": "brave",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 239,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:25.422Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a6b294f09cfde4ec5c95-1492b1cce6fa139d8d8f",
+          "file": "ruby-safe-selection-environment.test.ts",
+          "line": 5,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "ruby-safe-selection-errors-frames.test.ts",
+      "file": "ruby-safe-selection-errors-frames.test.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "maps every invalid or hostile selection to a content-free error",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 233,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:31:50.503Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3d4cf5e6553d0a9c8342-ef2f8a0deab89e31cca8",
+          "file": "ruby-safe-selection-errors-frames.test.ts",
+          "line": 15,
+          "column": 1
+        },
+        {
+          "title": "extracts only the allowed event frame selection",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 213,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:31:50.702Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3d4cf5e6553d0a9c8342-aec00f4b056a04351c13",
+          "file": "ruby-safe-selection-errors-frames.test.ts",
+          "line": 36,
+          "column": 1
+        },
+        {
+          "title": "maps every invalid or hostile selection to a content-free error",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "edge",
+              "projectName": "edge",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 236,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:08.119Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3d4cf5e6553d0a9c8342-b2bda4d1c7a36f8c31d8",
+          "file": "ruby-safe-selection-errors-frames.test.ts",
+          "line": 15,
+          "column": 1
+        },
+        {
+          "title": "extracts only the allowed event frame selection",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "edge",
+              "projectName": "edge",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 223,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:08.237Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3d4cf5e6553d0a9c8342-fe1c0b39c318c6f22248",
+          "file": "ruby-safe-selection-errors-frames.test.ts",
+          "line": 36,
+          "column": 1
+        },
+        {
+          "title": "maps every invalid or hostile selection to a content-free error",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "brave",
+              "projectName": "brave",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 248,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:25.531Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3d4cf5e6553d0a9c8342-29d45a34dd4795995745",
+          "file": "ruby-safe-selection-errors-frames.test.ts",
+          "line": 15,
+          "column": 1
+        },
+        {
+          "title": "extracts only the allowed event frame selection",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "brave",
+              "projectName": "brave",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 234,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:25.687Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3d4cf5e6553d0a9c8342-5a76a52536cd74642fd2",
+          "file": "ruby-safe-selection-errors-frames.test.ts",
+          "line": 36,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "ruby-safe-selection-performance.test.ts",
+      "file": "ruby-safe-selection-performance.test.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "records cold and warm extraction profiles with exact correctness",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [
+                {
+                  "type": "f02-performance",
+                  "description": "{\"browser\":\"chrome\",\"browserVersion\":\"154.0.8037.99\",\"profileId\":\"F02-plain-base-text\",\"inputLength\":7,\"warmupSamples\":1,\"measuredSamples\":30,\"coldDurationMs\":0.3,\"warmP95Ms\":0.1}"
+                },
+                {
+                  "type": "f02-performance",
+                  "description": "{\"browser\":\"chrome\",\"browserVersion\":\"154.0.8037.99\",\"profileId\":\"F02-multiple-ruby-document-order\",\"inputLength\":5,\"warmupSamples\":1,\"measuredSamples\":30,\"coldDurationMs\":0,\"warmP95Ms\":0.1}"
+                },
+                {
+                  "type": "f02-performance",
+                  "description": "{\"browser\":\"chrome\",\"browserVersion\":\"154.0.8037.99\",\"profileId\":\"F02-adjacent-blocks\",\"inputLength\":3,\"warmupSamples\":1,\"measuredSamples\":30,\"coldDurationMs\":0.1,\"warmP95Ms\":0.1}"
+                },
+                {
+                  "type": "f02-performance",
+                  "description": "{\"browser\":\"chrome\",\"browserVersion\":\"154.0.8037.99\",\"profileId\":\"F02-contenteditable-ruby\",\"inputLength\":6,\"warmupSamples\":1,\"measuredSamples\":30,\"coldDurationMs\":0.1,\"warmP95Ms\":0.1}"
+                },
+                {
+                  "type": "f02-performance",
+                  "description": "{\"browser\":\"chrome\",\"browserVersion\":\"154.0.8037.99\",\"profileId\":\"F02-long-complete-selection\",\"inputLength\":100000,\"warmupSamples\":1,\"measuredSamples\":30,\"coldDurationMs\":0.1,\"warmP95Ms\":0.1}"
+                }
+              ],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 622,
+                  "errors": [],
+                  "stdout": [
+                    {
+                      "text": "F02_PERFORMANCE {\"browser\":\"chrome\",\"browserVersion\":\"154.0.8037.99\",\"profileId\":\"F02-plain-base-text\",\"inputLength\":7,\"warmupSamples\":1,\"measuredSamples\":30,\"coldDurationMs\":0.3,\"warmP95Ms\":0.1}\n"
+                    },
+                    {
+                      "text": "F02_PERFORMANCE {\"browser\":\"chrome\",\"browserVersion\":\"154.0.8037.99\",\"profileId\":\"F02-multiple-ruby-document-order\",\"inputLength\":5,\"warmupSamples\":1,\"measuredSamples\":30,\"coldDurationMs\":0,\"warmP95Ms\":0.1}\n"
+                    },
+                    {
+                      "text": "F02_PERFORMANCE {\"browser\":\"chrome\",\"browserVersion\":\"154.0.8037.99\",\"profileId\":\"F02-adjacent-blocks\",\"inputLength\":3,\"warmupSamples\":1,\"measuredSamples\":30,\"coldDurationMs\":0.1,\"warmP95Ms\":0.1}\n"
+                    },
+                    {
+                      "text": "F02_PERFORMANCE {\"browser\":\"chrome\",\"browserVersion\":\"154.0.8037.99\",\"profileId\":\"F02-contenteditable-ruby\",\"inputLength\":6,\"warmupSamples\":1,\"measuredSamples\":30,\"coldDurationMs\":0.1,\"warmP95Ms\":0.1}\n"
+                    },
+                    {
+                      "text": "F02_PERFORMANCE {\"browser\":\"chrome\",\"browserVersion\":\"154.0.8037.99\",\"profileId\":\"F02-long-complete-selection\",\"inputLength\":100000,\"warmupSamples\":1,\"measuredSamples\":30,\"coldDurationMs\":0.1,\"warmP95Ms\":0.1}\n"
+                    }
+                  ],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:31:50.762Z",
+                  "annotations": [
+                    {
+                      "type": "f02-performance",
+                      "description": "{\"browser\":\"chrome\",\"browserVersion\":\"154.0.8037.99\",\"profileId\":\"F02-plain-base-text\",\"inputLength\":7,\"warmupSamples\":1,\"measuredSamples\":30,\"coldDurationMs\":0.3,\"warmP95Ms\":0.1}"
+                    },
+                    {
+                      "type": "f02-performance",
+                      "description": "{\"browser\":\"chrome\",\"browserVersion\":\"154.0.8037.99\",\"profileId\":\"F02-multiple-ruby-document-order\",\"inputLength\":5,\"warmupSamples\":1,\"measuredSamples\":30,\"coldDurationMs\":0,\"warmP95Ms\":0.1}"
+                    },
+                    {
+                      "type": "f02-performance",
+                      "description": "{\"browser\":\"chrome\",\"browserVersion\":\"154.0.8037.99\",\"profileId\":\"F02-adjacent-blocks\",\"inputLength\":3,\"warmupSamples\":1,\"measuredSamples\":30,\"coldDurationMs\":0.1,\"warmP95Ms\":0.1}"
+                    },
+                    {
+                      "type": "f02-performance",
+                      "description": "{\"browser\":\"chrome\",\"browserVersion\":\"154.0.8037.99\",\"profileId\":\"F02-contenteditable-ruby\",\"inputLength\":6,\"warmupSamples\":1,\"measuredSamples\":30,\"coldDurationMs\":0.1,\"warmP95Ms\":0.1}"
+                    },
+                    {
+                      "type": "f02-performance",
+                      "description": "{\"browser\":\"chrome\",\"browserVersion\":\"154.0.8037.99\",\"profileId\":\"F02-long-complete-selection\",\"inputLength\":100000,\"warmupSamples\":1,\"measuredSamples\":30,\"coldDurationMs\":0.1,\"warmP95Ms\":0.1}"
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7e4f10ad4c351a3a94d0-9fc4cdcc09c7fb63e01d",
+          "file": "ruby-safe-selection-performance.test.ts",
+          "line": 18,
+          "column": 1
+        },
+        {
+          "title": "records cold and warm extraction profiles with exact correctness",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [
+                {
+                  "type": "f02-performance",
+                  "description": "{\"browser\":\"edge\",\"browserVersion\":\"155.0.4283.45\",\"profileId\":\"F02-plain-base-text\",\"inputLength\":7,\"warmupSamples\":1,\"measuredSamples\":30,\"coldDurationMs\":0.3,\"warmP95Ms\":0.1}"
+                },
+                {
+                  "type": "f02-performance",
+                  "description": "{\"browser\":\"edge\",\"browserVersion\":\"155.0.4283.45\",\"profileId\":\"F02-multiple-ruby-document-order\",\"inputLength\":5,\"warmupSamples\":1,\"measuredSamples\":30,\"coldDurationMs\":0.1,\"warmP95Ms\":0.1}"
+                },
+                {
+                  "type": "f02-performance",
+                  "description": "{\"browser\":\"edge\",\"browserVersion\":\"155.0.4283.45\",\"profileId\":\"F02-adjacent-blocks\",\"inputLength\":3,\"warmupSamples\":1,\"measuredSamples\":30,\"coldDurationMs\":0.1,\"warmP95Ms\":0.1}"
+                },
+                {
+                  "type": "f02-performance",
+                  "description": "{\"browser\":\"edge\",\"browserVersion\":\"155.0.4283.45\",\"profileId\":\"F02-contenteditable-ruby\",\"inputLength\":6,\"warmupSamples\":1,\"measuredSamples\":30,\"coldDurationMs\":0.2,\"warmP95Ms\":0.1}"
+                },
+                {
+                  "type": "f02-performance",
+                  "description": "{\"browser\":\"edge\",\"browserVersion\":\"155.0.4283.45\",\"profileId\":\"F02-long-complete-selection\",\"inputLength\":100000,\"warmupSamples\":1,\"measuredSamples\":30,\"coldDurationMs\":0,\"warmP95Ms\":0.1}"
+                }
+              ],
+              "expectedStatus": "passed",
+              "projectId": "edge",
+              "projectName": "edge",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 693,
+                  "errors": [],
+                  "stdout": [
+                    {
+                      "text": "F02_PERFORMANCE {\"browser\":\"edge\",\"browserVersion\":\"155.0.4283.45\",\"profileId\":\"F02-plain-base-text\",\"inputLength\":7,\"warmupSamples\":1,\"measuredSamples\":30,\"coldDurationMs\":0.3,\"warmP95Ms\":0.1}\n"
+                    },
+                    {
+                      "text": "F02_PERFORMANCE {\"browser\":\"edge\",\"browserVersion\":\"155.0.4283.45\",\"profileId\":\"F02-multiple-ruby-document-order\",\"inputLength\":5,\"warmupSamples\":1,\"measuredSamples\":30,\"coldDurationMs\":0.1,\"warmP95Ms\":0.1}\n"
+                    },
+                    {
+                      "text": "F02_PERFORMANCE {\"browser\":\"edge\",\"browserVersion\":\"155.0.4283.45\",\"profileId\":\"F02-adjacent-blocks\",\"inputLength\":3,\"warmupSamples\":1,\"measuredSamples\":30,\"coldDurationMs\":0.1,\"warmP95Ms\":0.1}\n"
+                    },
+                    {
+                      "text": "F02_PERFORMANCE {\"browser\":\"edge\",\"browserVersion\":\"155.0.4283.45\",\"profileId\":\"F02-contenteditable-ruby\",\"inputLength\":6,\"warmupSamples\":1,\"measuredSamples\":30,\"coldDurationMs\":0.2,\"warmP95Ms\":0.1}\n"
+                    },
+                    {
+                      "text": "F02_PERFORMANCE {\"browser\":\"edge\",\"browserVersion\":\"155.0.4283.45\",\"profileId\":\"F02-long-complete-selection\",\"inputLength\":100000,\"warmupSamples\":1,\"measuredSamples\":30,\"coldDurationMs\":0,\"warmP95Ms\":0.1}\n"
+                    }
+                  ],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:08.376Z",
+                  "annotations": [
+                    {
+                      "type": "f02-performance",
+                      "description": "{\"browser\":\"edge\",\"browserVersion\":\"155.0.4283.45\",\"profileId\":\"F02-plain-base-text\",\"inputLength\":7,\"warmupSamples\":1,\"measuredSamples\":30,\"coldDurationMs\":0.3,\"warmP95Ms\":0.1}"
+                    },
+                    {
+                      "type": "f02-performance",
+                      "description": "{\"browser\":\"edge\",\"browserVersion\":\"155.0.4283.45\",\"profileId\":\"F02-multiple-ruby-document-order\",\"inputLength\":5,\"warmupSamples\":1,\"measuredSamples\":30,\"coldDurationMs\":0.1,\"warmP95Ms\":0.1}"
+                    },
+                    {
+                      "type": "f02-performance",
+                      "description": "{\"browser\":\"edge\",\"browserVersion\":\"155.0.4283.45\",\"profileId\":\"F02-adjacent-blocks\",\"inputLength\":3,\"warmupSamples\":1,\"measuredSamples\":30,\"coldDurationMs\":0.1,\"warmP95Ms\":0.1}"
+                    },
+                    {
+                      "type": "f02-performance",
+                      "description": "{\"browser\":\"edge\",\"browserVersion\":\"155.0.4283.45\",\"profileId\":\"F02-contenteditable-ruby\",\"inputLength\":6,\"warmupSamples\":1,\"measuredSamples\":30,\"coldDurationMs\":0.2,\"warmP95Ms\":0.1}"
+                    },
+                    {
+                      "type": "f02-performance",
+                      "description": "{\"browser\":\"edge\",\"browserVersion\":\"155.0.4283.45\",\"profileId\":\"F02-long-complete-selection\",\"inputLength\":100000,\"warmupSamples\":1,\"measuredSamples\":30,\"coldDurationMs\":0,\"warmP95Ms\":0.1}"
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7e4f10ad4c351a3a94d0-bbd681ecfdeb95295b57",
+          "file": "ruby-safe-selection-performance.test.ts",
+          "line": 18,
+          "column": 1
+        },
+        {
+          "title": "records cold and warm extraction profiles with exact correctness",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [
+                {
+                  "type": "f02-performance",
+                  "description": "{\"browser\":\"brave\",\"browserVersion\":\"155.0.8059.40\",\"profileId\":\"F02-plain-base-text\",\"inputLength\":7,\"warmupSamples\":1,\"measuredSamples\":30,\"coldDurationMs\":0.4,\"warmP95Ms\":0.1}"
+                },
+                {
+                  "type": "f02-performance",
+                  "description": "{\"browser\":\"brave\",\"browserVersion\":\"155.0.8059.40\",\"profileId\":\"F02-multiple-ruby-document-order\",\"inputLength\":5,\"warmupSamples\":1,\"measuredSamples\":30,\"coldDurationMs\":0.1,\"warmP95Ms\":0.1}"
+                },
+                {
+                  "type": "f02-performance",
+                  "description": "{\"browser\":\"brave\",\"browserVersion\":\"155.0.8059.40\",\"profileId\":\"F02-adjacent-blocks\",\"inputLength\":3,\"warmupSamples\":1,\"measuredSamples\":30,\"coldDurationMs\":0.2,\"warmP95Ms\":0}"
+                },
+                {
+                  "type": "f02-performance",
+                  "description": "{\"browser\":\"brave\",\"browserVersion\":\"155.0.8059.40\",\"profileId\":\"F02-contenteditable-ruby\",\"inputLength\":6,\"warmupSamples\":1,\"measuredSamples\":30,\"coldDurationMs\":0.1,\"warmP95Ms\":0.1}"
+                },
+                {
+                  "type": "f02-performance",
+                  "description": "{\"browser\":\"brave\",\"browserVersion\":\"155.0.8059.40\",\"profileId\":\"F02-long-complete-selection\",\"inputLength\":100000,\"warmupSamples\":1,\"measuredSamples\":30,\"coldDurationMs\":0,\"warmP95Ms\":0.1}"
+                }
+              ],
+              "expectedStatus": "passed",
+              "projectId": "brave",
+              "projectName": "brave",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 610,
+                  "errors": [],
+                  "stdout": [
+                    {
+                      "text": "F02_PERFORMANCE {\"browser\":\"brave\",\"browserVersion\":\"155.0.8059.40\",\"profileId\":\"F02-plain-base-text\",\"inputLength\":7,\"warmupSamples\":1,\"measuredSamples\":30,\"coldDurationMs\":0.4,\"warmP95Ms\":0.1}\n"
+                    },
+                    {
+                      "text": "F02_PERFORMANCE {\"browser\":\"brave\",\"browserVersion\":\"155.0.8059.40\",\"profileId\":\"F02-multiple-ruby-document-order\",\"inputLength\":5,\"warmupSamples\":1,\"measuredSamples\":30,\"coldDurationMs\":0.1,\"warmP95Ms\":0.1}\n"
+                    },
+                    {
+                      "text": "F02_PERFORMANCE {\"browser\":\"brave\",\"browserVersion\":\"155.0.8059.40\",\"profileId\":\"F02-adjacent-blocks\",\"inputLength\":3,\"warmupSamples\":1,\"measuredSamples\":30,\"coldDurationMs\":0.2,\"warmP95Ms\":0}\n"
+                    },
+                    {
+                      "text": "F02_PERFORMANCE {\"browser\":\"brave\",\"browserVersion\":\"155.0.8059.40\",\"profileId\":\"F02-contenteditable-ruby\",\"inputLength\":6,\"warmupSamples\":1,\"measuredSamples\":30,\"coldDurationMs\":0.1,\"warmP95Ms\":0.1}\n"
+                    },
+                    {
+                      "text": "F02_PERFORMANCE {\"browser\":\"brave\",\"browserVersion\":\"155.0.8059.40\",\"profileId\":\"F02-long-complete-selection\",\"inputLength\":100000,\"warmupSamples\":1,\"measuredSamples\":30,\"coldDurationMs\":0,\"warmP95Ms\":0.1}\n"
+                    }
+                  ],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:25.800Z",
+                  "annotations": [
+                    {
+                      "type": "f02-performance",
+                      "description": "{\"browser\":\"brave\",\"browserVersion\":\"155.0.8059.40\",\"profileId\":\"F02-plain-base-text\",\"inputLength\":7,\"warmupSamples\":1,\"measuredSamples\":30,\"coldDurationMs\":0.4,\"warmP95Ms\":0.1}"
+                    },
+                    {
+                      "type": "f02-performance",
+                      "description": "{\"browser\":\"brave\",\"browserVersion\":\"155.0.8059.40\",\"profileId\":\"F02-multiple-ruby-document-order\",\"inputLength\":5,\"warmupSamples\":1,\"measuredSamples\":30,\"coldDurationMs\":0.1,\"warmP95Ms\":0.1}"
+                    },
+                    {
+                      "type": "f02-performance",
+                      "description": "{\"browser\":\"brave\",\"browserVersion\":\"155.0.8059.40\",\"profileId\":\"F02-adjacent-blocks\",\"inputLength\":3,\"warmupSamples\":1,\"measuredSamples\":30,\"coldDurationMs\":0.2,\"warmP95Ms\":0}"
+                    },
+                    {
+                      "type": "f02-performance",
+                      "description": "{\"browser\":\"brave\",\"browserVersion\":\"155.0.8059.40\",\"profileId\":\"F02-contenteditable-ruby\",\"inputLength\":6,\"warmupSamples\":1,\"measuredSamples\":30,\"coldDurationMs\":0.1,\"warmP95Ms\":0.1}"
+                    },
+                    {
+                      "type": "f02-performance",
+                      "description": "{\"browser\":\"brave\",\"browserVersion\":\"155.0.8059.40\",\"profileId\":\"F02-long-complete-selection\",\"inputLength\":100000,\"warmupSamples\":1,\"measuredSamples\":30,\"coldDurationMs\":0,\"warmP95Ms\":0.1}"
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7e4f10ad4c351a3a94d0-78698583ab29891c2289",
+          "file": "ruby-safe-selection-performance.test.ts",
+          "line": 18,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "ruby-safe-selection-privacy-side-effects.test.ts",
+      "file": "ruby-safe-selection-privacy-side-effects.test.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "does not send, store, log, retain, or navigate with private content",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 196,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:31:50.932Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f00b99d78f8652c47b4b-b1a401bb3dbe05687ff8",
+          "file": "ruby-safe-selection-privacy-side-effects.test.ts",
+          "line": 6,
+          "column": 1
+        },
+        {
+          "title": "does not mutate DOM, style, focus, selection, editable value, clipboard, or events",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 189,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:31:51.140Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f00b99d78f8652c47b4b-61eb6d6549cf002d7c21",
+          "file": "ruby-safe-selection-privacy-side-effects.test.ts",
+          "line": 72,
+          "column": 1
+        },
+        {
+          "title": "keeps every public error shape content-free",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 3,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:31:51.341Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f00b99d78f8652c47b4b-e948cb6f6ebc11a0c80f",
+          "file": "ruby-safe-selection-privacy-side-effects.test.ts",
+          "line": 165,
+          "column": 1
+        },
+        {
+          "title": "does not send, store, log, retain, or navigate with private content",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "edge",
+              "projectName": "edge",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 224,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:08.479Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f00b99d78f8652c47b4b-8c7dbf2bf091bbe63c29",
+          "file": "ruby-safe-selection-privacy-side-effects.test.ts",
+          "line": 6,
+          "column": 1
+        },
+        {
+          "title": "does not mutate DOM, style, focus, selection, editable value, clipboard, or events",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "edge",
+              "projectName": "edge",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 194,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:08.720Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f00b99d78f8652c47b4b-8525d302f5cfd56f316c",
+          "file": "ruby-safe-selection-privacy-side-effects.test.ts",
+          "line": 72,
+          "column": 1
+        },
+        {
+          "title": "keeps every public error shape content-free",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "edge",
+              "projectName": "edge",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 8,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:08.937Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f00b99d78f8652c47b4b-8d8fd17f88c4d9e12be9",
+          "file": "ruby-safe-selection-privacy-side-effects.test.ts",
+          "line": 165,
+          "column": 1
+        },
+        {
+          "title": "does not send, store, log, retain, or navigate with private content",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "brave",
+              "projectName": "brave",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 210,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:25.941Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f00b99d78f8652c47b4b-67097f03191a33eed838",
+          "file": "ruby-safe-selection-privacy-side-effects.test.ts",
+          "line": 6,
+          "column": 1
+        },
+        {
+          "title": "does not mutate DOM, style, focus, selection, editable value, clipboard, or events",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "brave",
+              "projectName": "brave",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 224,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:26.162Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f00b99d78f8652c47b4b-0609b98c7e68408839bf",
+          "file": "ruby-safe-selection-privacy-side-effects.test.ts",
+          "line": 72,
+          "column": 1
+        },
+        {
+          "title": "keeps every public error shape content-free",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "brave",
+              "projectName": "brave",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 2,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:26.404Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f00b99d78f8652c47b4b-2eb04f9eccd1f9a76d8d",
+          "file": "ruby-safe-selection-privacy-side-effects.test.ts",
+          "line": 165,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "ruby-safe-selection-ruby.test.ts",
+      "file": "ruby-safe-selection-ruby.test.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "extracts exact base text and excludes ruby annotation",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 528,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:31:51.377Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e99553bb63f4c0ade10d-e5722479346a42c50c9c",
+          "file": "ruby-safe-selection-ruby.test.ts",
+          "line": 8,
+          "column": 1
+        },
+        {
+          "title": "hands only successful ruby-safe base text to F-01",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 224,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:31:51.439Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e99553bb63f4c0ade10d-35a1d5a8aeceabc6bdaa",
+          "file": "ruby-safe-selection-ruby.test.ts",
+          "line": 32,
+          "column": 1
+        },
+        {
+          "title": "extracts exact base text and excludes ruby annotation",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "edge",
+              "projectName": "edge",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 635,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:08.985Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e99553bb63f4c0ade10d-f4058c6b0a048d9f52f9",
+          "file": "ruby-safe-selection-ruby.test.ts",
+          "line": 8,
+          "column": 1
+        },
+        {
+          "title": "hands only successful ruby-safe base text to F-01",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "edge",
+              "projectName": "edge",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 265,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:09.110Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e99553bb63f4c0ade10d-d587b19bbbe3e2aa3e59",
+          "file": "ruby-safe-selection-ruby.test.ts",
+          "line": 32,
+          "column": 1
+        },
+        {
+          "title": "extracts exact base text and excludes ruby annotation",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "brave",
+              "projectName": "brave",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 487,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:26.454Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e99553bb63f4c0ade10d-16aa227a838aa97943ad",
+          "file": "ruby-safe-selection-ruby.test.ts",
+          "line": 8,
+          "column": 1
+        },
+        {
+          "title": "hands only successful ruby-safe base text to F-01",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "brave",
+              "projectName": "brave",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 223,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:26.469Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e99553bb63f4c0ade10d-fca6b50ad87a155a614b",
+          "file": "ruby-safe-selection-ruby.test.ts",
+          "line": 32,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "ruby-safe-selection-structure.test.ts",
+      "file": "ruby-safe-selection-structure.test.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "preserves exact structure, direction, boundaries, and long content",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 363,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:31:51.687Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f5c9dc6f1372308dc4f7-7c86eb13b0481d0a983f",
+          "file": "ruby-safe-selection-structure.test.ts",
+          "line": 24,
+          "column": 1
+        },
+        {
+          "title": "preserves exact structure, direction, boundaries, and long content",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "edge",
+              "projectName": "edge",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 406,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:09.407Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f5c9dc6f1372308dc4f7-d50c8ff1be60614b6822",
+          "file": "ruby-safe-selection-structure.test.ts",
+          "line": 24,
+          "column": 1
+        },
+        {
+          "title": "preserves exact structure, direction, boundaries, and long content",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "brave",
+              "projectName": "brave",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 348,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:26.719Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f5c9dc6f1372308dc4f7-aead8c9a2e732a678195",
+          "file": "ruby-safe-selection-structure.test.ts",
+          "line": 24,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "selection-popup.test.ts",
+      "file": "selection-popup.test.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "AC01/02 ruby-safe selection opens loading before one minimal dispatch",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 1096,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:31:51.934Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-32d81af8bd700f3ee81d",
+          "file": "selection-popup.test.ts",
+          "line": 9,
+          "column": 1
+        },
+        {
+          "title": "AC01 non-Japanese, collapsed and annotation-only selections dispatch nothing",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1176,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:31:52.104Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-39c5764dc9dbec1199f8",
+          "file": "selection-popup.test.ts",
+          "line": 21,
+          "column": 1
+        },
+        {
+          "title": "AC02 rapid changes debounce only final selection",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 1294,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:31:53.054Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-32263b0d132a141e26f7",
+          "file": "selection-popup.test.ts",
+          "line": 28,
+          "column": 1
+        },
+        {
+          "title": "AC03/04 late success ignored while replacement is debouncing",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1677,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:31:53.318Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-77a80e85d4b8ee1dc233",
+          "file": "selection-popup.test.ts",
+          "line": 35,
+          "column": 3
+        },
+        {
+          "title": "AC04 late success never replaces completed current result",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 1519,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:31:54.376Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-db36d4b67df603c7f1be",
+          "file": "selection-popup.test.ts",
+          "line": 44,
+          "column": 3
+        },
+        {
+          "title": "AC03/04 late error ignored while replacement is debouncing",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1589,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:31:55.037Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-80add63c89b89b536e61",
+          "file": "selection-popup.test.ts",
+          "line": 35,
+          "column": 3
+        },
+        {
+          "title": "AC04 late error never replaces completed current result",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 1573,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:31:55.915Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-5fcabfff69f3d0bbe0b1",
+          "file": "selection-popup.test.ts",
+          "line": 44,
+          "column": 3
+        },
+        {
+          "title": "AC04 close cancels active request and prevents late result reopening",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1201,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:31:56.654Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-db9d4a49a23de2ded5b4",
+          "file": "selection-popup.test.ts",
+          "line": 54,
+          "column": 1
+        },
+        {
+          "title": "AC04/08 BFCache suspension clears active text and resumes new selection",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 1625,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:31:57.518Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-3e0c7d3124aaf0d7e374",
+          "file": "selection-popup.test.ts",
+          "line": 61,
+          "column": 1
+        },
+        {
+          "title": "AC06 hung transport times out at five seconds; retry uses fresh identity",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 892,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:31:57.892Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-2f4b17842cefd1b4d39d",
+          "file": "selection-popup.test.ts",
+          "line": 71,
+          "column": 1
+        },
+        {
+          "title": "AC06 network failure is safe, explicit retry succeeds",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1223,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:31:58.809Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-97c5fde2f308151e4a68",
+          "file": "selection-popup.test.ts",
+          "line": 84,
+          "column": 1
+        },
+        {
+          "title": "AC07 results preserve IDs, language, restrictions, provenance and repeated occurrences",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 1234,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:31:59.166Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-2349d0158893243065b1",
+          "file": "selection-popup.test.ts",
+          "line": 92,
+          "column": 1
+        },
+        {
+          "title": "AC07 empty completed and unavailable results are distinct",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1103,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:00.060Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-8028cdd867ebd0af23ed",
+          "file": "selection-popup.test.ts",
+          "line": 104,
+          "column": 1
+        },
+        {
+          "title": "AC08 automatic opening retains focus, Escape restores focus after popup focus",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 714,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:00.428Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-4350b383569c55acf456",
+          "file": "selection-popup.test.ts",
+          "line": 110,
+          "column": 1
+        },
+        {
+          "title": "AC08 restores focus within existing host Shadow DOM",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 767,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:01.166Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-acfc3cab8421a7ac69fb",
+          "file": "selection-popup.test.ts",
+          "line": 116,
+          "column": 1
+        },
+        {
+          "title": "AC03 new host selection remains observable after popup pointer interaction",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1653,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:01.188Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-5341aaacc45f1fce852a",
+          "file": "selection-popup.test.ts",
+          "line": 126,
+          "column": 1
+        },
+        {
+          "title": "AC08 transformed body and RTL inheritance keep fixed popup within viewport",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 807,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:01.962Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-e31654f8a0e947da5742",
+          "file": "selection-popup.test.ts",
+          "line": 132,
+          "column": 1
+        },
+        {
+          "title": "AC08 popup text selection and pointer interaction never start host lookup",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 1574,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:02.794Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-2223c9467f8b8f7ba938",
+          "file": "selection-popup.test.ts",
+          "line": 142,
+          "column": 1
+        },
+        {
+          "title": "AC08 Shadow DOM isolates hostile host CSS and keeps narrow viewport bounds on scroll/resize",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1082,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:02.882Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-67c15a7090f1c16b674e",
+          "file": "selection-popup.test.ts",
+          "line": 154,
+          "column": 1
+        },
+        {
+          "title": "AC01/09 oversized selection is explicit and never silently truncated or sent",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1142,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:04.007Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-4a10392bca2ffd21ed4a",
+          "file": "selection-popup.test.ts",
+          "line": 168,
+          "column": 1
+        },
+        {
+          "title": "AC09 no selection storage, logging, navigation or content-origin network",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 1258,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:04.401Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-12b5c38fde405d9b505c",
+          "file": "selection-popup.test.ts",
+          "line": 175,
+          "column": 1
+        },
+        {
+          "title": "AC01/02 ruby-safe selection opens loading before one minimal dispatch",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "edge",
+              "projectName": "edge",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1272,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:09.661Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-0f873436e134805afd82",
+          "file": "selection-popup.test.ts",
+          "line": 9,
+          "column": 1
+        },
+        {
+          "title": "AC01 non-Japanese, collapsed and annotation-only selections dispatch nothing",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "edge",
+              "projectName": "edge",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 1113,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:09.877Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-d13f6329e840aaa0d54e",
+          "file": "selection-popup.test.ts",
+          "line": 21,
+          "column": 1
+        },
+        {
+          "title": "AC02 rapid changes debounce only final selection",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "edge",
+              "projectName": "edge",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1228,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:10.960Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-64c60cbe788cdf6b05f9",
+          "file": "selection-popup.test.ts",
+          "line": 28,
+          "column": 1
+        },
+        {
+          "title": "AC03/04 late success ignored while replacement is debouncing",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "edge",
+              "projectName": "edge",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 1616,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:11.026Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-110640dbc2a58fc514aa",
+          "file": "selection-popup.test.ts",
+          "line": 35,
+          "column": 3
+        },
+        {
+          "title": "AC04 late success never replaces completed current result",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "edge",
+              "projectName": "edge",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1534,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:12.219Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-3c593948b98016fa14b1",
+          "file": "selection-popup.test.ts",
+          "line": 44,
+          "column": 3
+        },
+        {
+          "title": "AC03/04 late error ignored while replacement is debouncing",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "edge",
+              "projectName": "edge",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 1534,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:12.668Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-fa6d6c657a8fc8a51551",
+          "file": "selection-popup.test.ts",
+          "line": 35,
+          "column": 3
+        },
+        {
+          "title": "AC04 late error never replaces completed current result",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "edge",
+              "projectName": "edge",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1564,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:13.777Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-f948e07e0ca1be74579e",
+          "file": "selection-popup.test.ts",
+          "line": 44,
+          "column": 3
+        },
+        {
+          "title": "AC04 close cancels active request and prevents late result reopening",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "edge",
+              "projectName": "edge",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 1103,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:14.232Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-7ea748702f5e8d3b1965",
+          "file": "selection-popup.test.ts",
+          "line": 54,
+          "column": 1
+        },
+        {
+          "title": "AC04/08 BFCache suspension clears active text and resumes new selection",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "edge",
+              "projectName": "edge",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 1720,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:15.368Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-7d1e68f27f9ae12a2832",
+          "file": "selection-popup.test.ts",
+          "line": 61,
+          "column": 1
+        },
+        {
+          "title": "AC06 hung transport times out at five seconds; retry uses fresh identity",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "edge",
+              "projectName": "edge",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 944,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:15.370Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-ed7705d5c9b704006a26",
+          "file": "selection-popup.test.ts",
+          "line": 71,
+          "column": 1
+        },
+        {
+          "title": "AC06 network failure is safe, explicit retry succeeds",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "edge",
+              "projectName": "edge",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1182,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:16.346Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-722e4e3fed1622be8801",
+          "file": "selection-popup.test.ts",
+          "line": 84,
+          "column": 1
+        },
+        {
+          "title": "AC07 results preserve IDs, language, restrictions, provenance and repeated occurrences",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "edge",
+              "projectName": "edge",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 1195,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:17.121Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-5529a1661dfe5aec705a",
+          "file": "selection-popup.test.ts",
+          "line": 92,
+          "column": 1
+        },
+        {
+          "title": "AC07 empty completed and unavailable results are distinct",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "edge",
+              "projectName": "edge",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1121,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:17.549Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-6921d4bb1666a0bc0430",
+          "file": "selection-popup.test.ts",
+          "line": 104,
+          "column": 1
+        },
+        {
+          "title": "AC08 automatic opening retains focus, Escape restores focus after popup focus",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "edge",
+              "projectName": "edge",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 783,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:18.338Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-43868f00e438fda266b4",
+          "file": "selection-popup.test.ts",
+          "line": 110,
+          "column": 1
+        },
+        {
+          "title": "AC08 restores focus within existing host Shadow DOM",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "edge",
+              "projectName": "edge",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 830,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:18.695Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-15ef0051c65773486b3d",
+          "file": "selection-popup.test.ts",
+          "line": 116,
+          "column": 1
+        },
+        {
+          "title": "AC03 new host selection remains observable after popup pointer interaction",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "edge",
+              "projectName": "edge",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 1647,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:19.142Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-80b2e767a3bcb781cd38",
+          "file": "selection-popup.test.ts",
+          "line": 126,
+          "column": 1
+        },
+        {
+          "title": "AC08 transformed body and RTL inheritance keep fixed popup within viewport",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "edge",
+              "projectName": "edge",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 847,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:19.546Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-f45c8adcff4cf49b305a",
+          "file": "selection-popup.test.ts",
+          "line": 132,
+          "column": 1
+        },
+        {
+          "title": "AC08 popup text selection and pointer interaction never start host lookup",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "edge",
+              "projectName": "edge",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1593,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:20.415Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-d20e8ea884f9c0f1e244",
+          "file": "selection-popup.test.ts",
+          "line": 142,
+          "column": 1
+        },
+        {
+          "title": "AC08 Shadow DOM isolates hostile host CSS and keeps narrow viewport bounds on scroll/resize",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "edge",
+              "projectName": "edge",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 987,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:20.811Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-401ed6b4c127001961ef",
+          "file": "selection-popup.test.ts",
+          "line": 154,
+          "column": 1
+        },
+        {
+          "title": "AC01/09 oversized selection is explicit and never silently truncated or sent",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "edge",
+              "projectName": "edge",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 1195,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:21.819Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-f5b7da2531b4e10c8eb2",
+          "file": "selection-popup.test.ts",
+          "line": 168,
+          "column": 1
+        },
+        {
+          "title": "AC09 no selection storage, logging, navigation or content-origin network",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "edge",
+              "projectName": "edge",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1271,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:22.050Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-4528d6964063dc0c1d33",
+          "file": "selection-popup.test.ts",
+          "line": 175,
+          "column": 1
+        },
+        {
+          "title": "AC01/02 ruby-safe selection opens loading before one minimal dispatch",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "brave",
+              "projectName": "brave",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 1274,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:26.977Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-1a2b27c6140959e4b883",
+          "file": "selection-popup.test.ts",
+          "line": 9,
+          "column": 1
+        },
+        {
+          "title": "AC01 non-Japanese, collapsed and annotation-only selections dispatch nothing",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "brave",
+              "projectName": "brave",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1099,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:27.093Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-e259a4522839a1ee87a6",
+          "file": "selection-popup.test.ts",
+          "line": 21,
+          "column": 1
+        },
+        {
+          "title": "AC02 rapid changes debounce only final selection",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "brave",
+              "projectName": "brave",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1285,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:28.223Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-28ad578c299f7b90eed9",
+          "file": "selection-popup.test.ts",
+          "line": 28,
+          "column": 1
+        },
+        {
+          "title": "AC03/04 late success ignored while replacement is debouncing",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "brave",
+              "projectName": "brave",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 1775,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:28.280Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-2b640304b26d814446d8",
+          "file": "selection-popup.test.ts",
+          "line": 35,
+          "column": 3
+        },
+        {
+          "title": "AC04 late success never replaces completed current result",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "brave",
+              "projectName": "brave",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1581,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:29.545Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-e9f3f958c39ef27215fb",
+          "file": "selection-popup.test.ts",
+          "line": 44,
+          "column": 3
+        },
+        {
+          "title": "AC03/04 late error ignored while replacement is debouncing",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "brave",
+              "projectName": "brave",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 1561,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:30.083Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-452b5accd4c9919786d7",
+          "file": "selection-popup.test.ts",
+          "line": 35,
+          "column": 3
+        },
+        {
+          "title": "AC04 late error never replaces completed current result",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "brave",
+              "projectName": "brave",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1615,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:31.158Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-17c6cb2b1eeab29a3d47",
+          "file": "selection-popup.test.ts",
+          "line": 44,
+          "column": 3
+        },
+        {
+          "title": "AC04 close cancels active request and prevents late result reopening",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "brave",
+              "projectName": "brave",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 1204,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:31.674Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-cb81ec44ee11c6052af3",
+          "file": "selection-popup.test.ts",
+          "line": 54,
+          "column": 1
+        },
+        {
+          "title": "AC04/08 BFCache suspension clears active text and resumes new selection",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "brave",
+              "projectName": "brave",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1725,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:32.806Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-3c6cf11a55e3f0a14b44",
+          "file": "selection-popup.test.ts",
+          "line": 61,
+          "column": 1
+        },
+        {
+          "title": "AC06 hung transport times out at five seconds; retry uses fresh identity",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "brave",
+              "projectName": "brave",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 1038,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:32.907Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-85c610769e4c1fff2d33",
+          "file": "selection-popup.test.ts",
+          "line": 71,
+          "column": 1
+        },
+        {
+          "title": "AC06 network failure is safe, explicit retry succeeds",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "brave",
+              "projectName": "brave",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 1322,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:33.968Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-6a29b042c76b749d2c85",
+          "file": "selection-popup.test.ts",
+          "line": 84,
+          "column": 1
+        },
+        {
+          "title": "AC07 results preserve IDs, language, restrictions, provenance and repeated occurrences",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "brave",
+              "projectName": "brave",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1246,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:34.573Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-b452f0f2eafecc1499fe",
+          "file": "selection-popup.test.ts",
+          "line": 92,
+          "column": 1
+        },
+        {
+          "title": "AC07 empty completed and unavailable results are distinct",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "brave",
+              "projectName": "brave",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 1085,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:35.311Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-92a22a21678d0a1d4a0f",
+          "file": "selection-popup.test.ts",
+          "line": 104,
+          "column": 1
+        },
+        {
+          "title": "AC08 automatic opening retains focus, Escape restores focus after popup focus",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "brave",
+              "projectName": "brave",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 791,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:35.859Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-2e2792a21b58e793a476",
+          "file": "selection-popup.test.ts",
+          "line": 110,
+          "column": 1
+        },
+        {
+          "title": "AC08 restores focus within existing host Shadow DOM",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "brave",
+              "projectName": "brave",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 872,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:36.416Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-f364e699bb8e291bb405",
+          "file": "selection-popup.test.ts",
+          "line": 116,
+          "column": 1
+        },
+        {
+          "title": "AC03 new host selection remains observable after popup pointer interaction",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "brave",
+              "projectName": "brave",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1824,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:36.686Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-2265bd7c54eefee1298f",
+          "file": "selection-popup.test.ts",
+          "line": 126,
+          "column": 1
+        },
+        {
+          "title": "AC08 transformed body and RTL inheritance keep fixed popup within viewport",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "brave",
+              "projectName": "brave",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 930,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:37.314Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-cfe254d8ec8ae02565fc",
+          "file": "selection-popup.test.ts",
+          "line": 132,
+          "column": 1
+        },
+        {
+          "title": "AC08 popup text selection and pointer interaction never start host lookup",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "brave",
+              "projectName": "brave",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 1640,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:38.277Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-a0b3eaf890ce5de8616f",
+          "file": "selection-popup.test.ts",
+          "line": 142,
+          "column": 1
+        },
+        {
+          "title": "AC08 Shadow DOM isolates hostile host CSS and keeps narrow viewport bounds on scroll/resize",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "brave",
+              "projectName": "brave",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1039,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:38.548Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-b83a38594be36d222c43",
+          "file": "selection-popup.test.ts",
+          "line": 154,
+          "column": 1
+        },
+        {
+          "title": "AC01/09 oversized selection is explicit and never silently truncated or sent",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "brave",
+              "projectName": "brave",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1263,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:39.634Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-c442b701f00588e8d168",
+          "file": "selection-popup.test.ts",
+          "line": 168,
+          "column": 1
+        },
+        {
+          "title": "AC09 no selection storage, logging, navigation or content-origin network",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "brave",
+              "projectName": "brave",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 1287,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:39.983Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c73cd404ca959eb8fe0f-05758cbb1cff313ac281",
+          "file": "selection-popup.test.ts",
+          "line": 175,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "..\\packaged\\packaged-extension-smoke.test.ts",
+      "file": "../packaged/packaged-extension-smoke.test.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "AC05/09/10 actual MV3 content -> background POST preserves minimal ruby-safe envelope",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "packaged",
+              "projectName": "packaged",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1685,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-11T16:32:41.719Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "48a87a5340a82e6505b8-abf35b66e8d60e811fde",
+          "file": "../packaged/packaged-extension-smoke.test.ts",
+          "line": 8,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-11T16:31:47.908Z",
+    "duration": 56006.504,
+    "expected": 112,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

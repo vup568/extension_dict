@@ -1,7 +1,7 @@
 # JP Reading Platform V2 — Feature Map & Use Case Inventory
 
-> **Analysis Date**: 2026-08-21  
-> **Methodology**: Evidence-based extraction from source-of-truth documents only  
+> **Analysis Date**: 2026-08-21; implementation update 2026-10-11
+> **Methodology**: Requirement map plus implementation/evidence, kept distinct
 > **Status**: Official Reference Document (`docs/FEATURE_MAP.md`)
 
 ---
@@ -11,8 +11,8 @@
 | Document | Path | Role | Version/Status |
 |---|---|---|---|
 | **REQUIREMENT.md** | `REQUIREMENT.md` | Product behavior & scope authority | v2.1.0, Approved 2026-08-21 |
-| **AGENTS.md** | `AGENTS.md` | Approved engineering baseline & execution protocol | Active (v2.0.0) |
-| **SDD.md** | `SDD.md` | Project Memory — ADR, Lessons Learned | Active |
+| **AGENTS.md** | `.agents/AGENTS.md` | Approved engineering baseline & execution protocol | Active (v2.0.0) |
+| **SDD.md** | `.agents/SDD.md` | Project Memory — ADR, Lessons Learned | Active; root SDD.md points here |
 | **MIGRATION_DECISION.md** | `MIGRATION_DECISION.md` | Legacy asset disposition authority | v1.0.0 Approved (Updated §19) |
 | **Constitution** | `.sdd/constitution.md` | Project-wide invariants & governance | v1.0.0 Ratified 2026-08-13 |
 | **DATABASE.md** | `DATABASE.md` | Database design central doc | Active |
@@ -66,6 +66,30 @@ Người học tiếng Nhật khi đọc văn bản thực tế phải chuyển 
 
 ## 3. Comprehensive Feature Map (F-01 to F-22)
 
+`MVP Status` dưới đây là mức ưu tiên/phạm vi yêu cầu, **không phải tiến độ**.
+Trạng thái implementation tại checkout ngày 2026-10-12:
+
+| Feature | Implementation và giới hạn | Bằng chứng |
+|---|---|---|
+| F-01/F-02 | Đã triển khai; F-02 merge/push `dev` tại `e01ee19`. Chrome/Edge/Brave đã có evidence; Firefox pending | `extension/src/boundary/`, `extension/src/browser/selection/`, `.sdd/specs/001-ruby-safe-dom-extraction/evidence/final-review.md` |
+| F-03/F-04 | Đã triển khai, kiểm chứng Chrome/Edge/Brave trên `feat/selection-popup-stale-protection`. Popup React/Shadow DOM, debounce 300ms, deadline 5s, Retry và interaction guard; Firefox pending | [Validation report](../.sdd/specs/feat-selection-popup/evidence/validation-report.md), `extension/src/interaction/`, `extension/src/ui/`, `extension/src/platform/` |
+| F-05 | Backend unified analysis đã triển khai; morphology/conjugation `unavailable` với mảng rỗng | `src/interface/Endpoints/AnalysisEndpoints.cs`, `src/usecase/Analysis/AnalyzeTextUseCase.cs` |
+| F-06 | Lookup exact form/reading đã triển khai; mặc định `NullTokenizerAdapter`, chưa có deinflection thực tế hay tách đoạn thành từng từ | `src/usecase/Dictionary/LookupWordUseCase.cs`, `src/infra/DependencyInjection.cs` |
+| F-07 | Kanji lookup đã triển khai; kết quả phụ thuộc dữ liệu đã nạp | `src/usecase/Kanji/LookupKanjiUseCase.cs` |
+| F-08 | Engine/gRPC/cache đã triển khai; seed hiện 5 mẫu, chưa chứng minh coverage đầy đủ corpus N5–N4 reviewed | `src/usecase/Grammar/`, `src/infra/Persistence/SeedData/grammar_rules_seed.json` |
+| F-09–F-19 | Chưa có implementation cho conjugation, dịch, Web, auth và learning trong runtime hiện tại; F-19 vẫn Post-MVP | `src/interface/ApiComposition.cs`; `feat-auth/SPEC.md` hiện trống |
+| F-20 | Đã có immutable snapshot guard và controlled publication transaction; chưa phải pipeline validation/approval dữ liệu hoàn chỉnh | `.agents/SDD.md`, `src/usecase/KnowledgeReleases/` |
+| F-21/F-22 | Đã có contract analysis/structured errors và một phần resilience/cache; chưa nghiệm thu toàn bộ version negotiation, rate limits và production operations | `docs/api/mvp-api-contract.md`, `.sdd/specs/feat-selection-popup/` |
+
+[Verification F-03/F-04](../.sdd/specs/feat-selection-popup/evidence/validation-report.md):
+223/223 units, statement coverage 96.74%; 112/112 browser cases
+(Chrome37/Edge37/Brave37 và real packaged MV3 Brave1); build/typecheck/Unicode,
+.NET Release/53 units và 51 PostgreSQL Testcontainers tests pass ngày 2026-10-12;
+npm audit0 được ghi ngày 2026-10-11. Delivery vào dev qua
+[PR #10](https://github.com/vup568/extension_dict/pull/10).
+Firefox runtime và approved PERF-001 benchmark vẫn pending. Không suy diễn
+hoàn thành MVP từ các dòng **Must/Should** hoặc gates đã pass trên ba browsers.
+
 ### F-01: Japanese Text Detection
 * **Goal**: Xác định chính xác văn bản tiếng Nhật từ selection, tránh false positives.
 * **Actor**: Browser Extension.
@@ -77,8 +101,8 @@ Người học tiếng Nhật khi đọc văn bản thực tế phải chuyển 
 ### F-02: Ruby-Safe DOM Extraction
 * **Goal**: Trích xuất base text tiếng Nhật từ DOM mà không bị furigana annotation (`rt`/`rp`) làm nhiễu.
 * **Actor**: Browser Extension.
-* **Trigger**: Sau khi Japanese text detection (F-01) thành công.
-* **Main flow**: Extension trích text từ DOM → loại bỏ nội dung thẻ `rt` và `rp` → bảo toàn nguyên vẹn base text.
+* **Trigger**: User tạo selection có một DOM Range hợp lệ.
+* **Main flow**: Extension trích ruby-safe text từ DOM → loại bỏ nội dung thẻ `rt` và `rp` → bảo toàn base text → đưa output thành công vào F-01 để nhận diện tiếng Nhật.
 * **Constraints**: `rt` và `rp` content **SHALL NOT** xuất hiện trong linguistic input gửi đi phân tích.
 * **MVP Status**: **Must** (DOM-001).
 
@@ -86,7 +110,7 @@ Người học tiếng Nhật khi đọc văn bản thực tế phải chuyển 
 * **Goal**: Tự động hiển thị popup khi chọn text tiếng Nhật, không cần click icon/hotkey.
 * **Actor**: Anonymous Reader via Extension.
 * **Trigger**: Selection ổn định chứa Japanese text hợp lệ.
-* **Main flow**: Selection hợp lệ → debounce (250–400ms) → render popup shell + loading state → gửi analysis request → hiển thị kết quả.
+* **Main flow**: Selection hợp lệ → render popup shell + loading ngay → debounce request 300ms → gửi analysis request → hiển thị kết quả của interaction hiện hành.
 * **Constraints**: Shadow DOM isolation khỏi host CSS; debounce 250–400ms; popup shell xuất hiện trước khi nhận response.
 * **MVP Status**: **Must** (EXT-001, EXT-002, EXT-003, BROWSER-003), **Should** (EXT-004 debounce).
 
@@ -128,7 +152,7 @@ Người học tiếng Nhật khi đọc văn bản thực tế phải chuyển 
 * **Trigger**: Analysis request.
 * **Main flow**: Input text → grammar engine phân tích theo rule patterns (N5–N4) → trả về từng occurrence kèm canonical grammar ID và unambiguous span.
 * **Constraints**: Dùng sentence context khi safe (GRM-001); N5–N4 coverage (GRM-003); repeated occurrences không bị collapse (GRM-008); meaningful overlaps phải biểu diễn được.
-* **MVP Status**: **Must** (GRM-002, GRM-003, GRM-005, GRM-007, GRM-008) — **Completed (2026-08-30)**.
+* **MVP Status**: **Must** (GRM-002, GRM-003, GRM-005, GRM-007, GRM-008). Engine đã triển khai; coverage corpus cần gate riêng như bảng implementation phía trên.
 
 ### F-09: Conjugation Explanation
 * **Goal**: Giải thích các bước biến đổi ngữ pháp từ dạng observed về dạng gốc (base form).
@@ -136,7 +160,7 @@ Người học tiếng Nhật khi đọc văn bản thực tế phải chuyển 
 * **Trigger**: Word unit nhận diện được là dạng chia biến đổi.
 * **Main flow**: Phân tích quy tắc biến đổi (ví dụ: 食べました → 食べる + ます + た) → hiển thị chuỗi giải thích ngữ pháp bằng tiếng Việt.
 * **Constraints**: Ưu tiên giải thích bằng tiếng Việt (CONJ-002).
-* **MVP Status**: **Should** (CONJ-001), **Must** (CONJ-002).
+* **MVP Status**: **Must** (CONJ-001, CONJ-002); runtime chưa triển khai.
 
 ### F-10: On-Demand Translation
 * **Goal**: Dịch đoạn văn JP → VI / EN theo hành động yêu cầu chủ động (explicit) của người dùng.
@@ -231,7 +255,7 @@ Người học tiếng Nhật khi đọc văn bản thực tế phải chuyển 
 * **Actor**: Browser Extension, Web Application, Backend.
 * **Trigger**: Mọi request giao tiếp client-server.
 * **Main flow**: Client gửi request theo versioned API contract → Backend validate runtime → Trả về thành công hoặc lỗi chuẩn dạng structured JSON `{ error_code, message, request_id }`.
-* **Constraints**: API contract provider-neutral (API-001); versioning rõ ràng `/api/v2/...` (API-002); lỗi HTTP >= 400 bắt buộc theo đúng định dạng structured error (API-004); không lộ stack trace internal (SEC-003).
+* **Constraints**: API contract provider-neutral (API-001); route baseline `/api/` không version URL, analysis trả `meta.contract_version: "1"`; negotiation/compatibility policy chưa khóa (API-002); structured error (API-004); không lộ stack trace internal (SEC-003).
 * **MVP Status**: **Must** (API-001–API-004).
 
 ### F-22: Reliability, Operations & Security (Rate Limiting, Caching, Protection)
@@ -252,13 +276,13 @@ Người học tiếng Nhật khi đọc văn bản thực tế phải chuyển 
 * **Trigger**: User bôi chọn (select) một đoạn văn bản tiếng Nhật trên trang web bất kỳ.
 * **Main flow**:
   1. User chọn text trên trang web.
-  2. Extension phát hiện văn bản là tiếng Nhật hợp lệ (`JPN-001`).
-  3. Extension trích xuất base text, loại bỏ các thẻ furigana `rt`/`rp` (`DOM-001`).
-  4. Extension áp dụng debounce 250–400ms (`EXT-004`).
-  5. Extension hiển thị khung Popup Shell kèm trạng thái Loading (`EXT-003`).
+  2. Extension trích base text ruby-safe, loại bỏ `rt`/`rp` (`DOM-001`).
+  3. Extension nhận diện tiếng Nhật trên output ruby-safe (`JPN-001`).
+  4. Extension hiển thị Popup Shell kèm Loading ngay (`EXT-003`).
+  5. Extension debounce request 300ms (`EXT-004`).
   6. Extension gửi Unified Analysis Request sang Backend (`EXT-006`).
-  7. Backend phân tích và trả về tập dữ liệu gồm: Từ vựng, Kanji, Ngữ pháp, Dạng biến đổi.
-  8. Popup hiển thị đầy đủ thông tin phân tích cho người dùng.
+  7. Backend trả vocabulary/kanji/grammar cùng capability status; morphology/conjugation hiện `unavailable`.
+  8. Popup trình bày phần dữ liệu khả dụng và báo rõ partial/failed/unavailable.
 * **Alternative flows**:
   * *Text không phải tiếng Nhật*: Không bật popup (`EXT-002`).
   * *Backend Timeout / Mất mạng*: Popup hiển thị thông báo lỗi thân thiện kèm nút "Thử lại" (`NET-003`, `NET-005`).
@@ -358,8 +382,8 @@ Người học tiếng Nhật khi đọc văn bản thực tế phải chuyển 
 ### 5.1 Dependency Graph
 
 ```
-F-01 (Japanese Detection)
-  └→ F-02 (Ruby-Safe DOM Extraction)
+F-02 (Ruby-Safe DOM Extraction)
+  └→ F-01 (Japanese Detection on extracted base text)
        └→ F-03 (Auto Popup)
             ├→ F-04 (Stale Response Protection)
             └→ F-05 (Unified Analysis)
@@ -430,22 +454,22 @@ Dưới đây là danh sách 20 điểm mâu thuẫn / câu hỏi mở đã đư
 | 8 | **OD-008** | Cấu trúc Matcher Metadata & chiến lược cắt câu an toàn (Safe Sentence Boundary) | Độ chính xác nhận diện ngữ pháp (F-08) |
 | 9 | **OD-009** | Đánh giá bản quyền & chất lượng tập dữ liệu nghĩa dịch Việt (FVDP/OVDP) | Ảnh hưởng chất lượng nghĩa dịch (F-06) |
 | 10 | **OD-010** | Ngôn ngữ & Thư viện cho Tokenizer Sidecar (Go/Python, Sudachi/MeCab) | **Blocker triển khai Deinflection (F-06, F-08, F-09)** |
-| 11 | **OD-011** | Chế độ Shadow DOM (Open/Closed) & ứng xử vị trí Popup Extension | Giao diện Popup Extension (F-03) |
+| 11 | **OD-011** | F-03/F-04 chọn open Shadow DOM/nonmodal/selection anchoring tại feature SPEC; không trở thành visual standard toàn dự án | Verification keyboard/focus/hostile CSS |
 | 12 | **OD-012** | Thuật toán hiển thị & lưu trạng thái nút Đã biết/Chưa biết trong Quick Review | Logic ôn tập (F-18) |
 | 13 | **OD-013** | Thời hạn lưu trữ thông tin xóa mềm (Soft-delete retention & purge policy) | Quản lý dữ liệu người dùng (F-16, F-17) |
-| 14 | **OD-014** | Giới hạn độ dài tối đa của câu/đoạn văn bản bôi chọn | Tránh quá tải request & lãng phí tài nguyên |
+| 14 | **OD-014** | Analysis hiện giới hạn 1000 trimmed UTF-16 units; vocabulary riêng255; client không tự truncate | Giới hạn hiện có, chưa thay toàn bộ policy endpoint/context |
 | 15 | **Document Conflict** | `feat-dict-lookup/SPEC.md` tham chiếu MSSQL / SQLite | **Đã sửa** thành PostgreSQL 16 ngày 2026-08-21 |
 | 16 | **Document Conflict** | `MIGRATION_DECISION.md` §19 coi Tech Stack là "non-decisions" | **Đã sửa** cập nhật các quyết định đã chốt ngày 2026-08-21 |
 | 17 | **Missing Spec** | Luồng UX chi tiết khi người dùng Ẩn danh nhấn Save → yêu cầu Login → Redirect quay lại | Cần làm rõ cho F-13, F-14 |
 | 18 | **Missing Spec** | Cấu trúc Routing / Navigation tổng thể của Web Application | Cần cho xây dựng Frontend Web App |
-| 19 | **Missing Spec** | Thứ tự ưu tiên layout các section hiển thị trong Extension Popup | Cần cho xây dựng Frontend Extension |
-| 20 | **Unclear Spec** | Xử lý khi 1 phần trong Unified Analysis bị lỗi (Partial Failure UI) | Cần quy ước hiển thị rõ ràng trên UI |
+| 19 | **Feature decision** | F-03/F-04 chọn Vocabulary → Kanji → Grammar, giữ matched forms/restrictions/provenance/occurrences | `.sdd/specs/feat-selection-popup/SPEC.md` |
+| 20 | **Feature decision** | F-03/F-04 phân biệt completed-empty/failed/unavailable và thông báo partial | `.sdd/specs/feat-selection-popup/SPEC.md` |
 
 ---
 
 ## 8. Consolidated Summary Table
 
-| Feature ID | Tên Chức Năng | Đối tượng chính | Use Cases liên quan | Trạng thái MVP | Nguồn bằng chứng (Requirement ID) |
+| Feature ID | Tên Chức Năng | Đối tượng chính | Use Cases liên quan | Ưu tiên/phạm vi MVP | Requirement ID |
 |---|---|---|---|---|---|
 | **F-01** | Japanese Text Detection | Extension | UC-01 | **Must** | JPN-001 |
 | **F-02** | Ruby-Safe DOM Extraction | Extension | UC-01 | **Must** | DOM-001 |
@@ -454,7 +478,7 @@ Dưới đây là danh sách 20 điểm mâu thuẫn / câu hỏi mở đã đư
 | **F-05** | Unified Analysis Request | Extension, Backend | UC-01 | **Must** | EXT-006 |
 | **F-06** | Vocabulary Lookup | Reader, Backend | UC-01, UC-05 | **Must** | VOC-001–008 |
 | **F-07** | Kanji Information | Reader, Backend | UC-01, UC-05 | **Must** | KAN-001–002 |
-| **F-08** | Grammar Detection | Reader, Backend | UC-01, UC-05 | **Completed** | GRM-001–008 |
+| **F-08** | Grammar Detection | Reader, Backend | UC-01, UC-05 | **Must** | GRM-001–008 |
 | **F-09** | Conjugation Explanation | Reader, Backend | UC-01, UC-05 | **Must / Should** | CONJ-001–002 |
 | **F-10** | On-Demand Translation | Reader, Backend, Provider | UC-02 | **Must** | TRN-001–004, PRIV-004 |
 | **F-11** | Web Search & Analyze | Reader, Web App | UC-05 | **Must** | WEB-001–003 |

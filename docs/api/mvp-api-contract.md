@@ -2,7 +2,7 @@
 
 ## Tổng quan
 
-Tài liệu này là contract baseline cho các capability MVP dùng chung bởi Browser Extension và Web Application. Nó mô tả API **đề xuất** để review và làm đầu vào cho các feature SPEC sau này; không chứng minh endpoint đã được triển khai hoặc đang chạy.
+Tài liệu này phân biệt runtime contract đã triển khai với API **đề xuất** cho các capability MVP. Phần Analysis được đối chiếu với mã nguồn ngày 2026-10-11; các route khác giữ nhãn proposed/deferred của từng phần. Implementation local không đồng nghĩa endpoint đã deploy production.
 
 ### Phạm vi
 
@@ -15,6 +15,7 @@ Tài liệu này là contract baseline cho các capability MVP dùng chung bởi
 | Nhãn | Ý nghĩa |
 |---|---|
 | `Required semantic` | Hành vi bắt buộc đã có trong REQUIREMENT.md. |
+| `Implemented runtime contract` | Shape đã có trong mã nguồn endpoint/DTO; không phải chứng nhận production deployment. |
 | `Proposed HTTP contract` | Route, method, schema hoặc status code được đề xuất trong tài liệu này; cần feature SPEC phê duyệt trước implementation. |
 | `Deferred` | Có requirement nhưng chưa đủ quyết định để khóa API shape. |
 
@@ -27,7 +28,7 @@ Thứ tự sử dụng nguồn:
 3. `.sdd/constitution.md` — invariants về stable identity, privacy, provider isolation và stale response.
 4. Feature specs và database documents — bằng chứng chi tiết; API shape ở đây vẫn là draft/proposed nếu chưa được phê duyệt riêng.
 
-Routes mới bắt đầu bằng `/api/`, không version trong URL theo quyết định project owner ngày 2026-08-21. Điều này không loại bỏ yêu cầu `API-002`: clients gửi `X-Contract-Version: 1` (proposed) và server trả `contract_version` trong response metadata. Compatibility window và version-negotiation policy vẫn `Deferred`.
+Routes mới bắt đầu bằng `/api/`, không version trong URL theo quyết định project owner ngày 2026-08-21. Analysis hiện trả `meta.contract_version: "1"`; endpoint chưa negotiate `X-Contract-Version`. Header đó vẫn proposed cho các contract tương lai. Compatibility window và version-negotiation policy vẫn `Deferred`.
 
 ADR-002, global constraints, AGENTS.md và SDD.md thống nhất PostgreSQL 16, Npgsql EF Core Migrations và PostgreSQL Testcontainers làm baseline kỹ thuật.
 
@@ -37,7 +38,7 @@ ADR-002, global constraints, AGENTS.md và SDD.md thống nhất PostgreSQL 16, 
 
 - Production public boundary dùng HTTPS (`SEC-001`).
 - Request/response JSON dùng `application/json; charset=utf-8`.
-- Field names là `snake_case`; timestamps là ISO 8601 UTC; IDs là opaque string.
+- Proposed field names là `snake_case`; **Analysis thực tế có mixed casing**: envelope/analysis/grammar snake_case, nested dictionary/kanji camelCase. Không đổi casing client nếu chưa thay versioned runtime contract. Timestamps đề xuất là ISO 8601 UTC; canonical IDs là opaque string.
 - Canonical linguistic ID phải mang resource type, ví dụ `dictionary:12345`, `kanji:日`, `grammar:n5-te-iru` (`ID-005`). Display text không được dùng thay ID (`ID-003`).
 - `interaction_id` là UUID do client tạo cho mọi thao tác phụ thuộc selection/input. Client chỉ render response nếu interaction đó vẫn current (`ASYNC-001`, `ASYNC-002`).
 - Raw selected text chỉ dùng cho xử lý tức thời; không được persist vào ordinary logs hay interaction history (`PRIV-002`, `PRIV-006`).
@@ -95,7 +96,7 @@ Reading, analysis, kanji, grammar và translation là anonymous (`AUTH-001`). Ro
 
 | Capability | Method | Route | Access | Status |
 |---|---|---|---|---|
-| Unified analysis | POST | `/api/analysis` | Anonymous | Proposed HTTP contract |
+| Unified analysis | POST | `/api/analysis` | Anonymous | Implemented runtime contract; chưa khẳng định production deployment |
 | Kanji detail | GET | `/api/kanji/{character}` | Anonymous | Proposed HTTP contract |
 | Grammar list | GET | `/api/grammar` | Anonymous | Proposed HTTP contract |
 | Grammar detail | GET | `/api/grammar/{grammar_id}` | Anonymous | Proposed HTTP contract |
@@ -111,51 +112,49 @@ Reading, analysis, kanji, grammar và translation là anonymous (`AUTH-001`). Ro
 
 ### `POST /api/analysis`
 
-`Required semantic`: one analysis request can contain vocabulary, kanji, morphology, conjugation and grammar results (`EXT-006`, `WEB-003`). It must not call translation implicitly (`TRN-004`).
+`Implemented runtime contract`: [endpoint](../../src/interface/Endpoints/AnalysisEndpoints.cs),
+[analysis DTOs](../../src/usecase/Analysis/Models/AnalysisDtos.cs),
+[use case](../../src/usecase/Analysis/AnalyzeTextUseCase.cs). Anonymous; không gọi translation.
+Client F-03/F-04 dùng một request và runtime validator tại
+[`analysisContract.ts`](../../extension/src/api/analysisContract.ts).
 
 ```json
 {
   "interaction_id": "a1d3b846-c077-4b5a-8b97-1d4d583ab0ad",
-  "text": "食べました",
-  "context": "昨日、寿司を食べました。"
+  "text": "食事"
 }
 ```
 
-`context` is optional and must be omitted unless safely extracted and necessary for grammar analysis (`GRM-001`, `PRIV-001`). Exact input limits and shared offset convention are `Deferred`.
+| Request field | Runtime behavior |
+|---|---|
+| `text` | Required string, non-whitespace; `.Trim()` trước xử lý. Tối đa1000 **UTF-16 code units sau trim**; vượt limit trả400. Không tự truncate. |
+| `interaction_id` | Optional trên backend; khi có phải parse được UUID. Extension luôn gửi UUID mới cho mỗi interaction/Retry. |
+| `context` | Optional string cho ngữ pháp; chỉ sử dụng khi chứa selection đúng một lần. Extension hiện **không gửi** context, page URL/title hay toàn bộ trang. |
+
+Vocabulary lookup có giới hạn riêng255 UTF-16 units và tra selection như một
+word/phrase, chưa tách đoạn thành từng từ; input dài có thể làm vocabulary
+`failed` mà kanji/grammar vẫn hoàn thành. Context/input policies tổng thể và
+shared span convention vẫn thuộc các decision gate liên quan; F-03/F-04 không
+thay hoặc đoán morphology/offset provider mới.
+
+Ví dụ **shape** response completed-empty với grammar dependency failure; không
+cam kết corpus thật có kết quả nào cho `食事`:
 
 ```json
 {
   "data": {
-    "normalized_text": "食べました",
-    "tokens": [{
-      "surface": "食べました",
-      "base_form": "食べる",
-      "part_of_speech": ["verb"],
-      "span": { "start": 0, "end": 4, "unit": "deferred" }
-    }],
-    "dictionary_matches": [{
-      "canonical_id": "dictionary:12345",
-      "matched_written_form": "食べる",
-      "matched_reading": "たべる",
-      "senses": [{
-        "sense_key": "1",
-        "glosses": [{ "language_tag": "vi", "text": "ăn" }],
-        "restrictions": { "written_forms": [], "readings": [] }
-      }]
-    }],
+    "normalized_text": "食事",
+    "tokens": [],
+    "dictionary_matches": [],
     "kanji": [],
-    "conjugations": [{
-      "surface": "食べました",
-      "base_form": "食べる",
-      "explanation": { "language_tag": "vi", "text": "Dạng lịch sự quá khứ." }
-    }],
+    "conjugations": [],
     "grammar_occurrences": [],
     "capabilities": {
       "vocabulary": "completed",
       "kanji": "completed",
-      "morphology": "completed",
-      "conjugation": "completed",
-      "grammar": "completed"
+      "morphology": "unavailable",
+      "conjugation": "unavailable",
+      "grammar": "failed"
     }
   },
   "meta": {
@@ -166,9 +165,38 @@ Reading, analysis, kanji, grammar và translation là anonymous (`AUTH-001`). Ro
 }
 ```
 
-`dictionary_matches` preserves matched form, reading, applicable senses and restrictions (`VOC-007`, `VOC-008`); it does not define or replace the standalone Dictionary Lookup route. Every `grammar_occurrences[]` item must keep `grammar_id` and a non-ambiguous span; repeated/overlapping occurrences remain separate (`GRM-007`, `GRM-008`).
+Nested shape thực tế (nullable fields vẫn xuất hiện với `null`):
+
+| Item | Fields |
+|---|---|
+| `dictionary_matches[]` | `canonicalId: string`, `matchedWrittenForm: string/null`, `matchedReading: string/null`, `writtenForms: WrittenForm[]`, `readings: Reading[]`, `senses: Sense[]` |
+| `WrittenForm` | `id: number`, `form: string`, `priority: number/null`, `isCommon: boolean`, `info: string[]/null` |
+| `Reading` | `id: number`, `readingText: string`, `priority: number/null`, `isCommon: boolean`, `info: string[]/null`, `restrictedToForms: string[]/null` |
+| `Sense` | `senseKey: string`, `partOfSpeech: string[]`, `position: number`, `glosses: {languageTag: string, glossText: string}[]`, `restrictions: {writtenFormId: number/null, readingId: number/null}[]` |
+| `kanji[]` | `canonicalId`, `character`, `unicodeCodepoint`: strings; `strokeCount`, `grade`, `jlptLevel`, `frequency`, `radicalNumber`: number/null; `jlptProvenance`, `hanViet`: string/null; `onReadings`, `kunReadings`, `meaningsVi`, `meaningsEn`, `nanoriReadings`: string arrays |
+| `grammar_occurrences[]` | `grammar_id: string`, `pattern: string`, `jlpt_level: string/null`, `meaning_vi: string/null`, `matched_text: string`, `span: {start: number, end: number}` |
+| `capabilities` | `vocabulary`, `kanji`, `grammar`, `morphology`, `conjugation`: `completed`, `failed` hoặc `unavailable` |
+| `meta` | `request_id: string`, `interaction_id: string/null` (echo request), `contract_version: "1"` |
+
+`tokens`/`conjugations` hiện luôn `[]`, trạng thái tương ứng `unavailable`;
+không có runtime token/conjugation shape để client tự dựng. `completed` cùng
+mảng rỗng là không tìm thấy kết quả; không đồng nghĩa unavailable.
+HTTP200 có thể partial. Khi vocabulary/kanji/grammar đều `failed`, backend trả
+HTTP503 `SERVICE_UNAVAILABLE` với `retryable: true`. Input/JSON/UUID không hợp lệ
+trả400 `VALIDATION_FAILED`; lỗi ngoài dự kiến trả500 `INTERNAL_ERROR`.
+Backend hiện chưa trả đầy đủ retry metadata cho mọi error code đề xuất ở trên.
+
+Dictionary giữ matched form/reading, gloss language và sense restrictions theo
+ID; không sửa standalone lookup route. Grammar giữ từng occurrence với ID và
+span tương đối với `normalized_text`; lặp/chồng lấn không bị collapse.
+Extension kiểm tra version/correlation/nested types, bỏ response stale và không
+hiển thị raw backend prose. Mọi selected text/interactions vẫn ephemeral.
 
 ## Kanji and grammar
+
+Các GET routes dưới đây vẫn là **Proposed HTTP contract**. Runtime hiện có
+standalone POST lookup/detection endpoints theo feature specs; không suy diễn
+các GET route này đã được triển khai từ khả năng có trong Analysis.
 
 ### `GET /api/kanji/{character}`
 

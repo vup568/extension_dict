@@ -52,7 +52,7 @@ jobs:
           git grep -i -E "console\.log|debugger|TODO|FIXME" -- 'src/*' || echo "✅ No debug/TODO comments found."
 
   extension-verification:
-    name: Extension F-01 (Unicode, Build, Test, Browser)
+    name: Extension F-01–F-04 (Unicode, Build, Test, Browser)
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -81,7 +81,7 @@ jobs:
       - name: 🧪 Unit Tests and Coverage
         run: npm run test:coverage
 
-      - name: 🛠️ Build Extension Core
+      - name: 🛠️ Build Extension Library and Browser Packages
         run: npm run build
 
       - name: 🌐 Chrome Browser Contract

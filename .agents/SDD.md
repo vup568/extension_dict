@@ -69,13 +69,11 @@
 
 ### 2.3 Current Sprint Notes
 
-*   **Sprint hiện tại:** Sprint 1 — Greenfield Foundation & Scaffolding (.NET 10 + React 19)
-*   **Mục tiêu chính:** 
-    1. Thiết lập cấu trúc thư mục Hybrid Project chuẩn mực với thư mục `.sdd/` và `.agents/`.
-    2. Định nghĩa các API Contracts dùng chung (Shared DTOs) dùng chung giữa React Frontend và .NET Backend thông qua Swagger/OpenAPI.
-    3. Triển khai đường ống dữ liệu (ETL pipeline) để import dữ liệu từ điển JMdict thô vào PostgreSQL một cách deterministic.
-*   **Các Spec đang hoạt động:** `.sdd/specs/feat-dict-lookup/SPEC.md` (Draft v0.1).
-*   **Điểm nghẽn hiện tại (Blockers):** Đang phân tích rủi ro bản quyền và kiểm thử chất lượng dữ liệu của tập FVDP/OVDP trước khi nạp chính thức vào Production.
+*   **Workstream hiện tại (2026-10-12):** F-03/F-04 Extension selection-to-analysis đã hoàn tất trên feature branch; F-06 exact lookup được tái kiểm chứng với PostgreSQL 16.
+*   **Đã delivery:** F-02 merge/push `dev` tại `e01ee19d2458403d3dc9d9a18df0ffc4e0426dc4`; backend dictionary/kanji/grammar/unified analysis đã có runtime.
+*   **Delivery hiện tại:** Local merge b3d187d đã qua toàn bộ post-merge gates. Remote delivery qua [PR #10](https://github.com/vup568/extension_dict/pull/10), do `dev` yêu cầu pull request; trạng thái merged của PR là bằng chứng hoàn tất.
+*   **Spec đang hoạt động:** `.sdd/specs/feat-selection-popup/{SPEC.md,PLAN.md,TASKS.md}`; evidence cuối ghi riêng, không suy diễn từ mức ưu tiên MVP.
+*   **Giới hạn còn lại:** Morphology/conjugation unavailable, dictionary mặc định NullTokenizerAdapter báo capability unavailable, grammar seed 5 mẫu; Web/auth/translation/learning chưa triển khai. Firefox runtime và approved benchmark pending. Docker/PostgreSQL Testcontainers hiện hoạt động; review nghĩa Việt production vẫn là gate dữ liệu riêng.
 
 ---
 
@@ -183,3 +181,21 @@ Mã nguồn Backend trong thư mục `src/` bắt buộc phải tuân thủ nghi
 *   F-02 now exposes a synchronous frame-local `SelectionReader` boundary that accepts exactly one coherent non-collapsed Range and returns complete base text or one of six content-free error codes. Original DOM ancestry excludes only HTML `rt`/`rp`; partial offsets, Unicode code units, explicit `br`, and a fixed CSS-independent block policy are preserved through a pure token accumulator.
 *   Runtime processing is ephemeral and read-only: no network, storage, logs, popup, listener, debounce, authentication, Backend call, page-context expansion, or new dependency was added. A direct browser regression verifies that only successful ruby-safe output is handed to F-01.
 *   Final local evidence passed 133 Extension unit tests with 96% statement coverage, 48/48 Playwright tests across installed Chrome, Edge and Brave, the .NET Release build, 51 unit tests, and 50 PostgreSQL Testcontainers integration tests. Firefox remains explicitly pending because no compatible executable is installed; performance measurements remain ungraded contribution evidence toward PERF-001.
+
+### 2026-10-11 — F-02 Delivery and F-03/F-04 Selection-to-Analysis
+
+*   F-02 merged/pushed to `origin/dev` at `e01ee19d2458403d3dc9d9a18df0ffc4e0426dc4`. New implementation uses `feat/selection-popup-stale-protection`; final commit/push status remains separate from implementation evidence.
+*   React 19 popup uses feature-local open Shadow DOM/nonmodal focus policy and manual native popover top layer with fixed-host fallback. Selected DOM Range is ruby-safe and frame-local; popup renders shell/loading before 300ms request debounce. Escape/close, focus restoration, visualViewport and BFCache are handled at the browser boundary.
+*   Generation plus UUID invalidates currentness immediately on every selection change, including the debounce window. AbortController attempts cancellation; identity guards success/error/partial regardless of cancellation. Retry creates a fresh identity; independent 5s deadlines prevent an infinite spinner.
+*   Content scripts message background; only background fetches one build-configured origin (`VITE_API_BASE_URL`, default loopback5000), with credentials omitted, redirects rejected and sender/tab/frame scope validation. Chromium service-worker and Firefox background-script manifests are built separately; `dist/index.js` library remains intact.
+*   Frontend validates actual mixed-case API DTOs, contract_version and interaction echo; sections preserve canonical IDs, matched form/reading, sense restrictions, language, kanji provenance and each grammar occurrence. Morphology/conjugation stay empty/unavailable; no context, translation, auth, history, canonical client store or linguistic corpus is introduced.
+*   Dependencies React/react-dom/type packages19.3.0 and Tailwind/Vite plugin4.3.3 plus lock transitives were explicitly owner-approved. Exact source-map-js1.2.2 override fixes the audit finding; npm audit reports0 vulnerabilities. Existing appsettings DB credential was removed; ConnectionStrings__DefaultConnection is externally required.
+*   Verified gates: 223/223 units, 96.74% statements/93.58% branches/98.24% functions/97.85% lines coverage; typecheck, Unicode verification, library/extension builds, .NET Release 0 warnings/errors and 51/51 units pass. Full browser suite 112/112 (Chrome 37, Edge 37, Brave 37, packaged MV3 Brave 1), no skip/flaky/failure; real background POST from an ordinary HTTP host uses minimal payload/no cookies/storage. Independent review has no outstanding P1/P2. Evidence: `.sdd/specs/feat-selection-popup/evidence/validation-report.md`.
+*   Remaining limits: Firefox execution pending, PostgreSQL Testcontainers blocked by existing Docker startup failure, approved PERF-001 benchmark pending. Input/textarea selection unsupported, whole-selection vocabulary lookup unsegmented, default NullTokenizerAdapter and grammar seed5 patterns remain as before.
+*   Delivery verified: `origin/feat/selection-popup-stale-protection` equals local `86cd930c1e05bbc8c68a590b452a63d2d3f5e8df` after a normal push; implementation `99c2634`, tests `18035fa`, external DB configuration `5a0ff1a`. This feature was not merged into dev; dev remains the authorized F-02 merge `e01ee19`.
+
+### 2026-10-12 — F-06 PostgreSQL Revalidation and Capability Truthfulness
+
+*   Docker Engine and the local PostgreSQL 16 Compose service are healthy. The Release solution build passes with zero warnings/errors; unit tests pass 53/53 and PostgreSQL Testcontainers integration tests pass 51/51. Focused F-06 slices pass 13/13 unit and 6/6 integration tests.
+*   `DeinflectionResult` now distinguishes an available provider with no match from an unavailable provider. The default `NullTokenizerAdapter` therefore keeps exact lookup usable while truthfully reporting morphology `unavailable`, matching AC-011 and Unified Analysis behavior.
+*   F-06 exact lookup, Vietnamese-first fallback, provenance and blank/length validation are verified. Control-character policy remains a recorded gap. Production deinflection remains pending OD-010; performance certification remains pending OD-005. Evidence: `.sdd/specs/feat-dict-lookup/evidence/validation-report.md`.

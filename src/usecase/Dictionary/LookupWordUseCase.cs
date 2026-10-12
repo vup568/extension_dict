@@ -28,7 +28,8 @@ public sealed class LookupWordUseCase(
             throw new ArgumentException($"Từ khóa tra cứu không được vượt quá {MaxQueryLength} ký tự.", nameof(query));
         }
 
-        string morphologyCapability = "completed";
+        // EARS[State]: WHILE no tokenizer provider is configured, exact lookup remains usable and morphology is unavailable.
+        string morphologyCapability = tokenizerAdapter.IsAvailable ? "completed" : "unavailable";
         ConjugationDto? conjugation = null;
 
         // 2. Step 1: Tra cứu Exact Match
@@ -43,7 +44,12 @@ public sealed class LookupWordUseCase(
             try
             {
                 var deinflectResult = await tokenizerAdapter.DeinflectAsync(trimmedQuery, cancellationToken);
-                if (deinflectResult.IsSuccess && !string.IsNullOrWhiteSpace(deinflectResult.BaseForm))
+                // EARS[State]: WHILE the tokenizer sidecar is unavailable, exact lookup remains usable and morphology is unavailable.
+                if (!deinflectResult.IsAvailable)
+                {
+                    morphologyCapability = "unavailable";
+                }
+                else if (deinflectResult.IsSuccess && !string.IsNullOrWhiteSpace(deinflectResult.BaseForm))
                 {
                     var baseEntries = await dictionaryRepository.SearchByFormOrReadingAsync(deinflectResult.BaseForm, cancellationToken);
                     if (baseEntries.Count > 0)

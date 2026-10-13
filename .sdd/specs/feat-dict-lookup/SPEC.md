@@ -1,12 +1,14 @@
 # FEATURE SPEC: Dictionary Lookup API
-# Version: 1.1.0 | Owner: @lead-dev | Updated: 2026-10-12
+# Version: 1.2.0 | Owner: @lead-dev | Updated: 2026-10-12
 # Inherits: .sdd/constraints/global.md, .sdd/constraints/business.md, .sdd/constraints/safety.md
 # Target Stack: .NET 10 (C# 14) Backend, PostgreSQL 16 (ARCH-005), Docker Testcontainers (ARCH-006)
 
 > **Implementation status (2026-10-12):** Exact form/reading lookup, Vietnamese-first
 > fallback, provenance, blank/length validation, structured errors and anonymous endpoint wiring are
 > implemented. PostgreSQL Testcontainers verification passes. Production deinflection
-> remains pending `OD-010`; the default `NullTokenizerAdapter` reports morphology as
+> remains unintegrated in F-06; `OD-010` is resolved as Python + Sudachi over gRPC
+> in [F-08 SPEC §1.4](../feat-grammar-detection/SPEC.md#14-key-decision-tokenizer-od-010--resolved).
+> The default `NullTokenizerAdapter` reports morphology as
 > `unavailable` without breaking exact lookup. This status note does not weaken the
 > requirements below.
 
@@ -55,7 +57,7 @@ Feature này **KHÔNG** bao gồm Kanji lookup (F-07), Grammar detection (F-08),
 | **Authenticated Learner** | Người dùng đã đăng nhập | Cùng quyền tra cứu như Guest; thêm quyền lưu từ vựng (feature khác F-14) | AUTH-002 |
 | **Browser Extension** | Client system | Gửi query qua Unified Analysis hoặc standalone lookup endpoint | EXT-006, BROWSER-001 |
 | **Web Application** | Client system | Gửi query qua cùng Backend API | WEB-001, WEB-002 |
-| **Tokenizer Sidecar** | External runtime (Go/Python) | Phân tích morphology, trả base form cho deinflection | MIGRATION 6.5, 17, OD-010 |
+| **Tokenizer Sidecar** | Python + Sudachi, gRPC | Phân tích morphology, trả base form cho deinflection | MIGRATION 6.5, 17, OD-010 (Resolved; F-08 SPEC §1.4) |
 | **Backend** | Authoritative system | Thực hiện tra cứu DB, điều phối sidecar, trả kết quả | MIGRATION 6.3, 15 |
 
 > **Quy tắc phân quyền cứng:**
@@ -88,6 +90,11 @@ Feature này **KHÔNG** bao gồm Kanji lookup (F-07), Grammar detection (F-08),
 *   **EARS[Ubiquitous]:** THE system SHALL bảo toàn match provenance — tuyệt đối **SHALL NOT** trộn lẫn nghĩa của sense bị restrict chỉ cho một số form/reading cụ thể [VOC-007, VOC-008]. Client phải nhận đủ dữ liệu `sense_applicabilities` để render đúng.
 
 ### 3.2 Deinflection & Morphological Resolution
+
+> **Decision/runtime alignment (2026-10-12):** OD-010 đã chốt Python + Sudachi
+> qua gRPC tại F-08. Sidecar và adapter Grammar đã có code; Dictionary vẫn dùng
+> `NullTokenizerAdapter`. Phần còn thiếu là tích hợp deinflection vào F-06 và
+> giải thích biến đổi từ F-09, không phải chọn lại ngôn ngữ/provider.
 
 *   **EARS[Event]:** WHEN client gửi một từ đang ở dạng chia/biến đổi (ví dụ: `食べました`, `高くなかった`),
     **THE system SHALL** gọi Tokenizer Sidecar qua Interface Adapter ở tầng Infrastructure để lấy base form (`食べる`, `高い`) [MIGRATION 6.5, 17], rồi tra cứu từ điển theo base form [CONJ-001].
@@ -311,7 +318,7 @@ Các tính năng sau **SHALL NOT** được triển khai trong feature này:
 | 7 | Wildcard search (`食べ*`) hoặc regex query | Chưa có requirement | — |
 | 8 | Pagination cho kết quả lookup | Single query trả ≤ vài chục entries — không cần paginate | — |
 | 9 | Caching layer (Redis/Memory) | Cần chốt OD-006 trước | F-22 |
-| 10 | Tokenizer Sidecar implementation | Cần chốt OD-010 (Go/Python, MeCab/Sudachi) | Separate deliverable |
+| 10 | Tokenizer Sidecar deployment/ops | OD-010 đã chốt Python + Sudachi/gRPC; code Sidecar đã có ở F-08, vận hành và kiểm chứng runtime là phần việc riêng | F-08 / operational deliverable |
 
 > **Nguyên tắc:** Nếu có nghi ngờ một tính năng có thuộc scope hay không, mặc định là **OUT**. Chỉ đưa vào khi có requirement ID cụ thể trong `REQUIREMENT.md` và được human approve.
 
@@ -321,7 +328,7 @@ Các tính năng sau **SHALL NOT** được triển khai trong feature này:
 
 | # | Question | Impact | Status |
 |---|---|---|---|
-| 1 | **OD-010:** Tokenizer Sidecar dùng Go hay Python? MeCab hay Sudachi? | Blocker cho §3.2 Deinflection | ⏳ Pending |
+| 1 | **OD-010:** Python + Sudachi, giao tiếp gRPC | Lựa chọn công nghệ đã chốt tại [F-08 SPEC §1.4](../feat-grammar-detection/SPEC.md#14-key-decision-tokenizer-od-010--resolved); F-06/F-09 còn thiếu tích hợp | ✅ Resolved — clarification 2026-08-24, commit 82dc015 (2026-08-30) |
 | 2 | **OD-005:** Final P95 latency SLO sau benchmark? | Nghiệm thu NFR-PERF-01/02 | ⏳ Pending |
 | 3 | **OD-009:** Nguồn dữ liệu nghĩa Việt (FVDP/OVDP) — bản quyền và chất lượng? | Chất lượng `localized_glosses` vi | ⏳ Pending |
 | 4 | API route: dùng standalone `/api/dictionary/lookup` hay chỉ embed trong `/api/analysis`? | Quyết định route structure | ✅ Resolved — cả standalone lookup và unified analysis đang được map |

@@ -1,6 +1,6 @@
 # JP Reading Platform V2 — Feature Map & Use Case Inventory
 
-> **Analysis Date**: 2026-08-21; implementation update 2026-10-11
+> **Analysis Date**: 2026-08-21; implementation and OD-010 alignment update 2026-10-12
 > **Methodology**: Requirement map plus implementation/evidence, kept distinct
 > **Status**: Official Reference Document (`docs/FEATURE_MAP.md`)
 
@@ -19,6 +19,7 @@
 | **Schema Overview** | `docs/database/schema-overview.md` | Table roles & relationships | Active |
 | **feat-platform-foundation SPEC** | `.sdd/specs/feat-platform-foundation/SPEC.md` | Platform boundary specification | Draft |
 | **feat-dict-lookup SPEC** | `.sdd/specs/feat-dict-lookup/SPEC.md` | Dictionary lookup API specification | Draft v0.1.0 (Updated to PostgreSQL 16) |
+| **feat-grammar-detection SPEC** | `.sdd/specs/feat-grammar-detection/SPEC.md` | OD-010 decision authority (§1.4, clarification 2026-08-24) | Python + Sudachi via gRPC resolved |
 | **feat-auth SPEC** | `.sdd/specs/feat-auth/SPEC.md` | Auth specification | **Empty** — Pending specification |
 
 ---
@@ -74,9 +75,9 @@ Trạng thái implementation tại checkout ngày 2026-10-12:
 | F-01/F-02 | Đã triển khai; F-02 merge/push `dev` tại `e01ee19`. Chrome/Edge/Brave đã có evidence; Firefox pending | `extension/src/boundary/`, `extension/src/browser/selection/`, `.sdd/specs/001-ruby-safe-dom-extraction/evidence/final-review.md` |
 | F-03/F-04 | Đã triển khai, kiểm chứng Chrome/Edge/Brave trên `feat/selection-popup-stale-protection`. Popup React/Shadow DOM, debounce 300ms, deadline 5s, Retry và interaction guard; Firefox pending | [Validation report](../.sdd/specs/feat-selection-popup/evidence/validation-report.md), `extension/src/interaction/`, `extension/src/ui/`, `extension/src/platform/` |
 | F-05 | Backend unified analysis đã triển khai; morphology/conjugation `unavailable` với mảng rỗng | `src/interface/Endpoints/AnalysisEndpoints.cs`, `src/usecase/Analysis/AnalyzeTextUseCase.cs` |
-| F-06 | Lookup exact form/reading đã triển khai; mặc định `NullTokenizerAdapter`, chưa có deinflection thực tế hay tách đoạn thành từng từ | `src/usecase/Dictionary/LookupWordUseCase.cs`, `src/infra/DependencyInjection.cs` |
+| F-06 | Lookup exact form/reading đã triển khai; Dictionary vẫn đăng ký `NullTokenizerAdapter`, chưa nối Sidecar để deinflection hay tách đoạn thành từng từ; OD-010 đã chốt | `src/usecase/Dictionary/LookupWordUseCase.cs`, `src/infra/DependencyInjection.cs`, [OD-010](../.sdd/specs/feat-grammar-detection/SPEC.md#14-key-decision-tokenizer-od-010--resolved) |
 | F-07 | Kanji lookup đã triển khai; kết quả phụ thuộc dữ liệu đã nạp | `src/usecase/Kanji/LookupKanjiUseCase.cs` |
-| F-08 | Engine/gRPC/cache đã triển khai; seed hiện 5 mẫu, chưa chứng minh coverage đầy đủ corpus N5–N4 reviewed | `src/usecase/Grammar/`, `src/infra/Persistence/SeedData/grammar_rules_seed.json` |
+| F-08 | Engine/gRPC/cache và Python + Sudachi Sidecar đã có code; Grammar đăng ký `GrpcGrammarTokenizerAdapter`. Seed hiện 5 mẫu; báo cáo F-06 không kiểm chứng live Sidecar hay coverage đầy đủ corpus N5–N4 reviewed | `src/usecase/Grammar/`, `sidecars/tokenizer/`, `src/infra/DependencyInjection.cs`, `src/infra/Persistence/SeedData/grammar_rules_seed.json` |
 | F-09–F-19 | Chưa có implementation cho conjugation, dịch, Web, auth và learning trong runtime hiện tại; F-19 vẫn Post-MVP | `src/interface/ApiComposition.cs`; `feat-auth/SPEC.md` hiện trống |
 | F-20 | Đã có immutable snapshot guard và controlled publication transaction; chưa phải pipeline validation/approval dữ liệu hoàn chỉnh | `.agents/SDD.md`, `src/usecase/KnowledgeReleases/` |
 | F-21/F-22 | Đã có contract analysis/structured errors và một phần resilience/cache; chưa nghiệm thu toàn bộ version negotiation, rate limits và production operations | `docs/api/mvp-api-contract.md`, `.sdd/specs/feat-selection-popup/` |
@@ -89,6 +90,12 @@ npm audit0 được ghi ngày 2026-10-11. Delivery vào dev qua
 [PR #10](https://github.com/vup568/extension_dict/pull/10).
 Firefox runtime và approved PERF-001 benchmark vẫn pending. Không suy diễn
 hoàn thành MVP từ các dòng **Must/Should** hoặc gates đã pass trên ba browsers.
+
+OD-010 đã resolved tại F-08 §1.4 và clarification ngày 2026-08-24; code Sidecar
+được ghi nhận trong commit `82dc015` ngày 2026-08-30. `sidecars/tokenizer/` có
+`app.py`, requirements, Dockerfile và gRPC proto; Compose hiện chỉ chạy `db`.
+Phần còn lại là kiểm chứng live Sidecar, nối Dictionary deinflection/Unified
+morphology và triển khai F-09; lựa chọn công nghệ không còn là blocker.
 
 ### F-01: Japanese Text Detection
 * **Goal**: Xác định chính xác văn bản tiếng Nhật từ selection, tránh false positives.
@@ -440,7 +447,7 @@ Mọi feature trừ F-19 nằm trong phạm vi **MVP (Minimum Viable Product)** 
 
 ## 7. Open Questions / Missing Requirements
 
-Dưới đây là danh sách 20 điểm mâu thuẫn / câu hỏi mở đã được trích xuất để chờ làm rõ (Product Owner & Lead Dev clarification):
+Dưới đây là danh sách 20 điểm mâu thuẫn / câu hỏi mở được theo dõi, gồm cả các quyết định đã resolved (Product Owner & Lead Dev clarification):
 
 | # | Mã OD / Điểm mở | Nội dung chi tiết | Tác động & Phụ thuộc |
 |---|---|---|---|
@@ -453,7 +460,7 @@ Dưới đây là danh sách 20 điểm mâu thuẫn / câu hỏi mở đã đư
 | 7 | **OD-007** | Định dạng chi tiết các cột khi Export ra Anki / Quizlet | **Blocker Post-MVP F-19** |
 | 8 | **OD-008** | Cấu trúc Matcher Metadata & chiến lược cắt câu an toàn (Safe Sentence Boundary) | Độ chính xác nhận diện ngữ pháp (F-08) |
 | 9 | **OD-009** | Đánh giá bản quyền & chất lượng tập dữ liệu nghĩa dịch Việt (FVDP/OVDP) | Ảnh hưởng chất lượng nghĩa dịch (F-06) |
-| 10 | **OD-010** | Ngôn ngữ & Thư viện cho Tokenizer Sidecar (Go/Python, Sudachi/MeCab) | **Blocker triển khai Deinflection (F-06, F-08, F-09)** |
+| 10 | **OD-010 — Resolved** | **Python + Sudachi, giao tiếp gRPC**, chốt tại F-08 §1.4 / clarification 2026-08-24 | Sidecar và Grammar adapter đã có code; Dictionary deinflection/Unified morphology/F-09 còn thiếu tích hợp hoặc implementation và live verification |
 | 11 | **OD-011** | F-03/F-04 chọn open Shadow DOM/nonmodal/selection anchoring tại feature SPEC; không trở thành visual standard toàn dự án | Verification keyboard/focus/hostile CSS |
 | 12 | **OD-012** | Thuật toán hiển thị & lưu trạng thái nút Đã biết/Chưa biết trong Quick Review | Logic ôn tập (F-18) |
 | 13 | **OD-013** | Thời hạn lưu trữ thông tin xóa mềm (Soft-delete retention & purge policy) | Quản lý dữ liệu người dùng (F-16, F-17) |

@@ -373,6 +373,16 @@ Testcontainers tests, Extension typecheck/223 units/production build.
 
 ### Remaining scope
 
-- Production Sidecar/deinflection remains blocked by OD-010; exact lookup does not imply AC-010 completion.
+- OD-010 is resolved as Python + Sudachi/gRPC in F-08; Dictionary deinflection and F-09 integration remain unimplemented. Exact lookup does not imply AC-010 completion.
 - Approved performance certification remains blocked by OD-005.
 - Public HTTP response shapes and database schema are unchanged by the capability fix.
+
+## Current Task — OD-010 Documentation Alignment (2026-10-12)
+
+- [x] Confirm the resolved F-08 decision and existing Python Sudachi/gRPC Sidecar code.
+- [x] Correct F-06 SPEC/PLAN/TASKS/evidence and the PRD decision register.
+- [x] Align Feature Map, architecture references, README, journal and Project Memory.
+- [x] Verify remaining OD-010 references, documentation links/anchors, existing code paths and diff hygiene; changes are documentation-only.
+
+This task records the existing decision; it does not implement Dictionary/F-09 integration
+or claim live Sidecar verification.

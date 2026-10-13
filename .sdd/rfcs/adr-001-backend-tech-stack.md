@@ -30,6 +30,17 @@ Vì hệ sinh thái .NET không có các thư viện phân tích từ loại (Mo
 *   Adapter này sẽ giao tiếp qua gRPC hoặc REST API siêu nhẹ tới một **Sidecar Tokenizer Service** viết bằng Go hoặc Python sử dụng engine Sudachi hoặc MeCab [MIGRATION 8.2].
 *   Toàn bộ Domain logic của .NET Backend chỉ làm việc với cấu trúc dữ liệu Token chuẩn hóa trung gian (Normalized Token Representation) và hoàn toàn không biết đến sự tồn tại của Sidecar Tokenizer bên dưới [MIGRATION 6.5, 17].
 
+**Alignment note (2026-10-12):** Các lựa chọn Go/Python, Sudachi/MeCab và
+gRPC/REST ở baseline ban đầu phía trên là lịch sử của ADR này. **OD-010 đã
+resolved: Python + Sudachi qua gRPC** tại [F-08 SPEC §1.4 và clarification
+2026-08-24](../specs/feat-grammar-detection/SPEC.md#14-key-decision-tokenizer-od-010--resolved),
+với implementation Sidecar trong commit `82dc015` ngày 2026-08-30. Đây là
+refinement của quyết định Sidecar, giữ nguyên provider independence; không cần
+chọn lại công nghệ. Sidecar có `app.py`, requirements, Dockerfile và proto tại
+`sidecars/tokenizer/`; Grammar đã có gRPC adapter. Dictionary vẫn dùng
+`NullTokenizerAdapter`, Unified morphology và F-09 còn thiếu integration hoặc
+implementation; sự tồn tại của code không thay thế live runtime verification.
+
 ## 4. Consequences (Hệ quả & Đánh giá)
 
 ### 4.1 Điểm mạnh (Pros)
@@ -42,7 +53,7 @@ Vì hệ sinh thái .NET không có các thư viện phân tích từ loại (Mo
 *   **Hạn chế chia sẻ Code gốc (No Shared Types):** Không giống như Node.js (dùng chung TypeScript cho cả FE và BE), .NET và React sử dụng hai ngôn ngữ khác nhau (C# và TS).
     *   *Khắc phục:* Chúng ta sẽ áp dụng quy trình **API-First**. Định nghĩa toàn bộ API Contract bằng OpenAPI/Swagger [MIGRATION 18 (Step 10)]. Sau đó, sử dụng các công cụ tự động phát sinh mã nguồn (e.g., NSwag hoặc openapi-generator) để sinh ra các TypeScript DTOs và API Clients cho Frontend một cách tự động mỗi khi Backend thay đổi.
 *   **Tốn tài nguyên khởi chạy Sidecar:** Việc duy trì thêm một dịch vụ phụ (Sidecar Tokenizer) làm tăng độ phức tạp khi deploy và tốn thêm RAM/CPU trên server.
-    *   *Khắc phục:* Sidecar Tokenizer sẽ được viết tối giản bằng Go (sử dụng kagome) hoặc Python đóng gói gọn trong Docker Container cục bộ để tối ưu hóa tài nguyên phần cứng.
+    *   *Khắc phục:* Baseline ban đầu cân nhắc Go (kagome) hoặc Python trong Docker. Refinement OD-010 hiện hành chọn Python + Sudachi qua gRPC (xem alignment note §3.3); cần đo RAM/CPU và latency trên runtime để kiểm chứng hiệu quả vận hành.
 
 ## 5. EARS Constraints for Implementation (Ràng buộc Thực thi)
 Để đảm bảo AI Agent tuân thủ đúng quyết định này khi viết code, chúng ta ban hành các quy tắc EARS sau:

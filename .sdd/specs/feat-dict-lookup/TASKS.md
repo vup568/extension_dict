@@ -1,6 +1,6 @@
 # Task Checklist: Dictionary Lookup API (`feat-dict-lookup`)
 
-**Version:** 1.1.0 | **Updated:** 2026-10-12
+**Version:** 1.2.0 | **Updated:** 2026-10-12
 **Target Feature:** `feat-dict-lookup` (F-06 Vocabulary Lookup API)  
 **Spec Reference:** [SPEC.md](./SPEC.md) | **Plan Reference:** [PLAN.md](./PLAN.md)
 
@@ -11,7 +11,7 @@
 | Phase | Description | Task Count | Status |
 |---|---|---|---|
 | **Phase 1** | Application Layer Core Abstractions & Use Case | 5 tasks | ✅ Completed |
-| **Phase 2** | Infrastructure Implementation (EF Core & Sidecar) | 4 tasks | ⚠️ Fallback complete; production Sidecar pending OD-010 |
+| **Phase 2** | Infrastructure Implementation (EF Core & Sidecar) | 4 tasks | ⚠️ Fallback complete; OD-010 resolved, Dictionary deinflection integration pending |
 | **Phase 3** | WebApi Layer & Endpoint Registration | 3 tasks | ✅ Completed |
 | **Phase 4** | Integration Testing & Verification | 2 tasks | ✅ Completed |
 
@@ -71,8 +71,9 @@
   - Details:
     - Return an explicit unavailable result so exact lookup remains usable without falsely claiming morphology completed.
 
-- [ ] **Task 2.2b: Implement production Tokenizer Sidecar adapter**
-  - Blocked by `OD-010` (Go/Python and MeCab/Sudachi selection).
+- [ ] **Task 2.2b: Integrate Dictionary deinflection with the existing Python Sudachi gRPC Sidecar**
+  - OD-010 resolved in F-08 SPEC §1.4. Sidecar code/Dockerfile/proto and Grammar adapter exist.
+  - Dictionary DI still uses `NullTokenizerAdapter`; add the Dictionary integration and live runtime verification.
   - Required for production AC-010 deinflection; not part of the current verified exact-lookup slice.
 
 - [x] **Task 2.3: Create Infrastructure Extension Registration**

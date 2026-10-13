@@ -1,12 +1,13 @@
 # Implementation Plan: Dictionary Lookup API (`feat-dict-lookup`)
 
-**Version:** 1.2.0 | **Updated:** 2026-10-12
+**Version:** 1.3.0 | **Updated:** 2026-10-12
 **Target Feature:** `feat-dict-lookup` (F-06 Vocabulary Lookup API)  
 **Spec Reference:** [SPEC.md](./SPEC.md)  
 **Governing Laws:** `AGENTS.md` (Clean Architecture), `REQUIREMENT.md`, `docs/api/mvp-api-contract.md`
 
-**Status:** Exact lookup slice implemented and revalidated. Production Sidecar/deinflection
-is explicitly pending `OD-010`; it is not represented as completed work.
+**Status:** Exact lookup slice implemented and revalidated. OD-010 is resolved as
+Python + Sudachi over gRPC (F-08 SPEC §1.4). The Sidecar and Grammar adapter exist;
+F-06 deinflection integration and F-09 explanation remain unimplemented.
 
 ---
 
@@ -36,7 +37,7 @@ Tính năng **Dictionary Lookup API** cung cấp khả năng tra cứu từ vự
    - Use Case: `LookupWordUseCase`.
 3. **Infrastructure Layer (`src/infra`)**:
    - Implement `EfDictionaryRepository` truy vấn EF Core 10 & PostgreSQL 16 (eager loading `Include`/`ThenInclude`, không N+1).
-   - Implement `NullTokenizerAdapter` (Fallback adapter khi Sidecar offline) hoặc HTTP Sidecar Client.
+   - Hiện có `NullTokenizerAdapter` làm fallback; còn thiếu Dictionary deinflection adapter dùng Python + Sudachi/gRPC Sidecar đã có ở F-08.
 4. **WebApi Layer (`src/interface`)**:
    - Minimal API route mapping `GET /api/dictionary/lookup`.
    - Exception handling hiện có cho structured JSON errors (`VALIDATION_FAILED`, `SERVICE_UNAVAILABLE`, `INTERNAL_ERROR`).
@@ -55,7 +56,7 @@ sequenceDiagram
     participant UseCase as LookupWordUseCase (Application)
     participant Repo as EfDictionaryRepository (Infra)
     participant DB as PostgreSQL 16
-    participant Sidecar as Tokenizer Sidecar (Go/Python)
+    participant Sidecar as Python Sudachi Sidecar (gRPC)
 
     Client->>API: GET /api/dictionary/lookup?q=食べました
     API->>UseCase: ExecuteAsync(query="食べました", cancellationToken)
@@ -134,8 +135,11 @@ Hiện thực hóa Repository truy vấn cơ sở dữ liệu PostgreSQL 16 th�
     - Index utilization: Tận dụng index trên `written_forms.form` (`idx_written_forms_form`) và `readings.reading` (`idx_readings_reading`).
 - [x] **2.2a. Unavailable-provider adapter (`NullTokenizerAdapter`)**
   - Adapter mặc định cho phép exact lookup chạy độc lập và báo morphology `unavailable` trung thực.
-- [ ] **2.2b. Production Sidecar deinflection adapter**
-  - Chờ `OD-010` chốt Go/Python và MeCab/Sudachi; chưa có container/provider production.
+- [ ] **2.2b. Dictionary deinflection adapter for the existing Sidecar**
+  - OD-010 đã chốt Python + Sudachi/gRPC. Tái sử dụng Sidecar ở `sidecars/tokenizer/`;
+    Dictionary vẫn đăng ký `NullTokenizerAdapter`, chưa có gRPC deinflection integration.
+  - Tokenize contract hiện trả surface/base form/POS/spans; giải thích biến đổi tiếng Việt
+    cần phần nghiệp vụ F-09 và kiểm chứng riêng, không suy ra từ base form đơn lẻ.
 - [x] **2.3. Dependency Injection Configuration**
   - Tạo `src/infra/DependencyInjection.cs` để đăng ký `AppDbContext`, `IDictionaryRepository`, `ITokenizerAdapter`.
 
@@ -201,4 +205,5 @@ Chạy suite test tích hợp thực tế với PostgreSQL 16 (Docker Testcontai
    400/503/500 integration coverage, 429 rate limit và 504 timeout vẫn chưa đủ để đóng gate.
 4. [x] Release build đạt `0 Error, 0 Warning`.
 5. [ ] Toàn bộ AC-001–AC-013: exact lookup slice đã có unit/integration coverage;
-   AC-010 production deinflection và performance gates vẫn chờ `OD-010`/`OD-005`.
+   AC-010 còn thiếu Dictionary/F-09 integration và live Sidecar verification;
+   OD-010 đã resolved, performance gates vẫn chờ OD-005.

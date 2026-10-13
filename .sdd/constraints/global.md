@@ -1,5 +1,5 @@
 # .sdd/constraints/global.md — Ràng buộc Kỹ thuật Toàn cục (Global Constraints)
-# Phiên bản: 1.1.0 | Cập nhật: 2026-08-21 | Trách nhiệm: Tech Lead
+# Phiên bản: 1.1.1 | Cập nhật: 2026-10-12 | Trách nhiệm: Tech Lead
 # Áp dụng cho: Mọi AI Agent, Mọi Developer, Hệ thống CI/CD, Môi trường Thực thi
 
 ## 1. TECHNOLOGY STACK (Hệ công nghệ Cố định)
@@ -22,7 +22,7 @@ Hệ thống **JP Reading Platform V2** chạy trên các nền tảng kỹ thu�
 
 ### 1.3 NLP & Linguistic Boundary (Xử lý Ngôn ngữ học)
 *   **Linguistic Processing Integration:** Provider-Independent Adapter Interface trong .NET Backend [MIGRATION 17, 8.2].
-*   **Sidecar Morphology Tokenizer:** Sidecar microservice siêu nhẹ viết bằng Python hoặc Go (sử dụng Sudachi hoặc MeCab), giao tiếp nội bộ với .NET Backend thông qua gRPC hoặc HTTP cục bộ [MIGRATION 8.2, 17].
+*   **Sidecar Morphology Tokenizer:** **Python + Sudachi**, giao tiếp nội bộ với .NET Backend qua **gRPC**; OD-010 đã resolved tại [F-08 SPEC §1.4 / clarification 2026-08-24](../specs/feat-grammar-detection/SPEC.md#14-key-decision-tokenizer-od-010--resolved) [MIGRATION 8.2, 17]. Lựa chọn provider hiện hành không thay đổi ranh giới Adapter: Domain/Usecase dùng contract chuẩn hóa, không phụ thuộc Sudachi hay transport gRPC.
 
 ---
 

@@ -41,7 +41,24 @@ PostgreSQL query itself.
 
 ## Next
 
-- Production deinflection remains pending `OD-010` because no tokenizer
-  sidecar/container or HTTP adapter has been approved and implemented.
+- Production Dictionary deinflection remains unconnected: Dictionary still
+  registers `NullTokenizerAdapter`. Unified morphology and F-09 conjugation
+  require their own integration/implementation and validation.
 - Final P95 and throughput acceptance remains pending the `OD-005` benchmark
   decision; passing functional tests does not satisfy that performance gate.
+
+## Correction — OD-010 Alignment (2026-10-12)
+
+The original next-step note incorrectly said no tokenizer sidecar/container had
+been approved or implemented and treated OD-010 as pending. [F-08 SPEC §1.4 and
+the 2026-08-24 clarification](../../.sdd/specs/feat-grammar-detection/SPEC.md#14-key-decision-tokenizer-od-010--resolved)
+already resolve OD-010 as **Python + Sudachi via gRPC**. Commit `82dc015`
+(2026-08-30) contains the Sidecar implementation under `sidecars/tokenizer/`,
+including `app.py`, `requirements.txt`, `Dockerfile` and `proto/tokenizer.proto`.
+Grammar uses `GrpcGrammarTokenizerAdapter`; Dictionary retains
+`NullTokenizerAdapter` in `src/infra/DependencyInjection.cs`.
+
+The test counts above remain the historical PostgreSQL/backend validation
+results. This session did not verify a live Sudachi Sidecar; Compose currently
+defines only the `db` service. The remaining gap is Dictionary/Unified/F-09
+integration and live runtime verification, rather than a technology decision.

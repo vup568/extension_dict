@@ -32,7 +32,13 @@ biến môi trường `ConnectionStrings__DefaultConnection`. Không sao chép c
 vào source hoặc tài liệu. Backend áp dụng EF migrations khi khởi động; lệnh này
 không tải hay import corpus từ điển.
 
-Nếu cần ngữ pháp, chạy tokenizer sidecar gRPC tương thích và đặt
+OD-010 đã chốt **Python + Sudachi qua gRPC** tại
+[SPEC F-08 §1.4](.sdd/specs/feat-grammar-detection/SPEC.md#14-key-decision-tokenizer-od-010--resolved).
+Code/Dockerfile nằm trong `sidecars/tokenizer/`; Compose hiện chỉ định nghĩa PostgreSQL.
+Grammar có gRPC adapter; Dictionary/F-06 vẫn dùng `NullTokenizerAdapter`, chưa nối
+deinflection và chưa có giải thích biến đổi từ F-09.
+
+Nếu cần ngữ pháp, chạy tokenizer sidecar này và đặt
 `GrpcTokenizerAddress` theo địa chỉ local của dịch vụ (mặc định
 `http://localhost:50051`). Khi sidecar không sẵn sàng, analysis có thể trả grammar
 `failed` cùng kết quả vocabulary/kanji còn khả dụng.

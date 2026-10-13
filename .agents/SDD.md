@@ -9,7 +9,7 @@
 >   - **Backend:** .NET 10 (C#) — Tổ chức theo Clean Architecture.
 >   - **Frontend:** React 19 + TypeScript + Vite (Xây dựng SPA tối giản cho Extension Popup và Web App).
 >   - **Database:** PostgreSQL 16 quản lý schema bằng EF Core Migrations; Integration Tests sử dụng Docker Testcontainers với PostgreSQL thật để bảo toàn hành vi provider.
->   - **NLP Integration:** .NET Backend gọi sang Sidecar Tokenizer Service siêu nhẹ (viết bằng Go/Python sử dụng MeCab/Sudachi) thông qua ranh giới Adapter cô lập.
+>   - **NLP Integration:** Python + Sudachi Sidecar qua gRPC đã được chốt tại F-08 SPEC §1.4 (OD-010 resolved); .NET giao tiếp qua Adapter cô lập. Code Sidecar/Grammar adapter đã có, Dictionary deinflection/F-09 còn thiếu tích hợp.
 > - **Clients:** Browser Extension đa nền tảng (Chrome, Edge, Brave, Firefox) + Web App dùng chung hệ thống Backend API.
 
 ---
@@ -36,7 +36,7 @@
     *   *Lý do:* Đảm bảo khi dữ liệu từ điển/ngữ pháp nền tảng được cập nhật hoặc chỉnh sửa nghĩa dịch bởi ban biên tập, thư viện học tập cá nhân của người dùng không bị lỗi liên kết hoặc mất dữ liệu.
 
 *   **ADR-005: Tokenizer & External Provider Independence**
-    *   *Quyết định:* Xây dựng lớp **Adapter** ở tầng Infra của .NET Backend để kết nối với Sidecar Tokenizer Service (Go/Python) hoặc các nhà cung cấp dịch thuật bên ngoài (Google Translate/DeepL API).
+    *   *Quyết định:* Xây dựng lớp **Adapter** ở tầng Infra của .NET Backend để kết nối với Python + Sudachi Sidecar qua gRPC (OD-010, F-08 SPEC §1.4) hoặc các nhà cung cấp dịch thuật bên ngoài (Google Translate/DeepL API).
     *   *Lý do:* Cách ly hoàn toàn Domain Logic khỏi sự thay đổi của các thư viện NLP hoặc nhà cung cấp dịch thuật bên thứ ba, cho phép hoán đổi nhà cung cấp mà không cần sửa đổi mã nguồn cốt lõi.
 
 *   **ADR-006: Ruby-Safe Selection & Stale Async Protection**
@@ -73,7 +73,7 @@
 *   **Đã delivery:** F-02 merge/push `dev` tại `e01ee19d2458403d3dc9d9a18df0ffc4e0426dc4`; backend dictionary/kanji/grammar/unified analysis đã có runtime.
 *   **Delivery hiện tại:** Local merge b3d187d đã qua toàn bộ post-merge gates. Remote delivery qua [PR #10](https://github.com/vup568/extension_dict/pull/10), do `dev` yêu cầu pull request; trạng thái merged của PR là bằng chứng hoàn tất.
 *   **Spec đang hoạt động:** `.sdd/specs/feat-selection-popup/{SPEC.md,PLAN.md,TASKS.md}`; evidence cuối ghi riêng, không suy diễn từ mức ưu tiên MVP.
-*   **Giới hạn còn lại:** Morphology/conjugation unavailable, dictionary mặc định NullTokenizerAdapter báo capability unavailable, grammar seed 5 mẫu; Web/auth/translation/learning chưa triển khai. Firefox runtime và approved benchmark pending. Docker/PostgreSQL Testcontainers hiện hoạt động; review nghĩa Việt production vẫn là gate dữ liệu riêng.
+*   **Giới hạn còn lại:** OD-010 đã chốt Python + Sudachi/gRPC; code Sidecar và Grammar adapter đã có. Dictionary vẫn dùng NullTokenizerAdapter, Unified Analysis morphology/conjugation unavailable; còn thiếu Dictionary/F-09 integration và live Sidecar verification. Grammar seed 5 mẫu; Web/auth/translation/learning chưa triển khai. Firefox runtime và approved benchmark pending. Docker/PostgreSQL Testcontainers hiện hoạt động; review nghĩa Việt production vẫn là gate dữ liệu riêng.
 
 ---
 
@@ -198,4 +198,10 @@ Mã nguồn Backend trong thư mục `src/` bắt buộc phải tuân thủ nghi
 
 *   Docker Engine and the local PostgreSQL 16 Compose service are healthy. The Release solution build passes with zero warnings/errors; unit tests pass 53/53 and PostgreSQL Testcontainers integration tests pass 51/51. Focused F-06 slices pass 13/13 unit and 6/6 integration tests.
 *   `DeinflectionResult` now distinguishes an available provider with no match from an unavailable provider. The default `NullTokenizerAdapter` therefore keeps exact lookup usable while truthfully reporting morphology `unavailable`, matching AC-011 and Unified Analysis behavior.
-*   F-06 exact lookup, Vietnamese-first fallback, provenance and blank/length validation are verified. Control-character policy remains a recorded gap. Production deinflection remains pending OD-010; performance certification remains pending OD-005. Evidence: `.sdd/specs/feat-dict-lookup/evidence/validation-report.md`.
+*   F-06 exact lookup, Vietnamese-first fallback, provenance and blank/length validation are verified. Control-character policy remains a recorded gap. Dictionary deinflection integration remains unimplemented; OD-010 is already resolved in F-08. Performance certification remains pending OD-005. Evidence: `.sdd/specs/feat-dict-lookup/evidence/validation-report.md`.
+
+### 2026-10-12 — OD-010 Decision Alignment Correction
+
+*   OD-010 was resolved as Python + Sudachi over gRPC in F-08 SPEC §1.4 and its 2026-08-24 clarification, committed as 82dc015 on 2026-08-30. This is an existing project decision, not a new approval.
+*   `sidecars/tokenizer/{app.py,Dockerfile,requirements.txt,proto/tokenizer.proto}` and the registered `GrpcGrammarTokenizerAdapter` already exist. Dictionary DI still registers `NullTokenizerAdapter`; the remaining work is Dictionary deinflection, vocabulary tokenization/Unified Analysis integration and F-09 explanations.
+*   Corrected the PRD, F-06 status/tasks/evidence, Feature Map and architecture references that had incorrectly treated OD-010 as pending or claimed the Sidecar did not exist. Functional PostgreSQL verification does not certify live Sidecar runtime/deployment; Compose currently defines only the database.

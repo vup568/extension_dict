@@ -4,7 +4,8 @@
 
 The implemented exact-lookup slice passes its .NET and PostgreSQL 16 gates. The
 default `NullTokenizerAdapter` now reports morphology as `unavailable`, matching
-AC-011 and the runtime limitation. Production deinflection remains pending OD-010.
+AC-011 and the runtime limitation. OD-010 is already resolved as Python + Sudachi
+over gRPC (F-08 SPEC §1.4). Dictionary deinflection remains unintegrated.
 
 ## Results
 
@@ -17,7 +18,8 @@ AC-011 and the runtime limitation. Production deinflection remains pending OD-01
 | F-06-focused unit slice | PASS — 13/13 |
 | Full PostgreSQL Testcontainers suite | PASS — 51/51 |
 | F-06-focused integration slice | PASS — 6/6 |
-| Production Sidecar/deinflection | PENDING — blocked by OD-010 |
+| OD-010 technology choice | RESOLVED — Python + Sudachi/gRPC, F-08 SPEC §1.4 |
+| Dictionary Sidecar/deinflection integration | PENDING — Dictionary DI still uses NullTokenizerAdapter |
 | Approved performance benchmark | PENDING — blocked by OD-005 |
 
 ## Regression Proof
@@ -46,7 +48,10 @@ states. Public HTTP shapes and database schema are unchanged.
 
 ## Remaining limits
 
-- No production tokenizer container or Sidecar HTTP adapter is implemented.
+- Sidecar server/Dockerfile/proto already exist in `sidecars/tokenizer/`, and Grammar
+  uses `GrpcGrammarTokenizerAdapter`. Dictionary has no gRPC deinflection adapter.
+- Compose currently defines only PostgreSQL; this report's PostgreSQL tests do not
+  certify live Sidecar runtime or deployment. OD-010 is not an open decision.
 - AC-010 cannot be claimed from mocked unit behavior alone.
 - P95/throughput targets require the separately approved benchmark gate.
 - The standalone endpoint is wired and has a happy-path HTTP equivalence test in

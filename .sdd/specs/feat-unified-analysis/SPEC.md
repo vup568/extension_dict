@@ -46,6 +46,12 @@ Unified Analysis **phải** được thiết kế để **thêm capability mới
 - Khi F-09 (Conjugation) chưa được implement, `conjugations` trả `[]` và `capabilities.conjugation` trả `"unavailable"`.
 - Khi Tokenizer Sidecar (ARCH-003) chưa được triển khai cho vocabulary tokenization, `tokens` trả `[]` và `capabilities.morphology` trả `"unavailable"`.
 
+> **Decision alignment (2026-10-12):** OD-010 đã chốt Python + Sudachi qua gRPC
+> trong [F-08 SPEC §1.4](../feat-grammar-detection/SPEC.md#14-key-decision-tokenizer-od-010--resolved).
+> Sidecar và Grammar adapter đã có code. Các giới hạn vocabulary dưới đây là thiếu
+> Dictionary/morphology integration: DI hiện dùng `NullTokenizerAdapter`, nên ví dụ
+> deinflection mô tả hành vi mục tiêu, không phải kết quả runtime đã nghiệm thu.
+
 Điều này cho phép **ship Unified Analysis ngay** với vocabulary + kanji + grammar, rồi bổ sung conjugation/morphology sau mà không breaking change.
 
 --------------------------------------------------------------------------------
@@ -352,7 +358,7 @@ Các DTO trong response sử dụng lại cấu trúc từ F-06, F-07 và F-08:
 |---|---|---|---|
 | 1 | Translation orchestration | Gọi riêng qua `POST /api/translations` sau explicit user action | TRN-004 |
 | 2 | Conjugation logic | Thuộc F-09, chưa implement | CONJ-001 |
-| 3 | Morphology/Tokenization | Cần Tokenizer Sidecar (OD-010) cho vocabulary tokenization; analysis sẽ tích hợp khi sẵn sàng | ARCH-003 |
+| 3 | Morphology/Tokenization | OD-010 đã chốt Python + Sudachi/gRPC; còn thiếu tích hợp Sidecar hiện có vào vocabulary tokenization/analysis | ARCH-003 |
 | 4 | Standalone Dictionary/Kanji/Grammar endpoints | Không bị thay thế, vẫn hoạt động song song | — |
 | 5 | Save/Learning features | Thuộc F-14, F-15 | LEARN-001, LEARN-003 |
 | 6 | Caching layer | Chờ OD-006 | CACHE-001 |

@@ -14,7 +14,7 @@
 | MVP browsers | Chrome, Edge, Brave, Firefox |
 | Product owner | VuPM |
 | Approval date | 2026-08-21 |
-| Last updated | 2026-08-21 |
+| Last updated | 2026-10-12 (OD-010 decision alignment) |
 
 ### Change Summary
 
@@ -674,7 +674,7 @@ Roadmap là planning summary và không tạo requirement mới.
 
 # 15. Open Decisions
 
-Các mục dưới đây được Product Owner phê duyệt để **deferred có kiểm soát** ngày 2026-08-21. Delivery Team chuẩn bị đề xuất/evidence; VuPM phê duyệt quyết định tại blocking gate tương ứng.
+Các mục dưới đây được Product Owner phê duyệt để **deferred có kiểm soát** ngày 2026-08-21. Delivery Team chuẩn bị đề xuất/evidence; VuPM phê duyệt quyết định tại blocking gate tương ứng. Trạng thái được cập nhật theo các feature decisions đã ghi nhận; OD-010 đã resolved tại F-08 (clarification 2026-08-24).
 
 | ID | Decision | Tác động | Status | Owner | Blocking gate |
 |---|---|---|---|---|---|
@@ -687,7 +687,7 @@ Các mục dưới đây được Product Owner phê duyệt để **deferred c�
 | OD-007 | Exact Anki/Quizlet field mapping, delimiter default và export template version | Interoperability | Deferred | Delivery Team / VuPM | Post-MVP Export SPEC approval |
 | OD-008 | Grammar matcher/storage schema và safe sentence-boundary strategy | Linguistic correctness | Deferred | Delivery Team / VuPM | Grammar SPEC/plan |
 | OD-009 | FVDP/OVDP source, license, redistribution và linking quality | Vietnamese meanings | Deferred | Data Operator / VuPM | Production data approval |
-| OD-010 | Tokenizer sidecar implementation language/provider (Go/Python, Sudachi/MeCab hoặc candidate approved khác) | Morphology quality/operations | Deferred | Delivery Team / VuPM | NLP adapter selection |
+| OD-010 | Python + Sudachi, giao tiếp gRPC; xem [F-08 SPEC §1.4](.sdd/specs/feat-grammar-detection/SPEC.md#14-key-decision-tokenizer-od-010--resolved) | Morphology quality/operations | Resolved — clarification 2026-08-24, recorded in 82dc015 (2026-08-30) | Delivery Team / VuPM | NLP provider selection complete; Dictionary/F-09 integration and live verification remain delivery work |
 | OD-011 | Shadow DOM open/closed mode và detailed focus/positioning behavior | Accessibility, host integration | Deferred | Delivery Team / VuPM | Extension UI plan |
 | OD-012 | Quick Review ordering và semantics/persistence của optional `Again`/`Know` | Learning behavior | Deferred | Delivery Team / VuPM | Review SPEC approval nếu actions được triển khai |
 | OD-013 | Soft-delete retention, restore policy và eventual purge | Privacy, support, data lifecycle | Deferred | Delivery Team / VuPM | Learning data lifecycle approval |

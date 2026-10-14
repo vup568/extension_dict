@@ -1,6 +1,6 @@
 import { startSelectionPopup } from "../../src/browser/popup/startSelectionPopup.ts";
 import { AnalysisFailure, type AnalysisResponse } from "../../src/api/analysisContract.ts";
-import { analysisFixture } from "../unit/analysisFixtures.ts";
+import { analysisFixture, conjugationFixture, v3ConjugationFixture } from "../unit/analysisFixtures.ts";
 
 interface Attempt {
   text: string; interactionId: string; signal: AbortSignal;
@@ -10,7 +10,7 @@ interface PopupHarness {
   select(selector: string): void;
   clear(): void;
   attempts(): { text: string; interactionId: string; aborted: boolean }[];
-  succeed(index: number, variant?: "rich" | "empty" | "unavailable"): void;
+  succeed(index: number, variant?: "rich" | "empty" | "unavailable" | "conjugation" | "conjugation-v3"): void;
   fail(index: number): void;
   dispose(): void;
 }
@@ -32,6 +32,8 @@ window.popupHarness = {
   attempts: () => attempts.map(({ text, interactionId, signal }) => ({ text, interactionId, aborted: signal.aborted })),
   succeed(index, variant = "rich") {
     const attempt = attempts[index]; if (!attempt) throw new Error("Missing attempt");
+    if (variant === "conjugation") { attempt.resolve(conjugationFixture(attempt.interactionId)); return; }
+    if (variant === "conjugation-v3") { attempt.resolve(v3ConjugationFixture(attempt.interactionId, attempt.text)); return; }
     const response = analysisFixture(attempt.interactionId);
     response.data.normalized_text = attempt.text;
     if (variant === "rich") {

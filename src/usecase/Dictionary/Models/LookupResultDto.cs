@@ -1,3 +1,6 @@
+using Application.Conjugation.Models;
+using System.Text.Json.Serialization;
+
 namespace Application.Dictionary.Models;
 
 /// <summary>
@@ -6,13 +9,15 @@ namespace Application.Dictionary.Models;
 public sealed record ConjugationDto(
     string SurfaceText,
     string BaseForm,
-    string Explanation);
+    string Explanation,
+    ConjugationExplanationDto? Detail = null);
 
 /// <summary>
 /// DTO trạng thái các khả năng xử lý của hệ thống (Graceful degradation tracking).
 /// </summary>
 public sealed record CapabilityStatusDto(
-    string Morphology);
+    string Morphology,
+    string Conjugation = "unavailable");
 
 /// <summary>
 /// Output DTO tổng hợp cho kết quả tra cứu từ điển.
@@ -20,4 +25,5 @@ public sealed record CapabilityStatusDto(
 public sealed record LookupResultDto(
     IReadOnlyList<EntryMatchDto> Matches,
     ConjugationDto? Conjugation,
-    CapabilityStatusDto Capabilities);
+    CapabilityStatusDto Capabilities,
+    [property: JsonIgnore] IReadOnlyList<ConjugationExplanationDto>? Alternatives = null);

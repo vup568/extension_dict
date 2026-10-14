@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "version": "development-20261013.1",
+  "provenance": {
+    "status": "development",
+    "sources": ["Project-authored Vietnamese descriptions; synthetic live Sudachi corpus 2026-10-13", "https://worksapplications.github.io/sudachi.rs/python/api/sudachipy.morpheme.html"],
+    "provider": "SudachiPy 0.7.0 / sudachidict_core 20260723.1",
+    "production_review": "pending"
+  },
+  "provider_mappings": {
+    "categories": [
+      {"value":"negative","base_form":"ない","conditions":[{"index":0,"equals":"形容詞"},{"index":1,"equals":"非自立可能"}]},
+      {"value":"negative","base_form":"無い","conditions":[{"index":0,"equals":"形容詞"},{"index":1,"equals":"非自立可能"}]},
+      {"value":"polite","conditions":[{"index":0,"equals":"助動詞"},{"index":4,"equals":"助動詞-マス"}]},
+      {"value":"past","conditions":[{"index":0,"equals":"助動詞"},{"index":4,"equals":"助動詞-タ"}]},
+      {"value":"negative","conditions":[{"index":0,"equals":"助動詞"},{"index":4,"equals":"助動詞-ナイ"}]},
+      {"value":"negative_nu","conditions":[{"index":0,"equals":"助動詞"},{"index":4,"equals":"助動詞-ヌ"}]},
+      {"value":"verb","conditions":[{"index":0,"equals":"動詞"}]},
+      {"value":"i_adjective","conditions":[{"index":0,"equals":"形容詞"},{"index":1,"equals":"一般"}]}
+    ],
+    "inflections": [
+      {"value":"regular","conditions":[{"index":5,"equals":"連用形-一般"}]},
+      {"value":"geminated","conditions":[{"index":5,"equals":"連用形-促音便"}]},
+      {"value":"i_onbin","conditions":[{"index":5,"equals":"連用形-イ音便"}]},
+      {"value":"nasal","conditions":[{"index":5,"equals":"連用形-撥音便"}]},
+      {"value":"irrealis","conditions":[{"index":5,"equals":"未然形-一般"}]},
+      {"value":"terminal","conditions":[{"index":5,"equals":"終止形-一般"}]},
+      {"value":"terminal","conditions":[{"index":5,"equals":"終止形-撥音便"}]}
+    ]
+  },
+  "rules": [
+    {"rule_id":"conjugation:verb-polite-nonpast","rule_version":1,"explanation_vi":"Dạng lịch sự, không quá khứ của {base_form}.","tokens":[{"category":"verb","inflections":["regular"],"explanation_vi":"Phần động từ."},{"category":"polite","inflections":["terminal"],"explanation_vi":"Trợ động từ lịch sự; có thể diễn tả hiện tại hoặc tương lai."}]},
+    {"rule_id":"conjugation:verb-polite-past","rule_version":1,"explanation_vi":"Dạng lịch sự, quá khứ của {base_form}.","tokens":[{"category":"verb","inflections":["regular"],"explanation_vi":"Phần động từ."},{"category":"polite","inflections":["regular"],"explanation_vi":"Trợ động từ lịch sự."},{"category":"past","inflections":["terminal"],"explanation_vi":"Trợ động từ quá khứ."}]},
+    {"rule_id":"conjugation:verb-negative","rule_version":1,"explanation_vi":"Dạng phủ định, không quá khứ của {base_form}.","tokens":[{"category":"verb","inflections":["irrealis"],"explanation_vi":"Phần động từ trước đuôi phủ định."},{"category":"negative","inflections":["terminal"],"explanation_vi":"Trợ động từ phủ định."}]},
+    {"rule_id":"conjugation:verb-negative-past","rule_version":1,"explanation_vi":"Dạng phủ định, quá khứ của {base_form}.","tokens":[{"category":"verb","inflections":["irrealis"],"explanation_vi":"Phần động từ trước đuôi phủ định."},{"category":"negative","inflections":["geminated"],"explanation_vi":"Trợ động từ phủ định ở dạng nối với quá khứ."},{"category":"past","inflections":["terminal"],"explanation_vi":"Trợ động từ quá khứ."}]},
+    {"rule_id":"conjugation:verb-past","rule_version":1,"explanation_vi":"Dạng quá khứ, thể thông thường của {base_form}.","tokens":[{"category":"verb","inflections":["regular","geminated","i_onbin","nasal"],"explanation_vi":"Phần động từ nối với đuôi quá khứ."},{"category":"past","inflections":["terminal"],"explanation_vi":"Trợ động từ quá khứ."}]},
+    {"rule_id":"conjugation:verb-polite-negative","rule_version":1,"explanation_vi":"Dạng lịch sự, phủ định, không quá khứ của {base_form}.","tokens":[{"category":"verb","inflections":["regular"],"explanation_vi":"Phần động từ."},{"category":"polite","inflections":["irrealis"],"explanation_vi":"Trợ động từ lịch sự trước đuôi phủ định."},{"category":"negative_nu","inflections":["terminal"],"explanation_vi":"Phủ định trong dạng lịch sự."}]},
+    {"rule_id":"conjugation:adjective-past","rule_version":1,"explanation_vi":"Dạng quá khứ của tính từ {base_form}.","tokens":[{"category":"i_adjective","inflections":["geminated"],"explanation_vi":"Phần tính từ đuôi い nối với quá khứ."},{"category":"past","inflections":["terminal"],"explanation_vi":"Trợ động từ quá khứ."}]},
+    {"rule_id":"conjugation:adjective-negative","rule_version":1,"explanation_vi":"Dạng phủ định, không quá khứ của tính từ {base_form}.","tokens":[{"category":"i_adjective","inflections":["regular"],"explanation_vi":"Phần tính từ đuôi い nối với phủ định."},{"category":"negative","inflections":["terminal"],"explanation_vi":"Phần phủ định."}]},
+    {"rule_id":"conjugation:adjective-negative-past","rule_version":1,"explanation_vi":"Dạng phủ định, quá khứ của tính từ {base_form}.","tokens":[{"category":"i_adjective","inflections":["regular"],"explanation_vi":"Phần tính từ đuôi い nối với phủ định."},{"category":"negative","inflections":["geminated"],"explanation_vi":"Phần phủ định nối với quá khứ."},{"category":"past","inflections":["terminal"],"explanation_vi":"Trợ động từ quá khứ."}]}
+  ]
+}

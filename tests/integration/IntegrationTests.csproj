@@ -13,6 +13,8 @@
     <Using Include="Microsoft.AspNetCore.Routing" />
     <Compile Include="..\..\src\interface\ApiComposition.cs"
              Link="WebApi\ApiComposition.cs" />
+    <Compile Include="..\..\src\interface\DatabaseStartup.cs"
+             Link="WebApi\DatabaseStartup.cs" />
     <Compile Include="..\..\src\interface\Endpoints\*.cs"
              Link="WebApiEndpoints\%(Filename)%(Extension)" />
   </ItemGroup>

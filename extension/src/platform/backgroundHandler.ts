@@ -37,7 +37,7 @@ export function createBackgroundHandler(extensionId: string, backendOrigin: stri
     void (async () => {
       try {
         const response = await fetcher(`${origin}/api/analysis`, {
-          method: "POST", headers: { "Content-Type": "application/json" }, credentials: "omit", redirect: "error",
+          method: "POST", headers: { "Content-Type": "application/json", "X-Contract-Version": "3" }, credentials: "omit", redirect: "error",
           body: JSON.stringify({ text: input.text, interaction_id: input.interaction_id }), signal: controller.signal,
         });
         if (replied) return;

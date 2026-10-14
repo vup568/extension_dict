@@ -1,4 +1,21 @@
 services:
+  tokenizer:
+    profiles: [nlp]
+    build:
+      context: ./sidecars/tokenizer
+    ports:
+      - "127.0.0.1:50051:50051"
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop: [ALL]
+    healthcheck:
+      test: ["CMD", "python", "-c", "import grpc, tokenizer_pb2 as p, tokenizer_pb2_grpc as g; channel = grpc.insecure_channel('localhost:50051'); g.TokenizerServiceStub(channel).Tokenize(p.TokenizeRequest(text='', mode='C'), timeout=2)"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
+
   db:
     image: postgres:16
 

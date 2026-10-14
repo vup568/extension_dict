@@ -23,7 +23,7 @@ describe("F-04 actual unified analysis contract", () => {
   });
   const invalidChanges: Array<[string, (value: AnalysisResponse) => void]> = [
     ["wrong interaction", value => { value.meta.interaction_id = "old"; }],
-    ["unsupported contract", value => { (value.meta as { contract_version: string }).contract_version = "2"; }],
+    ["unsupported contract", value => { (value.meta as { contract_version: string }).contract_version = "99"; }],
     ["missing request correlation", value => { value.meta.request_id = ""; }],
     ["bad language tag", value => { (value.data.dictionary_matches[0]!.senses[0]!.glosses[0]! as unknown as Record<string, unknown>).languageTag = 1; }],
     ["bad restriction identity", value => { value.data.dictionary_matches[0]!.senses[0]!.restrictions[0]!.readingId = 1.5; }],
@@ -36,7 +36,7 @@ describe("F-04 actual unified analysis contract", () => {
     ["negative span", value => { value.data.grammar_occurrences[0]!.span.start = -1; }],
     ["unknown capability", value => { (value.data.capabilities as Record<string, unknown>).grammar = "success"; }],
     ["opaque tokens", value => { value.data.tokens = [{ surface: "x" }]; }],
-    ["opaque conjugations", value => { value.data.conjugations = ["x"]; }],
+    ["opaque conjugations", value => { (value.data as unknown as Record<string, unknown>).conjugations = ["x"]; }],
     ["failed capability with data", value => { value.data.capabilities.vocabulary = "failed"; }],
     ["unsupported morphology", value => { value.data.capabilities.morphology = "completed"; }],
   ];

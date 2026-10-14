@@ -1,3 +1,5 @@
+using Application.Conjugation.Models;
+
 namespace Application.Dictionary.Models;
 
 /// <summary>
@@ -8,7 +10,10 @@ public sealed record DeinflectionResult(
     string SurfaceText,
     string BaseForm,
     string RuleExplanation,
-    bool IsAvailable = true)
+    bool IsAvailable = true,
+    ConjugationExplanationDto? Detail = null,
+    string ConjugationStatus = "unavailable",
+    IReadOnlyList<ConjugationCandidate>? Candidates = null)
 {
     public static DeinflectionResult Empty(string surfaceText) =>
         new(false, surfaceText, string.Empty, string.Empty);

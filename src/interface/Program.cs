@@ -1,7 +1,3 @@
-using Infrastructure;
-using Infrastructure.Persistence;
-using Microsoft.EntityFrameworkCore;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Register Layer Services
@@ -9,22 +5,16 @@ WebApi.ApiComposition.RegisterServices(builder);
 
 var app = builder.Build();
 
-// Tự động đảm bảo schema Database PostgreSQL được khởi tạo/cập nhật bảng đầy đủ
-using (var scope = app.Services.CreateScope())
+// Complete existing migration initialization before exposing even the liveness endpoint.
+if (!await WebApi.DatabaseStartup.InitializeAsync(app.Services, app.Logger))
 {
-    try
-    {
-        var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-        dbContext.Database.Migrate();
-    }
-    catch (Exception ex)
-    {
-        Console.WriteLine($"[Warning] Lỗi khi tự động migrate database: {ex.Message}");
-    }
+    await app.DisposeAsync();
+    Environment.ExitCode = 1;
+    return;
 }
 
 WebApi.ApiComposition.MapEndpoints(app);
 
-app.Run();
+await app.RunAsync();
 
 public partial class Program;

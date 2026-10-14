@@ -33,7 +33,10 @@ jobs:
         run: dotnet test tests/unit/UnitTests.csproj --no-build --configuration Release
 
       - name: 🐳 [06 TEST] Run Integration Tests
-        run: dotnet test tests/integration/IntegrationTests.csproj --no-build --configuration Release
+        run: |
+          docker build -t jp-reading-tokenizer:verified-20261013 sidecars/tokenizer
+          docker run --rm jp-reading-tokenizer:verified-20261013 python -m unittest -v test_tokenizer
+          dotnet test tests/integration/IntegrationTests.csproj --no-build --configuration Release
 
       - name: 🔒 [09 SEC] Hardcoded Secrets Scan
         run: |

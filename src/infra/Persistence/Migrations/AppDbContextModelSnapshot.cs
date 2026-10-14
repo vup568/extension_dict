@@ -22,6 +22,22 @@ namespace Infrastructure.Persistence.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("Domain.Entities.ConjugationDataset", b =>
+                {
+                    b.Property<string>("Version")
+                        .HasColumnType("text")
+                        .HasColumnName("version");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("jsonb")
+                        .HasColumnName("content");
+
+                    b.HasKey("Version");
+
+                    b.ToTable("conjugation_datasets", (string)null);
+                });
+
             modelBuilder.Entity("Domain.Entities.CurrentKnowledgeRelease", b =>
                 {
                     b.Property<short>("SingletonId")

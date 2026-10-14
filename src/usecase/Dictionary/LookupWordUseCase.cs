@@ -30,6 +30,7 @@ public sealed class LookupWordUseCase(
 
         // EARS[State]: WHILE no tokenizer provider is configured, exact lookup remains usable and morphology is unavailable.
         string morphologyCapability = tokenizerAdapter.IsAvailable ? "completed" : "unavailable";
+        string conjugationCapability = "unavailable";
         ConjugationDto? conjugation = null;
 
         // 2. Step 1: Tra cứu Exact Match
@@ -41,32 +42,41 @@ public sealed class LookupWordUseCase(
         // 3. Step 2: Nếu không có Exact Match (hoặc để kiểm tra dạng chia), thử Deinflect qua Sidecar
         if (exactEntries.Count == 0)
         {
+            DeinflectionResult deinflectResult;
             try
             {
-                var deinflectResult = await tokenizerAdapter.DeinflectAsync(trimmedQuery, cancellationToken);
-                // EARS[State]: WHILE the tokenizer sidecar is unavailable, exact lookup remains usable and morphology is unavailable.
-                if (!deinflectResult.IsAvailable)
-                {
-                    morphologyCapability = "unavailable";
-                }
-                else if (deinflectResult.IsSuccess && !string.IsNullOrWhiteSpace(deinflectResult.BaseForm))
-                {
-                    var baseEntries = await dictionaryRepository.SearchByFormOrReadingAsync(deinflectResult.BaseForm, cancellationToken);
-                    if (baseEntries.Count > 0)
-                    {
-                        finalEntries = baseEntries;
-                        activeSearchKeyword = deinflectResult.BaseForm;
-                        conjugation = new ConjugationDto(
-                            SurfaceText: trimmedQuery,
-                            BaseForm: deinflectResult.BaseForm,
-                            Explanation: deinflectResult.RuleExplanation);
-                    }
-                }
+                deinflectResult = await tokenizerAdapter.DeinflectAsync(trimmedQuery, cancellationToken);
             }
-            catch
+            catch (OperationCanceledException) when (!cancellationToken.IsCancellationRequested)
             {
-                // Graceful degradation per SPEC §3.2 & NFR-REL-01
-                morphologyCapability = "unavailable";
+                deinflectResult = DeinflectionResult.Unavailable(trimmedQuery);
+            }
+            catch (HttpRequestException)
+            {
+                deinflectResult = DeinflectionResult.Unavailable(trimmedQuery);
+            }
+
+            cancellationToken.ThrowIfCancellationRequested();
+            // EARS[State]: Missing provider/content is distinct from completed-empty analysis.
+            morphologyCapability = deinflectResult.IsAvailable ? "completed" : "unavailable";
+            conjugationCapability = deinflectResult.ConjugationStatus;
+            if (deinflectResult.Candidates is { } candidates)
+                return await ResolveCandidatesAsync(trimmedQuery, candidates, morphologyCapability,
+                    conjugationCapability, cancellationToken);
+            if (deinflectResult.IsSuccess && !string.IsNullOrWhiteSpace(deinflectResult.BaseForm))
+            {
+                // EARS[Unwanted]: Repository failures SHALL not be swallowed as tokenizer failures.
+                var baseEntries = await dictionaryRepository.SearchByFormOrReadingAsync(deinflectResult.BaseForm, cancellationToken);
+                if (baseEntries.Count > 0)
+                {
+                    finalEntries = baseEntries;
+                    activeSearchKeyword = deinflectResult.BaseForm;
+                    conjugation = new ConjugationDto(
+                        SurfaceText: trimmedQuery,
+                        BaseForm: deinflectResult.BaseForm,
+                        Explanation: deinflectResult.RuleExplanation,
+                        Detail: deinflectResult.Detail);
+                }
             }
         }
 
@@ -76,7 +86,7 @@ public sealed class LookupWordUseCase(
         return new LookupResultDto(
             Matches: matches,
             Conjugation: conjugation,
-            Capabilities: new CapabilityStatusDto(Morphology: morphologyCapability));
+            Capabilities: new CapabilityStatusDto(Morphology: morphologyCapability, Conjugation: conjugationCapability));
     }
 
     private static List<EntryMatchDto> MapEntriesToDtos(IEnumerable<DictionaryEntry> entries, string searchKeyword)
@@ -130,6 +140,71 @@ public sealed class LookupWordUseCase(
 
         return result;
     }
+
+    private async Task<LookupResultDto> ResolveCandidatesAsync(string text,
+        IReadOnlyList<Application.Conjugation.Models.ConjugationCandidate> candidates,
+        string morphology, string status, CancellationToken ct)
+    {
+        var alternatives = new List<Application.Conjugation.Models.ConjugationExplanationDto>();
+        var matches = new List<EntryMatchDto>();
+        bool foundBase = false, contentMissing = false;
+        foreach (var group in candidates.GroupBy(c => c.Detail.BaseForm, StringComparer.Ordinal))
+        {
+            ct.ThrowIfCancellationRequested();
+            // EARS[Unwanted]: A decoded form is only a proposal; verify exact canonical identity and applicable POS.
+            var entries = (await dictionaryRepository.SearchByFormOrReadingAsync(group.Key, ct))
+                .Where(e => e.WrittenForms.Any(w => w.Form == group.Key) || e.Readings.Any(r => r.ReadingText == group.Key)).ToArray();
+            foundBase |= entries.Length > 0;
+            foreach (var candidate in group)
+            {
+                var applicable = entries.Where(e => e.Senses.Any(s =>
+                    (s.PartOfSpeech ?? []).Intersect(candidate.DictionaryPartOfSpeech, StringComparer.Ordinal).Any() &&
+                    Applicable(e, s, group.Key))).ToArray();
+                if (applicable.Length == 0) continue;
+                if (string.IsNullOrWhiteSpace(candidate.Detail.Explanation) || candidate.Detail.Segments.Any(s =>
+                    string.IsNullOrWhiteSpace(s.Explanation))) { contentMissing = true; continue; }
+                alternatives.Add(candidate.Detail);
+                matches.AddRange(MapEntriesToDtos(applicable, group.Key));
+            }
+        }
+        ct.ThrowIfCancellationRequested();
+        if (contentMissing) { alternatives.Clear(); status = "unavailable"; }
+        else if (alternatives.Count > 0) status = "completed";
+        else if (foundBase) status = "unavailable";
+        // Missing canonical entries remain completed-empty only when the observed full-word grammar matched.
+        // EARS[Event]: Dedupe public readings only after canonical class/sense verification.
+        var ordered = alternatives.DistinctBy(a => (a.RuleId, a.RuleVersion, a.BaseForm))
+            .OrderBy(a => a.RuleId, StringComparer.Ordinal).ThenBy(a => a.BaseForm, StringComparer.Ordinal).ToArray();
+        var single = ordered.Length == 1 ? ordered[0] : null;
+        return new(matches.DistinctBy(m => (m.CanonicalId, m.MatchedWrittenForm, m.MatchedReading)).ToArray(),
+            single is null ? null : new(text, single.BaseForm, single.Explanation, single),
+            new(morphology, status), ordered);
+    }
+
+    private static bool Applicable(DictionaryEntry entry, DictionarySense sense, string form)
+    {
+        // EARS[Unwanted] F09 FR-008: Validate joint form/reading pairs, not independent ID sets.
+        var pairs = new List<(long? Written, long? Reading)>();
+        foreach (var written in entry.WrittenForms.Where(w => w.Form == form))
+        {
+            if (entry.Readings.Count == 0) pairs.Add((written.Id, null));
+            foreach (var reading in entry.Readings.Where(r => Allows(r, written.Form)))
+                pairs.Add((written.Id, reading.Id));
+        }
+        foreach (var reading in entry.Readings.Where(r => r.ReadingText == form))
+        {
+            if (entry.WrittenForms.Count == 0 && Allows(reading, form)) pairs.Add((null, reading.Id));
+            foreach (var written in entry.WrittenForms.Where(w => Allows(reading, w.Form)))
+                pairs.Add((written.Id, reading.Id));
+        }
+        return pairs.Any(pair => sense.Applicabilities.Count == 0 || sense.Applicabilities.Any(a =>
+            (a.WrittenFormId is null || pair.Written == a.WrittenFormId) &&
+            (a.ReadingId is null || pair.Reading == a.ReadingId)));
+    }
+
+    private static bool Allows(Reading reading, string written) =>
+        reading.RestrictedToForms is null || reading.RestrictedToForms.Length == 0 ||
+        reading.RestrictedToForms.Contains(written, StringComparer.Ordinal);
 
     private static SenseDto MapSenseToDto(DictionarySense sense)
     {

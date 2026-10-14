@@ -15,6 +15,10 @@ public/dict/
 public/kuromoji/
 data/
 
+# Versioned conjugation knowledge is source, not generated dictionary output.
+!src/infra/Conjugation/Data/
+!src/infra/Conjugation/Data/*.json
+
 # Editor / OS noise
 .DS_Store
 Thumbs.db

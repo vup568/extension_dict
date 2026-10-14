@@ -38,6 +38,11 @@ public static class AnalysisEndpoints
 
         try
         {
+            var versionHeader = httpContext.Request.Headers["X-Contract-Version"];
+            var contractVersion = versionHeader.Count == 0 ? "1" : versionHeader.ToString();
+            if (contractVersion is not ("1" or "2" or "3"))
+                return Results.Json(new { error_code = "VALIDATION_FAILED",
+                    message = "Phiên bản API không được hỗ trợ.", request_id = requestId }, statusCode: 400);
             AnalysisRequestDto? request;
             try
             {
@@ -66,6 +71,11 @@ public static class AnalysisEndpoints
 
             // PRIV-002: KHÔNG log request.Text hoặc request.Context
             var result = await useCase.ExecuteAsync(request, cancellationToken);
+            // EARS[State]: Default contract v1 keeps the historical unavailable conjugation shape.
+            if (contractVersion == "1")
+                result = result with { Conjugations = [], Capabilities = result.Capabilities with { Conjugation = "unavailable" } };
+            else if (contractVersion == "2" && result.Conjugations.Count > 1)
+                result = result with { Conjugations = [], Capabilities = result.Capabilities with { Conjugation = "unavailable" } };
 
             // Response envelope theo SPEC §3.4 [AC-001, AC-002, AC-003]
             return Results.Ok(new
@@ -75,9 +85,13 @@ public static class AnalysisEndpoints
                 {
                     request_id = requestId,
                     interaction_id = request.InteractionId,
-                    contract_version = "1"
+                    contract_version = contractVersion
                 }
             });
+        }
+        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+        {
+            throw;
         }
         catch (ArgumentException ex)
         {

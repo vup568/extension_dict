@@ -2,6 +2,7 @@ namespace Application.Analysis.Models;
 
 using System.Text.Json.Serialization;
 using Application.Dictionary.Models;
+using Application.Conjugation.Models;
 using Application.Grammar.Models;
 using Application.Kanji.Models;
 
@@ -43,6 +44,6 @@ public sealed record AnalysisResultDto(
     [property: JsonPropertyName("tokens")] IReadOnlyList<object> Tokens,
     [property: JsonPropertyName("dictionary_matches")] IReadOnlyList<EntryMatchDto> DictionaryMatches,
     [property: JsonPropertyName("kanji")] IReadOnlyList<KanjiDetailDto> Kanji,
-    [property: JsonPropertyName("conjugations")] IReadOnlyList<object> Conjugations,
+    [property: JsonPropertyName("conjugations")] IReadOnlyList<ConjugationExplanationDto> Conjugations,
     [property: JsonPropertyName("grammar_occurrences")] IReadOnlyList<GrammarOccurrenceDto> GrammarOccurrences,
     [property: JsonPropertyName("capabilities")] AnalysisCapabilitiesDto Capabilities);

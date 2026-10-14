@@ -272,6 +272,28 @@ public class LookupWordUseCaseTests
         restrictions[0].ReadingId.Should().Be(21);
     }
 
+    [Fact]
+    public async Task CallerCancellationIsNotConvertedToPartialSuccess()
+    {
+        using var cancelled = new CancellationTokenSource();
+        await cancelled.CancelAsync();
+        _dictionaryRepository.SearchByFormOrReadingAsync(Arg.Any<string>(), Arg.Any<CancellationToken>()).Returns([]);
+        _tokenizerAdapter.DeinflectAsync(Arg.Any<string>(), Arg.Any<CancellationToken>())
+            .ThrowsAsync(new OperationCanceledException(cancelled.Token));
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(() => _sut.ExecuteAsync("食べました", cancelled.Token));
+    }
+
+    [Fact]
+    public async Task SecondaryRepositoryFailureIsNotHiddenAsProviderFailure()
+    {
+        _dictionaryRepository.SearchByFormOrReadingAsync("食べました", Arg.Any<CancellationToken>()).Returns([]);
+        _tokenizerAdapter.DeinflectAsync("食べました", Arg.Any<CancellationToken>())
+            .Returns(new DeinflectionResult(true, "食べました", "食べる", "説明"));
+        _dictionaryRepository.SearchByFormOrReadingAsync("食べる", Arg.Any<CancellationToken>())
+            .ThrowsAsync(new InvalidOperationException("Database failure"));
+        await Assert.ThrowsAsync<InvalidOperationException>(() => _sut.ExecuteAsync("食べました", TestContext.Current.CancellationToken));
+    }
+
     private static DictionaryEntry CreateSampleEntry(string canonicalId, string form, string readingText, string glossText, string lang)
     {
         return new DictionaryEntry

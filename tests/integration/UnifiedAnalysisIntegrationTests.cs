@@ -8,6 +8,7 @@ using Application;
 using Application.Analysis;
 using Application.Analysis.Models;
 using Application.Dictionary;
+using Application.Dictionary.Models;
 using Application.Dictionary.Ports;
 using Application.Grammar;
 using Application.Grammar.Helpers;
@@ -524,7 +525,12 @@ public sealed class UnifiedAnalysisIntegrationTests(PostgreSqlFixture fixture) :
         ITokenizerAdapter? vocabTokenizer = null,
         IGrammarTokenizerPort? grammarTokenizer = null)
     {
-        vocabTokenizer ??= Substitute.For<ITokenizerAdapter>();
+        if (vocabTokenizer is null)
+        {
+            vocabTokenizer = Substitute.For<ITokenizerAdapter>();
+            vocabTokenizer.DeinflectAsync(Arg.Any<string>(), Arg.Any<CancellationToken>())
+                .Returns(call => DeinflectionResult.Unavailable(call.ArgAt<string>(0)));
+        }
         grammarTokenizer ??= Substitute.For<IGrammarTokenizerPort>();
 
         var dictionaryRepo = new EfDictionaryRepository(dbContext);

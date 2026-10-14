@@ -26,6 +26,7 @@ describe("MV3 backend handler", () => {
     const [url, options] = fetcher.mock.calls[0]!;
     expect(url).toBe("https://api.example.test/api/analysis");
     expect(options).toMatchObject({ method: "POST", redirect: "error", credentials: "omit" });
+    expect(new Headers(options!.headers).get("X-Contract-Version")).toBe("3");
     expect(JSON.parse(options!.body as string)).toEqual({ text: "食事", interaction_id: interactionId });
   });
   it.each([

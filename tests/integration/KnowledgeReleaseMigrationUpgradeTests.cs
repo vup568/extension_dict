@@ -7,8 +7,12 @@ using Xunit;
 
 namespace IntegrationTests;
 
-public sealed class KnowledgeReleaseMigrationUpgradeTests(PostgreSqlFixture fixture) : IClassFixture<PostgreSqlFixture>
+public sealed class KnowledgeReleaseMigrationUpgradeTests : IAsyncLifetime
 {
+    // Each upgrade scenario starts on a fresh DB; do not roll back an append-only dataset migration.
+    private readonly PostgreSqlFixture fixture = new();
+    public ValueTask InitializeAsync() => fixture.InitializeAsync();
+    public ValueTask DisposeAsync() => fixture.DisposeAsync();
     [Fact]
     public async Task Migration_preserves_the_existing_published_current_release()
     {

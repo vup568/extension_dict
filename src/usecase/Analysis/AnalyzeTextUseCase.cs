@@ -59,7 +59,7 @@ public sealed class AnalyzeTextUseCase(
 
         await Task.WhenAll(vocabularyTask, kanjiTask, grammarTask);
 
-        var (vocabMatches, vocabStatus) = vocabularyTask.Result;
+        var (vocabMatches, vocabStatus, conjugation, conjugationStatus) = vocabularyTask.Result;
         var (kanjiMatches, kanjiStatus) = kanjiTask.Result;
         var (grammarOccurrences, grammarStatus) = grammarTask.Result;
 
@@ -77,27 +77,31 @@ public sealed class AnalyzeTextUseCase(
             Tokens: [],                  // Future: Morphology/Tokenization [AC-006]
             DictionaryMatches: vocabMatches,
             Kanji: kanjiMatches,
-            Conjugations: [],            // Future: F-09 Conjugation [AC-006]
+            Conjugations: conjugation,
             GrammarOccurrences: grammarOccurrences,
             Capabilities: new AnalysisCapabilitiesDto(
                 Vocabulary: vocabStatus,
                 Kanji: kanjiStatus,
                 Grammar: grammarStatus,
                 Morphology: CapabilityStatus.Unavailable,
-                Conjugation: CapabilityStatus.Unavailable));
+                Conjugation: conjugationStatus));
     }
 
     /// <summary>
     /// Gọi LookupWordUseCase — wrap trong try/catch riêng.
     /// Vocabulary có giới hạn 255 ký tự riêng; nếu text dài hơn → ArgumentException → "failed".
     /// </summary>
-    private async Task<(IReadOnlyList<EntryMatchDto> Matches, string Status)> ExecuteVocabularyAsync(
+    private async Task<(IReadOnlyList<EntryMatchDto> Matches, string Status,
+        IReadOnlyList<Application.Conjugation.Models.ConjugationExplanationDto> Conjugation, string ConjugationStatus)> ExecuteVocabularyAsync(
         string text, CancellationToken ct)
     {
         try
         {
             var result = await lookupWordUseCase.ExecuteAsync(text, ct);
-            return (result.Matches, CapabilityStatus.Completed);
+            // EARS[Event]: F-09 reuses a found-entry F-06 result, without a second provider call.
+            return (result.Matches, CapabilityStatus.Completed, result.Alternatives ??
+                (result.Conjugation?.Detail is { } detail ? [detail] : []),
+                result.Capabilities.Conjugation);
         }
         catch (OperationCanceledException)
         {
@@ -106,7 +110,7 @@ public sealed class AnalyzeTextUseCase(
         catch (Exception)
         {
             // Graceful degradation: vocabulary failure không ảnh hưởng kanji/grammar
-            return ([], CapabilityStatus.Failed);
+            return ([], CapabilityStatus.Failed, [], CapabilityStatus.Failed);
         }
     }
 

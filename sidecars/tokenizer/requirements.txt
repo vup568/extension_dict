@@ -1,5 +1,6 @@
-sudachipy>=0.6.8
-sudachidict_core>=20240409
-grpcio>=1.62.0
-grpcio-tools>=1.62.0
-protobuf>=4.25.3
+sudachipy==0.7.0
+sudachidict_core==20260723.1
+grpcio==1.84.0
+grpcio-tools==1.84.0
+protobuf==7.36.2
+typing_extensions==4.16.0

@@ -43,6 +43,8 @@ public class AnalyzeTextUseCaseTests
 
     public AnalyzeTextUseCaseTests()
     {
+        _tokenizerAdapter.DeinflectAsync(Arg.Any<string>(), Arg.Any<CancellationToken>())
+            .Returns(call => DeinflectionResult.Unavailable(call.ArgAt<string>(0)));
         var lookupWord = new LookupWordUseCase(_dictionaryRepo, _tokenizerAdapter);
         var lookupKanji = new LookupKanjiUseCase(_kanjiRepo);
         var detectGrammar = new DetectGrammarUseCase(_grammarTokenizer, _grammarRepo, _matcher);
@@ -277,7 +279,7 @@ public class AnalyzeTextUseCaseTests
     }
 
     [Fact]
-    public async Task ExecuteAsync_ConjugationAlwaysUnavailable()
+    public async Task ExecuteAsync_ConjugationUnavailableWithoutProvider()
     {
         // AC-006
         var request = new AnalysisRequestDto("食べた");
@@ -333,6 +335,28 @@ public class AnalyzeTextUseCaseTests
     // ============================================================
     // Helpers
     // ============================================================
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task CandidateAlternativesSurviveOrFailTruthfullyInAnalysis(bool failRepository)
+    {
+        SetupEmptyDefaults();
+        var entry = CreateDummyDictionaryEntry("dictionary:candidate", "食べる");
+        entry.Senses = [new() { SenseKey = "1", PartOfSpeech = ["v1"] }];
+        _dictionaryRepo.SearchByFormOrReadingAsync("食べる", Arg.Any<CancellationToken>()).Returns([entry]);
+        if (failRepository) _dictionaryRepo.SearchByFormOrReadingAsync("食べる", Arg.Any<CancellationToken>())
+            .ThrowsAsync(new InvalidOperationException("synthetic candidate repository failure"));
+        var candidates = new[] { "candidate:a", "candidate:b" }.Select(id => new Application.Conjugation.Models.ConjugationCandidate(
+            new("食べられる", "食べる", "Giải thích kiểm thử.", "vi", new(0, 5), id, 1, "candidate",
+                [new("食べられる", "Thành phần kiểm thử.", new(0, 5))]), ["v1"])).ToArray();
+        _tokenizerAdapter.DeinflectAsync("食べられる", Arg.Any<CancellationToken>()).Returns(
+            new DeinflectionResult(true, "食べられる", "", "", ConjugationStatus: "completed", Candidates: candidates));
+        var result = await _useCase.ExecuteAsync(new("食べられる"), TestContext.Current.CancellationToken);
+        result.Conjugations.Count.Should().Be(failRepository ? 0 : 2);
+        result.Capabilities.Conjugation.Should().Be(failRepository ? "failed" : "completed");
+        result.Capabilities.Vocabulary.Should().Be(failRepository ? "failed" : "completed");
+    }
 
     private void SetupEmptyDefaults()
     {

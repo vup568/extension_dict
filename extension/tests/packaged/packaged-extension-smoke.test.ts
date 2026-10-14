@@ -17,14 +17,14 @@ test("AC05/09/10 actual MV3 content -> background POST preserves minimal ruby-sa
   test.skip(executablePath === undefined, "No installed Extension-capable browser. Set EXTENSION_SMOKE_EXECUTABLE_PATH or BRAVE_EXECUTABLE_PATH; no browser download is performed.");
   if (executablePath === undefined) return;
   // Requires default build backend http://127.0.0.1:5000 and that port to be free.
-  const requests: { body: Record<string, unknown>; origin: string | undefined; cookie: string | undefined }[] = [];
+  const requests: { body: Record<string, unknown>; origin: string | undefined; cookie: string | undefined; contractVersion: string | string[] | undefined }[] = [];
   const server = createServer((req, res) => {
     let body = "";
     req.on("data", chunk => { body += String(chunk); });
     req.on("end", () => {
       if (req.url !== "/api/analysis" || req.method !== "POST") { res.writeHead(404); res.end(); return; }
       const payload = JSON.parse(body) as Record<string, unknown>;
-      requests.push({ body: payload, origin: req.headers.origin, cookie: req.headers.cookie });
+      requests.push({ body: payload, origin: req.headers.origin, cookie: req.headers.cookie, contractVersion: req.headers["x-contract-version"] });
       const response = analysisFixture(String(payload.interaction_id));
       res.writeHead(200, { "Content-Type": "application/json" }); res.end(JSON.stringify(response));
     });
@@ -62,6 +62,7 @@ test("AC05/09/10 actual MV3 content -> background POST preserves minimal ruby-sa
     expect(requests[0]!.body.text).toBe("食事");
     expect(requests[0]!.body.interaction_id).toMatch(/^[0-9a-f-]{36}$/u);
     expect(requests[0]!.cookie).toBeUndefined();
+    expect(requests[0]!.contractVersion).toBe("3");
     expect(errors).toEqual([]);
     expect(await page.evaluate(() => [localStorage.length, sessionStorage.length])).toEqual([0, 0]);
     await popup.getByRole("button", { name: "Đóng tra cứu" }).click(); await expect(popup).toHaveCount(0);

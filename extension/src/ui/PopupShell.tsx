@@ -88,7 +88,7 @@ export function PopupShell({ state, onClose, onRetry }: PopupShellProps) {
       {data !== null && <>
         <p role="status" className="jp-result-status">{partial ? "Có kết quả một phần" : "Đã phân tích"}</p>
         <ResultSection title="Từ vựng" status={data.capabilities.vocabulary} empty={data.dictionary_matches.length === 0}>
-          {data.dictionary_matches.map((entry) => <Vocabulary key={entry.canonicalId} entry={entry} />)}
+          {data.dictionary_matches.map((entry) => <Vocabulary key={JSON.stringify([entry.canonicalId, entry.matchedWrittenForm, entry.matchedReading])} entry={entry} />)}
         </ResultSection>
         <ResultSection title="Kanji" status={data.capabilities.kanji} empty={data.kanji.length === 0}>
           {data.kanji.map((item) => <Kanji key={item.canonicalId} item={item} />)}
@@ -96,7 +96,22 @@ export function PopupShell({ state, onClose, onRetry }: PopupShellProps) {
         <ResultSection title="Ngữ pháp" status={data.capabilities.grammar} empty={data.grammar_occurrences.length === 0}>
           {data.grammar_occurrences.map((item, index) => <Grammar key={`${item.grammar_id}:${item.span.start}:${item.span.end}:${index}`} item={item} />)}
         </ResultSection>
-        {(data.capabilities.morphology !== "completed" || data.capabilities.conjugation !== "completed") && <p className="jp-footnote">Tách từ và biến đổi từ: {data.capabilities.morphology === "failed" || data.capabilities.conjugation === "failed" ? "gặp lỗi" : "chưa khả dụng"}.</p>}
+        {state.phase === "result" && state.response.meta.contract_version !== "1" && <ResultSection title="Biến đổi từ" status={data.capabilities.conjugation} empty={data.conjugations.length === 0}>
+          {/* EARS[Event] F09 FR-007: Explain every evidenced reading without ranking meanings. */}
+          {data.conjugations.length > 1 && <p>Các cách hiểu có thể</p>}
+          {data.conjugations.map(item => <article className="jp-entry" key={JSON.stringify([item.rule_id, item.rule_version, item.base_form])} data-rule-id={item.rule_id}>
+            {state.response.meta.contract_version === "3" && <p className="jp-muted">Cách hiểu có thể</p>}
+            <h4 lang="ja">{item.surface} → {item.base_form}</h4>
+            <p lang="vi">{item.explanation}</p>
+            <ol>{item.segments.map(segment => <li key={segment.span.start}>
+              <span lang="ja">{segment.surface}</span> — {segment.explanation}
+            </li>)}</ol>
+            <p className="jp-muted">Dữ liệu: {item.dataset_version}</p>
+          </article>)}
+        </ResultSection>}
+        {data.capabilities.conjugation === "completed"
+          ? data.capabilities.morphology !== "completed" && <p className="jp-footnote">Tách từ: {data.capabilities.morphology === "failed" ? "gặp lỗi" : "chưa khả dụng"}.</p>
+          : <p className="jp-footnote">Tách từ và biến đổi từ: {data.capabilities.morphology === "failed" || data.capabilities.conjugation === "failed" ? "gặp lỗi" : "chưa khả dụng"}.</p>}
       </>}
     </div>
   </div>;

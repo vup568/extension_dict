@@ -1,9 +1,12 @@
 node_modules/
+**/node_modules/
+**/bin/
+**/obj/
 .git/
 Dockerfile*
 .dockerignore
-*.log*
 .env*
+*.log*
 coverage/
 dist/
 build/
@@ -14,3 +17,6 @@ playwright-report/
 test-results/
 .vscode/
 .idea/
+**/coverage/
+**/test-results/
+**/playwright-report/

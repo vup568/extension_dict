@@ -1,0 +1,23 @@
+{
+  "version": "godan-rows-20261013.1",
+  "provenance": {
+    "status": "development",
+    "reference_only_no_external_content_import": true,
+    "sources": ["https://www.kyozai.jpf.go.jp/kyozai/material/BTS00012/ja/render.do", "https://www.coelang.tufs.ac.jp/mt/ja/gmod/contents/explanation/043.html"],
+    "editorial": "Independently structured kana-row transformations, not copied example sentences or a surface lookup table. Candidate G3/publication remains separate."
+  },
+  "rows": [
+    {"dictionary":"う","a":"わ","i":"い","e":"え","o":"お","onbin":"っ","voiced":false,"dictionary_pos":["v5u","verb:godan-u"]},
+    {"dictionary":"く","a":"か","i":"き","e":"け","o":"こ","onbin":"い","voiced":false,"dictionary_pos":["v5k","v5k-s","verb:godan-k"]},
+    {"dictionary":"ぐ","a":"が","i":"ぎ","e":"げ","o":"ご","onbin":"い","voiced":true,"dictionary_pos":["v5g","verb:godan-g"]},
+    {"dictionary":"す","a":"さ","i":"し","e":"せ","o":"そ","onbin":"し","voiced":false,"dictionary_pos":["v5s","verb:godan-s"]},
+    {"dictionary":"つ","a":"た","i":"ち","e":"て","o":"と","onbin":"っ","voiced":false,"dictionary_pos":["v5t","verb:godan-t"]},
+    {"dictionary":"ぬ","a":"な","i":"に","e":"ね","o":"の","onbin":"ん","voiced":true,"dictionary_pos":["v5n","verb:godan-n"]},
+    {"dictionary":"ぶ","a":"ば","i":"び","e":"べ","o":"ぼ","onbin":"ん","voiced":true,"dictionary_pos":["v5b","verb:godan-b"]},
+    {"dictionary":"む","a":"ま","i":"み","e":"め","o":"も","onbin":"ん","voiced":true,"dictionary_pos":["v5m","verb:godan-m"]},
+    {"dictionary":"る","a":"ら","i":"り","e":"れ","o":"ろ","onbin":"っ","voiced":false,"dictionary_pos":["v5r","verb:godan-r"]}
+  ],
+  "lexical_exclusions": {"honorific":["いる","くれる","できる","書ける","ある"],"negative":["ある"],"potential":["ある"],"volitional":["ある"],"passive":["ある"]},
+  "contracted_causative_passive_excluded_endings": ["す"],
+  "lexical_onbin_overrides": [{"base":"行く","canonical_suffix":"く","regular":"い","replacement":"っ","dictionary_pos":["v5k-s","v5k","verb:godan-k"]}]
+}

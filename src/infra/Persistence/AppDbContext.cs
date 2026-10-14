@@ -25,6 +25,7 @@ public class AppDbContext : DbContext
 
     // Grammar
     public DbSet<GrammarRule> GrammarRules => Set<GrammarRule>();
+    public DbSet<ConjugationDataset> ConjugationDatasets => Set<ConjugationDataset>();
 
     // Knowledge Operations
     public DbSet<SourceManifest> SourceManifests => Set<SourceManifest>();

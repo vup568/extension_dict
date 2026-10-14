@@ -2,7 +2,7 @@
 
 ## Tổng quan
 
-Tài liệu này phân biệt runtime contract đã triển khai với API **đề xuất** cho các capability MVP. Phần Analysis được đối chiếu với mã nguồn ngày 2026-10-11; các route khác giữ nhãn proposed/deferred của từng phần. Implementation local không đồng nghĩa endpoint đã deploy production.
+Tài liệu này phân biệt runtime contract đã triển khai với API **đề xuất** cho các capability MVP. Phần Analysis được đối chiếu với mã nguồn và nghiệm thu scoped F-09 ngày 2026-10-14; các route khác giữ nhãn proposed/deferred của từng phần. Implementation local không đồng nghĩa endpoint đã deploy production.
 
 ### Phạm vi
 
@@ -28,7 +28,7 @@ Thứ tự sử dụng nguồn:
 3. `.sdd/constitution.md` — invariants về stable identity, privacy, provider isolation và stale response.
 4. Feature specs và database documents — bằng chứng chi tiết; API shape ở đây vẫn là draft/proposed nếu chưa được phê duyệt riêng.
 
-Routes mới bắt đầu bằng `/api/`, không version trong URL theo quyết định project owner ngày 2026-08-21. Analysis hiện trả `meta.contract_version: "1"`; endpoint chưa negotiate `X-Contract-Version`. Header đó vẫn proposed cho các contract tương lai. Compatibility window và version-negotiation policy vẫn `Deferred`.
+Routes bắt đầu bằng `/api/`, không version trong URL. Analysis hỗ trợ `X-Contract-Version: 1`, `2` hoặc `3`;thiếu header mặc định1,echo meta.contract_version;unknown400 VALIDATION_FAILED. Contract2 baseline,contract3 alternatives theo [F09 SPEC](../../.sdd/specs/feat-conjugation-explanation/SPEC.md);compatibility window/deprecation toàn nền tảng vẫn Deferred.
 
 ADR-002, global constraints, AGENTS.md và SDD.md thống nhất PostgreSQL 16, Npgsql EF Core Migrations và PostgreSQL Testcontainers làm baseline kỹ thuật.
 
@@ -176,11 +176,11 @@ Nested shape thực tế (nullable fields vẫn xuất hiện với `null`):
 | `kanji[]` | `canonicalId`, `character`, `unicodeCodepoint`: strings; `strokeCount`, `grade`, `jlptLevel`, `frequency`, `radicalNumber`: number/null; `jlptProvenance`, `hanViet`: string/null; `onReadings`, `kunReadings`, `meaningsVi`, `meaningsEn`, `nanoriReadings`: string arrays |
 | `grammar_occurrences[]` | `grammar_id: string`, `pattern: string`, `jlpt_level: string/null`, `meaning_vi: string/null`, `matched_text: string`, `span: {start: number, end: number}` |
 | `capabilities` | `vocabulary`, `kanji`, `grammar`, `morphology`, `conjugation`: `completed`, `failed` hoặc `unavailable` |
-| `meta` | `request_id: string`, `interaction_id: string/null` (echo request), `contract_version: "1"` |
+| `meta` | `request_id: string`, `interaction_id: string/null` (echo request), `contract_version: "1"`, `"2"` hoặc `"3"` |
 
-`tokens`/`conjugations` hiện luôn `[]`, trạng thái tương ứng `unavailable`;
-không có runtime token/conjugation shape để client tự dựng. `completed` cùng
-mảng rỗng là không tìm thấy kết quả; không đồng nghĩa unavailable.
+`tokens` luôn `[]`, morphology luôn `unavailable`. Contract1 giữ `conjugations=[]`
+và conjugation `unavailable` như ví dụ trên. Contract2 hỗ trợ shape typed bên dưới.
+`completed` cùng mảng rỗng là không tìm thấy kết quả; không đồng nghĩa unavailable.
 HTTP200 có thể partial. Khi vocabulary/kanji/grammar đều `failed`, backend trả
 HTTP503 `SERVICE_UNAVAILABLE` với `retryable: true`. Input/JSON/UUID không hợp lệ
 trả400 `VALIDATION_FAILED`; lỗi ngoài dự kiến trả500 `INTERNAL_ERROR`.
@@ -191,6 +191,85 @@ ID; không sửa standalone lookup route. Grammar giữ từng occurrence với 
 span tương đối với `normalized_text`; lặp/chồng lấn không bị collapse.
 Extension kiểm tra version/correlation/nested types, bỏ response stale và không
 hiển thị raw backend prose. Mọi selected text/interactions vẫn ephemeral.
+
+### Contract2/3: F-06 deinflection / F-09 scoped acceptance
+
+Contract2 baseline giữ tối đa một phương án. Extension hiện gửi header3;validator chấp nhận1/2/3.
+Vocabulary vẫn tra nguyên selection với exact-first: exact thắng và không gọi
+deinflection. Khi exact miss, adapter xác nhận toàn bộ chuỗi token contiguous
+với các mẫu đã pin rồi tra canonical base, kiểm POS và joint sense restrictions.
+Không tách từ câu hay đoán lemma; dataset baseline cũ vẫn yêu cầu một quy tắc duy nhất.
+F-09 dùng lại kết quả F-06, không gọi tokenizer thêm lần nữa.
+
+Contract3 giữ shape typed occurrence nhưng trả mọi phương án riêng có chứng cứ,
+không xếp hạng nghĩa: 食べられる có3 (khả năng/bị động/kính ngữ),食べさせられる
+có2 (sai khiến-bị động/sai khiến-khả năng) khi canonical base và nội dung đầy đủ.
+Header2 khi đa nghĩa trả[]/unavailable;header1 luôn[]/unavailable. UI ghi “có thể”.
+Client kiểm unique(rule_id,rule_version,base_form),one pinned dataset,canonical
+base-form thực trong forms/readings,VI và continuous UTF16 spans không cắt surrogate.
+Corpus .3 đã có đủ G1/G2/G3;G3 xác nhận ngày2026-10-14 (`accepted_for_scoped_corpus`):
+412 ca/60 ô/115 rule IDs đã triển khai,kiểm thử và nghiệm thu.
+[Acceptance manifest](../../.sdd/specs/feat-conjugation-explanation/evidence/acceptance-manifest.json)
+ghi trạng thái hiện hành;[validation report](../../.sdd/specs/feat-conjugation-explanation/evidence/validation-report.md)
+giữ nguyên snapshot hash-bound trước duyệt. Dataset candidate mới vẫn development,
+opt-in;production publication/KnowledgeRelease và Firefox runtime chưa được xác nhận.
+Approval không cấp quyền migrate DB người dùng hoặc commit/push/merge.
+
+Contract2 có tối đa một occurrence;contract3 có mọi phương án riêng đủ chứng cứ.
+Mỗi occurrence chỉ gắn khi có entry từ điển thực sự khớp
+`base_form`; provenance/restrictions của `dictionary_matches` giữ nguyên.
+
+| Field của `conjugations[]` | Runtime contract |
+|---|---|
+| `surface`, `base_form`, `explanation` | Strings không rỗng; observed form, dạng gốc và giải thích Việt |
+| `language_tag` | `"vi"` trong slice ban đầu |
+| `span` | `{start: integer, end: integer, unit: "utf16"}`; half-open trên `normalized_text`, hiện phủ toàn selection |
+| `rule_id`, `rule_version` | ID quy tắc không rỗng và integer dương |
+| `dataset_version` | Version dataset đang pin, không rỗng |
+| `segments[]` | `{surface, explanation, span}`; ordered contiguous, đúng substring UTF-16 và phủ toàn occurrence |
+
+Ví dụ occurrence (không phải envelope độc lập):
+
+```json
+{
+  "surface": "食べました",
+  "base_form": "食べる",
+  "explanation": "Dạng lịch sự, quá khứ của 食べる.",
+  "language_tag": "vi",
+  "span": {"start": 0, "end": 5, "unit": "utf16"},
+  "rule_id": "conjugation:verb-polite-past",
+  "rule_version": 1,
+  "dataset_version": "development-20261013.1",
+  "segments": [
+    {"surface": "食べ", "explanation": "Phần động từ.", "span": {"start": 0, "end": 2, "unit": "utf16"}},
+    {"surface": "まし", "explanation": "Trợ động từ lịch sự.", "span": {"start": 2, "end": 4, "unit": "utf16"}},
+    {"surface": "た", "explanation": "Trợ động từ quá khứ.", "span": {"start": 4, "end": 5, "unit": "utf16"}}
+  ]
+}
+```
+
+Provider/dataset/VI content thiếu hoặc chain unsupported: conjugation
+`unavailable`, mảng rỗng. Quy tắc hợp lệ nhưng không có base entry: `completed`,
+mảng rỗng. Vocabulary lỗi nội bộ: vocabulary/conjugation `failed`, mảng rỗng;
+kanji/grammar vẫn độc lập. Caller cancellation không được đổi thành partial success.
+Đa nghĩa đủ chứng cứ được giữ ở contract3;contract2 trả[]/unavailable nếu có nhiều phương án.
+Một occurrence hợp lệ yêu cầu vocabulary/conjugation `completed` và tìm thấy
+base form trong matched written form/reading của entry; FE từ chối sai spans,
+segments, language, version hoặc status và render bằng safe React text nodes.
+
+Cấu hình `ConjugationDatasetVersion=development-20261013.1` bật dataset phát triển;
+unset giữ fallback unavailable. `GrpcTokenizerAddress` dùng địa chỉ Sidecar
+(mặc định `http://localhost:50051`), deadline adapter500ms. Rules, provider mappings
+và nội dung Việt nằm trong JSONB `conjugation_datasets`, pin immutable version;
+UPDATE/DELETE/TRUNCATE bị chặn, version mới cài additive, không sửa engine.
+Pin `ConjugationDatasetVersion=candidate-20261013.1` dùng909 mẫu có tham số/115 IDs
+thuộc corpus .3 đã nghiệm thu;không thay dataset cũ hoặc tự bật mặc định.
+9 quy tắc ban đầu là baseline lịch sử;candidate mở rộng đã được nghiệm thu scoped,
+nhưng cả hai chưa phải corpus production và chưa nằm trong canonical KnowledgeRelease.
+General morphology vẫn ngoài scope. Migration candidate là INSERT-only và chưa chạy
+trên DB người dùng.
+Evidence: [Tokenizer validation report](../../.sdd/specs/feat-tokenizer-deinflection/evidence/validation-report.md),
+[F09 acceptance manifest](../../.sdd/specs/feat-conjugation-explanation/evidence/acceptance-manifest.json).
 
 ## Kanji and grammar
 
@@ -313,8 +392,8 @@ ETL transport, source upload/storage, operator identity, publish concurrency and
 
 ## Deferred decisions before implementation
 
-1. Contract-version negotiation, support window and deprecation policy.
-2. Shared string offset/span convention for supplementary Unicode.
+1. Compatibility support window/deprecation toàn nền tảng; Analysis đã negotiate1/2/3 như trên.
+2. Shared string offset/span governance toàn nền tảng; Sidecar/F-09 slice dùng half-open UTF-16, không tự đóng toàn bộ OD-003.
 3. Exact request-size/page-size limits and pagination token format.
 4. Session transport, external provider selection, recovery and account-linking flows.
 5. Final translation provider, disclosure UX and provider timeout/retry policy.

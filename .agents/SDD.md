@@ -9,7 +9,7 @@
 >   - **Backend:** .NET 10 (C#) — Tổ chức theo Clean Architecture.
 >   - **Frontend:** React 19 + TypeScript + Vite (Xây dựng SPA tối giản cho Extension Popup và Web App).
 >   - **Database:** PostgreSQL 16 quản lý schema bằng EF Core Migrations; Integration Tests sử dụng Docker Testcontainers với PostgreSQL thật để bảo toàn hành vi provider.
->   - **NLP Integration:** Python + Sudachi Sidecar qua gRPC đã được chốt tại F-08 SPEC §1.4 (OD-010 resolved); .NET giao tiếp qua Adapter cô lập. Code Sidecar/Grammar adapter đã có, Dictionary deinflection/F-09 còn thiếu tích hợp.
+>   - **NLP Integration:** Python + Sudachi Sidecar qua gRPC (OD-010 resolved);F09 corpus .3 đã nghiệm thu G1/G2/G3,candidate opt-in. Production publication/Firefox runtime vẫn riêng.
 > - **Clients:** Browser Extension đa nền tảng (Chrome, Edge, Brave, Firefox) + Web App dùng chung hệ thống Backend API.
 
 ---
@@ -69,11 +69,13 @@
 
 ### 2.3 Current Sprint Notes
 
-*   **Workstream hiện tại (2026-10-12):** F-03/F-04 Extension selection-to-analysis đã hoàn tất trên feature branch; F-06 exact lookup được tái kiểm chứng với PostgreSQL 16.
+*   **F-09 clarification/approval (2026-10-13/14):** Kính ngữ/hai nghĩa sai khiến đã chốt;corpus .3 có60 ô/412 ca/115 rules/17fixtures. User duyệt G1/G2 đúng packet ngày13 và G3 bằng “ok tôi duyệt nghiệm thu nhé” ngày14;receipts riêng bind exact hashes. Không suy approval từ Proceed hay AI/test results.
+
+*   **Workstream hiện tại (2026-10-13):** `feat/tokenizer-deinflection` hoàn tất code và local verification F-06 deinflection/initial F-09; chưa push/merge/deploy.
 *   **Đã delivery:** F-02 merge/push `dev` tại `e01ee19d2458403d3dc9d9a18df0ffc4e0426dc4`; backend dictionary/kanji/grammar/unified analysis đã có runtime.
 *   **Delivery hiện tại:** Local merge b3d187d đã qua toàn bộ post-merge gates. Remote delivery qua [PR #10](https://github.com/vup568/extension_dict/pull/10), do `dev` yêu cầu pull request; trạng thái merged của PR là bằng chứng hoàn tất.
-*   **Spec đang hoạt động:** `.sdd/specs/feat-selection-popup/{SPEC.md,PLAN.md,TASKS.md}`; evidence cuối ghi riêng, không suy diễn từ mức ưu tiên MVP.
-*   **Giới hạn còn lại:** OD-010 đã chốt Python + Sudachi/gRPC; code Sidecar và Grammar adapter đã có. Dictionary vẫn dùng NullTokenizerAdapter, Unified Analysis morphology/conjugation unavailable; còn thiếu Dictionary/F-09 integration và live Sidecar verification. Grammar seed 5 mẫu; Web/auth/translation/learning chưa triển khai. Firefox runtime và approved benchmark pending. Docker/PostgreSQL Testcontainers hiện hoạt động; review nghĩa Việt production vẫn là gate dữ liệu riêng.
+*   **F09 completion 2026-10-14:** G1/G2/G3 approved;42/42 tasks complete for scoped corpus. candidate-20261013.1 (909 parameterized realizations/115IDs),v3 parser/popup,canonical POS/joint sense và INSERT-only migration đã kiểm chứng:79units/118integration/251FEunits/136browser/12Python,412cases mapped/0 gaps;review cycle2 no P1/P2. acceptance-manifest.json bind unchanged validation report/source hashes and actual user G3 receipt;giữ historical snapshots.
+*   **Giới hạn còn lại:** Candidate development opt-in,không production KnowledgeRelease/publication. Unset dataset Null;analysis1 empty/v2 one-or-none/v3 all evidenced alternatives;morphology unavailable. Firefox runtime,OD-005/publication pending. Sentence segmentation,Grammar reviewed full N5–N4,Web/auth/translation/learning chưa có. G3 không tự cho phép migrate DB người dùng,Git delivery hoặc cài thêm dependency.
 
 ---
 
@@ -205,3 +207,44 @@ Mã nguồn Backend trong thư mục `src/` bắt buộc phải tuân thủ nghi
 *   OD-010 was resolved as Python + Sudachi over gRPC in F-08 SPEC §1.4 and its 2026-08-24 clarification, committed as 82dc015 on 2026-08-30. This is an existing project decision, not a new approval.
 *   `sidecars/tokenizer/{app.py,Dockerfile,requirements.txt,proto/tokenizer.proto}` and the registered `GrpcGrammarTokenizerAdapter` already exist. Dictionary DI still registers `NullTokenizerAdapter`; the remaining work is Dictionary deinflection, vocabulary tokenization/Unified Analysis integration and F-09 explanations.
 *   Corrected the PRD, F-06 status/tasks/evidence, Feature Map and architecture references that had incorrectly treated OD-010 as pending or claimed the Sidecar did not exist. Functional PostgreSQL verification does not certify live Sidecar runtime/deployment; Compose currently defines only the database.
+
+### 2026-10-13 — Dictionary Sidecar & Initial Vietnamese Conjugation
+
+*   User-authorized order executed: OD-010 docs commit `c0cb500`, unchanged live Docker smoke, data-driven F-06 adapter, initial F-09 API/popup. Implementation branch `feat/tokenizer-deinflection`; no current feature push/merge/deploy claimed.
+*   Sudachi uses sanitized logs, synchronized tokenization and half-open UTF-16 spans (including supplementary characters). Missing initialization is gRPC UNAVAILABLE, never false success[]. Compose adds optional `nlp` profile on localhost50051; existing PostgreSQL/volume preserved.
+*   Pure Domain `ConjugationDataset` persists immutable versioned JSONB; mapping/rules/VI segments are data, not engine constants. Pin `ConjugationDatasetVersion=development-20261013.1` explicitly; unset retains Null adapter. UPDATE/DELETE/TRUNCATE rejected; new versions install additively. This development seed is not a production KnowledgeRelease approval.
+*   Exact-first lookup remains; complete unique whole-word patterns only, no first-verb/suffix guessing. Adapter has 500ms linked cancellation; caller cancellation and secondary/dataset DB failures propagate. F-09 reuses found-entry F-06 result without a second deinflection call.
+*   Intentional contract evolution: absent/header1 keeps empty/unavailable conjugations; header2 enables typed VI/base/UTF-16 segments/dataset identity; unknown version structured400. Extension requests2, validates1/2 and renders safe text; morphology/tokens unchanged.
+*   Verification: pinned Docker build, Python12/12, .NET Release0 warnings/errors, units58/58, integration83/83 (live22 + isolated adapter10 + prior51), FE236/236, real browsers121/121 (Chrome40/Edge40/Brave40/packaged1). Review no P1/P2. Modified usecase line coverage: Dictionary98%, Analysis87.30%, matcher93.33%, using existing transitive Microsoft.CodeCoverage without installs. FE TS coverage96.74% statements; popup .tsx measured via browsers separately.
+*   Test lesson: xUnit test instances initialize per case, so shared DB/provider seeds belong in class fixture; literal JSON braces in EF ExecuteSqlRaw must be escaped. Failed harness cases were corrected and rerun, not skipped. Full corpus/linguistic signoff, sentence segmentation, Firefox parity, performance and F-06 operational gates remain separate. Evidence: `.sdd/specs/feat-tokenizer-deinflection/evidence/validation-report.md`.
+
+### 2026-10-13 — F-09 Corpus Specification Boundary
+
+*   User approved a documentation-only Shadow Plan for `.sdd/specs/feat-conjugation-explanation/SPEC.md`: define/approve MVP corpus, review the existing nine rules, supplement approved gaps and accept the dataset. Existing implementation is reused; no runtime or dataset edits in this task.
+*   Corpus selection and linguistic signoff are future deliverables, not inferred from passing tests or approval to write this SPEC. No mandatory new-rule count or claim to cover all Japanese conjugations; if approved corpus has no gap, supplementation closes with evidence only.
+*   Separate quality checklist and active `.specify/feature.json` now point to F-09. Feature PLAN/TASKS remain a subsequent step. This does not approve production publication, redefine F-06/F-20, or commit/merge the current changes.
+
+### 2026-10-13 — F-09 Corpus Plan and Design Artifacts
+
+*   User approved planning-only Proceed. Added `feat-conjugation-explanation/PLAN.md`, research/data-model/contracts/quickstart: ordered corpus scope G1 → independent linguistic review G2 → conditional gap completion/acceptance G3. Runtime/data unchanged; no corpus or linguistic approval implied.
+*   Technical finding: ConjugationKnowledge accepts only development status; config pin is not approval, and ConjugationDataset currently lacks KnowledgeRelease membership. Plan retains development candidate for local verification; production activation has an explicit publication/F-20 prerequisite, not a silent ResourceRevision/status/schema expansion.
+*   Data changes require a new version/resource/forward migration; never mutate the old embedded seed/migration. Hash source artifact bytes and compare JSONB semantically; avoid self-referencing hashes and candidate/report hash cycles.
+*   Design validation covers FR-001–010, local links/placeholders/Spec Kit prerequisites and unchanged source fingerprint. No feature TASKS/runtime tests/migration/deployment performed by planning; next step can generate TASKS without bypassing human corpus/review gates.
+
+### 2026-10-13 — F-09 Detailed Task Generation
+
+*   User requested detailed TASKS from PLAN. Generated42 tasks (setup/foundation4, US1 scope8, US2 linguistic review8, US3 conditional gap completion/acceptance18, handoff4), all pending; no execution permission or human approval inferred from generation.
+*   G1 PO scope approval and G2 independent reviewer signoff precede runtime supplementation; G3 scoped acceptance is distinct from production publication/F-20. Conditional work may close with evidenced no-op/N/A, never arbitrary new rule count or fake signoff.
+*   Tasks include exact paths, test-before-change, old-version replay/append-only data, v1/v2/spans/privacy/async regressions, hashes/semantic JSONB, dependency order and safe parallel examples. Documentation checks and source fingerprint verify generation-only changes; no code/data/migration/commit/push/merge executed.
+
+### 2026-10-14 — Local Backend Startup Configuration Fix
+
+*   The previous local guide omitted ConnectionStrings__DefaultConnection: Compose reads root .env, direct dotnet run does not. Conditional AppDbContext registration and swallowed migration initialization produced health200/analysis500. DI now rejects missing configuration;database initialization must succeed before HTTP starts,with sanitized errors and unchanged transient context lifetime.
+*   scripts/start-local.ps1 reads the four literal PostgreSQL dotenv keys without evaluating/echoing secrets,uses a connection-string builder,retains explicit connection configuration,waits for existing db/tokenizer services,and restores process environment. User execution applies existing EF migrations;agent only validated configuration/mocks/isolated Testcontainers,never restarted/migrated the user's service/DB.
+*   Fresh Windows evidence:Release build0 warnings/errors,17 targeted tests,79 unit/135 integration and251 frontend unit tests plus typecheck pass. Accepted F09 snapshots/contracts/schema unchanged. Review PASS_WITH_RISK:Windows-only scope explicitly selected by user;new Windows PowerShell test executable names still block Ubuntu CI and clean Git delivery. No commit/merge/push/dependency install.
+*   Workflow artifact hook absent from checkout;documented invocation failed MODULE_NOT_FOUND. Explicit fallback checks verify artifact structure and preserve the known delivery blocker,not claim hook approval. Evidence:plans/261014-local-backend-startup/reports/validation-report.md.
+
+### 2026-10-14 — Authorized Local Git Checkpoint
+
+*   Subsequent user authorization explicitly includes F06/F09 and the Windows startup fix for local commits only; no push/merge. Specifications/corpus and the dependent implementation/tests are recorded together in coherent commits. Earlier no-Git statements remain historical evidence of their original task boundaries.
+*   Scoped .gitattributes preserve accepted F09 LF bytes and the baseline migration's recorded CRLF bytes. All12 accepted Git blob bindings match SHA256. Frozen archival whitespace is retained rather than invalidating approval hashes; Ubuntu CI incompatibility and absent workflow hook remain unresolved, with no clean CI/ship claim.

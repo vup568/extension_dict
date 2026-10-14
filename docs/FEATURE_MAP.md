@@ -1,6 +1,6 @@
 # JP Reading Platform V2 — Feature Map & Use Case Inventory
 
-> **Analysis Date**: 2026-08-21; implementation and OD-010 alignment update 2026-10-12
+> **Analysis Date**: 2026-08-21; implementation/acceptance update 2026-10-14
 > **Methodology**: Requirement map plus implementation/evidence, kept distinct
 > **Status**: Official Reference Document (`docs/FEATURE_MAP.md`)
 
@@ -18,7 +18,9 @@
 | **DATABASE.md** | `DATABASE.md` | Database design central doc | Active |
 | **Schema Overview** | `docs/database/schema-overview.md` | Table roles & relationships | Active |
 | **feat-platform-foundation SPEC** | `.sdd/specs/feat-platform-foundation/SPEC.md` | Platform boundary specification | Draft |
-| **feat-dict-lookup SPEC** | `.sdd/specs/feat-dict-lookup/SPEC.md` | Dictionary lookup API specification | Draft v0.1.0 (Updated to PostgreSQL 16) |
+| **feat-dict-lookup SPEC** | `.sdd/specs/feat-dict-lookup/SPEC.md` | Dictionary lookup API specification | v1.3.0 implementation status; PostgreSQL 16 |
+| **feat-tokenizer-deinflection SPEC** | `.sdd/specs/feat-tokenizer-deinflection/SPEC.md` | F-06 adapter and initial F-09 contract2 scope | User-authorized implementation; production dataset approval separate |
+| **feat-conjugation-explanation SPEC** | `.sdd/specs/feat-conjugation-explanation/SPEC.md` | F-09 expanded contract3 and frozen corpus .3 | G1/G2/G3 accepted for scoped corpus on 2026-10-14; production/Firefox parity separate |
 | **feat-grammar-detection SPEC** | `.sdd/specs/feat-grammar-detection/SPEC.md` | OD-010 decision authority (§1.4, clarification 2026-08-24) | Python + Sudachi via gRPC resolved |
 | **feat-auth SPEC** | `.sdd/specs/feat-auth/SPEC.md` | Auth specification | **Empty** — Pending specification |
 
@@ -68,19 +70,20 @@ Người học tiếng Nhật khi đọc văn bản thực tế phải chuyển 
 ## 3. Comprehensive Feature Map (F-01 to F-22)
 
 `MVP Status` dưới đây là mức ưu tiên/phạm vi yêu cầu, **không phải tiến độ**.
-Trạng thái implementation tại checkout ngày 2026-10-12:
+Trạng thái implementation/nghiệm thu tại checkout ngày 2026-10-14 (feature branch, không suy diễn merge/deploy):
 
 | Feature | Implementation và giới hạn | Bằng chứng |
 |---|---|---|
 | F-01/F-02 | Đã triển khai; F-02 merge/push `dev` tại `e01ee19`. Chrome/Edge/Brave đã có evidence; Firefox pending | `extension/src/boundary/`, `extension/src/browser/selection/`, `.sdd/specs/001-ruby-safe-dom-extraction/evidence/final-review.md` |
 | F-03/F-04 | Đã triển khai, kiểm chứng Chrome/Edge/Brave trên `feat/selection-popup-stale-protection`. Popup React/Shadow DOM, debounce 300ms, deadline 5s, Retry và interaction guard; Firefox pending | [Validation report](../.sdd/specs/feat-selection-popup/evidence/validation-report.md), `extension/src/interaction/`, `extension/src/ui/`, `extension/src/platform/` |
-| F-05 | Backend unified analysis đã triển khai; morphology/conjugation `unavailable` với mảng rỗng | `src/interface/Endpoints/AnalysisEndpoints.cs`, `src/usecase/Analysis/AnalyzeTextUseCase.cs` |
-| F-06 | Lookup exact form/reading đã triển khai; Dictionary vẫn đăng ký `NullTokenizerAdapter`, chưa nối Sidecar để deinflection hay tách đoạn thành từng từ; OD-010 đã chốt | `src/usecase/Dictionary/LookupWordUseCase.cs`, `src/infra/DependencyInjection.cs`, [OD-010](../.sdd/specs/feat-grammar-detection/SPEC.md#14-key-decision-tokenizer-od-010--resolved) |
+| F-05 | Default1 empty/unavailable;header2 typed one-or-none;header3 mọi phương án có chứng cứ,unknown400. Morphology rỗng/unavailable | `src/interface/Endpoints/AnalysisEndpoints.cs`, [API contract](api/mvp-api-contract.md) |
+| F-06 | Exact-first;gRPC deinflection khi pin dataset;candidate mới kiểm canonical POS/joint sense restriction. Unset Null,old pin/replay giữ;không sentence segmentation/production publication | `src/infra/Adapters/GrpcDictionaryTokenizerAdapter.cs`, [F09 report](../.sdd/specs/feat-conjugation-explanation/evidence/validation-report.md) |
 | F-07 | Kanji lookup đã triển khai; kết quả phụ thuộc dữ liệu đã nạp | `src/usecase/Kanji/LookupKanjiUseCase.cs` |
-| F-08 | Engine/gRPC/cache và Python + Sudachi Sidecar đã có code; Grammar đăng ký `GrpcGrammarTokenizerAdapter`. Seed hiện 5 mẫu; báo cáo F-06 không kiểm chứng live Sidecar hay coverage đầy đủ corpus N5–N4 reviewed | `src/usecase/Grammar/`, `sidecars/tokenizer/`, `src/infra/DependencyInjection.cs`, `src/infra/Persistence/SeedData/grammar_rules_seed.json` |
-| F-09–F-19 | Chưa có implementation cho conjugation, dịch, Web, auth và learning trong runtime hiện tại; F-19 vẫn Post-MVP | `src/interface/ApiComposition.cs`; `feat-auth/SPEC.md` hiện trống |
+| F-08 | Engine/gRPC/cache và Python + Sudachi Sidecar đã có; optional Compose nlp, UTF-16 spans/concurrency/privacy safeguards. Seed 5 mẫu; full N5–N4 reviewed corpus chưa đóng | `sidecars/tokenizer/`, [new runtime evidence](../.sdd/specs/feat-tokenizer-deinflection/evidence/validation-report.md) |
+| F-09 | `accepted_for_scoped_corpus`: G1/G2 đã duyệt,G3 xác nhận ngày2026-10-14;4 nhóm/60 ô/115 rule IDs/412 ca đã triển khai và kiểm thử. v3 giải thích mọi nghĩa có chứng cứ,VI/UTF16/base/immutable JSONB. Candidate vẫn development opt-in;Firefox parity/production chưa xác nhận | [F09 SPEC](../.sdd/specs/feat-conjugation-explanation/SPEC.md), [validation snapshot](../.sdd/specs/feat-conjugation-explanation/evidence/validation-report.md), [acceptance manifest](../.sdd/specs/feat-conjugation-explanation/evidence/acceptance-manifest.json) |
+| F-10–F-19 | Dịch, Web, auth và learning chưa triển khai; F-19 vẫn Post-MVP | `src/interface/ApiComposition.cs`; `feat-auth/SPEC.md` hiện trống |
 | F-20 | Đã có immutable snapshot guard và controlled publication transaction; chưa phải pipeline validation/approval dữ liệu hoàn chỉnh | `.agents/SDD.md`, `src/usecase/KnowledgeReleases/` |
-| F-21/F-22 | Đã có contract analysis/structured errors và một phần resilience/cache; chưa nghiệm thu toàn bộ version negotiation, rate limits và production operations | `docs/api/mvp-api-contract.md`, `.sdd/specs/feat-selection-popup/` |
+| F-21/F-22 | Analysis negotiate1/2/3 và structured errors đã có; một phần resilience/cache; support/deprecation toàn nền tảng, rate limits và production operations còn chờ | `docs/api/mvp-api-contract.md`, `.sdd/specs/feat-tokenizer-deinflection/` |
 
 [Verification F-03/F-04](../.sdd/specs/feat-selection-popup/evidence/validation-report.md):
 223/223 units, statement coverage 96.74%; 112/112 browser cases
@@ -93,9 +96,18 @@ hoàn thành MVP từ các dòng **Must/Should** hoặc gates đã pass trên ba
 
 OD-010 đã resolved tại F-08 §1.4 và clarification ngày 2026-08-24; code Sidecar
 được ghi nhận trong commit `82dc015` ngày 2026-08-30. `sidecars/tokenizer/` có
-`app.py`, requirements, Dockerfile và gRPC proto; Compose hiện chỉ chạy `db`.
-Phần còn lại là kiểm chứng live Sidecar, nối Dictionary deinflection/Unified
-morphology và triển khai F-09; lựa chọn công nghệ không còn là blocker.
+`app.py`, requirements, Dockerfile và gRPC proto; Compose thêm tokenizer tùy chọn
+profile `nlp`, không thay volume database. F-06/initial F-09 đã có implementation;
+verification mới tại [Tokenizer report](../.sdd/specs/feat-tokenizer-deinflection/evidence/validation-report.md),
+không dùng lại counts2026-10-12 để chứng nhận code mới. General morphology,
+sentence vocabulary segmentation, F-09 production publication/Firefox parity
+và OD-005 benchmarks còn chờ; lựa chọn provider không còn là blocker.
+
+F-09 G3 đã được Product Owner duyệt ngày 2026-10-14 cho đúng corpus .3 và
+candidate đã bind trong acceptance manifest:412/412 ca mapped,118 integration
+tests và136 browser tests đạt. Báo cáo validation giữ nguyên snapshot trước
+duyệt;manifest là trạng thái nghiệm thu hiện hành. Không suy approval thành
+production KnowledgeRelease,quyền migrate DB người dùng hoặc commit/push/merge.
 
 ### F-01: Japanese Text Detection
 * **Goal**: Xác định chính xác văn bản tiếng Nhật từ selection, tránh false positives.
@@ -167,7 +179,7 @@ morphology và triển khai F-09; lựa chọn công nghệ không còn là bloc
 * **Trigger**: Word unit nhận diện được là dạng chia biến đổi.
 * **Main flow**: Phân tích quy tắc biến đổi (ví dụ: 食べました → 食べる + ます + た) → hiển thị chuỗi giải thích ngữ pháp bằng tiếng Việt.
 * **Constraints**: Ưu tiên giải thích bằng tiếng Việt (CONJ-002).
-* **MVP Status**: **Must** (CONJ-001, CONJ-002); runtime chưa triển khai.
+* **MVP Status**: **Must** (CONJ-001, CONJ-002); corpus .3 scoped candidate đã triển khai/kiểm thử và nghiệm thu G1/G2/G3 (`accepted_for_scoped_corpus`). Production publication/Firefox runtime còn riêng, không tuyên bố mọi cấu trúc tiếng Nhật.
 
 ### F-10: On-Demand Translation
 * **Goal**: Dịch đoạn văn JP → VI / EN theo hành động yêu cầu chủ động (explicit) của người dùng.
@@ -262,7 +274,7 @@ morphology và triển khai F-09; lựa chọn công nghệ không còn là bloc
 * **Actor**: Browser Extension, Web Application, Backend.
 * **Trigger**: Mọi request giao tiếp client-server.
 * **Main flow**: Client gửi request theo versioned API contract → Backend validate runtime → Trả về thành công hoặc lỗi chuẩn dạng structured JSON `{ error_code, message, request_id }`.
-* **Constraints**: API contract provider-neutral (API-001); route baseline `/api/` không version URL, analysis trả `meta.contract_version: "1"`; negotiation/compatibility policy chưa khóa (API-002); structured error (API-004); không lộ stack trace internal (SEC-003).
+* **Constraints**: API contract provider-neutral (API-001); route baseline `/api/` không version URL, analysis negotiate `meta.contract_version: "1"`, `"2"` hoặc `"3"` (thiếu header mặc định1); support window/deprecation toàn nền tảng chưa khóa (API-002); structured error (API-004); không lộ stack trace internal (SEC-003).
 * **MVP Status**: **Must** (API-001–API-004).
 
 ### F-22: Reliability, Operations & Security (Rate Limiting, Caching, Protection)
@@ -288,7 +300,7 @@ morphology và triển khai F-09; lựa chọn công nghệ không còn là bloc
   4. Extension hiển thị Popup Shell kèm Loading ngay (`EXT-003`).
   5. Extension debounce request 300ms (`EXT-004`).
   6. Extension gửi Unified Analysis Request sang Backend (`EXT-006`).
-  7. Backend trả vocabulary/kanji/grammar cùng capability status; morphology/conjugation hiện `unavailable`.
+  7. Backend trả vocabulary/kanji/grammar cùng capability status; contract2 thêm một conjugation được xác nhận từ F-06, contract3 trả mọi phương án có chứng cứ, morphology vẫn `unavailable`.
   8. Popup trình bày phần dữ liệu khả dụng và báo rõ partial/failed/unavailable.
 * **Alternative flows**:
   * *Text không phải tiếng Nhật*: Không bật popup (`EXT-002`).
@@ -460,7 +472,7 @@ Dưới đây là danh sách 20 điểm mâu thuẫn / câu hỏi mở được 
 | 7 | **OD-007** | Định dạng chi tiết các cột khi Export ra Anki / Quizlet | **Blocker Post-MVP F-19** |
 | 8 | **OD-008** | Cấu trúc Matcher Metadata & chiến lược cắt câu an toàn (Safe Sentence Boundary) | Độ chính xác nhận diện ngữ pháp (F-08) |
 | 9 | **OD-009** | Đánh giá bản quyền & chất lượng tập dữ liệu nghĩa dịch Việt (FVDP/OVDP) | Ảnh hưởng chất lượng nghĩa dịch (F-06) |
-| 10 | **OD-010 — Resolved** | **Python + Sudachi, giao tiếp gRPC**, chốt tại F-08 §1.4 / clarification 2026-08-24 | Sidecar và Grammar adapter đã có code; Dictionary deinflection/Unified morphology/F-09 còn thiếu tích hợp hoặc implementation và live verification |
+| 10 | **OD-010 — Resolved** | **Python + Sudachi, giao tiếp gRPC**, chốt tại F-08 §1.4 / clarification 2026-08-24 | Sidecar/F-06 adapter đã có;F-09 corpus .3 scoped đã nghiệm thu G1/G2/G3. General morphology và production publication còn riêng |
 | 11 | **OD-011** | F-03/F-04 chọn open Shadow DOM/nonmodal/selection anchoring tại feature SPEC; không trở thành visual standard toàn dự án | Verification keyboard/focus/hostile CSS |
 | 12 | **OD-012** | Thuật toán hiển thị & lưu trạng thái nút Đã biết/Chưa biết trong Quick Review | Logic ôn tập (F-18) |
 | 13 | **OD-013** | Thời hạn lưu trữ thông tin xóa mềm (Soft-delete retention & purge policy) | Quản lý dữ liệu người dùng (F-16, F-17) |

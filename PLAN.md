@@ -386,3 +386,123 @@ Testcontainers tests, Extension typecheck/223 units/production build.
 
 This task records the existing decision; it does not implement Dictionary/F-09 integration
 or claim live Sidecar verification.
+
+## Current Task — Dictionary Deinflection & Initial F-09 (2026-10-13)
+
+- [x] Commit reviewed OD-010 corrections separately (`c0cb500`).
+- [x] Smoke unchanged Sudachi Docker image and inspect actual token chains.
+- [x] Review approved feature SPEC/PLAN and scoped contract evolution.
+- [x] Implement UTF-16/privacy/concurrency, immutable data-driven F-06 adapter and initial F-09 API/popup.
+- [x] Verify caller cancellation/provider failures, whole-chain negatives and immutable/new datasets.
+- [x] Run Docker12, .NET58 unit/83 integration, FE236 unit/121 browser tests; Release/typecheck/build/Unicode and coverage gates pass.
+- [x] Complete independent review with no outstanding P1/P2.
+- [x] Synchronize feature/F-05/F-06 tasks, API, Feature Map, README and Project Memory.
+
+All16 scoped feature tasks complete; no separate phase files under this feature.
+Evidence: `.sdd/specs/feat-tokenizer-deinflection/evidence/validation-report.md`.
+Production linguistic signoff/full corpus, generic morphology, sentence segmentation,
+Firefox execution and OD-005 certification remain separate. Current feature changes
+not pushed/merged/deployed; local Composer Sidecar is healthy and user DB preserved.
+
+### Issues Encountered
+
+Resolved: new integration harness lifecycle duplicated seed data; shared class fixture
+now owns provider/DB initialization and cleanup. SQL JSON brace escaping and generated
+test token type corrected. Fresh full suites pass; no tests suppressed.
+Final Git audit also corrected a broad data-directory ignore with a narrow exception
+for the source JSON knowledge dataset; generated dictionary artifacts stay ignored.
+
+## Current Task — F-09 Corpus Specification (2026-10-13)
+
+- [x] Receive approval for the documentation-only Shadow Plan.
+- [x] Compare product/constitutional authority with the initial nine-rule implementation.
+- [x] Create `.sdd/specs/feat-conjugation-explanation/SPEC.md` for corpus scope, linguistic review and conditional gap completion.
+- [x] Validate requirements/acceptance traceability and the separate quality checklist.
+- [x] Set active Spec Kit feature directory and record the documentation boundary in memory.
+
+Specification only: no feature PLAN/TASKS, runtime edits, data approval, commit or merge.
+The existing nine-rule implementation is reused, not rewritten. Corpus approval is the
+first future deliverable; supplementation is required only for approved missing cases.
+
+## Current Task — F-09 Corpus Implementation Planning (2026-10-13)
+
+- [x] Receive Proceed for the planning-only Shadow Plan.
+- [x] Run Spec Kit setup against the pinned F-09 feature and read generated template.
+- [x] Research current runtime/schema, review-state and production-publication boundaries.
+- [x] Write feature PLAN with ordered A/B/C steps, owner approvals, exact files, outputs and tests.
+- [x] Generate research/data-model/contracts/quickstart artifacts and recheck Constitution.
+- [x] Validate links, placeholders, FR-001–010 traceability, Spec Kit prerequisites and source-file fingerprint.
+
+Design complete; execution status pending. No feature TASKS, approved corpus/review data,
+runtime edits, migration execution, new dependency, commit/merge or production activation.
+Production dataset eligibility needs a separate controlled-publication gate; the current
+parser still expects development data. Corpus selection/review are future human gates,
+not unresolved technical assumptions or approvals implied by this planning request.
+
+## Current Task — F-09 Task Generation (2026-10-13)
+
+- [x] Receive explicit user request to generate detailed TASKS from the existing PLAN.
+- [x] Resolve active F-09 feature/template with setup-tasks and inspect design artifacts.
+- [x] Generate 42 dependency-ordered tasks: setup/foundation4, US1 scope8, US2 review8, US3 conditional completion18, handoff4.
+- [x] Preserve human G1/G2/G3, implementation authorization, no-op evidence and separate production-publication boundary.
+- [x] Validate checklist IDs/labels/paths/story counts, design links/traceability, prerequisites and source fingerprint.
+
+Generation complete; all42 execution tasks remain unchecked. No corpus/review receipts,
+runtime/test code, dataset/migration, installed dependencies or Git writes changed.
+
+## Current Task — F-09 Corpus Execution (2026-10-13)
+
+- [x] Trình Shadow Plan và nhận `Proceed` để chuẩn bị corpus 9 quy tắc.
+- [x] Ghi trạng thái đầu vào, môi trường, baseline dataset/seed/migration; giữ nguyên working tree trước đó.
+- [x] Soạn 9 quyết định phạm vi, 21 ca đúng, 9 ca âm và 6 ca bảo vệ với đáp án/UTF-16/nguồn ở trạng thái đề xuất.
+- [x] Kiểm tra cấu trúc, tham chiếu, số ca tối thiểu và hash gói phạm vi.
+- [x] Người dùng thay phạm vi bằng B: bốn nhóm từ, cả thể nâng cao bị động/sai khiến/điều kiện; lưu gói 9-rule cũ như draft chưa duyệt và mở lại T005–T010.
+- [x] Người dùng chọn hiển thị cả các cách hiểu có chứng cứ cho dạng mơ hồ như `食べられる`; sửa SPEC/PLAN/TASKS cho contract3 tương thích ngược, chưa code trước G1/G2.
+- [x] Soạn `corpus/expanded-20261013.1/case-review.md` với 59 ô (hai ca đúng đề xuất và ca âm/ranh giới mỗi ô), ca đa nghĩa/bất quy tắc/xuyên nhóm; kiểm đếm ID, giữ trạng thái nháp để người dùng duyệt.
+- [x] Tạo `corpus/expanded-20261013.1/cases.json` bản nháp 173 ca/59 ô để đối chiếu máy; chưa có segmentation/fixture được duyệt và chưa gồm hết biến thể phụ, không tick T007/G1.
+- [x] Ghi nhận người dùng duyệt bản .1 bằng biên nhận/hash; giữ nguyên các file đã trình bày.
+- [x] Hoàn thiện/freeze f09-expanded-20261013.2: 59 ô, 408 ca, 107 rule IDs đề xuất và 17 fixtures; từng ca hỗ trợ đủ VI/base/components/UTF-16.
+- [x] Đối chiếu 365 đầu vào duy nhất qua gRPC Docker; kiểm 13 ca baseline, 8 guard tests và binding 11 file/hash đạt.
+- [x] Ghi nhận người dùng chọn kính ngữ れる/られる và cả hai cách hiểu của 食べさせられる; tạo corpus .3 với60 ô/412 ca/115 rule IDs, giữ .1/.2 nguyên vẹn.
+- [x] Quan sát369 đầu vào .3 qua gRPC Docker; kiểm cấu trúc/UTF-16 và8 guard tests đạt, không coi là runtime semantic acceptance.
+- [x] G1: Người dùng duyệt gói .3; reviews/user-review-receipt-20261013.3.json bind đúng hashes.
+- [x] G2: Người dùng duyệt batch mọi ô/quy tắc/nội dung .3, gồm9 baseline; nguồn tham khảo-only không import ngoại văn.
+- [x] G3: PO duyệt2026-10-14;acceptance-manifest.json bind đúng artifacts/hash;không production/Firefox authorization.
+
+### Issues Encountered
+
+- Docker pipe bị sandbox chặn ở lần kiểm tra đầu; truy cập được Docker Engine 29.6.1 sau quyền cục bộ giới hạn cho lệnh kiểm tra/image đã có. Không xóa container/volume.
+- Corpus gốc mới có 13 ca đúng và chưa có đáp án ngôn ngữ được duyệt; gói mới là proposed, không tự đánh dấu approved dù kiểm tra cấu trúc đạt.
+- Lựa chọn B xuất hiện sau gói 9-rule proposed; cần bộ ca/nguồn/manifest B mới trước G1, và có khả năng cần sửa engine chứ không chỉ JSON data.
+
+## Current Task — F-09 Candidate Completion (2026-10-14)
+
+- [x] Nhận yêu cầu làm nốt v3/popup,dataset/migration,verification;giữ corpus frozen/G1/G2 đã duyệt.
+- [x] Tạo parameterized candidate/reader/resource;EF migration mới INSERT-only,không migrate DB người dùng.
+- [x] Canonical POS/joint sense applicability;contract1/2 compatible,contract3 mọi nghĩa;popup/validator/header3.
+- [x] Corpus404 real-gRPC/SQL +7 faults +browser ASYNC mapping;kiểm VI/segments/UTF16,old replay/immutability,HTTP→TS interoperability.
+- [x] FE251 units và browser136,Sidecar12;modified usecase coverage≥85%;không thêm dependency.
+- [x] Independent review P1 class-dedupe đã sửa với regression red→green;cycle2 không còn P1/P2. Final79 units/118integration pass,0 failures/skips.
+- [x] PO G3 accepted_for_scoped_corpus;F09 plan42/42 complete. Firefox runtime/production publication riêng,không commit/push/merge mặc định.
+
+Issues/resolutions chi tiết ở feature PLAN.md;giữ toàn bộ bằng chứng/hashes cũ.
+
+## Current Task — Windows Local Backend Startup Fix (2026-10-14)
+
+- [x] Nhận Proceed;chẩn đoán thiếu DefaultConnection/AppDbContext và startup nuốt lỗi.
+- [x] Test red→green;DI fail-fast,startup guard,helper nạp literal .env và khôi phục process environment.
+- [x] Release build0 warning/error;17 focused,79 backend unit,135 integration,251 frontend unit và typecheck đạt.
+- [x] Independent review PASS_WITH_RISK cho Windows;người dùng loại Ubuntu khỏi scope,test CI Linux chưa sửa.
+- [x] README/local guide,journal,memory và artifact evidence;giữ F09 hash-bound snapshots.
+
+Windows handoff complete;user tự Ctrl+C backend cũ rồi chạy scripts/start-local.ps1.
+Không restart/migrate DB người dùng,cài dependencies,commit/push/merge. CI Ubuntu
+vẫn là giới hạn trước Git delivery;không tuyên bố gate hook đạt vì hook không có.
+
+## Follow-up — Authorized Local Git Checkpoint (2026-10-14)
+
+- [x] Người dùng cho phép commit cả F06/F09 và bản sửa Windows, chỉ local; không push/merge.
+- [x] Giữ nguyên12 hash bindings nghiệm thu; pin line endings bằng .gitattributes, không sửa whitespace trong snapshots frozen.
+- [x] Ghi coherent commits cho SPEC/corpus, implementation/tests/script và tài liệu; không đưa secrets/generated test results/harness JSON vào Git.
+
+Checkpoint local không giải quyết CI Ubuntu hoặc thay cho workflow hook chưa có; các bằng chứng nghiệm thu cũ giữ nguyên.

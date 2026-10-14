@@ -1,0 +1,131 @@
+{
+  "schema_version": 1,
+  "corpus_version": "f09-expanded-20261013.2",
+  "status": "reference_sources_verified_editorial_acceptance_pending",
+  "use_boundary": "Local synthetic corpus verification. External PDFs are consulted and linked only; their text/images are not imported or redistributed.",
+  "sources": [
+    {
+      "source_id": "jf-irodori-grammar-notes",
+      "kind": "grammar_reference",
+      "publisher": "The Japan Foundation",
+      "title": "Irodori Grammar Notes (Starter through Pre-Intermediate)",
+      "url": "https://www.irodori.jpf.go.jp/assets/data/Grammar_all.pdf",
+      "edition": "Exact HTTP snapshot retrieved on 2026-10-13; identified by URL, Last-Modified and SHA-256",
+      "accessed_date": "2026-10-13",
+      "last_modified": "Thu, 25 Jun 2026 10:47:48 GMT",
+      "size_bytes": 6055356,
+      "sha256": "3c54a7740a22c582f0ba4b834054c0e7ea5e817c18bccbad2519379f11ecd98d",
+      "license_status": "reference_only_no_content_import",
+      "policy_url": "https://www.irodori.jpf.go.jp/en/privacy.html",
+      "external_content_imported": false,
+      "publication_permission": "not_granted_by_reference_use",
+      "use": "Reference to grammatical paradigms; all Vietnamese descriptions and fixture strings are independently authored",
+      "locations": [
+        {
+          "topic": "ii/yoi",
+          "pdf_pages_one_based": [
+            47,
+            55,
+            56
+          ]
+        },
+        {
+          "topic": "potential/passive ambiguity",
+          "pdf_pages_one_based": [
+            152
+          ]
+        },
+        {
+          "topic": "imperative and prohibition",
+          "pdf_pages_one_based": [
+            173,
+            174
+          ]
+        },
+        {
+          "topic": "causative",
+          "pdf_pages_one_based": [
+            208,
+            209
+          ]
+        },
+        {
+          "topic": "causative-passive and shortened form",
+          "pdf_pages_one_based": [
+            239
+          ]
+        }
+      ]
+    },
+    {
+      "source_id": "jf-irodori-plain-polite-table",
+      "kind": "grammar_reference",
+      "publisher": "The Japan Foundation",
+      "title": "Irodori Pre-Intermediate Lesson 9",
+      "url": "https://www.irodori.jpf.go.jp/assets/data/pre-intermediate/pdf/ZZ_L09.pdf",
+      "edition": "Exact HTTP snapshot retrieved on 2026-10-13; identified by URL, Last-Modified and SHA-256",
+      "accessed_date": "2026-10-13",
+      "last_modified": "Mon, 30 Mar 2026 09:58:54 GMT",
+      "size_bytes": 6036143,
+      "sha256": "5100103517af833ab56d5b2197559dc1d9fb4b3e018d9e090576c54708a33f2c",
+      "license_status": "reference_only_no_content_import",
+      "policy_url": "https://www.irodori.jpf.go.jp/en/privacy.html",
+      "external_content_imported": false,
+      "publication_permission": "not_granted_by_reference_use",
+      "use": "Reference for noun/na/verb/i-adjective plain and polite paradigms",
+      "locations": [
+        {
+          "topic": "four-group plain/polite table",
+          "pdf_pages_one_based": [
+            28,
+            29
+          ]
+        }
+      ]
+    },
+    {
+      "source_id": "f09-project-editorial-b",
+      "kind": "project_authored_proposal",
+      "publisher": "JP Reading Platform project",
+      "author": "AI preparation; user is appointed reviewer",
+      "title": "F-09 completed synthetic examples and Vietnamese explanations",
+      "artifact": "cases.json",
+      "sha256": "c01782fe102c072b774701f53028f901e02f6ba631d5d3abd60c2397f147c980",
+      "license_status": "project_authored_pending_final_editorial_acceptance",
+      "external_content_imported": false,
+      "use": "Project-authored linguistic proposal, including component explanations, synthetic dictionary entries and inference from referenced paradigms; human final review is required",
+      "inferences": [
+        {
+          "rule_family": "conjugation:verb-causative-potential",
+          "basis": "Apply the ichidan potential paradigm to a causative form. Same surface as causative-passive; explicitly submitted for reviewer confirmation."
+        }
+      ]
+    },
+    {
+      "source_id": "f09-sudachi-observations",
+      "kind": "technical_observation",
+      "publisher": "JP Reading Platform isolated Docker run",
+      "title": "365 synthetic inputs through actual gRPC Sidecar code",
+      "artifact": "../../evidence/expanded-sudachi-observations-20261013.2.json",
+      "sha256": "d6ffacf4891c5df65cd2a8f568a2e1ed981a53b88cd4639d5c1791221e06ec24",
+      "license_status": "project_observation_no_external_content_import",
+      "external_content_imported": false,
+      "use": "Provider token boundaries and metadata only; never an oracle for Vietnamese meaning",
+      "provider": {
+        "SudachiPy": "0.7.0",
+        "sudachidict_core": "20260723.1",
+        "grpcio": "1.84.0"
+      }
+    },
+    {
+      "source_id": "f09-baseline-development-seed",
+      "kind": "development_baseline",
+      "publisher": "JP Reading Platform project",
+      "artifact": "src/infra/Conjugation/Data/development-20261013.1.json",
+      "sha256": "a7b45afec6f2f4cbf38a95225620868151026795b9490924920a949d8b9dc003",
+      "license_status": "project_development_baseline_pending_linguistic_acceptance",
+      "external_content_imported": false,
+      "use": "9 stable baseline rule IDs retained; proposed text revisions increment rule versions from 1 to 2"
+    }
+  ]
+}

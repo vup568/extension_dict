@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "corpus_version": "f09-nine-rules-20261013.1",
+  "baseline_dataset_version": "development-20261013.1",
+  "scope": "Nine existing whole-word conjugation rules only",
+  "scope_decision_from_user": "Keep the nine existing rules in the present acceptance pass; user will perform linguistic review. Exact corpus and answers remain draft.",
+  "excluded_groups": ["te-form", "passive", "causative", "na-adjective", "sentence segmentation", "generic morphology"],
+  "cases_file": "cases.json",
+  "cases_sha256": "fa10eda9a5883751c7adeaeaaf73485a2ea94e6dffe0f857c35a486bf88c3052",
+  "scope_material_ref": "scope-material.json",
+  "scope_material_sha256": "9c541d95e04648f898abb167286865fa8bbac5118da87121f2815c1a39edcf0e",
+  "items": [
+    {"rule_id":"conjugation:verb-polite-nonpast","rule_version":1,"word_group":"verb","decision":"keep","inclusion":"required","rationale":"Existing polite nonpast form; one live baseline example, second example and false-positive needed.","case_ids":["VNP-01","VNP-02","VNP-N01"],"source_refs":["development_seed","editorial_draft","sudachi_observation"]},
+    {"rule_id":"conjugation:verb-polite-past","rule_version":1,"word_group":"verb_irregular","decision":"keep","inclusion":"required","rationale":"Existing polite past form includes する/来る examples; inspect all against a reviewed answer.","case_ids":["VPP-01","VPP-02","VPP-03","VPP-04","VPP-N01"],"source_refs":["development_seed","editorial_draft","sudachi_observation"]},
+    {"rule_id":"conjugation:verb-negative","rule_version":1,"word_group":"verb","decision":"keep","inclusion":"required","rationale":"Existing plain negative; add a second verb and negative boundary case.","case_ids":["VN-01","VN-02","VN-N01"],"source_refs":["development_seed","editorial_draft","sudachi_observation"]},
+    {"rule_id":"conjugation:verb-negative-past","rule_version":1,"word_group":"verb","decision":"keep","inclusion":"required","rationale":"Existing plain negative past; verify auxiliary breakdown with a second verb.","case_ids":["VNPST-01","VNPST-02","VNPST-N01"],"source_refs":["development_seed","editorial_draft","sudachi_observation"]},
+    {"rule_id":"conjugation:verb-past","rule_version":1,"word_group":"verb","decision":"keep","inclusion":"required","rationale":"Existing past form covers regular, i-onbin and nasal variants; retain those variants.","case_ids":["VPST-01","VPST-02","VPST-03","VPST-N01"],"source_refs":["development_seed","editorial_draft","sudachi_observation"]},
+    {"rule_id":"conjugation:verb-polite-negative","rule_version":1,"word_group":"verb","decision":"keep","inclusion":"required","rationale":"Existing polite negative; inspect ませ + ん and a second verb.","case_ids":["VPN-01","VPN-02","VPN-N01"],"source_refs":["development_seed","editorial_draft","sudachi_observation"]},
+    {"rule_id":"conjugation:adjective-past","rule_version":1,"word_group":"i_adjective","decision":"keep","inclusion":"required","rationale":"Existing i-adjective past; add a second adjective and punctuation boundary.","case_ids":["APST-01","APST-02","APST-N01"],"source_refs":["development_seed","editorial_draft","sudachi_observation"]},
+    {"rule_id":"conjugation:adjective-negative","rule_version":1,"word_group":"i_adjective","decision":"keep","inclusion":"required","rationale":"Existing i-adjective negative; add a second adjective and punctuation boundary.","case_ids":["AN-01","AN-02","AN-N01"],"source_refs":["development_seed","editorial_draft","sudachi_observation"]},
+    {"rule_id":"conjugation:adjective-negative-past","rule_version":1,"word_group":"i_adjective","decision":"keep","inclusion":"required","rationale":"Existing i-adjective negative past; add a second adjective and punctuation boundary.","case_ids":["ANPST-01","ANPST-02","ANPST-N01"],"source_refs":["development_seed","editorial_draft","sudachi_observation"]}
+  ],
+  "approval": {"state":"draft","approver":null,"approved_at_utc":null,"reviewer_id":null,"note":"The chat scope choice is recorded, but exact version/hash and individual answers have not been signed off."}
+}

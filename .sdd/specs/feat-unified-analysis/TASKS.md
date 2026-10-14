@@ -1,10 +1,18 @@
 # TASKS: Unified Analysis API (F-05)
 
 **Feature:** feat-unified-analysis  
-**Spec:** [SPEC.md](./SPEC.md) v0.2.0  
-**Plan:** [PLAN.md](./PLAN.md) v1.0.0  
+**Spec:** [SPEC.md](./SPEC.md) v0.3.0
+**Plan:** [PLAN.md](./PLAN.md) v1.1.0
 **Created:** 2026-09-04  
 **Branch:** `feat/grammar-detection`
+
+> **Update 2026-10-13:** Completed tasks/counts below record the historical contract1
+> baseline. Initial F-09 now reuses F-06 typed detail/status; endpoint negotiates1/2
+> (default1 empty/unavailable, opt-in2 typed VI/UTF-16 segments, unknown400).
+> General morphology remains unavailable. Extension tasks and fresh validation live
+> in [Tokenizer TASKS](../feat-tokenizer-deinflection/TASKS.md) and
+> [report](../feat-tokenizer-deinflection/evidence/validation-report.md), not in old counts.
+> Full F-09 corpus/production linguistic signoff remain separate unfinished gates.
 
 ---
 
@@ -24,7 +32,7 @@
   - `Tokens` (empty list — future morphology)
   - `DictionaryMatches` → reuse `EntryMatchDto` từ F-06
   - `Kanji` → reuse `KanjiDetailDto` từ F-07
-  - `Conjugations` (empty list — future F-09)
+  - `Conjugations` (historical empty list; now typed F-06 detail for opt-in2)
   - `GrammarOccurrences` → reuse `GrammarOccurrenceDto` từ F-08
   - `Capabilities` map
 - [x] Verify: KHÔNG duplicate DTO — chỉ import từ existing namespaces
@@ -50,7 +58,7 @@
   - [x] Use case return thành công → `CapabilityStatus.Completed`
   - [x] Use case throw exception → `CapabilityStatus.Failed`, result = empty list
   - [x] Morphology luôn = `CapabilityStatus.Unavailable`, `tokens = []`
-  - [x] Conjugation luôn = `CapabilityStatus.Unavailable`, `conjugations = []`
+  - [x] Historical/default1 Conjugation = `CapabilityStatus.Unavailable`, `conjugations = []`; opt-in2 extension tracked separately
 - [x] **All-failed check:** nếu cả 3 (Vocab + Kanji + Grammar) đều `Failed` → throw `AllCapabilitiesFailedException` [AC-007]
 - [x] **Privacy:** KHÔNG log `text` hoặc `context` vào application logs [PRIV-002, AC-011]
 - [x] **Translation isolation:** KHÔNG gọi translation endpoint [TRN-004, AC-014]
@@ -146,7 +154,7 @@
   - [x] Vocabulary throws (text > 255) → `capabilities.vocabulary = "failed"`, khác vẫn OK
 - [x] **Static capability tests:**
   - [x] Morphology luôn `"unavailable"`, tokens luôn `[]` [AC-006]
-  - [x] Conjugation luôn `"unavailable"`, conjugations luôn `[]` [AC-006]
+  - [x] Conjugation `"unavailable"`, conjugations `[]` without provider/default1 [AC-006]; opt-in2 covered by Tokenizer feature
 - [x] **All-failed test:**
   - [x] Cả 3 capabilities throw → `AllCapabilitiesFailedException` [AC-007]
 

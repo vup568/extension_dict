@@ -1,0 +1,3341 @@
+{
+  "schema_version": 1,
+  "review_version": "f09-user-approval-20261013.3",
+  "corpus_version": "f09-expanded-20261013.3",
+  "reviewer_id": "project-owner-current-chat",
+  "reviewed_date": "2026-10-13",
+  "approval_method": "explicit_user_batch_approval_of_linked_packet",
+  "receipt_ref": "user-review-receipt-20261013.3.json",
+  "scope_material_sha256": "01997f4191863a4beb04e6872ea5f21145560da0c368eec043c209a37ea7889f",
+  "cases_sha256": "ca3e3ff71b4d97a96e33c70695d5cfb067244bb6cf63a7d3340cd901dd7883c4",
+  "sources_sha256": "13e9637e25e00cbd77c3d7c49a103e42f165c18ba7bbc91dacb57a08144ab8d2",
+  "blocking_issues": [],
+  "source_use": "Project authored synthetic examples and Vietnamese; external sources referenced only, no content redistribution licensed by this approval",
+  "slots": [
+    {
+      "slot_id": "V00",
+      "conclusion": "accepted",
+      "case_ids": [
+        "V00-P1",
+        "V00-P2"
+      ]
+    },
+    {
+      "slot_id": "V01",
+      "conclusion": "accepted",
+      "case_ids": [
+        "V01-P1",
+        "V01-P2",
+        "V01-IRR-suru",
+        "V01-IRR-kuru",
+        "V01-N1"
+      ]
+    },
+    {
+      "slot_id": "V02",
+      "conclusion": "accepted",
+      "case_ids": [
+        "V02-P1",
+        "V02-P2",
+        "V02-IRR-suru",
+        "V02-IRR-kuru",
+        "V02-N1",
+        "MIS-01",
+        "ERR-01",
+        "ERR-02",
+        "DATA-01",
+        "VI-01",
+        "DB-01",
+        "SENT-01",
+        "CANCEL-01"
+      ]
+    },
+    {
+      "slot_id": "V03",
+      "conclusion": "accepted",
+      "case_ids": [
+        "V03-P1",
+        "V03-P2",
+        "V03-IRR-suru",
+        "V03-IRR-kuru",
+        "V03-N1"
+      ]
+    },
+    {
+      "slot_id": "V04",
+      "conclusion": "accepted",
+      "case_ids": [
+        "V04-P1",
+        "V04-P2",
+        "V04-IRR-suru",
+        "V04-IRR-kuru",
+        "V04-N1"
+      ]
+    },
+    {
+      "slot_id": "V05",
+      "conclusion": "accepted",
+      "case_ids": [
+        "V05-P1",
+        "V05-P2",
+        "V05-IRR-suru",
+        "V05-IRR-kuru",
+        "V05-ONBIN-yomu",
+        "V05-N1"
+      ]
+    },
+    {
+      "slot_id": "V06",
+      "conclusion": "accepted",
+      "case_ids": [
+        "V06-P1",
+        "V06-P2",
+        "V06-IRR-suru",
+        "V06-IRR-kuru",
+        "V06-N1"
+      ]
+    },
+    {
+      "slot_id": "V07",
+      "conclusion": "accepted",
+      "case_ids": [
+        "V07-P1",
+        "V07-P2",
+        "V07-IRR-suru",
+        "V07-IRR-kuru",
+        "V07-N1"
+      ]
+    },
+    {
+      "slot_id": "V08",
+      "conclusion": "accepted",
+      "case_ids": [
+        "V08-P1",
+        "V08-P2",
+        "V08-IRR-suru",
+        "V08-IRR-kuru",
+        "V08-ONBIN-行く",
+        "V08-ONBIN-読む",
+        "V08-N1"
+      ]
+    },
+    {
+      "slot_id": "V09",
+      "conclusion": "accepted",
+      "case_ids": [
+        "V09-P1",
+        "V09-P2",
+        "V09-IRR-suru",
+        "V09-IRR-kuru",
+        "V09-WITHOUT-P1",
+        "V09-WITHOUT-P2",
+        "V09-N1",
+        "NEG-RULE-verb-negative-connective:without"
+      ]
+    },
+    {
+      "slot_id": "V10",
+      "conclusion": "accepted",
+      "case_ids": [
+        "V10-P1",
+        "V10-P2",
+        "V11-P1",
+        "V10-C-plain_past-P1",
+        "V10-C-plain_past-P2",
+        "V10-C-plain_negative-P1",
+        "V10-C-plain_negative-P2",
+        "V10-C-plain_negative_past-P1",
+        "V10-C-plain_negative_past-P2",
+        "V10-C-polite_nonpast-P1",
+        "V10-C-polite_nonpast-P2",
+        "V10-C-polite_past-P1",
+        "V10-C-polite_past-P2",
+        "V10-C-polite_negative-P1",
+        "V10-C-polite_negative-P2",
+        "V10-C-polite_negative_past-P1",
+        "V10-C-polite_negative_past-P2",
+        "V11-C-plain_past-P1",
+        "V11-C-plain_negative-P1",
+        "V11-C-plain_negative_past-P1",
+        "V11-C-polite_nonpast-P1",
+        "V11-C-polite_past-P1",
+        "V11-C-polite_negative-P1",
+        "V11-C-polite_negative_past-P1",
+        "V11-IRR-kuru",
+        "V10-IRR-suru",
+        "V10-IRR-kuru",
+        "AMB-01",
+        "EXACT-DERIVED-書ける",
+        "EXACT-DERIVED-できる",
+        "V10-N1",
+        "NEG-RULE-verb-potential:plain-past",
+        "NEG-RULE-verb-potential:plain-negative",
+        "NEG-RULE-verb-potential:plain-negative-past",
+        "NEG-RULE-verb-potential:polite-nonpast",
+        "NEG-RULE-verb-potential:polite-past",
+        "NEG-RULE-verb-potential:polite-negative",
+        "NEG-RULE-verb-potential:polite-negative-past",
+        "ASYNC-01"
+      ]
+    },
+    {
+      "slot_id": "V11",
+      "conclusion": "accepted",
+      "case_ids": [
+        "V11-P1",
+        "V11-P2",
+        "V11-C-plain_past-P1",
+        "V11-C-plain_past-P2",
+        "V11-C-plain_negative-P1",
+        "V11-C-plain_negative-P2",
+        "V11-C-plain_negative_past-P1",
+        "V11-C-plain_negative_past-P2",
+        "V11-C-polite_nonpast-P1",
+        "V11-C-polite_nonpast-P2",
+        "V11-C-polite_past-P1",
+        "V11-C-polite_past-P2",
+        "V11-C-polite_negative-P1",
+        "V11-C-polite_negative-P2",
+        "V11-C-polite_negative_past-P1",
+        "V11-C-polite_negative_past-P2",
+        "V11-IRR-suru",
+        "V11-IRR-kuru",
+        "V10-IRR-kuru",
+        "AMB-01",
+        "V11-N1",
+        "NEG-RULE-verb-passive:plain-past",
+        "NEG-RULE-verb-passive:plain-negative",
+        "NEG-RULE-verb-passive:plain-negative-past",
+        "NEG-RULE-verb-passive:polite-nonpast",
+        "NEG-RULE-verb-passive:polite-past",
+        "NEG-RULE-verb-passive:polite-negative",
+        "NEG-RULE-verb-passive:polite-negative-past",
+        "ASYNC-01"
+      ]
+    },
+    {
+      "slot_id": "V12",
+      "conclusion": "accepted",
+      "case_ids": [
+        "V12-P1",
+        "V12-P2",
+        "V12-C-plain_past-P1",
+        "V12-C-plain_past-P2",
+        "V12-C-plain_negative-P1",
+        "V12-C-plain_negative-P2",
+        "V12-C-plain_negative_past-P1",
+        "V12-C-plain_negative_past-P2",
+        "V12-C-polite_nonpast-P1",
+        "V12-C-polite_nonpast-P2",
+        "V12-C-polite_past-P1",
+        "V12-C-polite_past-P2",
+        "V12-C-polite_negative-P1",
+        "V12-C-polite_negative-P2",
+        "V12-C-polite_negative_past-P1",
+        "V12-C-polite_negative_past-P2",
+        "V12-IRR-suru",
+        "V12-IRR-kuru",
+        "V12-N1",
+        "NEG-RULE-verb-causative:plain-past",
+        "NEG-RULE-verb-causative:plain-negative",
+        "NEG-RULE-verb-causative:plain-negative-past",
+        "NEG-RULE-verb-causative:polite-nonpast",
+        "NEG-RULE-verb-causative:polite-past",
+        "NEG-RULE-verb-causative:polite-negative",
+        "NEG-RULE-verb-causative:polite-negative-past"
+      ]
+    },
+    {
+      "slot_id": "V13",
+      "conclusion": "accepted",
+      "case_ids": [
+        "V13-P1",
+        "V13-P2",
+        "V13-C-plain_past-P1",
+        "V13-C-plain_past-P2",
+        "V13-C-plain_negative-P1",
+        "V13-C-plain_negative-P2",
+        "V13-C-plain_negative_past-P1",
+        "V13-C-plain_negative_past-P2",
+        "V13-C-polite_nonpast-P1",
+        "V13-C-polite_nonpast-P2",
+        "V13-C-polite_past-P1",
+        "V13-C-polite_past-P2",
+        "V13-C-polite_negative-P1",
+        "V13-C-polite_negative-P2",
+        "V13-C-polite_negative_past-P1",
+        "V13-C-polite_negative_past-P2",
+        "V13-IRR-suru",
+        "V13-IRR-kuru",
+        "V13-SHORT-書く",
+        "V13-SHORT-読む",
+        "V13-N1",
+        "NEG-RULE-verb-causative-potential",
+        "NEG-RULE-verb-causative-passive:plain-past",
+        "NEG-RULE-verb-causative-potential:plain-past",
+        "NEG-RULE-verb-causative-passive:plain-negative",
+        "NEG-RULE-verb-causative-potential:plain-negative",
+        "NEG-RULE-verb-causative-passive:plain-negative-past",
+        "NEG-RULE-verb-causative-potential:plain-negative-past",
+        "NEG-RULE-verb-causative-passive:polite-nonpast",
+        "NEG-RULE-verb-causative-potential:polite-nonpast",
+        "NEG-RULE-verb-causative-passive:polite-past",
+        "NEG-RULE-verb-causative-potential:polite-past",
+        "NEG-RULE-verb-causative-passive:polite-negative",
+        "NEG-RULE-verb-causative-potential:polite-negative",
+        "NEG-RULE-verb-causative-passive:polite-negative-past",
+        "NEG-RULE-verb-causative-potential:polite-negative-past",
+        "NEG-RULE-verb-causative-passive:contracted"
+      ]
+    },
+    {
+      "slot_id": "V14",
+      "conclusion": "accepted",
+      "case_ids": [
+        "V14-P1",
+        "V14-P2",
+        "V14-IRR-suru",
+        "V14-IRR-kuru",
+        "V14-N1"
+      ]
+    },
+    {
+      "slot_id": "V15",
+      "conclusion": "accepted",
+      "case_ids": [
+        "V15-P1",
+        "V15-P2",
+        "V15-IRR-suru",
+        "V15-IRR-kuru",
+        "V15-N1"
+      ]
+    },
+    {
+      "slot_id": "V16",
+      "conclusion": "accepted",
+      "case_ids": [
+        "V16-P1",
+        "V16-P2",
+        "V16-IRR-suru",
+        "V16-IRR-kuru",
+        "V16-N1"
+      ]
+    },
+    {
+      "slot_id": "V17",
+      "conclusion": "accepted",
+      "case_ids": [
+        "V17-P1",
+        "V17-P2",
+        "V17-IRR-suru",
+        "V17-IRR-kuru",
+        "AMB-02",
+        "V17-N1"
+      ]
+    },
+    {
+      "slot_id": "V18",
+      "conclusion": "accepted",
+      "case_ids": [
+        "V18-P1",
+        "V18-P2",
+        "V18-IRR-suru",
+        "V18-IRR-kuru",
+        "V18-N1"
+      ]
+    },
+    {
+      "slot_id": "V19",
+      "conclusion": "accepted",
+      "case_ids": [
+        "V19-P1",
+        "V19-P2",
+        "V19-C-plain_past-P1",
+        "V19-C-plain_past-P2",
+        "V19-C-plain_negative-P1",
+        "V19-C-plain_negative-P2",
+        "V19-C-plain_negative_past-P1",
+        "V19-C-plain_negative_past-P2",
+        "V19-C-polite_nonpast-P1",
+        "V19-C-polite_nonpast-P2",
+        "V19-C-polite_past-P1",
+        "V19-C-polite_past-P2",
+        "V19-C-polite_negative-P1",
+        "V19-C-polite_negative-P2",
+        "V19-C-polite_negative_past-P1",
+        "V19-C-polite_negative_past-P2",
+        "V19-IRR-suru",
+        "V19-IRR-kuru",
+        "V19-N1",
+        "NEG-RULE-verb-desiderative:plain-past",
+        "NEG-RULE-verb-desiderative:plain-negative",
+        "NEG-RULE-verb-desiderative:plain-negative-past",
+        "NEG-RULE-verb-desiderative:polite-nonpast",
+        "NEG-RULE-verb-desiderative:polite-past",
+        "NEG-RULE-verb-desiderative:polite-negative",
+        "NEG-RULE-verb-desiderative:polite-negative-past"
+      ]
+    },
+    {
+      "slot_id": "V20",
+      "conclusion": "accepted",
+      "case_ids": [
+        "V20-P1",
+        "V20-P2",
+        "V20-C-plain_past-P1",
+        "V20-C-plain_past-P2",
+        "V20-C-plain_negative-P1",
+        "V20-C-plain_negative-P2",
+        "V20-C-plain_negative_past-P1",
+        "V20-C-plain_negative_past-P2",
+        "V20-C-polite_nonpast-P1",
+        "V20-C-polite_nonpast-P2",
+        "V20-C-polite_past-P1",
+        "V20-C-polite_past-P2",
+        "V20-C-polite_negative-P1",
+        "V20-C-polite_negative-P2",
+        "V20-C-polite_negative_past-P1",
+        "V20-C-polite_negative_past-P2",
+        "V20-IRR-suru",
+        "V20-IRR-kuru",
+        "V20-N1",
+        "NEG-RULE-verb-te-iru:plain-past",
+        "NEG-RULE-verb-te-iru:plain-negative",
+        "NEG-RULE-verb-te-iru:plain-negative-past",
+        "NEG-RULE-verb-te-iru:polite-nonpast",
+        "NEG-RULE-verb-te-iru:polite-past",
+        "NEG-RULE-verb-te-iru:polite-negative",
+        "NEG-RULE-verb-te-iru:polite-negative-past"
+      ]
+    },
+    {
+      "slot_id": "I00",
+      "conclusion": "accepted",
+      "case_ids": [
+        "I00-P1",
+        "I00-P2"
+      ]
+    },
+    {
+      "slot_id": "I01",
+      "conclusion": "accepted",
+      "case_ids": [
+        "I01-P1",
+        "I01-P2",
+        "I01-IRR-ii",
+        "I01-N1"
+      ]
+    },
+    {
+      "slot_id": "I02",
+      "conclusion": "accepted",
+      "case_ids": [
+        "I02-P1",
+        "I02-P2",
+        "I02-IRR-ii",
+        "I02-N1"
+      ]
+    },
+    {
+      "slot_id": "I03",
+      "conclusion": "accepted",
+      "case_ids": [
+        "I03-P1",
+        "I03-P2",
+        "I03-IRR-ii",
+        "I03-N1"
+      ]
+    },
+    {
+      "slot_id": "I04",
+      "conclusion": "accepted",
+      "case_ids": [
+        "I04-P1",
+        "I04-P2",
+        "I04-N1"
+      ]
+    },
+    {
+      "slot_id": "I05",
+      "conclusion": "accepted",
+      "case_ids": [
+        "I05-P1",
+        "I05-P2",
+        "I05-N1"
+      ]
+    },
+    {
+      "slot_id": "I06",
+      "conclusion": "accepted",
+      "case_ids": [
+        "I06-P1",
+        "I06-P2",
+        "I06-ALT-高い",
+        "I06-ALT-安い",
+        "I06-N1"
+      ]
+    },
+    {
+      "slot_id": "I07",
+      "conclusion": "accepted",
+      "case_ids": [
+        "I07-P1",
+        "I07-P2",
+        "I07-ALT-高い",
+        "I07-ALT-安い",
+        "I07-N1"
+      ]
+    },
+    {
+      "slot_id": "I08",
+      "conclusion": "accepted",
+      "case_ids": [
+        "I08-P1",
+        "I08-P2",
+        "I08-IRR-ii",
+        "I08-N1"
+      ]
+    },
+    {
+      "slot_id": "I09",
+      "conclusion": "accepted",
+      "case_ids": [
+        "I09-P1",
+        "I09-P2",
+        "I09-IRR-ii",
+        "I09-N1"
+      ]
+    },
+    {
+      "slot_id": "I10",
+      "conclusion": "accepted",
+      "case_ids": [
+        "I10-P1",
+        "I10-P2",
+        "I10-IRR-ii",
+        "I10-N1"
+      ]
+    },
+    {
+      "slot_id": "I11",
+      "conclusion": "accepted",
+      "case_ids": [
+        "I11-P1",
+        "I11-P2",
+        "I11-IRR-ii",
+        "I11-N1"
+      ]
+    },
+    {
+      "slot_id": "A00",
+      "conclusion": "accepted",
+      "case_ids": [
+        "A00-P1",
+        "A00-P2"
+      ]
+    },
+    {
+      "slot_id": "A01",
+      "conclusion": "accepted",
+      "case_ids": [
+        "A01-P1",
+        "A01-P2",
+        "POS-01",
+        "A01-N1",
+        "N01-N1"
+      ]
+    },
+    {
+      "slot_id": "A02",
+      "conclusion": "accepted",
+      "case_ids": [
+        "A02-P1",
+        "A02-P2",
+        "A02-N1",
+        "N02-N1"
+      ]
+    },
+    {
+      "slot_id": "A03",
+      "conclusion": "accepted",
+      "case_ids": [
+        "A03-P1",
+        "A03-P2",
+        "A03-ALT-dewa-静か",
+        "A03-ALT-dewa-便利",
+        "A03-N1",
+        "N03-N1"
+      ]
+    },
+    {
+      "slot_id": "A04",
+      "conclusion": "accepted",
+      "case_ids": [
+        "A04-P1",
+        "A04-P2",
+        "A04-ALT-dewa-静か",
+        "A04-ALT-dewa-便利",
+        "A04-N1",
+        "N04-N1"
+      ]
+    },
+    {
+      "slot_id": "A05",
+      "conclusion": "accepted",
+      "case_ids": [
+        "A05-P1",
+        "A05-P2",
+        "A05-N1",
+        "N05-N1"
+      ]
+    },
+    {
+      "slot_id": "A06",
+      "conclusion": "accepted",
+      "case_ids": [
+        "A06-P1",
+        "A06-P2",
+        "A06-N1",
+        "N06-N1"
+      ]
+    },
+    {
+      "slot_id": "A07",
+      "conclusion": "accepted",
+      "case_ids": [
+        "A07-P1",
+        "A07-P2",
+        "A07-ALT-ja_arimasen-静か",
+        "A07-ALT-ja_arimasen-便利",
+        "A07-ALT-dewa_arimasen-静か",
+        "A07-ALT-dewa_arimasen-便利",
+        "A07-N1",
+        "N07-N1"
+      ]
+    },
+    {
+      "slot_id": "A08",
+      "conclusion": "accepted",
+      "case_ids": [
+        "A08-P1",
+        "A08-P2",
+        "A08-ALT-ja_arimasen-静か",
+        "A08-ALT-ja_arimasen-便利",
+        "A08-ALT-dewa_arimasen-静か",
+        "A08-ALT-dewa_arimasen-便利",
+        "A08-N1",
+        "N08-N1"
+      ]
+    },
+    {
+      "slot_id": "A09",
+      "conclusion": "accepted",
+      "case_ids": [
+        "A09-P1",
+        "A09-P2",
+        "A09-N1"
+      ]
+    },
+    {
+      "slot_id": "A10",
+      "conclusion": "accepted",
+      "case_ids": [
+        "A10-P1",
+        "A10-P2",
+        "I09-N1",
+        "A10-N1"
+      ]
+    },
+    {
+      "slot_id": "A11",
+      "conclusion": "accepted",
+      "case_ids": [
+        "A11-P1",
+        "A11-P2",
+        "A11-N1"
+      ]
+    },
+    {
+      "slot_id": "A12",
+      "conclusion": "accepted",
+      "case_ids": [
+        "A12-P1",
+        "A12-P2",
+        "A12-N1",
+        "N09-N1"
+      ]
+    },
+    {
+      "slot_id": "A13",
+      "conclusion": "accepted",
+      "case_ids": [
+        "A13-P1",
+        "A13-P2",
+        "A13-N1",
+        "N10-N1"
+      ]
+    },
+    {
+      "slot_id": "N00",
+      "conclusion": "accepted",
+      "case_ids": [
+        "N00-P1",
+        "N00-P2"
+      ]
+    },
+    {
+      "slot_id": "N01",
+      "conclusion": "accepted",
+      "case_ids": [
+        "N01-P1",
+        "N01-P2",
+        "A01-N1",
+        "N01-N1"
+      ]
+    },
+    {
+      "slot_id": "N02",
+      "conclusion": "accepted",
+      "case_ids": [
+        "N02-P1",
+        "N02-P2",
+        "A02-N1",
+        "N02-N1"
+      ]
+    },
+    {
+      "slot_id": "N03",
+      "conclusion": "accepted",
+      "case_ids": [
+        "N03-P1",
+        "N03-P2",
+        "N03-ALT-dewa-学生",
+        "N03-ALT-dewa-先生",
+        "A03-N1",
+        "N03-N1"
+      ]
+    },
+    {
+      "slot_id": "N04",
+      "conclusion": "accepted",
+      "case_ids": [
+        "N04-P1",
+        "N04-P2",
+        "N04-ALT-dewa-学生",
+        "N04-ALT-dewa-先生",
+        "A04-N1",
+        "N04-N1"
+      ]
+    },
+    {
+      "slot_id": "N05",
+      "conclusion": "accepted",
+      "case_ids": [
+        "N05-P1",
+        "N05-P2",
+        "UNI-02",
+        "A05-N1",
+        "N05-N1",
+        "UNI-01"
+      ]
+    },
+    {
+      "slot_id": "N06",
+      "conclusion": "accepted",
+      "case_ids": [
+        "N06-P1",
+        "N06-P2",
+        "A06-N1",
+        "N06-N1"
+      ]
+    },
+    {
+      "slot_id": "N07",
+      "conclusion": "accepted",
+      "case_ids": [
+        "N07-P1",
+        "N07-P2",
+        "N07-ALT-ja_arimasen-学生",
+        "N07-ALT-ja_arimasen-先生",
+        "N07-ALT-dewa_arimasen-学生",
+        "N07-ALT-dewa_arimasen-先生",
+        "A07-N1",
+        "N07-N1"
+      ]
+    },
+    {
+      "slot_id": "N08",
+      "conclusion": "accepted",
+      "case_ids": [
+        "N08-P1",
+        "N08-P2",
+        "N08-ALT-ja_arimasen-学生",
+        "N08-ALT-ja_arimasen-先生",
+        "N08-ALT-dewa_arimasen-学生",
+        "N08-ALT-dewa_arimasen-先生",
+        "BND-01",
+        "A08-N1",
+        "N08-N1"
+      ]
+    },
+    {
+      "slot_id": "N09",
+      "conclusion": "accepted",
+      "case_ids": [
+        "N09-P1",
+        "N09-P2",
+        "A12-N1",
+        "N09-N1"
+      ]
+    },
+    {
+      "slot_id": "N10",
+      "conclusion": "accepted",
+      "case_ids": [
+        "N10-P1",
+        "N10-P2",
+        "A13-N1",
+        "N10-N1"
+      ]
+    },
+    {
+      "slot_id": "N11",
+      "conclusion": "accepted",
+      "case_ids": [
+        "N11-P1",
+        "N11-P2",
+        "A11-N1",
+        "N11-N1"
+      ]
+    },
+    {
+      "slot_id": "V21",
+      "conclusion": "accepted",
+      "case_ids": [
+        "V10-P1",
+        "V10-P2",
+        "V11-P1",
+        "V11-P2",
+        "V10-C-plain_past-P1",
+        "V10-C-plain_past-P2",
+        "V10-C-plain_negative-P1",
+        "V10-C-plain_negative-P2",
+        "V10-C-plain_negative_past-P1",
+        "V10-C-plain_negative_past-P2",
+        "V10-C-polite_nonpast-P1",
+        "V10-C-polite_nonpast-P2",
+        "V10-C-polite_past-P1",
+        "V10-C-polite_past-P2",
+        "V10-C-polite_negative-P1",
+        "V10-C-polite_negative-P2",
+        "V10-C-polite_negative_past-P1",
+        "V10-C-polite_negative_past-P2",
+        "V11-C-plain_past-P1",
+        "V11-C-plain_past-P2",
+        "V11-C-plain_negative-P1",
+        "V11-C-plain_negative-P2",
+        "V11-C-plain_negative_past-P1",
+        "V11-C-plain_negative_past-P2",
+        "V11-C-polite_nonpast-P1",
+        "V11-C-polite_nonpast-P2",
+        "V11-C-polite_past-P1",
+        "V11-C-polite_past-P2",
+        "V11-C-polite_negative-P1",
+        "V11-C-polite_negative-P2",
+        "V11-C-polite_negative_past-P1",
+        "V11-C-polite_negative_past-P2",
+        "V11-IRR-suru",
+        "V11-IRR-kuru",
+        "V10-IRR-kuru",
+        "A05-P1",
+        "N05-P1",
+        "AMB-01",
+        "V21-EXCLUDED-1",
+        "V21-EXCLUDED-2",
+        "V21-EXCLUDED-3",
+        "V21-EXCLUDED-4"
+      ]
+    }
+  ],
+  "rules": [
+    {
+      "rule_id": "conjugation:verb-polite-nonpast",
+      "rule_version": 2,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V01-P1",
+        "V01-P2",
+        "V01-IRR-suru",
+        "V01-IRR-kuru"
+      ],
+      "negative_case_ids": [
+        "V01-N1"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-polite-past",
+      "rule_version": 2,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V02-P1",
+        "V02-P2",
+        "V02-IRR-suru",
+        "V02-IRR-kuru"
+      ],
+      "negative_case_ids": [
+        "V02-N1"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-polite-negative",
+      "rule_version": 2,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V03-P1",
+        "V03-P2",
+        "V03-IRR-suru",
+        "V03-IRR-kuru"
+      ],
+      "negative_case_ids": [
+        "V03-N1"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-polite-negative-past",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V04-P1",
+        "V04-P2",
+        "V04-IRR-suru",
+        "V04-IRR-kuru"
+      ],
+      "negative_case_ids": [
+        "V04-N1"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-past",
+      "rule_version": 2,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V05-P1",
+        "V05-P2",
+        "V05-IRR-suru",
+        "V05-IRR-kuru",
+        "V05-ONBIN-yomu"
+      ],
+      "negative_case_ids": [
+        "V05-N1"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-negative",
+      "rule_version": 2,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V06-P1",
+        "V06-P2",
+        "V06-IRR-suru",
+        "V06-IRR-kuru"
+      ],
+      "negative_case_ids": [
+        "V06-N1"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-negative-past",
+      "rule_version": 2,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V07-P1",
+        "V07-P2",
+        "V07-IRR-suru",
+        "V07-IRR-kuru"
+      ],
+      "negative_case_ids": [
+        "V07-N1"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-te",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V08-P1",
+        "V08-P2",
+        "V08-IRR-suru",
+        "V08-IRR-kuru",
+        "V08-ONBIN-行く",
+        "V08-ONBIN-読む"
+      ],
+      "negative_case_ids": [
+        "V08-N1"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-negative-connective",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V09-P1",
+        "V09-P2",
+        "V09-IRR-suru",
+        "V09-IRR-kuru"
+      ],
+      "negative_case_ids": [
+        "V09-N1"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-potential",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V10-P1",
+        "V10-P2",
+        "V11-P1",
+        "V11-IRR-kuru",
+        "V10-IRR-suru",
+        "V10-IRR-kuru",
+        "AMB-01"
+      ],
+      "negative_case_ids": [
+        "V10-N1"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-passive",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V11-P1",
+        "V11-P2",
+        "V11-IRR-suru",
+        "V11-IRR-kuru",
+        "V10-IRR-kuru",
+        "AMB-01"
+      ],
+      "negative_case_ids": [
+        "V11-N1"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-causative",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V12-P1",
+        "V12-P2",
+        "V12-IRR-suru",
+        "V12-IRR-kuru"
+      ],
+      "negative_case_ids": [
+        "V12-N1"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-causative-passive",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V13-P1",
+        "V13-P2",
+        "V13-IRR-suru",
+        "V13-IRR-kuru"
+      ],
+      "negative_case_ids": [
+        "V13-N1"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-causative-potential",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V13-P1",
+        "V13-P2",
+        "V13-IRR-suru",
+        "V13-IRR-kuru"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-causative-potential"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-conditional-ba",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V14-P1",
+        "V14-P2",
+        "V14-IRR-suru",
+        "V14-IRR-kuru"
+      ],
+      "negative_case_ids": [
+        "V14-N1"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-conditional-tara",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V15-P1",
+        "V15-P2",
+        "V15-IRR-suru",
+        "V15-IRR-kuru"
+      ],
+      "negative_case_ids": [
+        "V15-N1"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-volitional",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V16-P1",
+        "V16-P2",
+        "V16-IRR-suru",
+        "V16-IRR-kuru"
+      ],
+      "negative_case_ids": [
+        "V16-N1"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-imperative",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V17-P1",
+        "V17-P2",
+        "V17-IRR-suru",
+        "V17-IRR-kuru",
+        "AMB-02"
+      ],
+      "negative_case_ids": [
+        "V17-N1"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-prohibition",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V18-P1",
+        "V18-P2",
+        "V18-IRR-suru",
+        "V18-IRR-kuru"
+      ],
+      "negative_case_ids": [
+        "V18-N1"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-desiderative",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V19-P1",
+        "V19-P2",
+        "V19-IRR-suru",
+        "V19-IRR-kuru"
+      ],
+      "negative_case_ids": [
+        "V19-N1"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-te-iru",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V20-P1",
+        "V20-P2",
+        "V20-IRR-suru",
+        "V20-IRR-kuru"
+      ],
+      "negative_case_ids": [
+        "V20-N1"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-potential:plain-past",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V10-C-plain_past-P1",
+        "V10-C-plain_past-P2",
+        "V11-C-plain_past-P1"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-potential:plain-past"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-potential:plain-negative",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V10-C-plain_negative-P1",
+        "V10-C-plain_negative-P2",
+        "V11-C-plain_negative-P1"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-potential:plain-negative"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-potential:plain-negative-past",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V10-C-plain_negative_past-P1",
+        "V10-C-plain_negative_past-P2",
+        "V11-C-plain_negative_past-P1"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-potential:plain-negative-past"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-potential:polite-nonpast",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V10-C-polite_nonpast-P1",
+        "V10-C-polite_nonpast-P2",
+        "V11-C-polite_nonpast-P1"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-potential:polite-nonpast"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-potential:polite-past",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V10-C-polite_past-P1",
+        "V10-C-polite_past-P2",
+        "V11-C-polite_past-P1"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-potential:polite-past"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-potential:polite-negative",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V10-C-polite_negative-P1",
+        "V10-C-polite_negative-P2",
+        "V11-C-polite_negative-P1"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-potential:polite-negative"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-potential:polite-negative-past",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V10-C-polite_negative_past-P1",
+        "V10-C-polite_negative_past-P2",
+        "V11-C-polite_negative_past-P1"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-potential:polite-negative-past"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-passive:plain-past",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V11-C-plain_past-P1",
+        "V11-C-plain_past-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-passive:plain-past"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-passive:plain-negative",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V11-C-plain_negative-P1",
+        "V11-C-plain_negative-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-passive:plain-negative"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-passive:plain-negative-past",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V11-C-plain_negative_past-P1",
+        "V11-C-plain_negative_past-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-passive:plain-negative-past"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-passive:polite-nonpast",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V11-C-polite_nonpast-P1",
+        "V11-C-polite_nonpast-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-passive:polite-nonpast"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-passive:polite-past",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V11-C-polite_past-P1",
+        "V11-C-polite_past-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-passive:polite-past"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-passive:polite-negative",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V11-C-polite_negative-P1",
+        "V11-C-polite_negative-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-passive:polite-negative"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-passive:polite-negative-past",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V11-C-polite_negative_past-P1",
+        "V11-C-polite_negative_past-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-passive:polite-negative-past"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-causative:plain-past",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V12-C-plain_past-P1",
+        "V12-C-plain_past-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-causative:plain-past"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-causative:plain-negative",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V12-C-plain_negative-P1",
+        "V12-C-plain_negative-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-causative:plain-negative"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-causative:plain-negative-past",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V12-C-plain_negative_past-P1",
+        "V12-C-plain_negative_past-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-causative:plain-negative-past"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-causative:polite-nonpast",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V12-C-polite_nonpast-P1",
+        "V12-C-polite_nonpast-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-causative:polite-nonpast"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-causative:polite-past",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V12-C-polite_past-P1",
+        "V12-C-polite_past-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-causative:polite-past"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-causative:polite-negative",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V12-C-polite_negative-P1",
+        "V12-C-polite_negative-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-causative:polite-negative"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-causative:polite-negative-past",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V12-C-polite_negative_past-P1",
+        "V12-C-polite_negative_past-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-causative:polite-negative-past"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-causative-passive:plain-past",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V13-C-plain_past-P1",
+        "V13-C-plain_past-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-causative-passive:plain-past"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-causative-potential:plain-past",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V13-C-plain_past-P1",
+        "V13-C-plain_past-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-causative-potential:plain-past"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-causative-passive:plain-negative",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V13-C-plain_negative-P1",
+        "V13-C-plain_negative-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-causative-passive:plain-negative"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-causative-potential:plain-negative",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V13-C-plain_negative-P1",
+        "V13-C-plain_negative-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-causative-potential:plain-negative"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-causative-passive:plain-negative-past",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V13-C-plain_negative_past-P1",
+        "V13-C-plain_negative_past-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-causative-passive:plain-negative-past"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-causative-potential:plain-negative-past",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V13-C-plain_negative_past-P1",
+        "V13-C-plain_negative_past-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-causative-potential:plain-negative-past"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-causative-passive:polite-nonpast",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V13-C-polite_nonpast-P1",
+        "V13-C-polite_nonpast-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-causative-passive:polite-nonpast"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-causative-potential:polite-nonpast",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V13-C-polite_nonpast-P1",
+        "V13-C-polite_nonpast-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-causative-potential:polite-nonpast"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-causative-passive:polite-past",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V13-C-polite_past-P1",
+        "V13-C-polite_past-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-causative-passive:polite-past"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-causative-potential:polite-past",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V13-C-polite_past-P1",
+        "V13-C-polite_past-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-causative-potential:polite-past"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-causative-passive:polite-negative",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V13-C-polite_negative-P1",
+        "V13-C-polite_negative-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-causative-passive:polite-negative"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-causative-potential:polite-negative",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V13-C-polite_negative-P1",
+        "V13-C-polite_negative-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-causative-potential:polite-negative"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-causative-passive:polite-negative-past",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V13-C-polite_negative_past-P1",
+        "V13-C-polite_negative_past-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-causative-passive:polite-negative-past"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-causative-potential:polite-negative-past",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V13-C-polite_negative_past-P1",
+        "V13-C-polite_negative_past-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-causative-potential:polite-negative-past"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-te-iru:plain-past",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V20-C-plain_past-P1",
+        "V20-C-plain_past-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-te-iru:plain-past"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-te-iru:plain-negative",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V20-C-plain_negative-P1",
+        "V20-C-plain_negative-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-te-iru:plain-negative"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-te-iru:plain-negative-past",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V20-C-plain_negative_past-P1",
+        "V20-C-plain_negative_past-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-te-iru:plain-negative-past"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-te-iru:polite-nonpast",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V20-C-polite_nonpast-P1",
+        "V20-C-polite_nonpast-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-te-iru:polite-nonpast"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-te-iru:polite-past",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V20-C-polite_past-P1",
+        "V20-C-polite_past-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-te-iru:polite-past"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-te-iru:polite-negative",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V20-C-polite_negative-P1",
+        "V20-C-polite_negative-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-te-iru:polite-negative"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-te-iru:polite-negative-past",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V20-C-polite_negative_past-P1",
+        "V20-C-polite_negative_past-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-te-iru:polite-negative-past"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-desiderative:plain-past",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V19-C-plain_past-P1",
+        "V19-C-plain_past-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-desiderative:plain-past"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-desiderative:plain-negative",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V19-C-plain_negative-P1",
+        "V19-C-plain_negative-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-desiderative:plain-negative"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-desiderative:plain-negative-past",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V19-C-plain_negative_past-P1",
+        "V19-C-plain_negative_past-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-desiderative:plain-negative-past"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-desiderative:polite-nonpast",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V19-C-polite_nonpast-P1",
+        "V19-C-polite_nonpast-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-desiderative:polite-nonpast"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-desiderative:polite-past",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V19-C-polite_past-P1",
+        "V19-C-polite_past-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-desiderative:polite-past"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-desiderative:polite-negative",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V19-C-polite_negative-P1",
+        "V19-C-polite_negative-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-desiderative:polite-negative"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-desiderative:polite-negative-past",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V19-C-polite_negative_past-P1",
+        "V19-C-polite_negative_past-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-desiderative:polite-negative-past"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-negative-connective:without",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V09-WITHOUT-P1",
+        "V09-WITHOUT-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-negative-connective:without"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-causative-passive:contracted",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V13-SHORT-書く",
+        "V13-SHORT-読む"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-causative-passive:contracted"
+      ]
+    },
+    {
+      "rule_id": "conjugation:adjective-past",
+      "rule_version": 2,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "I01-P1",
+        "I01-P2",
+        "I01-IRR-ii"
+      ],
+      "negative_case_ids": [
+        "I01-N1"
+      ]
+    },
+    {
+      "rule_id": "conjugation:adjective-negative",
+      "rule_version": 2,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "I02-P1",
+        "I02-P2",
+        "I02-IRR-ii"
+      ],
+      "negative_case_ids": [
+        "I02-N1"
+      ]
+    },
+    {
+      "rule_id": "conjugation:adjective-negative-past",
+      "rule_version": 2,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "I03-P1",
+        "I03-P2",
+        "I03-IRR-ii"
+      ],
+      "negative_case_ids": [
+        "I03-N1"
+      ]
+    },
+    {
+      "rule_id": "conjugation:adjective-polite-nonpast",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "I04-P1",
+        "I04-P2"
+      ],
+      "negative_case_ids": [
+        "I04-N1"
+      ]
+    },
+    {
+      "rule_id": "conjugation:adjective-polite-past",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "I05-P1",
+        "I05-P2"
+      ],
+      "negative_case_ids": [
+        "I05-N1"
+      ]
+    },
+    {
+      "rule_id": "conjugation:adjective-polite-negative",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "I06-P1",
+        "I06-P2",
+        "I06-ALT-高い",
+        "I06-ALT-安い"
+      ],
+      "negative_case_ids": [
+        "I06-N1"
+      ]
+    },
+    {
+      "rule_id": "conjugation:adjective-polite-negative-past",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "I07-P1",
+        "I07-P2",
+        "I07-ALT-高い",
+        "I07-ALT-安い"
+      ],
+      "negative_case_ids": [
+        "I07-N1"
+      ]
+    },
+    {
+      "rule_id": "conjugation:adjective-connective",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "I08-P1",
+        "I08-P2",
+        "I08-IRR-ii"
+      ],
+      "negative_case_ids": [
+        "I08-N1"
+      ]
+    },
+    {
+      "rule_id": "conjugation:adjective-adverbial",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "I09-P1",
+        "I09-P2",
+        "I09-IRR-ii"
+      ],
+      "negative_case_ids": [
+        "I09-N1"
+      ]
+    },
+    {
+      "rule_id": "conjugation:adjective-conditional-ba",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "I10-P1",
+        "I10-P2",
+        "I10-IRR-ii"
+      ],
+      "negative_case_ids": [
+        "I10-N1"
+      ]
+    },
+    {
+      "rule_id": "conjugation:adjective-conditional-tara",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "I11-P1",
+        "I11-P2",
+        "I11-IRR-ii"
+      ],
+      "negative_case_ids": [
+        "I11-N1"
+      ]
+    },
+    {
+      "rule_id": "conjugation:na-copula-nonpast",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "A01-P1",
+        "A01-P2",
+        "POS-01",
+        "N01-N1"
+      ],
+      "negative_case_ids": [
+        "A01-N1"
+      ]
+    },
+    {
+      "rule_id": "conjugation:na-copula-past",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "A02-P1",
+        "A02-P2",
+        "N02-N1"
+      ],
+      "negative_case_ids": [
+        "A02-N1"
+      ]
+    },
+    {
+      "rule_id": "conjugation:na-copula-negative",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "A03-P1",
+        "A03-P2",
+        "A03-ALT-dewa-静か",
+        "A03-ALT-dewa-便利",
+        "N03-N1"
+      ],
+      "negative_case_ids": [
+        "A03-N1"
+      ]
+    },
+    {
+      "rule_id": "conjugation:na-copula-negative-past",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "A04-P1",
+        "A04-P2",
+        "A04-ALT-dewa-静か",
+        "A04-ALT-dewa-便利",
+        "N04-N1"
+      ],
+      "negative_case_ids": [
+        "A04-N1"
+      ]
+    },
+    {
+      "rule_id": "conjugation:na-copula-polite-nonpast",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "A05-P1",
+        "A05-P2",
+        "N05-N1"
+      ],
+      "negative_case_ids": [
+        "A05-N1"
+      ]
+    },
+    {
+      "rule_id": "conjugation:na-copula-polite-past",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "A06-P1",
+        "A06-P2",
+        "N06-N1"
+      ],
+      "negative_case_ids": [
+        "A06-N1"
+      ]
+    },
+    {
+      "rule_id": "conjugation:na-copula-polite-negative",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "A07-P1",
+        "A07-P2",
+        "A07-ALT-ja_arimasen-静か",
+        "A07-ALT-ja_arimasen-便利",
+        "A07-ALT-dewa_arimasen-静か",
+        "A07-ALT-dewa_arimasen-便利",
+        "N07-N1"
+      ],
+      "negative_case_ids": [
+        "A07-N1"
+      ]
+    },
+    {
+      "rule_id": "conjugation:na-copula-polite-negative-past",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "A08-P1",
+        "A08-P2",
+        "A08-ALT-ja_arimasen-静か",
+        "A08-ALT-ja_arimasen-便利",
+        "A08-ALT-dewa_arimasen-静か",
+        "A08-ALT-dewa_arimasen-便利",
+        "N08-N1"
+      ],
+      "negative_case_ids": [
+        "A08-N1"
+      ]
+    },
+    {
+      "rule_id": "conjugation:na-attributive",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "A09-P1",
+        "A09-P2"
+      ],
+      "negative_case_ids": [
+        "A09-N1"
+      ]
+    },
+    {
+      "rule_id": "conjugation:na-adverbial",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "A10-P1",
+        "A10-P2",
+        "I09-N1"
+      ],
+      "negative_case_ids": [
+        "A10-N1"
+      ]
+    },
+    {
+      "rule_id": "conjugation:na-connective",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "A11-P1",
+        "A11-P2"
+      ],
+      "negative_case_ids": [
+        "A11-N1"
+      ]
+    },
+    {
+      "rule_id": "conjugation:na-conditional-nara",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "A12-P1",
+        "A12-P2",
+        "N09-N1"
+      ],
+      "negative_case_ids": [
+        "A12-N1"
+      ]
+    },
+    {
+      "rule_id": "conjugation:na-conditional-tara",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "A13-P1",
+        "A13-P2",
+        "N10-N1"
+      ],
+      "negative_case_ids": [
+        "A13-N1"
+      ]
+    },
+    {
+      "rule_id": "conjugation:noun-copula-nonpast",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "N01-P1",
+        "N01-P2",
+        "A01-N1"
+      ],
+      "negative_case_ids": [
+        "N01-N1"
+      ]
+    },
+    {
+      "rule_id": "conjugation:noun-copula-past",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "N02-P1",
+        "N02-P2",
+        "A02-N1"
+      ],
+      "negative_case_ids": [
+        "N02-N1"
+      ]
+    },
+    {
+      "rule_id": "conjugation:noun-copula-negative",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "N03-P1",
+        "N03-P2",
+        "N03-ALT-dewa-学生",
+        "N03-ALT-dewa-先生",
+        "A03-N1"
+      ],
+      "negative_case_ids": [
+        "N03-N1"
+      ]
+    },
+    {
+      "rule_id": "conjugation:noun-copula-negative-past",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "N04-P1",
+        "N04-P2",
+        "N04-ALT-dewa-学生",
+        "N04-ALT-dewa-先生",
+        "A04-N1"
+      ],
+      "negative_case_ids": [
+        "N04-N1"
+      ]
+    },
+    {
+      "rule_id": "conjugation:noun-copula-polite-nonpast",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "N05-P1",
+        "N05-P2",
+        "UNI-02",
+        "A05-N1"
+      ],
+      "negative_case_ids": [
+        "N05-N1"
+      ]
+    },
+    {
+      "rule_id": "conjugation:noun-copula-polite-past",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "N06-P1",
+        "N06-P2",
+        "A06-N1"
+      ],
+      "negative_case_ids": [
+        "N06-N1"
+      ]
+    },
+    {
+      "rule_id": "conjugation:noun-copula-polite-negative",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "N07-P1",
+        "N07-P2",
+        "N07-ALT-ja_arimasen-学生",
+        "N07-ALT-ja_arimasen-先生",
+        "N07-ALT-dewa_arimasen-学生",
+        "N07-ALT-dewa_arimasen-先生",
+        "A07-N1"
+      ],
+      "negative_case_ids": [
+        "N07-N1"
+      ]
+    },
+    {
+      "rule_id": "conjugation:noun-copula-polite-negative-past",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "N08-P1",
+        "N08-P2",
+        "N08-ALT-ja_arimasen-学生",
+        "N08-ALT-ja_arimasen-先生",
+        "N08-ALT-dewa_arimasen-学生",
+        "N08-ALT-dewa_arimasen-先生",
+        "BND-01",
+        "A08-N1"
+      ],
+      "negative_case_ids": [
+        "N08-N1"
+      ]
+    },
+    {
+      "rule_id": "conjugation:noun-conditional-nara",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "N09-P1",
+        "N09-P2",
+        "A12-N1"
+      ],
+      "negative_case_ids": [
+        "N09-N1"
+      ]
+    },
+    {
+      "rule_id": "conjugation:noun-conditional-tara",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "N10-P1",
+        "N10-P2",
+        "A13-N1"
+      ],
+      "negative_case_ids": [
+        "N10-N1"
+      ]
+    },
+    {
+      "rule_id": "conjugation:noun-copula-connective",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "N11-P1",
+        "N11-P2",
+        "A11-N1"
+      ],
+      "negative_case_ids": [
+        "N11-N1"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-honorific",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V11-P1",
+        "V11-P2",
+        "V11-IRR-suru",
+        "V11-IRR-kuru",
+        "V10-IRR-kuru",
+        "AMB-01"
+      ],
+      "negative_case_ids": [
+        "V10-P1",
+        "V10-P2",
+        "A05-P1",
+        "N05-P1",
+        "V21-EXCLUDED-1",
+        "V21-EXCLUDED-2",
+        "V21-EXCLUDED-3",
+        "V21-EXCLUDED-4"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-honorific:plain-past",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V11-C-plain_past-P1",
+        "V11-C-plain_past-P2"
+      ],
+      "negative_case_ids": [
+        "V10-C-plain_past-P1",
+        "V10-C-plain_past-P2",
+        "A05-P1",
+        "N05-P1",
+        "V21-EXCLUDED-1",
+        "V21-EXCLUDED-2",
+        "V21-EXCLUDED-3",
+        "V21-EXCLUDED-4"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-honorific:plain-negative",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V11-C-plain_negative-P1",
+        "V11-C-plain_negative-P2"
+      ],
+      "negative_case_ids": [
+        "V10-C-plain_negative-P1",
+        "V10-C-plain_negative-P2",
+        "A05-P1",
+        "N05-P1",
+        "V21-EXCLUDED-1",
+        "V21-EXCLUDED-2",
+        "V21-EXCLUDED-3",
+        "V21-EXCLUDED-4"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-honorific:plain-negative-past",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V11-C-plain_negative_past-P1",
+        "V11-C-plain_negative_past-P2"
+      ],
+      "negative_case_ids": [
+        "V10-C-plain_negative_past-P1",
+        "V10-C-plain_negative_past-P2",
+        "A05-P1",
+        "N05-P1",
+        "V21-EXCLUDED-1",
+        "V21-EXCLUDED-2",
+        "V21-EXCLUDED-3",
+        "V21-EXCLUDED-4"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-honorific:polite-nonpast",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V11-C-polite_nonpast-P1",
+        "V11-C-polite_nonpast-P2"
+      ],
+      "negative_case_ids": [
+        "V10-C-polite_nonpast-P1",
+        "V10-C-polite_nonpast-P2",
+        "A05-P1",
+        "N05-P1",
+        "V21-EXCLUDED-1",
+        "V21-EXCLUDED-2",
+        "V21-EXCLUDED-3",
+        "V21-EXCLUDED-4"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-honorific:polite-past",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V11-C-polite_past-P1",
+        "V11-C-polite_past-P2"
+      ],
+      "negative_case_ids": [
+        "V10-C-polite_past-P1",
+        "V10-C-polite_past-P2",
+        "A05-P1",
+        "N05-P1",
+        "V21-EXCLUDED-1",
+        "V21-EXCLUDED-2",
+        "V21-EXCLUDED-3",
+        "V21-EXCLUDED-4"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-honorific:polite-negative",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V11-C-polite_negative-P1",
+        "V11-C-polite_negative-P2"
+      ],
+      "negative_case_ids": [
+        "V10-C-polite_negative-P1",
+        "V10-C-polite_negative-P2",
+        "A05-P1",
+        "N05-P1",
+        "V21-EXCLUDED-1",
+        "V21-EXCLUDED-2",
+        "V21-EXCLUDED-3",
+        "V21-EXCLUDED-4"
+      ]
+    },
+    {
+      "rule_id": "conjugation:verb-honorific:polite-negative-past",
+      "rule_version": 1,
+      "conclusion": "accepted",
+      "approval_basis": "user_batch_approval",
+      "checks": [
+        "base_form",
+        "semantics",
+        "component_segmentation",
+        "Vietnamese",
+        "reference_only_source_use"
+      ],
+      "positive_case_ids": [
+        "V11-C-polite_negative_past-P1",
+        "V11-C-polite_negative_past-P2"
+      ],
+      "negative_case_ids": [
+        "V10-C-polite_negative_past-P1",
+        "V10-C-polite_negative_past-P2",
+        "A05-P1",
+        "N05-P1",
+        "V21-EXCLUDED-1",
+        "V21-EXCLUDED-2",
+        "V21-EXCLUDED-3",
+        "V21-EXCLUDED-4"
+      ]
+    }
+  ]
+}
+

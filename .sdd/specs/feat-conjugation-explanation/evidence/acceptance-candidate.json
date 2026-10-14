@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "state": "candidate_verified_pending_human_g3",
+  "prepared_date": "2026-10-14",
+  "candidate_version": "candidate-20261013.1",
+  "corpus_version": "f09-expanded-20261013.3",
+  "review_version": "f09-user-approval-20261013.3",
+  "bindings": {
+    "candidate": {
+      "file": "src/infra/Conjugation/Data/candidate-20261013.1.json",
+      "sha256": "c46a28613e9cbd81c60cda51f8114f023c86e001f8daab5218fe49a8bc481e35"
+    },
+    "row_data": {
+      "file": "src/infra/Conjugation/Data/godan-rows-20261013.1.json",
+      "sha256": "afd726932079e1063e8ca8ce5ac58c37cc6ed338a65d5e9bf86b58cf0e751233"
+    },
+    "cases": {
+      "file": ".sdd/specs/feat-conjugation-explanation/corpus/expanded-20261013.3/cases.json",
+      "sha256": "ca3e3ff71b4d97a96e33c70695d5cfb067244bb6cf63a7d3340cd901dd7883c4"
+    },
+    "sources": {
+      "file": ".sdd/specs/feat-conjugation-explanation/corpus/expanded-20261013.3/sources.json",
+      "sha256": "13e9637e25e00cbd77c3d7c49a103e42f165c18ba7bbc91dacb57a08144ab8d2"
+    },
+    "scope_material": {
+      "file": ".sdd/specs/feat-conjugation-explanation/corpus/expanded-20261013.3/scope-material.json",
+      "sha256": "01997f4191863a4beb04e6872ea5f21145560da0c368eec043c209a37ea7889f"
+    },
+    "review_receipt": {
+      "file": ".sdd/specs/feat-conjugation-explanation/reviews/user-review-receipt-20261013.3.json",
+      "sha256": "fcee02ca33fc41ec096ca93d1f6c70bcbaa117808b2254ea8e8bf41ce1e310e2"
+    },
+    "linguistic_review": {
+      "file": ".sdd/specs/feat-conjugation-explanation/reviews/linguistic-review.json",
+      "sha256": "598ad357fdb14d815694996a8ff4f82af27153e6f7cf925b43f636274d28410d"
+    },
+    "review_materials": {
+      "file": ".sdd/specs/feat-conjugation-explanation/reviews/review-materials.json",
+      "sha256": "cccc17bec599abf8f13802fbdb9feae058a3586be10d8b5a8cb26bdf04cc9da2"
+    },
+    "technical_review": {
+      "file": ".sdd/specs/feat-conjugation-explanation/evidence/final-review.md",
+      "sha256": "de6894becd3859b7a88d6bbdc80eb954cb8e22760d08b7e66017902410a65d00"
+    },
+    "validation_report": {
+      "file": ".sdd/specs/feat-conjugation-explanation/evidence/validation-report.md",
+      "sha256": "e7f961dbd6c9b02191e8ace9908e8ef0dfc9dad3e2265e5986ee0a8563c39b15"
+    }
+  },
+  "counts": {
+    "slots": 60,
+    "rules": 115,
+    "parameterized_realizations": 909,
+    "corpus_cases": 412,
+    "real_linguistic_cases": 404,
+    "candidate_fault_scenarios": 7,
+    "browser_async_scenarios": 1,
+    "missing_required": 0,
+    "blocking_technical_issues": 0
+  },
+  "verification": {
+    "backend_unit_passed": 79,
+    "integration_passed": 118,
+    "client_unit_passed": 251,
+    "browser_passed": 136,
+    "python_passed": 12,
+    "failed": 0,
+    "skipped": 0
+  },
+  "g1": "approved",
+  "g2": "accepted_by_user_batch_approval",
+  "g3": {
+    "state": "pending",
+    "approver": null,
+    "approved_date": null
+  },
+  "production_approved": false,
+  "limitations": [
+    "Firefox runtime not executed; no compatible installed executable",
+    "Publication/dataset-to-KnowledgeRelease is a separate F-20 gate",
+    "No user database migration or Git delivery authorized"
+  ]
+}

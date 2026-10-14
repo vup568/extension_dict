@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "corpus_version": "f09-nine-rules-20261013.1",
+  "baseline_dataset_version": "development-20261013.1",
+  "baseline_source_sha256": "a7b45afec6f2f4cbf38a95225620868151026795b9490924920a949d8b9dc003",
+  "user_scope_choice": "Review the nine existing rules in this pass; user is the linguistic reviewer.",
+  "required_rule_ids": [
+    "conjugation:verb-polite-nonpast",
+    "conjugation:verb-polite-past",
+    "conjugation:verb-negative",
+    "conjugation:verb-negative-past",
+    "conjugation:verb-past",
+    "conjugation:verb-polite-negative",
+    "conjugation:adjective-past",
+    "conjugation:adjective-negative",
+    "conjugation:adjective-negative-past"
+  ],
+  "excluded_groups": ["te-form", "passive", "causative", "na-adjective", "sentence segmentation", "generic morphology"],
+  "cases": {"path":"cases.json","sha256":"fa10eda9a5883751c7adeaeaaf73485a2ea94e6dffe0f857c35a486bf88c3052","supported":21,"negative":9,"cross_cutting":6},
+  "sources": {"path":"sources.json","sha256":"c25cc5b9873af21830257307daa2ee736f0dc35e0dd93480449a3ec374e672df","rights_review":"pending"},
+  "review_guide": {"path":"scope-review.md","sha256":"bbae65e92c932274291a07edb30e1a37ebca9e0d92b8ecbcd97a8dcce68e8bd6"}
+}

@@ -1,0 +1,1054 @@
+{
+  "schema_version": 1,
+  "corpus_version": "f09-expanded-20261013.3",
+  "state": "frozen_candidate_pending_final_confirmation",
+  "prepared_date": "2026-10-13",
+  "scope": "Coverage B plus user-confirmed reru/rareru honorific and both causative-passive/potential explanations; finite catalog",
+  "baseline_dataset_version": "development-20261013.1",
+  "slot_decisions": [
+    {
+      "slot_id": "V00",
+      "word_group": "verb",
+      "form": "Từ điển, nguyên dạng",
+      "inclusion": "required",
+      "proposed_rule_id": null,
+      "proposed_rule_version": null
+    },
+    {
+      "slot_id": "V01",
+      "word_group": "verb",
+      "form": "Lịch sự không quá khứ",
+      "inclusion": "required",
+      "proposed_rule_id": "conjugation:verb-polite-nonpast",
+      "proposed_rule_version": 2
+    },
+    {
+      "slot_id": "V02",
+      "word_group": "verb",
+      "form": "Lịch sự quá khứ",
+      "inclusion": "required",
+      "proposed_rule_id": "conjugation:verb-polite-past",
+      "proposed_rule_version": 2
+    },
+    {
+      "slot_id": "V03",
+      "word_group": "verb",
+      "form": "Lịch sự phủ định",
+      "inclusion": "required",
+      "proposed_rule_id": "conjugation:verb-polite-negative",
+      "proposed_rule_version": 2
+    },
+    {
+      "slot_id": "V04",
+      "word_group": "verb",
+      "form": "Lịch sự phủ định quá khứ",
+      "inclusion": "required",
+      "proposed_rule_id": "conjugation:verb-polite-negative-past",
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "V05",
+      "word_group": "verb",
+      "form": "Thông thường quá khứ",
+      "inclusion": "required",
+      "proposed_rule_id": "conjugation:verb-past",
+      "proposed_rule_version": 2
+    },
+    {
+      "slot_id": "V06",
+      "word_group": "verb",
+      "form": "Thông thường phủ định",
+      "inclusion": "required",
+      "proposed_rule_id": "conjugation:verb-negative",
+      "proposed_rule_version": 2
+    },
+    {
+      "slot_id": "V07",
+      "word_group": "verb",
+      "form": "Thông thường phủ định quá khứ",
+      "inclusion": "required",
+      "proposed_rule_id": "conjugation:verb-negative-past",
+      "proposed_rule_version": 2
+    },
+    {
+      "slot_id": "V08",
+      "word_group": "verb",
+      "form": "Thể て/で",
+      "inclusion": "required",
+      "proposed_rule_id": "conjugation:verb-te",
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "V09",
+      "word_group": "verb",
+      "form": "Thể nối phủ định",
+      "inclusion": "required",
+      "proposed_rule_id": "conjugation:verb-negative-connective",
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "V10",
+      "word_group": "verb",
+      "form": "Khả năng",
+      "inclusion": "required",
+      "proposed_rule_id": "conjugation:verb-potential",
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "V11",
+      "word_group": "verb",
+      "form": "Bị động",
+      "inclusion": "required",
+      "proposed_rule_id": "conjugation:verb-passive",
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "V12",
+      "word_group": "verb",
+      "form": "Sai khiến",
+      "inclusion": "required",
+      "proposed_rule_id": "conjugation:verb-causative",
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "V13",
+      "word_group": "verb",
+      "form": "Sai khiến-bị động",
+      "inclusion": "required",
+      "proposed_rule_id": "conjugation:verb-causative-passive",
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "V14",
+      "word_group": "verb",
+      "form": "Điều kiện ば",
+      "inclusion": "required",
+      "proposed_rule_id": "conjugation:verb-conditional-ba",
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "V15",
+      "word_group": "verb",
+      "form": "Điều kiện たら",
+      "inclusion": "required",
+      "proposed_rule_id": "conjugation:verb-conditional-tara",
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "V16",
+      "word_group": "verb",
+      "form": "Ý chí",
+      "inclusion": "required",
+      "proposed_rule_id": "conjugation:verb-volitional",
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "V17",
+      "word_group": "verb",
+      "form": "Mệnh lệnh",
+      "inclusion": "required",
+      "proposed_rule_id": "conjugation:verb-imperative",
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "V18",
+      "word_group": "verb",
+      "form": "Cấm đoán",
+      "inclusion": "required",
+      "proposed_rule_id": "conjugation:verb-prohibition",
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "V19",
+      "word_group": "verb",
+      "form": "Mong muốn たい",
+      "inclusion": "required",
+      "proposed_rule_id": "conjugation:verb-desiderative",
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "V20",
+      "word_group": "verb",
+      "form": "Tiếp diễn/trạng thái ている",
+      "inclusion": "required",
+      "proposed_rule_id": "conjugation:verb-te-iru",
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "I00",
+      "word_group": "i_adjective",
+      "form": "Nguyên dạng",
+      "inclusion": "required",
+      "proposed_rule_id": null,
+      "proposed_rule_version": null
+    },
+    {
+      "slot_id": "I01",
+      "word_group": "i_adjective",
+      "form": "Quá khứ thường",
+      "inclusion": "required",
+      "proposed_rule_id": "conjugation:adjective-past",
+      "proposed_rule_version": 2
+    },
+    {
+      "slot_id": "I02",
+      "word_group": "i_adjective",
+      "form": "Phủ định thường",
+      "inclusion": "required",
+      "proposed_rule_id": "conjugation:adjective-negative",
+      "proposed_rule_version": 2
+    },
+    {
+      "slot_id": "I03",
+      "word_group": "i_adjective",
+      "form": "Phủ định quá khứ thường",
+      "inclusion": "required",
+      "proposed_rule_id": "conjugation:adjective-negative-past",
+      "proposed_rule_version": 2
+    },
+    {
+      "slot_id": "I04",
+      "word_group": "i_adjective",
+      "form": "Không quá khứ lịch sự",
+      "inclusion": "required",
+      "proposed_rule_id": "conjugation:adjective-polite-nonpast",
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "I05",
+      "word_group": "i_adjective",
+      "form": "Quá khứ lịch sự",
+      "inclusion": "required",
+      "proposed_rule_id": "conjugation:adjective-polite-past",
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "I06",
+      "word_group": "i_adjective",
+      "form": "Phủ định lịch sự",
+      "inclusion": "required",
+      "proposed_rule_id": "conjugation:adjective-polite-negative",
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "I07",
+      "word_group": "i_adjective",
+      "form": "Phủ định quá khứ lịch sự",
+      "inclusion": "required",
+      "proposed_rule_id": "conjugation:adjective-polite-negative-past",
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "I08",
+      "word_group": "i_adjective",
+      "form": "Thể nối くて",
+      "inclusion": "required",
+      "proposed_rule_id": "conjugation:adjective-connective",
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "I09",
+      "word_group": "i_adjective",
+      "form": "Trạng từ く",
+      "inclusion": "required",
+      "proposed_rule_id": "conjugation:adjective-adverbial",
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "I10",
+      "word_group": "i_adjective",
+      "form": "Điều kiện ければ",
+      "inclusion": "required",
+      "proposed_rule_id": "conjugation:adjective-conditional-ba",
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "I11",
+      "word_group": "i_adjective",
+      "form": "Điều kiện かったら",
+      "inclusion": "required",
+      "proposed_rule_id": "conjugation:adjective-conditional-tara",
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "A00",
+      "word_group": "na_adjective",
+      "form": "Thân từ điển",
+      "inclusion": "required",
+      "proposed_rule_id": null,
+      "proposed_rule_version": null
+    },
+    {
+      "slot_id": "A01",
+      "word_group": "na_adjective",
+      "form": "Khẳng định thường không quá khứ",
+      "inclusion": "required",
+      "proposed_rule_id": "conjugation:na-copula-nonpast",
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "A02",
+      "word_group": "na_adjective",
+      "form": "Khẳng định thường quá khứ",
+      "inclusion": "required",
+      "proposed_rule_id": "conjugation:na-copula-past",
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "A03",
+      "word_group": "na_adjective",
+      "form": "Phủ định thường không quá khứ",
+      "inclusion": "required",
+      "proposed_rule_id": "conjugation:na-copula-negative",
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "A04",
+      "word_group": "na_adjective",
+      "form": "Phủ định thường quá khứ",
+      "inclusion": "required",
+      "proposed_rule_id": "conjugation:na-copula-negative-past",
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "A05",
+      "word_group": "na_adjective",
+      "form": "Khẳng định lịch sự không quá khứ",
+      "inclusion": "required",
+      "proposed_rule_id": "conjugation:na-copula-polite-nonpast",
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "A06",
+      "word_group": "na_adjective",
+      "form": "Khẳng định lịch sự quá khứ",
+      "inclusion": "required",
+      "proposed_rule_id": "conjugation:na-copula-polite-past",
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "A07",
+      "word_group": "na_adjective",
+      "form": "Phủ định lịch sự không quá khứ",
+      "inclusion": "required",
+      "proposed_rule_id": "conjugation:na-copula-polite-negative",
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "A08",
+      "word_group": "na_adjective",
+      "form": "Phủ định lịch sự quá khứ",
+      "inclusion": "required",
+      "proposed_rule_id": "conjugation:na-copula-polite-negative-past",
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "A09",
+      "word_group": "na_adjective",
+      "form": "Bổ nghĩa 連体形 `な`",
+      "inclusion": "required",
+      "proposed_rule_id": "conjugation:na-attributive",
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "A10",
+      "word_group": "na_adjective",
+      "form": "Trạng từ `に`",
+      "inclusion": "required",
+      "proposed_rule_id": "conjugation:na-adverbial",
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "A11",
+      "word_group": "na_adjective",
+      "form": "Thể nối `で`",
+      "inclusion": "required",
+      "proposed_rule_id": "conjugation:na-connective",
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "A12",
+      "word_group": "na_adjective",
+      "form": "Điều kiện `なら`",
+      "inclusion": "required",
+      "proposed_rule_id": "conjugation:na-conditional-nara",
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "A13",
+      "word_group": "na_adjective",
+      "form": "Điều kiện `だったら`",
+      "inclusion": "required",
+      "proposed_rule_id": "conjugation:na-conditional-tara",
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "N00",
+      "word_group": "noun_copula",
+      "form": "Danh từ nguyên dạng",
+      "inclusion": "required",
+      "proposed_rule_id": null,
+      "proposed_rule_version": null
+    },
+    {
+      "slot_id": "N01",
+      "word_group": "noun_copula",
+      "form": "`だ` thường không quá khứ",
+      "inclusion": "required",
+      "proposed_rule_id": "conjugation:noun-copula-nonpast",
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "N02",
+      "word_group": "noun_copula",
+      "form": "`だった` thường quá khứ",
+      "inclusion": "required",
+      "proposed_rule_id": "conjugation:noun-copula-past",
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "N03",
+      "word_group": "noun_copula",
+      "form": "Phủ định thường không quá khứ",
+      "inclusion": "required",
+      "proposed_rule_id": "conjugation:noun-copula-negative",
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "N04",
+      "word_group": "noun_copula",
+      "form": "Phủ định thường quá khứ",
+      "inclusion": "required",
+      "proposed_rule_id": "conjugation:noun-copula-negative-past",
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "N05",
+      "word_group": "noun_copula",
+      "form": "`です` lịch sự không quá khứ",
+      "inclusion": "required",
+      "proposed_rule_id": "conjugation:noun-copula-polite-nonpast",
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "N06",
+      "word_group": "noun_copula",
+      "form": "`でした` lịch sự quá khứ",
+      "inclusion": "required",
+      "proposed_rule_id": "conjugation:noun-copula-polite-past",
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "N07",
+      "word_group": "noun_copula",
+      "form": "Phủ định lịch sự không quá khứ",
+      "inclusion": "required",
+      "proposed_rule_id": "conjugation:noun-copula-polite-negative",
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "N08",
+      "word_group": "noun_copula",
+      "form": "Phủ định lịch sự quá khứ",
+      "inclusion": "required",
+      "proposed_rule_id": "conjugation:noun-copula-polite-negative-past",
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "N09",
+      "word_group": "noun_copula",
+      "form": "Điều kiện `なら`",
+      "inclusion": "required",
+      "proposed_rule_id": "conjugation:noun-conditional-nara",
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "N10",
+      "word_group": "noun_copula",
+      "form": "Điều kiện `だったら`",
+      "inclusion": "required",
+      "proposed_rule_id": "conjugation:noun-conditional-tara",
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "N11",
+      "word_group": "noun_copula",
+      "form": "`で` nối mệnh đề",
+      "inclusion": "required",
+      "proposed_rule_id": "conjugation:noun-copula-connective",
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "V21",
+      "word_group": "verb",
+      "form": "Kính ngữ tôn kính れる/られる",
+      "inclusion": "required",
+      "proposed_rule_id": "conjugation:verb-honorific",
+      "proposed_rule_version": 1
+    }
+  ],
+  "rule_identities": [
+    {
+      "rule_id": "conjugation:verb-polite-nonpast",
+      "rule_version": 2
+    },
+    {
+      "rule_id": "conjugation:verb-polite-past",
+      "rule_version": 2
+    },
+    {
+      "rule_id": "conjugation:verb-polite-negative",
+      "rule_version": 2
+    },
+    {
+      "rule_id": "conjugation:verb-polite-negative-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-past",
+      "rule_version": 2
+    },
+    {
+      "rule_id": "conjugation:verb-negative",
+      "rule_version": 2
+    },
+    {
+      "rule_id": "conjugation:verb-negative-past",
+      "rule_version": 2
+    },
+    {
+      "rule_id": "conjugation:verb-te",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-negative-connective",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-potential",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-passive",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-causative",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-causative-passive",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-causative-potential",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-conditional-ba",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-conditional-tara",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-volitional",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-imperative",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-prohibition",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-desiderative",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-te-iru",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-potential:plain-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-potential:plain-negative",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-potential:plain-negative-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-potential:polite-nonpast",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-potential:polite-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-potential:polite-negative",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-potential:polite-negative-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-passive:plain-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-passive:plain-negative",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-passive:plain-negative-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-passive:polite-nonpast",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-passive:polite-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-passive:polite-negative",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-passive:polite-negative-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-causative:plain-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-causative:plain-negative",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-causative:plain-negative-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-causative:polite-nonpast",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-causative:polite-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-causative:polite-negative",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-causative:polite-negative-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-causative-passive:plain-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-causative-potential:plain-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-causative-passive:plain-negative",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-causative-potential:plain-negative",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-causative-passive:plain-negative-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-causative-potential:plain-negative-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-causative-passive:polite-nonpast",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-causative-potential:polite-nonpast",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-causative-passive:polite-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-causative-potential:polite-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-causative-passive:polite-negative",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-causative-potential:polite-negative",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-causative-passive:polite-negative-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-causative-potential:polite-negative-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-te-iru:plain-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-te-iru:plain-negative",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-te-iru:plain-negative-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-te-iru:polite-nonpast",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-te-iru:polite-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-te-iru:polite-negative",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-te-iru:polite-negative-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-desiderative:plain-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-desiderative:plain-negative",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-desiderative:plain-negative-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-desiderative:polite-nonpast",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-desiderative:polite-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-desiderative:polite-negative",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-desiderative:polite-negative-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-negative-connective:without",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-causative-passive:contracted",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:adjective-past",
+      "rule_version": 2
+    },
+    {
+      "rule_id": "conjugation:adjective-negative",
+      "rule_version": 2
+    },
+    {
+      "rule_id": "conjugation:adjective-negative-past",
+      "rule_version": 2
+    },
+    {
+      "rule_id": "conjugation:adjective-polite-nonpast",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:adjective-polite-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:adjective-polite-negative",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:adjective-polite-negative-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:adjective-connective",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:adjective-adverbial",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:adjective-conditional-ba",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:adjective-conditional-tara",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:na-copula-nonpast",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:na-copula-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:na-copula-negative",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:na-copula-negative-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:na-copula-polite-nonpast",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:na-copula-polite-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:na-copula-polite-negative",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:na-copula-polite-negative-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:na-attributive",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:na-adverbial",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:na-connective",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:na-conditional-nara",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:na-conditional-tara",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:noun-copula-nonpast",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:noun-copula-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:noun-copula-negative",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:noun-copula-negative-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:noun-copula-polite-nonpast",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:noun-copula-polite-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:noun-copula-polite-negative",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:noun-copula-polite-negative-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:noun-conditional-nara",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:noun-conditional-tara",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:noun-copula-connective",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-honorific",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-honorific:plain-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-honorific:plain-negative",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-honorific:plain-negative-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-honorific:polite-nonpast",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-honorific:polite-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-honorific:polite-negative",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-honorific:polite-negative-past",
+      "rule_version": 1
+    }
+  ],
+  "excluded": [
+    {
+      "id": "generic_morphology",
+      "reason": "Separate feature"
+    },
+    {
+      "id": "sentence_segmentation",
+      "reason": "Separate feature"
+    },
+    {
+      "id": "literary_imperative_yo_seyo",
+      "reason": "Modern ordinary ろ/しろ/来い examples selected; literary register is not this corpus target"
+    },
+    {
+      "id": "open_ended_recursive_compositions",
+      "reason": "Only finite listed eight-state combinations are promised"
+    },
+    {
+      "id": "spontaneous_interpretations",
+      "reason": "Not included in this finite catalog; no claim to enumerate every possible use of reru/rareru."
+    },
+    {
+      "id": "other_keigo_constructions",
+      "reason": "User confirmed reru/rareru honorific use, not lexical replacement verbs or o/go constructions."
+    },
+    {
+      "id": "recursive_causative_honorific",
+      "reason": "This finite catalog covers honorifics of simple lexical verbs; compounded honorific readings need separate source/corpus review."
+    }
+  ],
+  "counts": {
+    "slots": 60,
+    "cases": 412,
+    "rules": 115,
+    "fixtures": 17,
+    "grpc_inputs": 369
+  },
+  "human_scope_behavior_decisions_ref": "../../reviews/scope-decisions-20261013.json",
+  "exact_answers_review": "pending",
+  "files": [
+    {
+      "path": "cases.json",
+      "sha256": "ca3e3ff71b4d97a96e33c70695d5cfb067244bb6cf63a7d3340cd901dd7883c4",
+      "size_bytes": 565606
+    },
+    {
+      "path": "sources.json",
+      "sha256": "13e9637e25e00cbd77c3d7c49a103e42f165c18ba7bbc91dacb57a08144ab8d2",
+      "size_bytes": 7914
+    },
+    {
+      "path": "coverage-catalog.md",
+      "sha256": "64d198b4f54ac72e49cc615a769868023b362c595640d88b22b686a7ef258f1b",
+      "size_bytes": 7233
+    },
+    {
+      "path": "case-review.md",
+      "sha256": "3a036d461e9d4121b54600af7fa073eb8040293e60dc72d57e54d3a978dab389",
+      "size_bytes": 3108
+    },
+    {
+      "path": "review-details.md",
+      "sha256": "0374550b0aea6e48fd19c0e0e6f9607a197e6add663c40fa19bbbcbbd06066c2",
+      "size_bytes": 30770
+    },
+    {
+      "path": "../expanded-20261013.2/scope-material.json",
+      "sha256": "0dcb33a8dd48ba0a4627953d79bdcbbacf1b0e306f7dfe615ccc40c52cd1f1d3",
+      "size_bytes": 39781
+    },
+    {
+      "path": "../../evidence/expanded-sudachi-observations-20261013.3.json",
+      "sha256": "bcd160c8ca110d65f93fe38d02f8e90185d1cb2723bf338721472037e02899ce",
+      "size_bytes": 200843
+    },
+    {
+      "path": "../../evidence/baseline.json",
+      "sha256": "7ce92ff8a99e6718ab0933a61b63f4ca94b349050fe5822e182ce242efc565d3",
+      "size_bytes": 1305
+    },
+    {
+      "path": "../../scripts/revise-corpus-20261013.3.mjs",
+      "sha256": "51e65c34d4680d6d6b29ddf8f382ccb495f30f050a9359e1094fcb6619066b00",
+      "size_bytes": 10071
+    },
+    {
+      "path": "../../scripts/validate-corpus-20261013.3.mjs",
+      "sha256": "60a5b46de09d4459c603019aec227a8fccc2e8001c7b4c8192f582ec14f42361",
+      "size_bytes": 16902
+    },
+    {
+      "path": "../../scripts/observe-corpus.py",
+      "sha256": "1aa093b61eac1ac5d220c79c377060b2a35bf52e611974ed44cf3ba18de51caf",
+      "size_bytes": 1959
+    },
+    {
+      "path": "../../reviews/scope-decisions-20261013.json",
+      "sha256": "2185dffed298062e0b7007f3f9755cac15a9d403d06877f2d8be73a062a1d304",
+      "size_bytes": 1287
+    }
+  ]
+}
+

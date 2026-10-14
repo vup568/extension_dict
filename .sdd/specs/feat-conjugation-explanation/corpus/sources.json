@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "corpus_version": "f09-nine-rules-20261013.1",
+  "sources": [
+    {
+      "source_id": "development_seed",
+      "kind": "prior_project_data",
+      "publisher": "JP Reading Platform V2 project",
+      "release": "development-20261013.1",
+      "artifact": "src/infra/Conjugation/Data/development-20261013.1.json",
+      "sha256": "a7b45afec6f2f4cbf38a95225620868151026795b9490924920a949d8b9dc003",
+      "use": "Inventory of nine existing IDs and initial Vietnamese wording only; not independent linguistic evidence.",
+      "rights_status": "project data; editorial approval pending",
+      "attribution": "Project development dataset; original authorship/provenance must be confirmed by reviewer."
+    },
+    {
+      "source_id": "editorial_draft",
+      "kind": "project_authored_proposal",
+      "publisher": "JP Reading Platform V2 project",
+      "release": "f09-nine-rules-20261013.1-draft",
+      "artifact": "corpus/cases.json and corpus/scope-review.md",
+      "sha256": null,
+      "use": "Synthetic example choices and proposed Japanese/Vietnamese answers independently prepared for human review.",
+      "rights_status": "original draft for this project; reviewer/PO confirmation pending",
+      "attribution": "Project editorial draft. No external grammar text has been copied into these answers."
+    },
+    {
+      "source_id": "sudachi_observation",
+      "kind": "technical_provider_observation",
+      "publisher": "SudachiPy/SudachiDict upstream, observed in existing project Docker image",
+      "release": "SudachiPy 0.7.0; sudachidict_core 20260723.1; project image verified-20261013",
+      "artifact": "jp-reading-tokenizer:verified-20261013",
+      "sha256": "14ece806bfac24843e05a79a1c1c899a929621ad0d26ff4c02bf4c894585a1f9",
+      "use": "Token surfaces/base-form/positions observed from the locally pinned container; not a source of grammatical meaning or reviewer approval.",
+      "rights_status": "technical observation only; dictionary or source contents are not copied into the corpus",
+      "attribution": "SudachiPy/SudachiDict tool names and versions are reported as test environment provenance."
+    }
+  ],
+  "legacy_source": {"status":"unavailable_in_checkout","version":null,"note":"No legacy source was asserted as imported; its linguistic authority or license is not assumed."},
+  "review": {"source_rights_state":"pending","reviewer_id":null,"reviewed_at_utc":null}
+}

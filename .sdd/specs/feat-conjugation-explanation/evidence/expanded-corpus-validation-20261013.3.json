@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "corpus_version": "f09-expanded-20261013.3",
+  "stage": "corpus_preparation",
+  "structural_status": "pass",
+  "human_g1": "pending_final_packet_confirmation",
+  "human_g2": "pending_final_packet_confirmation",
+  "runtime_corpus_match_tested": false,
+  "slots": 60,
+  "rules": 115,
+  "cases": 412,
+  "fixtures": 17,
+  "group_counts": {
+    "verb": 22,
+    "i_adjective": 12,
+    "na_adjective": 14,
+    "noun_copula": 12
+  },
+  "baseline_live_cases_carried": 13,
+  "prior_user_review_bytes_preserved": true,
+  "outcomes": {
+    "supported": 303,
+    "exact_first": 10,
+    "unavailable": 95,
+    "completed_empty": 1,
+    "failed": 1,
+    "discarded": 1,
+    "cancelled": 1
+  },
+  "unique_inputs": 369,
+  "grpc_observed_inputs": 369,
+  "multi_alternative_cases": 38,
+  "minimum_positive_per_rule": 2,
+  "minimum_negative_per_rule": 1,
+  "provider_differences": {
+    "unchanged_head_cases": 109,
+    "first_base_differs_cases": 24,
+    "component_layout_differs_cases": 47
+  },
+  "checks": [
+    "unique IDs",
+    "known refs",
+    "four-group slot coverage",
+    "per-rule 2 positive + 1 negative",
+    "fixture identity and exact-first",
+    "nonblank VI/components",
+    "UTF-16 contiguous reconstructed spans",
+    "v2/v3 ambiguity cardinality",
+    "real gRPC observation coverage",
+    "semantic expected independent of actual",
+    "baseline version advancement",
+    "user-confirmed honorific and causative alternatives",
+    "prior frozen snapshot unchanged"
+  ],
+  "guard_tests": [
+    {
+      "name": "duplicate case",
+      "result": "rejected",
+      "reason": "Duplicate case IDs"
+    },
+    {
+      "name": "blank VI",
+      "result": "rejected",
+      "reason": "VI content V01-P1"
+    },
+    {
+      "name": "segment gap",
+      "result": "rejected",
+      "reason": "Segment gap/overlap/surrogate V01-P1"
+    },
+    {
+      "name": "wrong base fixture",
+      "result": "rejected",
+      "reason": "Alternative base/fixture identity V01-P1"
+    },
+    {
+      "name": "unknown source",
+      "result": "rejected",
+      "reason": "Unknown case source V01-P1"
+    },
+    {
+      "name": "ambiguous v2 result",
+      "result": "rejected",
+      "reason": "Contract2 ambiguity regression V11-P1"
+    },
+    {
+      "name": "fake exact explanation",
+      "result": "rejected",
+      "reason": "Fake alternatives V00-P1"
+    },
+    {
+      "name": "half surrogate",
+      "result": "rejected",
+      "reason": "Segment gap/overlap/surrogate UNI-02"
+    }
+  ],
+  "case_source_sha256": "ca3e3ff71b4d97a96e33c70695d5cfb067244bb6cf63a7d3340cd901dd7883c4",
+  "source_catalog_sha256": "13e9637e25e00cbd77c3d7c49a103e42f165c18ba7bbc91dacb57a08144ab8d2",
+  "observation_source_sha256": "bcd160c8ca110d65f93fe38d02f8e90185d1cb2723bf338721472037e02899ce",
+  "grpc_validation": "pass",
+  "freeze_verified": true
+}
+

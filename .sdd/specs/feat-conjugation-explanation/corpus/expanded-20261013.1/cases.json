@@ -1,0 +1,3684 @@
+{
+  "schema_version": 1,
+  "corpus_version": "f09-expanded-20261013.1-draft",
+  "status": "proposed_not_reviewed_incomplete_segmentation",
+  "review_packet": "case-review.md",
+  "input_policy": "Synthetic public Japanese examples only; no user selections",
+  "notes": [
+    "This is a language-review draft, not a G1/G2 frozen corpus.",
+    "Expected segments and canonical dictionary fixture IDs are deliberately null pending human review and real Sidecar verification.",
+    "Additional variants and compositions listed in case-review.md are not yet represented by machine cases."
+  ],
+  "cases": [
+    {
+      "case_id": "V00-P1",
+      "slot_id": "V00",
+      "input": {
+        "text": "食べる"
+      },
+      "expected": {
+        "outcome": "exact_first",
+        "base_form": "食べる",
+        "explanation_vi": null,
+        "span": {
+          "start": 0,
+          "end": 3,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V00-P2",
+      "slot_id": "V00",
+      "input": {
+        "text": "書く"
+      },
+      "expected": {
+        "outcome": "exact_first",
+        "base_form": "書く",
+        "explanation_vi": null,
+        "span": {
+          "start": 0,
+          "end": 2,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V01-P1",
+      "slot_id": "V01",
+      "input": {
+        "text": "食べます"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "食べる",
+        "explanation_vi": "Lịch sự, không quá khứ",
+        "span": {
+          "start": 0,
+          "end": 4,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V01-P2",
+      "slot_id": "V01",
+      "input": {
+        "text": "書きます"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "書く",
+        "explanation_vi": "Lịch sự, không quá khứ",
+        "span": {
+          "start": 0,
+          "end": 4,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V01-N1",
+      "slot_id": "V01",
+      "input": {
+        "text": "食べます。"
+      },
+      "expected": {
+        "outcome": "must_not_match_this_slot",
+        "reason": "Review negative/boundary; another slot may still match"
+      },
+      "source_refs": [
+        "f09-project-editorial-b"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V02-P1",
+      "slot_id": "V02",
+      "input": {
+        "text": "食べました"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "食べる",
+        "explanation_vi": "Lịch sự, quá khứ",
+        "span": {
+          "start": 0,
+          "end": 5,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V02-P2",
+      "slot_id": "V02",
+      "input": {
+        "text": "書きました"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "書く",
+        "explanation_vi": "Lịch sự, quá khứ",
+        "span": {
+          "start": 0,
+          "end": 5,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V02-N1",
+      "slot_id": "V02",
+      "input": {
+        "text": "食べました。"
+      },
+      "expected": {
+        "outcome": "must_not_match_this_slot",
+        "reason": "Review negative/boundary; another slot may still match"
+      },
+      "source_refs": [
+        "f09-project-editorial-b"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V03-P1",
+      "slot_id": "V03",
+      "input": {
+        "text": "食べません"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "食べる",
+        "explanation_vi": "Lịch sự, phủ định, không quá khứ",
+        "span": {
+          "start": 0,
+          "end": 5,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V03-P2",
+      "slot_id": "V03",
+      "input": {
+        "text": "書きません"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "書く",
+        "explanation_vi": "Lịch sự, phủ định, không quá khứ",
+        "span": {
+          "start": 0,
+          "end": 5,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V03-N1",
+      "slot_id": "V03",
+      "input": {
+        "text": "食べません。"
+      },
+      "expected": {
+        "outcome": "must_not_match_this_slot",
+        "reason": "Review negative/boundary; another slot may still match"
+      },
+      "source_refs": [
+        "f09-project-editorial-b"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V04-P1",
+      "slot_id": "V04",
+      "input": {
+        "text": "食べませんでした"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "食べる",
+        "explanation_vi": "Lịch sự, phủ định, quá khứ",
+        "span": {
+          "start": 0,
+          "end": 8,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V04-P2",
+      "slot_id": "V04",
+      "input": {
+        "text": "書きませんでした"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "書く",
+        "explanation_vi": "Lịch sự, phủ định, quá khứ",
+        "span": {
+          "start": 0,
+          "end": 8,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V04-N1",
+      "slot_id": "V04",
+      "input": {
+        "text": "食べませんでした。"
+      },
+      "expected": {
+        "outcome": "must_not_match_this_slot",
+        "reason": "Review negative/boundary; another slot may still match"
+      },
+      "source_refs": [
+        "f09-project-editorial-b"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V05-P1",
+      "slot_id": "V05",
+      "input": {
+        "text": "食べた"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "食べる",
+        "explanation_vi": "Thông thường, quá khứ",
+        "span": {
+          "start": 0,
+          "end": 3,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V05-P2",
+      "slot_id": "V05",
+      "input": {
+        "text": "書いた"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "書く",
+        "explanation_vi": "Thông thường, quá khứ",
+        "span": {
+          "start": 0,
+          "end": 3,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V05-N1",
+      "slot_id": "V05",
+      "input": {
+        "text": "食べた。"
+      },
+      "expected": {
+        "outcome": "must_not_match_this_slot",
+        "reason": "Review negative/boundary; another slot may still match"
+      },
+      "source_refs": [
+        "f09-project-editorial-b"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V06-P1",
+      "slot_id": "V06",
+      "input": {
+        "text": "食べない"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "食べる",
+        "explanation_vi": "Thông thường, phủ định, không quá khứ",
+        "span": {
+          "start": 0,
+          "end": 4,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V06-P2",
+      "slot_id": "V06",
+      "input": {
+        "text": "書かない"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "書く",
+        "explanation_vi": "Thông thường, phủ định, không quá khứ",
+        "span": {
+          "start": 0,
+          "end": 4,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V06-N1",
+      "slot_id": "V06",
+      "input": {
+        "text": "食べない。"
+      },
+      "expected": {
+        "outcome": "must_not_match_this_slot",
+        "reason": "Review negative/boundary; another slot may still match"
+      },
+      "source_refs": [
+        "f09-project-editorial-b"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V07-P1",
+      "slot_id": "V07",
+      "input": {
+        "text": "食べなかった"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "食べる",
+        "explanation_vi": "Thông thường, phủ định, quá khứ",
+        "span": {
+          "start": 0,
+          "end": 6,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V07-P2",
+      "slot_id": "V07",
+      "input": {
+        "text": "書かなかった"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "書く",
+        "explanation_vi": "Thông thường, phủ định, quá khứ",
+        "span": {
+          "start": 0,
+          "end": 6,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V07-N1",
+      "slot_id": "V07",
+      "input": {
+        "text": "食べなかった。"
+      },
+      "expected": {
+        "outcome": "must_not_match_this_slot",
+        "reason": "Review negative/boundary; another slot may still match"
+      },
+      "source_refs": [
+        "f09-project-editorial-b"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V08-P1",
+      "slot_id": "V08",
+      "input": {
+        "text": "食べて"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "食べる",
+        "explanation_vi": "Thể nối て/で; ý nghĩa liên kết phụ thuộc câu",
+        "span": {
+          "start": 0,
+          "end": 3,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V08-P2",
+      "slot_id": "V08",
+      "input": {
+        "text": "書いて"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "書く",
+        "explanation_vi": "Thể nối て/で; ý nghĩa liên kết phụ thuộc câu",
+        "span": {
+          "start": 0,
+          "end": 3,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V08-N1",
+      "slot_id": "V08",
+      "input": {
+        "text": "食べて。"
+      },
+      "expected": {
+        "outcome": "must_not_match_this_slot",
+        "reason": "Review negative/boundary; another slot may still match"
+      },
+      "source_refs": [
+        "f09-project-editorial-b"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V09-P1",
+      "slot_id": "V09",
+      "input": {
+        "text": "食べなくて"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "食べる",
+        "explanation_vi": "Phủ định rồi nối; `ないで` cần phân biệt sắc thái",
+        "span": {
+          "start": 0,
+          "end": 5,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V09-P2",
+      "slot_id": "V09",
+      "input": {
+        "text": "書かなくて"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "書く",
+        "explanation_vi": "Phủ định rồi nối; `ないで` cần phân biệt sắc thái",
+        "span": {
+          "start": 0,
+          "end": 5,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V09-N1",
+      "slot_id": "V09",
+      "input": {
+        "text": "食べなくて。"
+      },
+      "expected": {
+        "outcome": "must_not_match_this_slot",
+        "reason": "Review negative/boundary; another slot may still match"
+      },
+      "source_refs": [
+        "f09-project-editorial-b"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V10-P1",
+      "slot_id": "V10",
+      "input": {
+        "text": "書ける"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "書く",
+        "explanation_vi": "Khả năng “có thể …”; không suy từ hậu tố đơn thuần",
+        "span": {
+          "start": 0,
+          "end": 3,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V10-P2",
+      "slot_id": "V10",
+      "input": {
+        "text": "読める"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "読む",
+        "explanation_vi": "Khả năng “có thể …”; không suy từ hậu tố đơn thuần",
+        "span": {
+          "start": 0,
+          "end": 3,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V10-N1",
+      "slot_id": "V10",
+      "input": {
+        "text": "書ける。"
+      },
+      "expected": {
+        "outcome": "must_not_match_this_slot",
+        "reason": "Review negative/boundary; another slot may still match"
+      },
+      "source_refs": [
+        "f09-project-editorial-b"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V11-P1",
+      "slot_id": "V11",
+      "input": {
+        "text": "食べられる"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "食べる",
+        "explanation_vi": "Bị động “được/bị …”; P1 còn có nghĩa khả năng, xem AMB-01",
+        "span": {
+          "start": 0,
+          "end": 5,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": [
+          {
+            "reading": "passive",
+            "base_form": "食べる",
+            "explanation_vi": "Bị động: được/bị ăn (chủ thể là thứ bị ăn).",
+            "segments": null
+          },
+          {
+            "reading": "potential",
+            "base_form": "食べる",
+            "explanation_vi": "Khả năng: có thể ăn.",
+            "segments": null
+          }
+        ]
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V11-P2",
+      "slot_id": "V11",
+      "input": {
+        "text": "書かれる"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "書く",
+        "explanation_vi": "Bị động “được/bị …”; P1 còn có nghĩa khả năng, xem AMB-01",
+        "span": {
+          "start": 0,
+          "end": 4,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V11-N1",
+      "slot_id": "V11",
+      "input": {
+        "text": "書かれる。"
+      },
+      "expected": {
+        "outcome": "must_not_match_this_slot",
+        "reason": "Review negative/boundary; another slot may still match"
+      },
+      "source_refs": [
+        "f09-project-editorial-b"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V12-P1",
+      "slot_id": "V12",
+      "input": {
+        "text": "食べさせる"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "食べる",
+        "explanation_vi": "Sai khiến “cho/bắt/khiến …” tùy ngữ cảnh",
+        "span": {
+          "start": 0,
+          "end": 5,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V12-P2",
+      "slot_id": "V12",
+      "input": {
+        "text": "書かせる"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "書く",
+        "explanation_vi": "Sai khiến “cho/bắt/khiến …” tùy ngữ cảnh",
+        "span": {
+          "start": 0,
+          "end": 4,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V12-N1",
+      "slot_id": "V12",
+      "input": {
+        "text": "食べさせる。"
+      },
+      "expected": {
+        "outcome": "must_not_match_this_slot",
+        "reason": "Review negative/boundary; another slot may still match"
+      },
+      "source_refs": [
+        "f09-project-editorial-b"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V13-P1",
+      "slot_id": "V13",
+      "input": {
+        "text": "食べさせられる"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "食べる",
+        "explanation_vi": "Sai khiến-bị động “bị bắt/cho …”",
+        "span": {
+          "start": 0,
+          "end": 7,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V13-P2",
+      "slot_id": "V13",
+      "input": {
+        "text": "書かせられる"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "書く",
+        "explanation_vi": "Sai khiến-bị động “bị bắt/cho …”",
+        "span": {
+          "start": 0,
+          "end": 6,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V13-N1",
+      "slot_id": "V13",
+      "input": {
+        "text": "食べさせられる。"
+      },
+      "expected": {
+        "outcome": "must_not_match_this_slot",
+        "reason": "Review negative/boundary; another slot may still match"
+      },
+      "source_refs": [
+        "f09-project-editorial-b"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V14-P1",
+      "slot_id": "V14",
+      "input": {
+        "text": "食べれば"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "食べる",
+        "explanation_vi": "Điều kiện ば “nếu …”",
+        "span": {
+          "start": 0,
+          "end": 4,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V14-P2",
+      "slot_id": "V14",
+      "input": {
+        "text": "書けば"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "書く",
+        "explanation_vi": "Điều kiện ば “nếu …”",
+        "span": {
+          "start": 0,
+          "end": 3,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V14-N1",
+      "slot_id": "V14",
+      "input": {
+        "text": "食べれば。"
+      },
+      "expected": {
+        "outcome": "must_not_match_this_slot",
+        "reason": "Review negative/boundary; another slot may still match"
+      },
+      "source_refs": [
+        "f09-project-editorial-b"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V15-P1",
+      "slot_id": "V15",
+      "input": {
+        "text": "食べたら"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "食べる",
+        "explanation_vi": "Điều kiện たら “nếu/khi …” tùy ngữ cảnh",
+        "span": {
+          "start": 0,
+          "end": 4,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V15-P2",
+      "slot_id": "V15",
+      "input": {
+        "text": "書いたら"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "書く",
+        "explanation_vi": "Điều kiện たら “nếu/khi …” tùy ngữ cảnh",
+        "span": {
+          "start": 0,
+          "end": 4,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V15-N1",
+      "slot_id": "V15",
+      "input": {
+        "text": "食べたら。"
+      },
+      "expected": {
+        "outcome": "must_not_match_this_slot",
+        "reason": "Review negative/boundary; another slot may still match"
+      },
+      "source_refs": [
+        "f09-project-editorial-b"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V16-P1",
+      "slot_id": "V16",
+      "input": {
+        "text": "食べよう"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "食べる",
+        "explanation_vi": "Ý chí/đề nghị “hãy/cùng …”",
+        "span": {
+          "start": 0,
+          "end": 4,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V16-P2",
+      "slot_id": "V16",
+      "input": {
+        "text": "書こう"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "書く",
+        "explanation_vi": "Ý chí/đề nghị “hãy/cùng …”",
+        "span": {
+          "start": 0,
+          "end": 3,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V16-N1",
+      "slot_id": "V16",
+      "input": {
+        "text": "食べよう。"
+      },
+      "expected": {
+        "outcome": "must_not_match_this_slot",
+        "reason": "Review negative/boundary; another slot may still match"
+      },
+      "source_refs": [
+        "f09-project-editorial-b"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V17-P1",
+      "slot_id": "V17",
+      "input": {
+        "text": "食べろ"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "食べる",
+        "explanation_vi": "Mệnh lệnh trực tiếp",
+        "span": {
+          "start": 0,
+          "end": 3,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V17-P2",
+      "slot_id": "V17",
+      "input": {
+        "text": "読め"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "読む",
+        "explanation_vi": "Mệnh lệnh trực tiếp",
+        "span": {
+          "start": 0,
+          "end": 2,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V17-N1",
+      "slot_id": "V17",
+      "input": {
+        "text": "食べろ。"
+      },
+      "expected": {
+        "outcome": "must_not_match_this_slot",
+        "reason": "Review negative/boundary; another slot may still match"
+      },
+      "source_refs": [
+        "f09-project-editorial-b"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V18-P1",
+      "slot_id": "V18",
+      "input": {
+        "text": "食べるな"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "食べる",
+        "explanation_vi": "Cấm đoán “đừng …”",
+        "span": {
+          "start": 0,
+          "end": 4,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V18-P2",
+      "slot_id": "V18",
+      "input": {
+        "text": "書くな"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "書く",
+        "explanation_vi": "Cấm đoán “đừng …”",
+        "span": {
+          "start": 0,
+          "end": 3,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V18-N1",
+      "slot_id": "V18",
+      "input": {
+        "text": "食べるな。"
+      },
+      "expected": {
+        "outcome": "must_not_match_this_slot",
+        "reason": "Review negative/boundary; another slot may still match"
+      },
+      "source_refs": [
+        "f09-project-editorial-b"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V19-P1",
+      "slot_id": "V19",
+      "input": {
+        "text": "食べたい"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "食べる",
+        "explanation_vi": "Mong muốn “muốn …”",
+        "span": {
+          "start": 0,
+          "end": 4,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V19-P2",
+      "slot_id": "V19",
+      "input": {
+        "text": "書きたい"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "書く",
+        "explanation_vi": "Mong muốn “muốn …”",
+        "span": {
+          "start": 0,
+          "end": 4,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V19-N1",
+      "slot_id": "V19",
+      "input": {
+        "text": "食べたい。"
+      },
+      "expected": {
+        "outcome": "must_not_match_this_slot",
+        "reason": "Review negative/boundary; another slot may still match"
+      },
+      "source_refs": [
+        "f09-project-editorial-b"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V20-P1",
+      "slot_id": "V20",
+      "input": {
+        "text": "食べている"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "食べる",
+        "explanation_vi": "Tiếp diễn hoặc trạng thái kết quả, cần ngữ cảnh",
+        "span": {
+          "start": 0,
+          "end": 5,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V20-P2",
+      "slot_id": "V20",
+      "input": {
+        "text": "書いている"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "書く",
+        "explanation_vi": "Tiếp diễn hoặc trạng thái kết quả, cần ngữ cảnh",
+        "span": {
+          "start": 0,
+          "end": 5,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "V20-N1",
+      "slot_id": "V20",
+      "input": {
+        "text": "食べている。"
+      },
+      "expected": {
+        "outcome": "must_not_match_this_slot",
+        "reason": "Review negative/boundary; another slot may still match"
+      },
+      "source_refs": [
+        "f09-project-editorial-b"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "I00-P1",
+      "slot_id": "I00",
+      "input": {
+        "text": "高い"
+      },
+      "expected": {
+        "outcome": "exact_first",
+        "base_form": "高い",
+        "explanation_vi": null,
+        "span": {
+          "start": 0,
+          "end": 2,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "I00-P2",
+      "slot_id": "I00",
+      "input": {
+        "text": "安い"
+      },
+      "expected": {
+        "outcome": "exact_first",
+        "base_form": "安い",
+        "explanation_vi": null,
+        "span": {
+          "start": 0,
+          "end": 2,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "I01-P1",
+      "slot_id": "I01",
+      "input": {
+        "text": "高かった"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "高い",
+        "explanation_vi": "Quá khứ thông thường",
+        "span": {
+          "start": 0,
+          "end": 4,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "I01-P2",
+      "slot_id": "I01",
+      "input": {
+        "text": "安かった"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "安い",
+        "explanation_vi": "Quá khứ thông thường",
+        "span": {
+          "start": 0,
+          "end": 4,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "I01-N1",
+      "slot_id": "I01",
+      "input": {
+        "text": "高かった。"
+      },
+      "expected": {
+        "outcome": "must_not_match_this_slot",
+        "reason": "Review negative/boundary; another slot may still match"
+      },
+      "source_refs": [
+        "f09-project-editorial-b"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "I02-P1",
+      "slot_id": "I02",
+      "input": {
+        "text": "高くない"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "高い",
+        "explanation_vi": "Phủ định thông thường",
+        "span": {
+          "start": 0,
+          "end": 4,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "I02-P2",
+      "slot_id": "I02",
+      "input": {
+        "text": "安くない"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "安い",
+        "explanation_vi": "Phủ định thông thường",
+        "span": {
+          "start": 0,
+          "end": 4,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "I02-N1",
+      "slot_id": "I02",
+      "input": {
+        "text": "高くない。"
+      },
+      "expected": {
+        "outcome": "must_not_match_this_slot",
+        "reason": "Review negative/boundary; another slot may still match"
+      },
+      "source_refs": [
+        "f09-project-editorial-b"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "I03-P1",
+      "slot_id": "I03",
+      "input": {
+        "text": "高くなかった"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "高い",
+        "explanation_vi": "Phủ định quá khứ thông thường",
+        "span": {
+          "start": 0,
+          "end": 6,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "I03-P2",
+      "slot_id": "I03",
+      "input": {
+        "text": "安くなかった"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "安い",
+        "explanation_vi": "Phủ định quá khứ thông thường",
+        "span": {
+          "start": 0,
+          "end": 6,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "I03-N1",
+      "slot_id": "I03",
+      "input": {
+        "text": "高くなかった。"
+      },
+      "expected": {
+        "outcome": "must_not_match_this_slot",
+        "reason": "Review negative/boundary; another slot may still match"
+      },
+      "source_refs": [
+        "f09-project-editorial-b"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "I04-P1",
+      "slot_id": "I04",
+      "input": {
+        "text": "高いです"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "高い",
+        "explanation_vi": "Không quá khứ lịch sự",
+        "span": {
+          "start": 0,
+          "end": 4,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "I04-P2",
+      "slot_id": "I04",
+      "input": {
+        "text": "安いです"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "安い",
+        "explanation_vi": "Không quá khứ lịch sự",
+        "span": {
+          "start": 0,
+          "end": 4,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "I04-N1",
+      "slot_id": "I04",
+      "input": {
+        "text": "高いです。"
+      },
+      "expected": {
+        "outcome": "must_not_match_this_slot",
+        "reason": "Review negative/boundary; another slot may still match"
+      },
+      "source_refs": [
+        "f09-project-editorial-b"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "I05-P1",
+      "slot_id": "I05",
+      "input": {
+        "text": "高かったです"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "高い",
+        "explanation_vi": "Quá khứ lịch sự",
+        "span": {
+          "start": 0,
+          "end": 6,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "I05-P2",
+      "slot_id": "I05",
+      "input": {
+        "text": "安かったです"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "安い",
+        "explanation_vi": "Quá khứ lịch sự",
+        "span": {
+          "start": 0,
+          "end": 6,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "I05-N1",
+      "slot_id": "I05",
+      "input": {
+        "text": "高かったです。"
+      },
+      "expected": {
+        "outcome": "must_not_match_this_slot",
+        "reason": "Review negative/boundary; another slot may still match"
+      },
+      "source_refs": [
+        "f09-project-editorial-b"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "I06-P1",
+      "slot_id": "I06",
+      "input": {
+        "text": "高くないです"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "高い",
+        "explanation_vi": "Phủ định lịch sự; hai cách nói",
+        "span": {
+          "start": 0,
+          "end": 6,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "I06-P2",
+      "slot_id": "I06",
+      "input": {
+        "text": "安くありません"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "安い",
+        "explanation_vi": "Phủ định lịch sự; hai cách nói",
+        "span": {
+          "start": 0,
+          "end": 7,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "I06-N1",
+      "slot_id": "I06",
+      "input": {
+        "text": "高くないです。"
+      },
+      "expected": {
+        "outcome": "must_not_match_this_slot",
+        "reason": "Review negative/boundary; another slot may still match"
+      },
+      "source_refs": [
+        "f09-project-editorial-b"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "I07-P1",
+      "slot_id": "I07",
+      "input": {
+        "text": "高くなかったです"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "高い",
+        "explanation_vi": "Phủ định quá khứ lịch sự; hai cách nói",
+        "span": {
+          "start": 0,
+          "end": 8,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "I07-P2",
+      "slot_id": "I07",
+      "input": {
+        "text": "安くありませんでした"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "安い",
+        "explanation_vi": "Phủ định quá khứ lịch sự; hai cách nói",
+        "span": {
+          "start": 0,
+          "end": 10,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "I07-N1",
+      "slot_id": "I07",
+      "input": {
+        "text": "高くなかったです。"
+      },
+      "expected": {
+        "outcome": "must_not_match_this_slot",
+        "reason": "Review negative/boundary; another slot may still match"
+      },
+      "source_refs": [
+        "f09-project-editorial-b"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "I08-P1",
+      "slot_id": "I08",
+      "input": {
+        "text": "高くて"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "高い",
+        "explanation_vi": "Thể nối くて",
+        "span": {
+          "start": 0,
+          "end": 3,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "I08-P2",
+      "slot_id": "I08",
+      "input": {
+        "text": "安くて"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "安い",
+        "explanation_vi": "Thể nối くて",
+        "span": {
+          "start": 0,
+          "end": 3,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "I08-N1",
+      "slot_id": "I08",
+      "input": {
+        "text": "高くて。"
+      },
+      "expected": {
+        "outcome": "must_not_match_this_slot",
+        "reason": "Review negative/boundary; another slot may still match"
+      },
+      "source_refs": [
+        "f09-project-editorial-b"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "I09-P1",
+      "slot_id": "I09",
+      "input": {
+        "text": "高く"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "高い",
+        "explanation_vi": "Dạng trạng từ く; cần kiểm ranh giới từ",
+        "span": {
+          "start": 0,
+          "end": 2,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "I09-P2",
+      "slot_id": "I09",
+      "input": {
+        "text": "安く"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "安い",
+        "explanation_vi": "Dạng trạng từ く; cần kiểm ranh giới từ",
+        "span": {
+          "start": 0,
+          "end": 2,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "I09-N1",
+      "slot_id": "I09",
+      "input": {
+        "text": "きれいに (không phải tính từ い)"
+      },
+      "expected": {
+        "outcome": "must_not_match_this_slot",
+        "reason": "Review negative/boundary; another slot may still match"
+      },
+      "source_refs": [
+        "f09-project-editorial-b"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "I10-P1",
+      "slot_id": "I10",
+      "input": {
+        "text": "高ければ"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "高い",
+        "explanation_vi": "Điều kiện ければ",
+        "span": {
+          "start": 0,
+          "end": 4,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "I10-P2",
+      "slot_id": "I10",
+      "input": {
+        "text": "安ければ"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "安い",
+        "explanation_vi": "Điều kiện ければ",
+        "span": {
+          "start": 0,
+          "end": 4,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "I10-N1",
+      "slot_id": "I10",
+      "input": {
+        "text": "高ければ。"
+      },
+      "expected": {
+        "outcome": "must_not_match_this_slot",
+        "reason": "Review negative/boundary; another slot may still match"
+      },
+      "source_refs": [
+        "f09-project-editorial-b"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "I11-P1",
+      "slot_id": "I11",
+      "input": {
+        "text": "高かったら"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "高い",
+        "explanation_vi": "Điều kiện かったら",
+        "span": {
+          "start": 0,
+          "end": 5,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "I11-P2",
+      "slot_id": "I11",
+      "input": {
+        "text": "安かったら"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "安い",
+        "explanation_vi": "Điều kiện かったら",
+        "span": {
+          "start": 0,
+          "end": 5,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "I11-N1",
+      "slot_id": "I11",
+      "input": {
+        "text": "高かったら。"
+      },
+      "expected": {
+        "outcome": "must_not_match_this_slot",
+        "reason": "Review negative/boundary; another slot may still match"
+      },
+      "source_refs": [
+        "f09-project-editorial-b"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "A00-P1",
+      "slot_id": "A00",
+      "input": {
+        "text": "静か"
+      },
+      "expected": {
+        "outcome": "exact_first",
+        "base_form": "静か",
+        "explanation_vi": null,
+        "span": {
+          "start": 0,
+          "end": 2,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "A00-P2",
+      "slot_id": "A00",
+      "input": {
+        "text": "便利"
+      },
+      "expected": {
+        "outcome": "exact_first",
+        "base_form": "便利",
+        "explanation_vi": null,
+        "span": {
+          "start": 0,
+          "end": 2,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "A01-P1",
+      "slot_id": "A01",
+      "input": {
+        "text": "静かだ"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "静か",
+        "explanation_vi": "Khẳng định thông thường, không quá khứ",
+        "span": {
+          "start": 0,
+          "end": 3,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "A01-P2",
+      "slot_id": "A01",
+      "input": {
+        "text": "便利だ"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "便利",
+        "explanation_vi": "Khẳng định thông thường, không quá khứ",
+        "span": {
+          "start": 0,
+          "end": 3,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "A01-N1",
+      "slot_id": "A01",
+      "input": {
+        "text": "学生だ (danh từ)"
+      },
+      "expected": {
+        "outcome": "must_not_match_this_slot",
+        "reason": "Review negative/boundary; another slot may still match"
+      },
+      "source_refs": [
+        "f09-project-editorial-b"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "A02-P1",
+      "slot_id": "A02",
+      "input": {
+        "text": "静かだった"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "静か",
+        "explanation_vi": "Khẳng định thông thường, quá khứ",
+        "span": {
+          "start": 0,
+          "end": 5,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "A02-P2",
+      "slot_id": "A02",
+      "input": {
+        "text": "便利だった"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "便利",
+        "explanation_vi": "Khẳng định thông thường, quá khứ",
+        "span": {
+          "start": 0,
+          "end": 5,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "A02-N1",
+      "slot_id": "A02",
+      "input": {
+        "text": "学生だった"
+      },
+      "expected": {
+        "outcome": "must_not_match_this_slot",
+        "reason": "Review negative/boundary; another slot may still match"
+      },
+      "source_refs": [
+        "f09-project-editorial-b"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "A03-P1",
+      "slot_id": "A03",
+      "input": {
+        "text": "静かじゃない"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "静か",
+        "explanation_vi": "Phủ định thông thường, không quá khứ",
+        "span": {
+          "start": 0,
+          "end": 6,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "A03-P2",
+      "slot_id": "A03",
+      "input": {
+        "text": "便利ではない"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "便利",
+        "explanation_vi": "Phủ định thông thường, không quá khứ",
+        "span": {
+          "start": 0,
+          "end": 6,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "A03-N1",
+      "slot_id": "A03",
+      "input": {
+        "text": "学生じゃない"
+      },
+      "expected": {
+        "outcome": "must_not_match_this_slot",
+        "reason": "Review negative/boundary; another slot may still match"
+      },
+      "source_refs": [
+        "f09-project-editorial-b"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "A04-P1",
+      "slot_id": "A04",
+      "input": {
+        "text": "静かじゃなかった"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "静か",
+        "explanation_vi": "Phủ định thông thường, quá khứ",
+        "span": {
+          "start": 0,
+          "end": 8,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "A04-P2",
+      "slot_id": "A04",
+      "input": {
+        "text": "便利ではなかった"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "便利",
+        "explanation_vi": "Phủ định thông thường, quá khứ",
+        "span": {
+          "start": 0,
+          "end": 8,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "A04-N1",
+      "slot_id": "A04",
+      "input": {
+        "text": "学生じゃなかった"
+      },
+      "expected": {
+        "outcome": "must_not_match_this_slot",
+        "reason": "Review negative/boundary; another slot may still match"
+      },
+      "source_refs": [
+        "f09-project-editorial-b"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "A05-P1",
+      "slot_id": "A05",
+      "input": {
+        "text": "静かです"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "静か",
+        "explanation_vi": "Khẳng định lịch sự, không quá khứ",
+        "span": {
+          "start": 0,
+          "end": 4,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "A05-P2",
+      "slot_id": "A05",
+      "input": {
+        "text": "便利です"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "便利",
+        "explanation_vi": "Khẳng định lịch sự, không quá khứ",
+        "span": {
+          "start": 0,
+          "end": 4,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "A05-N1",
+      "slot_id": "A05",
+      "input": {
+        "text": "学生です"
+      },
+      "expected": {
+        "outcome": "must_not_match_this_slot",
+        "reason": "Review negative/boundary; another slot may still match"
+      },
+      "source_refs": [
+        "f09-project-editorial-b"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "A06-P1",
+      "slot_id": "A06",
+      "input": {
+        "text": "静かでした"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "静か",
+        "explanation_vi": "Khẳng định lịch sự, quá khứ",
+        "span": {
+          "start": 0,
+          "end": 5,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "A06-P2",
+      "slot_id": "A06",
+      "input": {
+        "text": "便利でした"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "便利",
+        "explanation_vi": "Khẳng định lịch sự, quá khứ",
+        "span": {
+          "start": 0,
+          "end": 5,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "A06-N1",
+      "slot_id": "A06",
+      "input": {
+        "text": "学生でした"
+      },
+      "expected": {
+        "outcome": "must_not_match_this_slot",
+        "reason": "Review negative/boundary; another slot may still match"
+      },
+      "source_refs": [
+        "f09-project-editorial-b"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "A07-P1",
+      "slot_id": "A07",
+      "input": {
+        "text": "静かじゃないです"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "静か",
+        "explanation_vi": "Phủ định lịch sự, không quá khứ",
+        "span": {
+          "start": 0,
+          "end": 8,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "A07-P2",
+      "slot_id": "A07",
+      "input": {
+        "text": "便利ではありません"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "便利",
+        "explanation_vi": "Phủ định lịch sự, không quá khứ",
+        "span": {
+          "start": 0,
+          "end": 9,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "A07-N1",
+      "slot_id": "A07",
+      "input": {
+        "text": "学生ではありません"
+      },
+      "expected": {
+        "outcome": "must_not_match_this_slot",
+        "reason": "Review negative/boundary; another slot may still match"
+      },
+      "source_refs": [
+        "f09-project-editorial-b"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "A08-P1",
+      "slot_id": "A08",
+      "input": {
+        "text": "静かじゃなかったです"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "静か",
+        "explanation_vi": "Phủ định lịch sự, quá khứ",
+        "span": {
+          "start": 0,
+          "end": 10,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "A08-P2",
+      "slot_id": "A08",
+      "input": {
+        "text": "便利ではありませんでした"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "便利",
+        "explanation_vi": "Phủ định lịch sự, quá khứ",
+        "span": {
+          "start": 0,
+          "end": 12,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "A08-N1",
+      "slot_id": "A08",
+      "input": {
+        "text": "学生ではありませんでした"
+      },
+      "expected": {
+        "outcome": "must_not_match_this_slot",
+        "reason": "Review negative/boundary; another slot may still match"
+      },
+      "source_refs": [
+        "f09-project-editorial-b"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "A09-P1",
+      "slot_id": "A09",
+      "input": {
+        "text": "静かな"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "静か",
+        "explanation_vi": "Dạng bổ nghĩa trước danh từ",
+        "span": {
+          "start": 0,
+          "end": 3,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "A09-P2",
+      "slot_id": "A09",
+      "input": {
+        "text": "便利な"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "便利",
+        "explanation_vi": "Dạng bổ nghĩa trước danh từ",
+        "span": {
+          "start": 0,
+          "end": 3,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "A09-N1",
+      "slot_id": "A09",
+      "input": {
+        "text": "学生な (không phải dạng tính từ な)"
+      },
+      "expected": {
+        "outcome": "must_not_match_this_slot",
+        "reason": "Review negative/boundary; another slot may still match"
+      },
+      "source_refs": [
+        "f09-project-editorial-b"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "A10-P1",
+      "slot_id": "A10",
+      "input": {
+        "text": "静かに"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "静か",
+        "explanation_vi": "Dạng trạng từ に",
+        "span": {
+          "start": 0,
+          "end": 3,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "A10-P2",
+      "slot_id": "A10",
+      "input": {
+        "text": "便利に"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "便利",
+        "explanation_vi": "Dạng trạng từ に",
+        "span": {
+          "start": 0,
+          "end": 3,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "A10-N1",
+      "slot_id": "A10",
+      "input": {
+        "text": "学生に (hạt chỉ quan hệ, không phải tính từ な)"
+      },
+      "expected": {
+        "outcome": "must_not_match_this_slot",
+        "reason": "Review negative/boundary; another slot may still match"
+      },
+      "source_refs": [
+        "f09-project-editorial-b"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "A11-P1",
+      "slot_id": "A11",
+      "input": {
+        "text": "静かで"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "静か",
+        "explanation_vi": "Dạng nối で; phân biệt hạt で",
+        "span": {
+          "start": 0,
+          "end": 3,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "A11-P2",
+      "slot_id": "A11",
+      "input": {
+        "text": "便利で"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "便利",
+        "explanation_vi": "Dạng nối で; phân biệt hạt で",
+        "span": {
+          "start": 0,
+          "end": 3,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "A11-N1",
+      "slot_id": "A11",
+      "input": {
+        "text": "学生で (không phải tính từ な)"
+      },
+      "expected": {
+        "outcome": "must_not_match_this_slot",
+        "reason": "Review negative/boundary; another slot may still match"
+      },
+      "source_refs": [
+        "f09-project-editorial-b"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "A12-P1",
+      "slot_id": "A12",
+      "input": {
+        "text": "静かなら"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "静か",
+        "explanation_vi": "Điều kiện なら",
+        "span": {
+          "start": 0,
+          "end": 4,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "A12-P2",
+      "slot_id": "A12",
+      "input": {
+        "text": "便利なら"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "便利",
+        "explanation_vi": "Điều kiện なら",
+        "span": {
+          "start": 0,
+          "end": 4,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "A12-N1",
+      "slot_id": "A12",
+      "input": {
+        "text": "学生なら"
+      },
+      "expected": {
+        "outcome": "must_not_match_this_slot",
+        "reason": "Review negative/boundary; another slot may still match"
+      },
+      "source_refs": [
+        "f09-project-editorial-b"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "A13-P1",
+      "slot_id": "A13",
+      "input": {
+        "text": "静かだったら"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "静か",
+        "explanation_vi": "Điều kiện だったら",
+        "span": {
+          "start": 0,
+          "end": 6,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "A13-P2",
+      "slot_id": "A13",
+      "input": {
+        "text": "便利だったら"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "便利",
+        "explanation_vi": "Điều kiện だったら",
+        "span": {
+          "start": 0,
+          "end": 6,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "A13-N1",
+      "slot_id": "A13",
+      "input": {
+        "text": "学生だったら"
+      },
+      "expected": {
+        "outcome": "must_not_match_this_slot",
+        "reason": "Review negative/boundary; another slot may still match"
+      },
+      "source_refs": [
+        "f09-project-editorial-b"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "N00-P1",
+      "slot_id": "N00",
+      "input": {
+        "text": "学生"
+      },
+      "expected": {
+        "outcome": "exact_first",
+        "base_form": "学生",
+        "explanation_vi": null,
+        "span": {
+          "start": 0,
+          "end": 2,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "N00-P2",
+      "slot_id": "N00",
+      "input": {
+        "text": "先生"
+      },
+      "expected": {
+        "outcome": "exact_first",
+        "base_form": "先生",
+        "explanation_vi": null,
+        "span": {
+          "start": 0,
+          "end": 2,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "N01-P1",
+      "slot_id": "N01",
+      "input": {
+        "text": "学生だ"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "学生",
+        "explanation_vi": "Khẳng định thông thường qua `だ`; danh từ không tự đổi đuôi",
+        "span": {
+          "start": 0,
+          "end": 3,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "N01-P2",
+      "slot_id": "N01",
+      "input": {
+        "text": "先生だ"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "先生",
+        "explanation_vi": "Khẳng định thông thường qua `だ`; danh từ không tự đổi đuôi",
+        "span": {
+          "start": 0,
+          "end": 3,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "N01-N1",
+      "slot_id": "N01",
+      "input": {
+        "text": "静かだ (tính từ な)"
+      },
+      "expected": {
+        "outcome": "must_not_match_this_slot",
+        "reason": "Review negative/boundary; another slot may still match"
+      },
+      "source_refs": [
+        "f09-project-editorial-b"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "N02-P1",
+      "slot_id": "N02",
+      "input": {
+        "text": "学生だった"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "学生",
+        "explanation_vi": "Quá khứ thông thường qua `だった`",
+        "span": {
+          "start": 0,
+          "end": 5,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "N02-P2",
+      "slot_id": "N02",
+      "input": {
+        "text": "先生だった"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "先生",
+        "explanation_vi": "Quá khứ thông thường qua `だった`",
+        "span": {
+          "start": 0,
+          "end": 5,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "N02-N1",
+      "slot_id": "N02",
+      "input": {
+        "text": "静かだった"
+      },
+      "expected": {
+        "outcome": "must_not_match_this_slot",
+        "reason": "Review negative/boundary; another slot may still match"
+      },
+      "source_refs": [
+        "f09-project-editorial-b"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "N03-P1",
+      "slot_id": "N03",
+      "input": {
+        "text": "学生じゃない"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "学生",
+        "explanation_vi": "Phủ định thông thường qua copula/phủ định",
+        "span": {
+          "start": 0,
+          "end": 6,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "N03-P2",
+      "slot_id": "N03",
+      "input": {
+        "text": "先生ではない"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "先生",
+        "explanation_vi": "Phủ định thông thường qua copula/phủ định",
+        "span": {
+          "start": 0,
+          "end": 6,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "N03-N1",
+      "slot_id": "N03",
+      "input": {
+        "text": "静かじゃない"
+      },
+      "expected": {
+        "outcome": "must_not_match_this_slot",
+        "reason": "Review negative/boundary; another slot may still match"
+      },
+      "source_refs": [
+        "f09-project-editorial-b"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "N04-P1",
+      "slot_id": "N04",
+      "input": {
+        "text": "学生じゃなかった"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "学生",
+        "explanation_vi": "Phủ định quá khứ qua copula/phủ định",
+        "span": {
+          "start": 0,
+          "end": 8,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "N04-P2",
+      "slot_id": "N04",
+      "input": {
+        "text": "先生ではなかった"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "先生",
+        "explanation_vi": "Phủ định quá khứ qua copula/phủ định",
+        "span": {
+          "start": 0,
+          "end": 8,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "N04-N1",
+      "slot_id": "N04",
+      "input": {
+        "text": "静かじゃなかった"
+      },
+      "expected": {
+        "outcome": "must_not_match_this_slot",
+        "reason": "Review negative/boundary; another slot may still match"
+      },
+      "source_refs": [
+        "f09-project-editorial-b"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "N05-P1",
+      "slot_id": "N05",
+      "input": {
+        "text": "学生です"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "学生",
+        "explanation_vi": "Khẳng định lịch sự qua `です`",
+        "span": {
+          "start": 0,
+          "end": 4,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "N05-P2",
+      "slot_id": "N05",
+      "input": {
+        "text": "先生です"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "先生",
+        "explanation_vi": "Khẳng định lịch sự qua `です`",
+        "span": {
+          "start": 0,
+          "end": 4,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "N05-N1",
+      "slot_id": "N05",
+      "input": {
+        "text": "静かです"
+      },
+      "expected": {
+        "outcome": "must_not_match_this_slot",
+        "reason": "Review negative/boundary; another slot may still match"
+      },
+      "source_refs": [
+        "f09-project-editorial-b"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "N06-P1",
+      "slot_id": "N06",
+      "input": {
+        "text": "学生でした"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "学生",
+        "explanation_vi": "Quá khứ lịch sự qua `でした`",
+        "span": {
+          "start": 0,
+          "end": 5,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "N06-P2",
+      "slot_id": "N06",
+      "input": {
+        "text": "先生でした"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "先生",
+        "explanation_vi": "Quá khứ lịch sự qua `でした`",
+        "span": {
+          "start": 0,
+          "end": 5,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "N06-N1",
+      "slot_id": "N06",
+      "input": {
+        "text": "静かでした"
+      },
+      "expected": {
+        "outcome": "must_not_match_this_slot",
+        "reason": "Review negative/boundary; another slot may still match"
+      },
+      "source_refs": [
+        "f09-project-editorial-b"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "N07-P1",
+      "slot_id": "N07",
+      "input": {
+        "text": "学生じゃないです"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "学生",
+        "explanation_vi": "Phủ định lịch sự qua copula/phủ định",
+        "span": {
+          "start": 0,
+          "end": 8,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "N07-P2",
+      "slot_id": "N07",
+      "input": {
+        "text": "先生ではありません"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "先生",
+        "explanation_vi": "Phủ định lịch sự qua copula/phủ định",
+        "span": {
+          "start": 0,
+          "end": 9,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "N07-N1",
+      "slot_id": "N07",
+      "input": {
+        "text": "静かではありません"
+      },
+      "expected": {
+        "outcome": "must_not_match_this_slot",
+        "reason": "Review negative/boundary; another slot may still match"
+      },
+      "source_refs": [
+        "f09-project-editorial-b"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "N08-P1",
+      "slot_id": "N08",
+      "input": {
+        "text": "学生じゃなかったです"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "学生",
+        "explanation_vi": "Phủ định quá khứ lịch sự",
+        "span": {
+          "start": 0,
+          "end": 10,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "N08-P2",
+      "slot_id": "N08",
+      "input": {
+        "text": "先生ではありませんでした"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "先生",
+        "explanation_vi": "Phủ định quá khứ lịch sự",
+        "span": {
+          "start": 0,
+          "end": 12,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "N08-N1",
+      "slot_id": "N08",
+      "input": {
+        "text": "静かではありませんでした"
+      },
+      "expected": {
+        "outcome": "must_not_match_this_slot",
+        "reason": "Review negative/boundary; another slot may still match"
+      },
+      "source_refs": [
+        "f09-project-editorial-b"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "N09-P1",
+      "slot_id": "N09",
+      "input": {
+        "text": "学生なら"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "学生",
+        "explanation_vi": "Điều kiện なら",
+        "span": {
+          "start": 0,
+          "end": 4,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "N09-P2",
+      "slot_id": "N09",
+      "input": {
+        "text": "先生なら"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "先生",
+        "explanation_vi": "Điều kiện なら",
+        "span": {
+          "start": 0,
+          "end": 4,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "N09-N1",
+      "slot_id": "N09",
+      "input": {
+        "text": "静かなら"
+      },
+      "expected": {
+        "outcome": "must_not_match_this_slot",
+        "reason": "Review negative/boundary; another slot may still match"
+      },
+      "source_refs": [
+        "f09-project-editorial-b"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "N10-P1",
+      "slot_id": "N10",
+      "input": {
+        "text": "学生だったら"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "学生",
+        "explanation_vi": "Điều kiện だったら",
+        "span": {
+          "start": 0,
+          "end": 6,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "N10-P2",
+      "slot_id": "N10",
+      "input": {
+        "text": "先生だったら"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "先生",
+        "explanation_vi": "Điều kiện だったら",
+        "span": {
+          "start": 0,
+          "end": 6,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "N10-N1",
+      "slot_id": "N10",
+      "input": {
+        "text": "静かだったら"
+      },
+      "expected": {
+        "outcome": "must_not_match_this_slot",
+        "reason": "Review negative/boundary; another slot may still match"
+      },
+      "source_refs": [
+        "f09-project-editorial-b"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "N11-P1",
+      "slot_id": "N11",
+      "input": {
+        "text": "学生で"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "学生",
+        "explanation_vi": "Dạng nối copula で, **chỉ khi có chứng cứ**",
+        "span": {
+          "start": 0,
+          "end": 3,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "N11-P2",
+      "slot_id": "N11",
+      "input": {
+        "text": "先生で"
+      },
+      "expected": {
+        "outcome": "supported",
+        "base_form": "先生",
+        "explanation_vi": "Dạng nối copula で, **chỉ khi có chứng cứ**",
+        "span": {
+          "start": 0,
+          "end": 3,
+          "unit": "utf16"
+        },
+        "segments": null,
+        "alternatives": null
+      },
+      "source_refs": [
+        "f09-project-editorial-b",
+        "jf-irodori-grammar-notes"
+      ],
+      "review_state": "draft_pending_human_review"
+    },
+    {
+      "case_id": "N11-N1",
+      "slot_id": "N11",
+      "input": {
+        "text": "学生に (hạt khác)"
+      },
+      "expected": {
+        "outcome": "must_not_match_this_slot",
+        "reason": "Review negative/boundary; another slot may still match"
+      },
+      "source_refs": [
+        "f09-project-editorial-b"
+      ],
+      "review_state": "draft_pending_human_review"
+    }
+  ]
+}

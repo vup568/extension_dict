@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "corpus_version": "f09-expanded-20261013.3",
+  "review_version": "f09-user-approval-20261013.3",
+  "decision": "needs_data_and_engine_change",
+  "candidate_version": "candidate-20261013.1",
+  "candidate_path": "src/infra/Conjugation/Data/candidate-20261013.1.json",
+  "baseline_triage": {"supported_cases":303,"without_baseline_explanation":260,"expected_rewritten":false},
+  "initial_tests": {"dotnet_unit_passed":72,"evidence_baseline_tests_passed":10,"frontend_v3_expected_failures":5},
+  "reason": "Baseline matcher/data cannot cover copulas,advanced forms,derived heads or multiple interpretations. Existing client explicitly rejects v3.",
+  "design": "Schema1 gains optional parameterized full-word paradigms with observed normalized head constraints and canonical dictionary POS/sense verification. Knowledge data stays separate from the generic engine; no runtime surface-answer table.",
+  "regularization": "Versioned godan kana rows generalize reviewed patterns across regular dictionary classes. Provider-specific head metadata remains in Infra/data,not public contracts. Japanese facts are reference-only,VI independently authored; production gate remains separate.",
+  "old_data_policy": "Keep old dataset,reader and migration unchanged; separate new resource reader and additive migration. Testcontainers only,no migration of user database."
+}

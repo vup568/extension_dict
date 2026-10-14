@@ -1,10 +1,20 @@
 # Implementation Plan: Unified Analysis API (`feat-unified-analysis`)
 
-**Version:** 1.0.0 | **Date:** 2026-09-04  
+**Version:** 1.1.0 | **Updated:** 2026-10-13
 **Feature:** F-05 Unified Analysis API  
-**Spec Reference:** [SPEC.md](./SPEC.md) v0.2.0  
-**Target Stack:** .NET 10 (C# 14), PostgreSQL 16 (EF Core 9), xUnit  
+**Spec Reference:** [SPEC.md](./SPEC.md) v0.3.0
+**Target Stack:** .NET 10 (C# 14), PostgreSQL 16 (EF Core 10), xUnit
 **Branch:** `feat/grammar-detection`
+
+> **2026-10-13 extension:** Initial F-09 now reuses F-06's found-entry result with
+> typed `ConjugationExplanationDto`. Analysis default1 preserves empty/unavailable;
+> `X-Contract-Version: 2` exposes VI/base form/UTF-16 segments, unknown version400.
+> Morphology remains empty/unavailable. Dataset/rules are development-only,
+> explicitly pinned immutable JSONB; full corpus and production signoff pending.
+> Extension implementation/verification: [Tokenizer PLAN](../feat-tokenizer-deinflection/PLAN.md),
+> [TASKS](../feat-tokenizer-deinflection/TASKS.md), [report](../feat-tokenizer-deinflection/evidence/validation-report.md).
+> Older phase snippets/test counts below describe the historical contract1 baseline;
+> they are retained as historical evidence, not the new verification result.
 
 ---
 
@@ -60,7 +70,10 @@ POST /api/analysis
 2. **Parallel execution.** 3 capabilities chạy song song qua `Task.WhenAll` vì chúng không phụ thuộc lẫn nhau.
 3. **Per-capability try/catch.** Mỗi capability được wrap trong try/catch riêng để 1 lỗi không kéo sập cả analysis.
 4. **Grammar dependency.** `DetectGrammarUseCase` phụ thuộc ngầm vào Tokenizer Sidecar (gRPC Sudachi). Khi Sidecar down, use case tự trả `Status: "failed"` — orchestrator chỉ cần map status.
-5. **Unavailable capabilities.** Conjugation và Morphology chưa implement → trả `[]` + `"unavailable"`.
+5. **Capability evolution.** Morphology luôn rỗng/unavailable. Default1 conjugation
+   rỗng/unavailable; opt-in2 dùng lại F-06 detail/status. Unsupported/ambiguous/missing
+   provider/content unavailable; supported without base entry completed-empty;
+   vocabulary failure cũng làm conjugation failed. Cancellation phải propagate.
 6. **interaction_id echo.** Server không generate, chỉ echo client-sent UUID (validate format).
 7. **request_id.** Sử dụng `HttpContext.TraceIdentifier` giống pattern hiện có.
 

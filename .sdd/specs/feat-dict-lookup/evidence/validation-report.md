@@ -1,5 +1,11 @@
 # F-06 Dictionary Lookup Verification — 2026-10-12
 
+> Historical exact-lookup evidence. Update2026-10-13: F-06 gRPC deinflection and
+> initial F-09/API2/popup implementation now exist on the feature branch.
+> New runtime gates/results are tracked in the
+> [Tokenizer validation report](../../feat-tokenizer-deinflection/evidence/validation-report.md).
+> The counts and pending rows below describe the 2026-10-12 checkout, not the new code.
+
 ## Summary
 
 The implemented exact-lookup slice passes its .NET and PostgreSQL 16 gates. The

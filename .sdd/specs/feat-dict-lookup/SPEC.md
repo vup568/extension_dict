@@ -1,12 +1,17 @@
 # FEATURE SPEC: Dictionary Lookup API
-# Version: 1.2.0 | Owner: @lead-dev | Updated: 2026-10-12
+# Version: 1.3.0 | Owner: @lead-dev | Updated: 2026-10-13
 # Inherits: .sdd/constraints/global.md, .sdd/constraints/business.md, .sdd/constraints/safety.md
 # Target Stack: .NET 10 (C# 14) Backend, PostgreSQL 16 (ARCH-005), Docker Testcontainers (ARCH-006)
 
-> **Implementation status (2026-10-12):** Exact form/reading lookup, Vietnamese-first
+> **Implementation status (2026-10-13):** Exact form/reading lookup, Vietnamese-first
 > fallback, provenance, blank/length validation, structured errors and anonymous endpoint wiring are
-> implemented. PostgreSQL Testcontainers verification passes. Production deinflection
-> remains unintegrated in F-06; `OD-010` is resolved as Python + Sudachi over gRPC
+> implemented. Historical exact-slice PostgreSQL verification is recorded separately.
+> `GrpcDictionaryTokenizerAdapter` now connects F-06 to versioned full-chain matching;
+> `ConjugationDatasetVersion=development-20261013.1` explicitly activates 9 initial rules.
+> Initial F-09/API/popup scope and new verification are recorded in
+> [Tokenizer SPEC](../feat-tokenizer-deinflection/SPEC.md) and
+> [validation report](../feat-tokenizer-deinflection/evidence/validation-report.md).
+> Production corpus linguistic signoff/full F-09 remain pending. `OD-010` is resolved as Python + Sudachi over gRPC
 > in [F-08 SPEC §1.4](../feat-grammar-detection/SPEC.md#14-key-decision-tokenizer-od-010--resolved).
 > The default `NullTokenizerAdapter` reports morphology as
 > `unavailable` without breaking exact lookup. This status note does not weaken the
@@ -91,10 +96,16 @@ Feature này **KHÔNG** bao gồm Kanji lookup (F-07), Grammar detection (F-08),
 
 ### 3.2 Deinflection & Morphological Resolution
 
-> **Decision/runtime alignment (2026-10-12):** OD-010 đã chốt Python + Sudachi
-> qua gRPC tại F-08. Sidecar và adapter Grammar đã có code; Dictionary vẫn dùng
-> `NullTokenizerAdapter`. Phần còn thiếu là tích hợp deinflection vào F-06 và
-> giải thích biến đổi từ F-09, không phải chọn lại ngôn ngữ/provider.
+> **Decision/runtime alignment (2026-10-13):** OD-010 đã chốt Python + Sudachi
+> qua gRPC tại F-08. Dictionary dùng gRPC adapter khi pin dataset, unset vẫn Null.
+> Exact match luôn thắng, không gọi tokenizer; fallback chỉ chấp nhận toàn chuỗi
+> liên tục khớp duy nhất rule đã cài, không lấy token đầu của câu hay cắt suffix.
+> Provider timeout500ms/missing dataset/content và unsupported/ambiguous chain
+> degrade, caller cancellation và lỗi secondary repository không bị nuốt.
+> JSONB dataset giữ rules, provider mapping, giải thích Việt và provenance immutable
+> (chặn UPDATE/DELETE/TRUNCATE); thêm version mới, không hardcode tri thức trong engine.
+> F-09 contract2 hiển thị base form/VI/segments UTF-16 khi base lookup có entry;
+> contract1 Analysis vẫn rỗng/unavailable, general morphology chưa triển khai.
 
 *   **EARS[Event]:** WHEN client gửi một từ đang ở dạng chia/biến đổi (ví dụ: `食べました`, `高くなかった`),
     **THE system SHALL** gọi Tokenizer Sidecar qua Interface Adapter ở tầng Infrastructure để lấy base form (`食べる`, `高い`) [MIGRATION 6.5, 17], rồi tra cứu từ điển theo base form [CONJ-001].

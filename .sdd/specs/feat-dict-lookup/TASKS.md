@@ -1,6 +1,6 @@
 # Task Checklist: Dictionary Lookup API (`feat-dict-lookup`)
 
-**Version:** 1.2.0 | **Updated:** 2026-10-12
+**Version:** 1.3.0 | **Updated:** 2026-10-13
 **Target Feature:** `feat-dict-lookup` (F-06 Vocabulary Lookup API)  
 **Spec Reference:** [SPEC.md](./SPEC.md) | **Plan Reference:** [PLAN.md](./PLAN.md)
 
@@ -11,7 +11,7 @@
 | Phase | Description | Task Count | Status |
 |---|---|---|---|
 | **Phase 1** | Application Layer Core Abstractions & Use Case | 5 tasks | ✅ Completed |
-| **Phase 2** | Infrastructure Implementation (EF Core & Sidecar) | 4 tasks | ⚠️ Fallback complete; OD-010 resolved, Dictionary deinflection integration pending |
+| **Phase 2** | Infrastructure Implementation (EF Core & Sidecar) | 4 tasks | ✅ Scoped adapter/initial F-09 implemented and locally verified; production approval separate |
 | **Phase 3** | WebApi Layer & Endpoint Registration | 3 tasks | ✅ Completed |
 | **Phase 4** | Integration Testing & Verification | 2 tasks | ✅ Completed |
 
@@ -71,15 +71,22 @@
   - Details:
     - Return an explicit unavailable result so exact lookup remains usable without falsely claiming morphology completed.
 
-- [ ] **Task 2.2b: Integrate Dictionary deinflection with the existing Python Sudachi gRPC Sidecar**
+- [x] **Task 2.2b: Integrate Dictionary deinflection with the existing Python Sudachi gRPC Sidecar — locally verified 2026-10-13**
   - OD-010 resolved in F-08 SPEC §1.4. Sidecar code/Dockerfile/proto and Grammar adapter exist.
-  - Dictionary DI still uses `NullTokenizerAdapter`; add the Dictionary integration and live runtime verification.
-  - Required for production AC-010 deinflection; not part of the current verified exact-lookup slice.
+  - `GrpcDictionaryTokenizerAdapter` + immutable JSONB `ConjugationDataset` now exist;
+    `ConjugationDatasetVersion=development-20261013.1` activates 9 rules. Unset uses Null.
+  - Initial F-09 exposes found-entry explanations/segments through opt-in contract2;
+    default1 Analysis remains unavailable. Full production linguistic approval is separate.
+  - Verification/closure: [Tokenizer TASKS](../feat-tokenizer-deinflection/TASKS.md),
+    [new validation report](../feat-tokenizer-deinflection/evidence/validation-report.md).
+    Keep historical exact-only results below unchanged.
 
 - [x] **Task 2.3: Create Infrastructure Extension Registration**
   - File: `src/infra/DependencyInjection.cs`
   - Details:
-    - Register `IDictionaryRepository` -> `EfDictionaryRepository` and `ITokenizerAdapter` -> `NullTokenizerAdapter`.
+    - Register `IDictionaryRepository` -> `EfDictionaryRepository`; `ITokenizerAdapter`
+      -> Null when dataset unset, otherwise `GrpcDictionaryTokenizerAdapter`;
+      `IConjugationDatasetRepository` -> `EfConjugationDatasetRepository`.
 
 ---
 

@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "decision_date": "2026-10-13",
+  "decision_maker": "project-owner-current-chat",
+  "appointed_linguistic_reviewer": "project-owner-current-chat",
+  "decisions": [
+    {
+      "id": "honorific-reru-rareru",
+      "question": "Phạm vi F09 lần này có bao gồm cách dùng kính ngữ của れる/られる không? Ví dụ 食べられる còn có thể dùng để nói kính trọng, ngoài khả năng và bị động.",
+      "answer_verbatim": "Bao gồm cả cách dùng kính ngữ",
+      "scope_behavior_confirmed": true
+    },
+    {
+      "id": "causative-passive-potential-alternatives",
+      "question": "Với 食べさせられる, hiển thị cả cách hiểu bị bắt ăn và có thể cho/khiến ăn hay chỉ sai khiến-bị động?",
+      "answer_verbatim": "nên hiển thị cả 2 và giải thích cả 2 cho người dùng biết nhé, nếu chưa rõ ở đâu thì cứ hỏi tôi trước khi làm nhé",
+      "scope_behavior_confirmed": true
+    }
+  ],
+  "exact_corpus_revision_answers_approved": false,
+  "approval_boundary": "These replies confirm the requested behavior, not an unseen new snapshot's exact Vietnamese wording/components, runtime acceptance or publication. Preserve the prior .1 review receipt."
+}

@@ -1,0 +1,873 @@
+{
+  "schema_version": 1,
+  "corpus_version": "f09-expanded-20261013.1-draft",
+  "status": "inventory_incomplete",
+  "baseline_dataset_version": "development-20261013.1",
+  "coverage_catalog_file": "coverage-catalog.md",
+  "scope": "Four word groups, basic and advanced forms; multiple evidenced analyses shown as alternatives in contract3",
+  "slots": [
+    {
+      "slot_id": "V00",
+      "word_group": "verb",
+      "form": "Từ điển, nguyên dạng",
+      "example": "食べる→食べる",
+      "proposal": "exact_first",
+      "proposed_rule_id": null,
+      "po_decision": "pending",
+      "case_ids": [],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ]
+    },
+    {
+      "slot_id": "V01",
+      "word_group": "verb",
+      "form": "Lịch sự không quá khứ",
+      "example": "食べます→食べる",
+      "proposal": "keep_baseline",
+      "proposed_rule_id": "conjugation:verb-polite-nonpast",
+      "po_decision": "pending",
+      "case_ids": [],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ]
+    },
+    {
+      "slot_id": "V02",
+      "word_group": "verb",
+      "form": "Lịch sự quá khứ",
+      "example": "食べました→食べる",
+      "proposal": "keep_baseline",
+      "proposed_rule_id": "conjugation:verb-polite-past",
+      "po_decision": "pending",
+      "case_ids": [],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ]
+    },
+    {
+      "slot_id": "V03",
+      "word_group": "verb",
+      "form": "Lịch sự phủ định",
+      "example": "食べません→食べる",
+      "proposal": "keep_baseline",
+      "proposed_rule_id": "conjugation:verb-polite-negative",
+      "po_decision": "pending",
+      "case_ids": [],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ]
+    },
+    {
+      "slot_id": "V04",
+      "word_group": "verb",
+      "form": "Lịch sự phủ định quá khứ",
+      "example": "食べませんでした→食べる",
+      "proposal": "add",
+      "proposed_rule_id": null,
+      "po_decision": "pending",
+      "case_ids": [],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ]
+    },
+    {
+      "slot_id": "V05",
+      "word_group": "verb",
+      "form": "Thông thường quá khứ",
+      "example": "食べた→食べる",
+      "proposal": "keep_baseline",
+      "proposed_rule_id": "conjugation:verb-past",
+      "po_decision": "pending",
+      "case_ids": [],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ]
+    },
+    {
+      "slot_id": "V06",
+      "word_group": "verb",
+      "form": "Thông thường phủ định",
+      "example": "食べない→食べる",
+      "proposal": "keep_baseline",
+      "proposed_rule_id": "conjugation:verb-negative",
+      "po_decision": "pending",
+      "case_ids": [],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ]
+    },
+    {
+      "slot_id": "V07",
+      "word_group": "verb",
+      "form": "Thông thường phủ định quá khứ",
+      "example": "食べなかった→食べる",
+      "proposal": "keep_baseline",
+      "proposed_rule_id": "conjugation:verb-negative-past",
+      "po_decision": "pending",
+      "case_ids": [],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ]
+    },
+    {
+      "slot_id": "V08",
+      "word_group": "verb",
+      "form": "Thể て/で",
+      "example": "食べて→食べる; 読んで→読む",
+      "proposal": "add",
+      "proposed_rule_id": null,
+      "po_decision": "pending",
+      "case_ids": [],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ]
+    },
+    {
+      "slot_id": "V09",
+      "word_group": "verb",
+      "form": "Thể nối phủ định",
+      "example": "食べなくて→食べる; 食べないで→食べる",
+      "proposal": "add",
+      "proposed_rule_id": null,
+      "po_decision": "pending",
+      "case_ids": [],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ]
+    },
+    {
+      "slot_id": "V10",
+      "word_group": "verb",
+      "form": "Khả năng",
+      "example": "書ける→書く",
+      "proposal": "add",
+      "proposed_rule_id": null,
+      "po_decision": "pending",
+      "case_ids": [],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ]
+    },
+    {
+      "slot_id": "V11",
+      "word_group": "verb",
+      "form": "Bị động",
+      "example": "書かれる→書く",
+      "proposal": "add",
+      "proposed_rule_id": null,
+      "po_decision": "pending",
+      "case_ids": [],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ]
+    },
+    {
+      "slot_id": "V12",
+      "word_group": "verb",
+      "form": "Sai khiến",
+      "example": "書かせる→書く",
+      "proposal": "add",
+      "proposed_rule_id": null,
+      "po_decision": "pending",
+      "case_ids": [],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ]
+    },
+    {
+      "slot_id": "V13",
+      "word_group": "verb",
+      "form": "Sai khiến-bị động",
+      "example": "食べさせられる→食べる",
+      "proposal": "add",
+      "proposed_rule_id": null,
+      "po_decision": "pending",
+      "case_ids": [],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ]
+    },
+    {
+      "slot_id": "V14",
+      "word_group": "verb",
+      "form": "Điều kiện ば",
+      "example": "書けば→書く",
+      "proposal": "add",
+      "proposed_rule_id": null,
+      "po_decision": "pending",
+      "case_ids": [],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ]
+    },
+    {
+      "slot_id": "V15",
+      "word_group": "verb",
+      "form": "Điều kiện たら",
+      "example": "食べたら→食べる",
+      "proposal": "add",
+      "proposed_rule_id": null,
+      "po_decision": "pending",
+      "case_ids": [],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ]
+    },
+    {
+      "slot_id": "V16",
+      "word_group": "verb",
+      "form": "Ý chí",
+      "example": "書こう→書く",
+      "proposal": "add",
+      "proposed_rule_id": null,
+      "po_decision": "pending",
+      "case_ids": [],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ]
+    },
+    {
+      "slot_id": "V17",
+      "word_group": "verb",
+      "form": "Mệnh lệnh",
+      "example": "食べろ→食べる",
+      "proposal": "add",
+      "proposed_rule_id": null,
+      "po_decision": "pending",
+      "case_ids": [],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ]
+    },
+    {
+      "slot_id": "V18",
+      "word_group": "verb",
+      "form": "Cấm đoán",
+      "example": "食べるな→食べる",
+      "proposal": "add",
+      "proposed_rule_id": null,
+      "po_decision": "pending",
+      "case_ids": [],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ]
+    },
+    {
+      "slot_id": "V19",
+      "word_group": "verb",
+      "form": "Mong muốn たい",
+      "example": "食べたい→食べる",
+      "proposal": "add",
+      "proposed_rule_id": null,
+      "po_decision": "pending",
+      "case_ids": [],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ]
+    },
+    {
+      "slot_id": "V20",
+      "word_group": "verb",
+      "form": "Tiếp diễn/trạng thái ている",
+      "example": "食べている→食べる",
+      "proposal": "add",
+      "proposed_rule_id": null,
+      "po_decision": "pending",
+      "case_ids": [],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ]
+    },
+    {
+      "slot_id": "I00",
+      "word_group": "i_adjective",
+      "form": "Nguyên dạng",
+      "example": "高い→高い",
+      "proposal": "exact_first",
+      "proposed_rule_id": null,
+      "po_decision": "pending",
+      "case_ids": [],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ]
+    },
+    {
+      "slot_id": "I01",
+      "word_group": "i_adjective",
+      "form": "Quá khứ thường",
+      "example": "高かった→高い",
+      "proposal": "keep_baseline",
+      "proposed_rule_id": "conjugation:adjective-past",
+      "po_decision": "pending",
+      "case_ids": [],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ]
+    },
+    {
+      "slot_id": "I02",
+      "word_group": "i_adjective",
+      "form": "Phủ định thường",
+      "example": "高くない→高い",
+      "proposal": "keep_baseline",
+      "proposed_rule_id": "conjugation:adjective-negative",
+      "po_decision": "pending",
+      "case_ids": [],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ]
+    },
+    {
+      "slot_id": "I03",
+      "word_group": "i_adjective",
+      "form": "Phủ định quá khứ thường",
+      "example": "高くなかった→高い",
+      "proposal": "keep_baseline",
+      "proposed_rule_id": "conjugation:adjective-negative-past",
+      "po_decision": "pending",
+      "case_ids": [],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ]
+    },
+    {
+      "slot_id": "I04",
+      "word_group": "i_adjective",
+      "form": "Không quá khứ lịch sự",
+      "example": "高いです→高い",
+      "proposal": "add",
+      "proposed_rule_id": null,
+      "po_decision": "pending",
+      "case_ids": [],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ]
+    },
+    {
+      "slot_id": "I05",
+      "word_group": "i_adjective",
+      "form": "Quá khứ lịch sự",
+      "example": "高かったです→高い",
+      "proposal": "add",
+      "proposed_rule_id": null,
+      "po_decision": "pending",
+      "case_ids": [],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ]
+    },
+    {
+      "slot_id": "I06",
+      "word_group": "i_adjective",
+      "form": "Phủ định lịch sự",
+      "example": "高くないです/高くありません→高い",
+      "proposal": "add",
+      "proposed_rule_id": null,
+      "po_decision": "pending",
+      "case_ids": [],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ]
+    },
+    {
+      "slot_id": "I07",
+      "word_group": "i_adjective",
+      "form": "Phủ định quá khứ lịch sự",
+      "example": "高くなかったです/高くありませんでした→高い",
+      "proposal": "add",
+      "proposed_rule_id": null,
+      "po_decision": "pending",
+      "case_ids": [],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ]
+    },
+    {
+      "slot_id": "I08",
+      "word_group": "i_adjective",
+      "form": "Thể nối くて",
+      "example": "高くて→高い",
+      "proposal": "add",
+      "proposed_rule_id": null,
+      "po_decision": "pending",
+      "case_ids": [],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ]
+    },
+    {
+      "slot_id": "I09",
+      "word_group": "i_adjective",
+      "form": "Trạng từ く",
+      "example": "高く→高い",
+      "proposal": "add",
+      "proposed_rule_id": null,
+      "po_decision": "pending",
+      "case_ids": [],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ]
+    },
+    {
+      "slot_id": "I10",
+      "word_group": "i_adjective",
+      "form": "Điều kiện ければ",
+      "example": "高ければ→高い",
+      "proposal": "add",
+      "proposed_rule_id": null,
+      "po_decision": "pending",
+      "case_ids": [],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ]
+    },
+    {
+      "slot_id": "I11",
+      "word_group": "i_adjective",
+      "form": "Điều kiện かったら",
+      "example": "高かったら→高い",
+      "proposal": "add",
+      "proposed_rule_id": null,
+      "po_decision": "pending",
+      "case_ids": [],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ]
+    },
+    {
+      "slot_id": "A00",
+      "word_group": "na_adjective",
+      "form": "Thân từ điển",
+      "example": "静か→静か",
+      "proposal": "exact_first",
+      "proposed_rule_id": null,
+      "po_decision": "pending",
+      "case_ids": [],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "jf-irodori-plain-polite-table",
+        "f09-project-editorial-b"
+      ]
+    },
+    {
+      "slot_id": "A01",
+      "word_group": "na_adjective",
+      "form": "Khẳng định thường không quá khứ",
+      "example": "静かだ→静か",
+      "proposal": "add",
+      "proposed_rule_id": null,
+      "po_decision": "pending",
+      "case_ids": [],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "jf-irodori-plain-polite-table",
+        "f09-project-editorial-b"
+      ]
+    },
+    {
+      "slot_id": "A02",
+      "word_group": "na_adjective",
+      "form": "Khẳng định thường quá khứ",
+      "example": "静かだった→静か",
+      "proposal": "add",
+      "proposed_rule_id": null,
+      "po_decision": "pending",
+      "case_ids": [],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "jf-irodori-plain-polite-table",
+        "f09-project-editorial-b"
+      ]
+    },
+    {
+      "slot_id": "A03",
+      "word_group": "na_adjective",
+      "form": "Phủ định thường không quá khứ",
+      "example": "静かじゃない/静かではない→静か",
+      "proposal": "add",
+      "proposed_rule_id": null,
+      "po_decision": "pending",
+      "case_ids": [],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "jf-irodori-plain-polite-table",
+        "f09-project-editorial-b"
+      ]
+    },
+    {
+      "slot_id": "A04",
+      "word_group": "na_adjective",
+      "form": "Phủ định thường quá khứ",
+      "example": "静かじゃなかった/静かではなかった→静か",
+      "proposal": "add",
+      "proposed_rule_id": null,
+      "po_decision": "pending",
+      "case_ids": [],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "jf-irodori-plain-polite-table",
+        "f09-project-editorial-b"
+      ]
+    },
+    {
+      "slot_id": "A05",
+      "word_group": "na_adjective",
+      "form": "Khẳng định lịch sự không quá khứ",
+      "example": "静かです→静か",
+      "proposal": "add",
+      "proposed_rule_id": null,
+      "po_decision": "pending",
+      "case_ids": [],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "jf-irodori-plain-polite-table",
+        "f09-project-editorial-b"
+      ]
+    },
+    {
+      "slot_id": "A06",
+      "word_group": "na_adjective",
+      "form": "Khẳng định lịch sự quá khứ",
+      "example": "静かでした→静か",
+      "proposal": "add",
+      "proposed_rule_id": null,
+      "po_decision": "pending",
+      "case_ids": [],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "jf-irodori-plain-polite-table",
+        "f09-project-editorial-b"
+      ]
+    },
+    {
+      "slot_id": "A07",
+      "word_group": "na_adjective",
+      "form": "Phủ định lịch sự không quá khứ",
+      "example": "静かじゃないです/静かじゃありません/静かではありません→静か",
+      "proposal": "add",
+      "proposed_rule_id": null,
+      "po_decision": "pending",
+      "case_ids": [],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "jf-irodori-plain-polite-table",
+        "f09-project-editorial-b"
+      ]
+    },
+    {
+      "slot_id": "A08",
+      "word_group": "na_adjective",
+      "form": "Phủ định lịch sự quá khứ",
+      "example": "静かじゃなかったです/静かじゃありませんでした/静かではありませんでした→静か",
+      "proposal": "add",
+      "proposed_rule_id": null,
+      "po_decision": "pending",
+      "case_ids": [],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "jf-irodori-plain-polite-table",
+        "f09-project-editorial-b"
+      ]
+    },
+    {
+      "slot_id": "A09",
+      "word_group": "na_adjective",
+      "form": "Bổ nghĩa 連体形 `な`",
+      "example": "静かな→静か",
+      "proposal": "add",
+      "proposed_rule_id": null,
+      "po_decision": "pending",
+      "case_ids": [],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "jf-irodori-plain-polite-table",
+        "f09-project-editorial-b"
+      ]
+    },
+    {
+      "slot_id": "A10",
+      "word_group": "na_adjective",
+      "form": "Trạng từ `に`",
+      "example": "静かに→静か",
+      "proposal": "add",
+      "proposed_rule_id": null,
+      "po_decision": "pending",
+      "case_ids": [],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "jf-irodori-plain-polite-table",
+        "f09-project-editorial-b"
+      ]
+    },
+    {
+      "slot_id": "A11",
+      "word_group": "na_adjective",
+      "form": "Thể nối `で`",
+      "example": "静かで→静か",
+      "proposal": "add",
+      "proposed_rule_id": null,
+      "po_decision": "pending",
+      "case_ids": [],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "jf-irodori-plain-polite-table",
+        "f09-project-editorial-b"
+      ]
+    },
+    {
+      "slot_id": "A12",
+      "word_group": "na_adjective",
+      "form": "Điều kiện `なら`",
+      "example": "静かなら→静か",
+      "proposal": "add",
+      "proposed_rule_id": null,
+      "po_decision": "pending",
+      "case_ids": [],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "jf-irodori-plain-polite-table",
+        "f09-project-editorial-b"
+      ]
+    },
+    {
+      "slot_id": "A13",
+      "word_group": "na_adjective",
+      "form": "Điều kiện `だったら`",
+      "example": "静かだったら→静か",
+      "proposal": "add",
+      "proposed_rule_id": null,
+      "po_decision": "pending",
+      "case_ids": [],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "jf-irodori-plain-polite-table",
+        "f09-project-editorial-b"
+      ]
+    },
+    {
+      "slot_id": "N00",
+      "word_group": "noun_copula",
+      "form": "Danh từ nguyên dạng",
+      "example": "学生→学生",
+      "proposal": "exact_first",
+      "proposed_rule_id": null,
+      "po_decision": "pending",
+      "case_ids": [],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "jf-irodori-plain-polite-table",
+        "f09-project-editorial-b"
+      ]
+    },
+    {
+      "slot_id": "N01",
+      "word_group": "noun_copula",
+      "form": "`だ` thường không quá khứ",
+      "example": "学生だ→学生",
+      "proposal": "add",
+      "proposed_rule_id": null,
+      "po_decision": "pending",
+      "case_ids": [],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "jf-irodori-plain-polite-table",
+        "f09-project-editorial-b"
+      ]
+    },
+    {
+      "slot_id": "N02",
+      "word_group": "noun_copula",
+      "form": "`だった` thường quá khứ",
+      "example": "学生だった→学生",
+      "proposal": "add",
+      "proposed_rule_id": null,
+      "po_decision": "pending",
+      "case_ids": [],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "jf-irodori-plain-polite-table",
+        "f09-project-editorial-b"
+      ]
+    },
+    {
+      "slot_id": "N03",
+      "word_group": "noun_copula",
+      "form": "Phủ định thường không quá khứ",
+      "example": "学生じゃない/学生ではない→学生",
+      "proposal": "add",
+      "proposed_rule_id": null,
+      "po_decision": "pending",
+      "case_ids": [],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "jf-irodori-plain-polite-table",
+        "f09-project-editorial-b"
+      ]
+    },
+    {
+      "slot_id": "N04",
+      "word_group": "noun_copula",
+      "form": "Phủ định thường quá khứ",
+      "example": "学生じゃなかった/学生ではなかった→学生",
+      "proposal": "add",
+      "proposed_rule_id": null,
+      "po_decision": "pending",
+      "case_ids": [],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "jf-irodori-plain-polite-table",
+        "f09-project-editorial-b"
+      ]
+    },
+    {
+      "slot_id": "N05",
+      "word_group": "noun_copula",
+      "form": "`です` lịch sự không quá khứ",
+      "example": "学生です→学生",
+      "proposal": "add",
+      "proposed_rule_id": null,
+      "po_decision": "pending",
+      "case_ids": [],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "jf-irodori-plain-polite-table",
+        "f09-project-editorial-b"
+      ]
+    },
+    {
+      "slot_id": "N06",
+      "word_group": "noun_copula",
+      "form": "`でした` lịch sự quá khứ",
+      "example": "学生でした→学生",
+      "proposal": "add",
+      "proposed_rule_id": null,
+      "po_decision": "pending",
+      "case_ids": [],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "jf-irodori-plain-polite-table",
+        "f09-project-editorial-b"
+      ]
+    },
+    {
+      "slot_id": "N07",
+      "word_group": "noun_copula",
+      "form": "Phủ định lịch sự không quá khứ",
+      "example": "学生じゃないです/学生じゃありません/学生ではありません→学生",
+      "proposal": "add",
+      "proposed_rule_id": null,
+      "po_decision": "pending",
+      "case_ids": [],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "jf-irodori-plain-polite-table",
+        "f09-project-editorial-b"
+      ]
+    },
+    {
+      "slot_id": "N08",
+      "word_group": "noun_copula",
+      "form": "Phủ định lịch sự quá khứ",
+      "example": "学生じゃなかったです/学生じゃありませんでした/学生ではありませんでした→学生",
+      "proposal": "add",
+      "proposed_rule_id": null,
+      "po_decision": "pending",
+      "case_ids": [],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "jf-irodori-plain-polite-table",
+        "f09-project-editorial-b"
+      ]
+    },
+    {
+      "slot_id": "N09",
+      "word_group": "noun_copula",
+      "form": "Điều kiện `なら`",
+      "example": "学生なら→学生",
+      "proposal": "add",
+      "proposed_rule_id": null,
+      "po_decision": "pending",
+      "case_ids": [],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "jf-irodori-plain-polite-table",
+        "f09-project-editorial-b"
+      ]
+    },
+    {
+      "slot_id": "N10",
+      "word_group": "noun_copula",
+      "form": "Điều kiện `だったら`",
+      "example": "学生だったら→学生",
+      "proposal": "add",
+      "proposed_rule_id": null,
+      "po_decision": "pending",
+      "case_ids": [],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "jf-irodori-plain-polite-table",
+        "f09-project-editorial-b"
+      ]
+    },
+    {
+      "slot_id": "N11",
+      "word_group": "noun_copula",
+      "form": "`で` nối mệnh đề",
+      "example": "学生で→学生",
+      "proposal": "add",
+      "proposed_rule_id": null,
+      "po_decision": "pending",
+      "case_ids": [],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "jf-irodori-plain-polite-table",
+        "f09-project-editorial-b"
+      ]
+    }
+  ],
+  "cases_file": "cases.json",
+  "cases_sha256": null,
+  "scope_material_ref": "scope-material.json",
+  "scope_material_sha256": null,
+  "approval": {
+    "state": "draft",
+    "approver": null,
+    "approved_at_utc": null,
+    "reviewer_id": null,
+    "note": "User selected coverage B and multiple alternatives; individual slots, variants, cases and answers are not approved."
+  }
+}

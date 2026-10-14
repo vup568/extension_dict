@@ -1,0 +1,537 @@
+{
+  "schema_version": 1,
+  "review_version": "f09-user-approval-20261013.3",
+  "corpus_version": "f09-expanded-20261013.3",
+  "scope_material_ref": "../corpus/expanded-20261013.3/scope-material.json",
+  "scope_material_sha256": "01997f4191863a4beb04e6872ea5f21145560da0c368eec043c209a37ea7889f",
+  "cases_ref": "../corpus/expanded-20261013.3/cases.json",
+  "cases_sha256": "ca3e3ff71b4d97a96e33c70695d5cfb067244bb6cf63a7d3340cd901dd7883c4",
+  "sources_ref": "../corpus/expanded-20261013.3/sources.json",
+  "sources_sha256": "13e9637e25e00cbd77c3d7c49a103e42f165c18ba7bbc91dacb57a08144ab8d2",
+  "rule_identities": [
+    {
+      "rule_id": "conjugation:verb-polite-nonpast",
+      "rule_version": 2
+    },
+    {
+      "rule_id": "conjugation:verb-polite-past",
+      "rule_version": 2
+    },
+    {
+      "rule_id": "conjugation:verb-polite-negative",
+      "rule_version": 2
+    },
+    {
+      "rule_id": "conjugation:verb-polite-negative-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-past",
+      "rule_version": 2
+    },
+    {
+      "rule_id": "conjugation:verb-negative",
+      "rule_version": 2
+    },
+    {
+      "rule_id": "conjugation:verb-negative-past",
+      "rule_version": 2
+    },
+    {
+      "rule_id": "conjugation:verb-te",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-negative-connective",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-potential",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-passive",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-causative",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-causative-passive",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-causative-potential",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-conditional-ba",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-conditional-tara",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-volitional",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-imperative",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-prohibition",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-desiderative",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-te-iru",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-potential:plain-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-potential:plain-negative",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-potential:plain-negative-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-potential:polite-nonpast",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-potential:polite-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-potential:polite-negative",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-potential:polite-negative-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-passive:plain-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-passive:plain-negative",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-passive:plain-negative-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-passive:polite-nonpast",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-passive:polite-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-passive:polite-negative",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-passive:polite-negative-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-causative:plain-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-causative:plain-negative",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-causative:plain-negative-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-causative:polite-nonpast",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-causative:polite-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-causative:polite-negative",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-causative:polite-negative-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-causative-passive:plain-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-causative-potential:plain-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-causative-passive:plain-negative",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-causative-potential:plain-negative",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-causative-passive:plain-negative-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-causative-potential:plain-negative-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-causative-passive:polite-nonpast",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-causative-potential:polite-nonpast",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-causative-passive:polite-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-causative-potential:polite-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-causative-passive:polite-negative",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-causative-potential:polite-negative",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-causative-passive:polite-negative-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-causative-potential:polite-negative-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-te-iru:plain-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-te-iru:plain-negative",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-te-iru:plain-negative-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-te-iru:polite-nonpast",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-te-iru:polite-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-te-iru:polite-negative",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-te-iru:polite-negative-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-desiderative:plain-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-desiderative:plain-negative",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-desiderative:plain-negative-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-desiderative:polite-nonpast",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-desiderative:polite-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-desiderative:polite-negative",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-desiderative:polite-negative-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-negative-connective:without",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-causative-passive:contracted",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:adjective-past",
+      "rule_version": 2
+    },
+    {
+      "rule_id": "conjugation:adjective-negative",
+      "rule_version": 2
+    },
+    {
+      "rule_id": "conjugation:adjective-negative-past",
+      "rule_version": 2
+    },
+    {
+      "rule_id": "conjugation:adjective-polite-nonpast",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:adjective-polite-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:adjective-polite-negative",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:adjective-polite-negative-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:adjective-connective",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:adjective-adverbial",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:adjective-conditional-ba",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:adjective-conditional-tara",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:na-copula-nonpast",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:na-copula-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:na-copula-negative",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:na-copula-negative-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:na-copula-polite-nonpast",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:na-copula-polite-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:na-copula-polite-negative",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:na-copula-polite-negative-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:na-attributive",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:na-adverbial",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:na-connective",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:na-conditional-nara",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:na-conditional-tara",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:noun-copula-nonpast",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:noun-copula-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:noun-copula-negative",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:noun-copula-negative-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:noun-copula-polite-nonpast",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:noun-copula-polite-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:noun-copula-polite-negative",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:noun-copula-polite-negative-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:noun-conditional-nara",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:noun-conditional-tara",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:noun-copula-connective",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-honorific",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-honorific:plain-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-honorific:plain-negative",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-honorific:plain-negative-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-honorific:polite-nonpast",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-honorific:polite-past",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-honorific:polite-negative",
+      "rule_version": 1
+    },
+    {
+      "rule_id": "conjugation:verb-honorific:polite-negative-past",
+      "rule_version": 1
+    }
+  ],
+  "slot_ids": [
+    "V00",
+    "V01",
+    "V02",
+    "V03",
+    "V04",
+    "V05",
+    "V06",
+    "V07",
+    "V08",
+    "V09",
+    "V10",
+    "V11",
+    "V12",
+    "V13",
+    "V14",
+    "V15",
+    "V16",
+    "V17",
+    "V18",
+    "V19",
+    "V20",
+    "I00",
+    "I01",
+    "I02",
+    "I03",
+    "I04",
+    "I05",
+    "I06",
+    "I07",
+    "I08",
+    "I09",
+    "I10",
+    "I11",
+    "A00",
+    "A01",
+    "A02",
+    "A03",
+    "A04",
+    "A05",
+    "A06",
+    "A07",
+    "A08",
+    "A09",
+    "A10",
+    "A11",
+    "A12",
+    "A13",
+    "N00",
+    "N01",
+    "N02",
+    "N03",
+    "N04",
+    "N05",
+    "N06",
+    "N07",
+    "N08",
+    "N09",
+    "N10",
+    "N11",
+    "V21"
+  ],
+  "approval_receipt": "user-review-receipt-20261013.3.json"
+}
+

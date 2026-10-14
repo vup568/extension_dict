@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "corpus_version": "f09-expanded-20261013.1-draft",
+  "status": "draft_not_reviewed",
+  "sources": [
+    {
+      "source_id": "jf-irodori-grammar-notes",
+      "kind": "grammar_reference",
+      "publisher": "The Japan Foundation",
+      "title": "Irodori Grammar Notes",
+      "url": "https://www.irodori.jpf.go.jp/assets/data/Grammar_all.pdf",
+      "edition": "pending_verification",
+      "sha256": null,
+      "license_status": "pending_review",
+      "use": "Grammar taxonomy and form verification only; no text copied into explanations"
+    },
+    {
+      "source_id": "jf-irodori-plain-polite-table",
+      "kind": "grammar_reference",
+      "publisher": "The Japan Foundation",
+      "title": "Irodori pre-intermediate lesson 9 plain/polite table",
+      "url": "https://www.irodori.jpf.go.jp/assets/data/pre-intermediate/pdf/ZZ_L09.pdf",
+      "edition": "pending_verification",
+      "sha256": null,
+      "license_status": "pending_review",
+      "use": "Noun and na-adjective copula form comparison only; no text copied"
+    },
+    {
+      "source_id": "f09-project-editorial-b",
+      "kind": "project_authored_proposal",
+      "publisher": "JP Reading Platform project",
+      "title": "F-09 expanded coverage catalog and proposed Vietnamese explanations",
+      "artifact": "corpus/expanded-20261013.1/coverage-catalog.md",
+      "author": "AI draft for human review",
+      "sha256": null,
+      "license_status": "project_editorial_pending_human_review",
+      "use": "Synthetic examples and new Vietnamese explanations, not accepted language authority"
+    },
+    {
+      "source_id": "f09-sudachi-observations",
+      "kind": "technical_observation",
+      "publisher": "JP Reading Platform local test run",
+      "title": "Sudachi Sidecar tokenization observations on 2026-10-13",
+      "artifact": "evidence/scope-change.md",
+      "sha256": null,
+      "license_status": "not_applicable_to_project_observation",
+      "use": "Provider segmentation evidence only; not linguistic meaning authority"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "receipt_version": "f09-g3-user-acceptance-20261014",
+  "corpus_version": "f09-expanded-20261013.3",
+  "candidate_version": "candidate-20261013.1",
+  "review_version": "f09-user-approval-20261013.3",
+  "decision_date": "2026-10-14",
+  "timezone": "Asia/Saigon",
+  "time_precision": "date_only_user_message",
+  "reviewer_id": "project-owner-current-chat",
+  "approver_id": "project-owner-current-chat",
+  "answer_verbatim": "ok tôi duyệt nghiệm thu nhé",
+  "in_response_to": "Final F09 implementation/verification report and explicit request for G3 scoped runtime acceptance",
+  "decision": "accepted_for_scoped_corpus",
+  "candidate_sha256": "c46a28613e9cbd81c60cda51f8114f023c86e001f8daab5218fe49a8bc481e35",
+  "validation_report_sha256": "e7f961dbd6c9b02191e8ace9908e8ef0dfc9dad3e2265e5986ee0a8563c39b15",
+  "scope_material_sha256": "01997f4191863a4beb04e6872ea5f21145560da0c368eec043c209a37ea7889f",
+  "limitations_retained": [
+    "Firefox runtime not executed; no compatible installed executable",
+    "Publication/dataset-to-KnowledgeRelease is a separate F-20 gate",
+    "No user database migration or Git delivery authorized"
+  ],
+  "production_approved": false,
+  "authority_boundary": "No Git delivery,user database migration,production activation,dependency installation or Firefox parity approval inferred."
+}

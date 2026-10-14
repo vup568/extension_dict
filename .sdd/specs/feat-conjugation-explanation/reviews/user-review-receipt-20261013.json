@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "receipt_id": "f09-user-review-20261013",
+  "recorded_date": "2026-10-13",
+  "reviewer_id": "project-owner-current-chat",
+  "reviewer_basis": "User designated themselves as linguistic reviewer in this conversation",
+  "user_statement": "tôi duyệt bản này nhé, tiếp theo chúng ta cần phải làm gì nhi",
+  "continuation_statement": "ok vậy thì làm các bước tiếp theo thật chính xác nhé",
+  "approved_materials": [
+    {
+      "path": "corpus/expanded-20261013.1/case-review.md",
+      "sha256": "5957c8e1d04edcafa40afd71656ed3d99f85743c33a15f39d946fb2d83342b1b"
+    },
+    {
+      "path": "corpus/expanded-20261013.1/cases.json",
+      "sha256": "f72a0ef4e2debfd23c80070862fe97640dba1912fa61f72f4b4222ab82dad807"
+    }
+  ],
+  "acceptance_scope": "User accepted the presented draft forms/base forms and Vietnamese summaries; segments/fixtures/extra machine cases were absent from that draft",
+  "exact_draft_accepted": true,
+  "completed_revision_approved": false,
+  "completed_revision": "f09-expanded-20261013.2",
+  "timestamp_precision": "date_only; exact message UTC timestamp was not available",
+  "production_publication_approved": false
+}

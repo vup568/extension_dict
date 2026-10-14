@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "review_version": "f09-user-approval-20261013.3",
+  "corpus_version": "f09-expanded-20261013.3",
+  "decision_date": "2026-10-13",
+  "time_precision": "date_only_user_message",
+  "reviewer_id": "project-owner-current-chat",
+  "answer_verbatim": "ok tôi duyệt nhé",
+  "in_response_to": "Request to approve corpus .3 case-review.md before implementing backend/popup",
+  "scope_material_sha256": "01997f4191863a4beb04e6872ea5f21145560da0c368eec043c209a37ea7889f",
+  "cases_sha256": "ca3e3ff71b4d97a96e33c70695d5cfb067244bb6cf63a7d3340cd901dd7883c4",
+  "sources_sha256": "13e9637e25e00cbd77c3d7c49a103e42f165c18ba7bbc91dacb57a08144ab8d2",
+  "g1_scope": "approved",
+  "g2_answers": "accepted_by_user_batch_approval",
+  "runtime_g3": "not_yet_accepted",
+  "production": "not_authorized"
+}
+

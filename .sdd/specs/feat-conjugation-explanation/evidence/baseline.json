@@ -1,0 +1,31 @@
+{
+  "captured_on": "2026-10-13",
+  "branch": "feat/tokenizer-deinflection",
+  "head": "c0cb500",
+  "dataset": {
+    "version": "development-20261013.1",
+    "path": "src/infra/Conjugation/Data/development-20261013.1.json",
+    "sha256": "a7b45afec6f2f4cbf38a95225620868151026795b9490924920a949d8b9dc003",
+    "rule_count": 9,
+    "positive_live_cases": 13,
+    "status": "development",
+    "production_review": "pending"
+  },
+  "seed_reader": {
+    "path": "src/infra/Conjugation/ConjugationSeedData.cs",
+    "sha256": "603a60ef28938adcd358f30131c32e0cc57d874468444e2b02bd4b3ad4577d6d"
+  },
+  "migration": {
+    "path": "src/infra/Persistence/Migrations/20261013020721_AddConjugationDatasets.cs",
+    "sha256": "443efc7f8ece739c9d1506f8810af0a7f7af5647974fd5120bfc91579541fea4"
+  },
+  "existing_test_files": [
+    "tests/unit/ConjugationMatcherTests.cs",
+    "tests/integration/DictionaryTokenizerAdapterTests.cs",
+    "tests/integration/TokenizerDeinflectionIntegrationTests.cs",
+    "sidecars/tokenizer/test_tokenizer.py",
+    "extension/tests/unit/conjugationContract.test.ts",
+    "extension/tests/browser/conjugation-popup.test.ts"
+  ],
+  "note": "These fingerprints are baseline evidence, not linguistic approval. Existing live cases cover 13 positive surfaces, but not the new minimum per rule."
+}

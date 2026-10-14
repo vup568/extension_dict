@@ -1,0 +1,3763 @@
+{
+  "schema_version": 1,
+  "corpus_version": "f09-expanded-20261013.2",
+  "status": "frozen_candidate_pending_final_review",
+  "baseline_dataset_version": "development-20261013.1",
+  "supersedes": "f09-expanded-20261013.1-draft",
+  "baseline_live_examples": [
+    {
+      "surface": "食べます",
+      "base_form": "食べる"
+    },
+    {
+      "surface": "食べました",
+      "base_form": "食べる"
+    },
+    {
+      "surface": "食べない",
+      "base_form": "食べる"
+    },
+    {
+      "surface": "食べなかった",
+      "base_form": "食べる"
+    },
+    {
+      "surface": "食べた",
+      "base_form": "食べる"
+    },
+    {
+      "surface": "食べません",
+      "base_form": "食べる"
+    },
+    {
+      "surface": "高かった",
+      "base_form": "高い"
+    },
+    {
+      "surface": "高くない",
+      "base_form": "高い"
+    },
+    {
+      "surface": "高くなかった",
+      "base_form": "高い"
+    },
+    {
+      "surface": "書いた",
+      "base_form": "書く"
+    },
+    {
+      "surface": "読んだ",
+      "base_form": "読む"
+    },
+    {
+      "surface": "しました",
+      "base_form": "する"
+    },
+    {
+      "surface": "来ました",
+      "base_form": "来る"
+    }
+  ],
+  "composition_families": [
+    "V10",
+    "V11",
+    "V12",
+    "V13",
+    "V19",
+    "V20"
+  ],
+  "composition_states": [
+    "plain_nonpast",
+    "plain_past",
+    "plain_negative",
+    "plain_negative_past",
+    "polite_nonpast",
+    "polite_past",
+    "polite_negative",
+    "polite_negative_past"
+  ],
+  "excluded": [
+    {
+      "id": "generic_morphology",
+      "reason": "Separate feature"
+    },
+    {
+      "id": "sentence_segmentation",
+      "reason": "Separate feature"
+    },
+    {
+      "id": "keigo_interpretations",
+      "reason": "This reviewed inventory covers potential/passive, not honorific/spontaneous interpretations"
+    },
+    {
+      "id": "literary_imperative_yo_seyo",
+      "reason": "Modern ordinary ろ/しろ/来い examples selected; literary register is not this corpus target"
+    },
+    {
+      "id": "open_ended_recursive_compositions",
+      "reason": "Only finite listed eight-state combinations are promised"
+    }
+  ],
+  "slots": [
+    {
+      "slot_id": "V00",
+      "word_group": "verb",
+      "form": "Từ điển, nguyên dạng",
+      "example": "食べる→食べる",
+      "proposal": "exact_first",
+      "proposed_rule_id": null,
+      "po_decision": "previous_draft_accepted_final_packet_pending",
+      "case_ids": [
+        "V00-P1",
+        "V00-P2"
+      ],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ],
+      "inclusion": "required",
+      "scope_basis": "User approved previous case-review.md; completed material awaits final review",
+      "variants": [
+        "exact_first"
+      ],
+      "proposed_rule_version": null
+    },
+    {
+      "slot_id": "V01",
+      "word_group": "verb",
+      "form": "Lịch sự không quá khứ",
+      "example": "食べます→食べる",
+      "proposal": "revise_editorial_text",
+      "proposed_rule_id": "conjugation:verb-polite-nonpast",
+      "po_decision": "previous_draft_accepted_final_packet_pending",
+      "case_ids": [
+        "V01-P1",
+        "V01-P2",
+        "V01-IRR-suru",
+        "V01-IRR-kuru",
+        "V01-N1"
+      ],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ],
+      "inclusion": "required",
+      "scope_basis": "User approved previous case-review.md; completed material awaits final review",
+      "variants": [
+        "irregular"
+      ],
+      "baseline_rule_version": 1,
+      "proposed_rule_version": 2
+    },
+    {
+      "slot_id": "V02",
+      "word_group": "verb",
+      "form": "Lịch sự quá khứ",
+      "example": "食べました→食べる",
+      "proposal": "revise_editorial_text",
+      "proposed_rule_id": "conjugation:verb-polite-past",
+      "po_decision": "previous_draft_accepted_final_packet_pending",
+      "case_ids": [
+        "V02-P1",
+        "V02-P2",
+        "V02-IRR-suru",
+        "V02-IRR-kuru",
+        "V02-N1",
+        "MIS-01",
+        "ERR-01",
+        "ERR-02",
+        "DATA-01",
+        "VI-01",
+        "DB-01",
+        "SENT-01",
+        "CANCEL-01"
+      ],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ],
+      "inclusion": "required",
+      "scope_basis": "User approved previous case-review.md; completed material awaits final review",
+      "variants": [
+        "irregular",
+        "fault",
+        "word_boundary",
+        "async"
+      ],
+      "baseline_rule_version": 1,
+      "proposed_rule_version": 2
+    },
+    {
+      "slot_id": "V03",
+      "word_group": "verb",
+      "form": "Lịch sự phủ định",
+      "example": "食べません→食べる",
+      "proposal": "revise_editorial_text",
+      "proposed_rule_id": "conjugation:verb-polite-negative",
+      "po_decision": "previous_draft_accepted_final_packet_pending",
+      "case_ids": [
+        "V03-P1",
+        "V03-P2",
+        "V03-IRR-suru",
+        "V03-IRR-kuru",
+        "V03-N1"
+      ],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ],
+      "inclusion": "required",
+      "scope_basis": "User approved previous case-review.md; completed material awaits final review",
+      "variants": [
+        "irregular"
+      ],
+      "baseline_rule_version": 1,
+      "proposed_rule_version": 2
+    },
+    {
+      "slot_id": "V04",
+      "word_group": "verb",
+      "form": "Lịch sự phủ định quá khứ",
+      "example": "食べませんでした→食べる",
+      "proposal": "add",
+      "proposed_rule_id": "conjugation:verb-polite-negative-past",
+      "po_decision": "previous_draft_accepted_final_packet_pending",
+      "case_ids": [
+        "V04-P1",
+        "V04-P2",
+        "V04-IRR-suru",
+        "V04-IRR-kuru",
+        "V04-N1"
+      ],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ],
+      "inclusion": "required",
+      "scope_basis": "User approved previous case-review.md; completed material awaits final review",
+      "variants": [
+        "irregular"
+      ],
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "V05",
+      "word_group": "verb",
+      "form": "Thông thường quá khứ",
+      "example": "食べた→食べる",
+      "proposal": "revise_editorial_text",
+      "proposed_rule_id": "conjugation:verb-past",
+      "po_decision": "previous_draft_accepted_final_packet_pending",
+      "case_ids": [
+        "V05-P1",
+        "V05-P2",
+        "V05-IRR-suru",
+        "V05-IRR-kuru",
+        "V05-ONBIN-yomu",
+        "V05-N1"
+      ],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ],
+      "inclusion": "required",
+      "scope_basis": "User approved previous case-review.md; completed material awaits final review",
+      "variants": [
+        "irregular",
+        "sound_change"
+      ],
+      "baseline_rule_version": 1,
+      "proposed_rule_version": 2
+    },
+    {
+      "slot_id": "V06",
+      "word_group": "verb",
+      "form": "Thông thường phủ định",
+      "example": "食べない→食べる",
+      "proposal": "revise_editorial_text",
+      "proposed_rule_id": "conjugation:verb-negative",
+      "po_decision": "previous_draft_accepted_final_packet_pending",
+      "case_ids": [
+        "V06-P1",
+        "V06-P2",
+        "V06-IRR-suru",
+        "V06-IRR-kuru",
+        "V06-N1"
+      ],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ],
+      "inclusion": "required",
+      "scope_basis": "User approved previous case-review.md; completed material awaits final review",
+      "variants": [
+        "irregular"
+      ],
+      "baseline_rule_version": 1,
+      "proposed_rule_version": 2
+    },
+    {
+      "slot_id": "V07",
+      "word_group": "verb",
+      "form": "Thông thường phủ định quá khứ",
+      "example": "食べなかった→食べる",
+      "proposal": "revise_editorial_text",
+      "proposed_rule_id": "conjugation:verb-negative-past",
+      "po_decision": "previous_draft_accepted_final_packet_pending",
+      "case_ids": [
+        "V07-P1",
+        "V07-P2",
+        "V07-IRR-suru",
+        "V07-IRR-kuru",
+        "V07-N1"
+      ],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ],
+      "inclusion": "required",
+      "scope_basis": "User approved previous case-review.md; completed material awaits final review",
+      "variants": [
+        "irregular"
+      ],
+      "baseline_rule_version": 1,
+      "proposed_rule_version": 2
+    },
+    {
+      "slot_id": "V08",
+      "word_group": "verb",
+      "form": "Thể て/で",
+      "example": "食べて→食べる; 読んで→読む",
+      "proposal": "add",
+      "proposed_rule_id": "conjugation:verb-te",
+      "po_decision": "previous_draft_accepted_final_packet_pending",
+      "case_ids": [
+        "V08-P1",
+        "V08-P2",
+        "V08-IRR-suru",
+        "V08-IRR-kuru",
+        "V08-ONBIN-行く",
+        "V08-ONBIN-読む",
+        "V08-N1"
+      ],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ],
+      "inclusion": "required",
+      "scope_basis": "User approved previous case-review.md; completed material awaits final review",
+      "variants": [
+        "irregular",
+        "sound_change"
+      ],
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "V09",
+      "word_group": "verb",
+      "form": "Thể nối phủ định",
+      "example": "食べなくて→食べる; 食べないで→食べる",
+      "proposal": "add",
+      "proposed_rule_id": "conjugation:verb-negative-connective",
+      "po_decision": "previous_draft_accepted_final_packet_pending",
+      "case_ids": [
+        "V09-P1",
+        "V09-P2",
+        "V09-IRR-suru",
+        "V09-IRR-kuru",
+        "V09-WITHOUT-P1",
+        "V09-WITHOUT-P2",
+        "V09-N1",
+        "NEG-RULE-verb-negative-connective:without"
+      ],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ],
+      "inclusion": "required",
+      "scope_basis": "User approved previous case-review.md; completed material awaits final review",
+      "variants": [
+        "irregular",
+        "variant",
+        "naide"
+      ],
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "V10",
+      "word_group": "verb",
+      "form": "Khả năng",
+      "example": "書ける→書く",
+      "proposal": "add",
+      "proposed_rule_id": "conjugation:verb-potential",
+      "po_decision": "previous_draft_accepted_final_packet_pending",
+      "case_ids": [
+        "V10-P1",
+        "V10-P2",
+        "V11-P1",
+        "V10-C-plain_past-P1",
+        "V10-C-plain_past-P2",
+        "V10-C-plain_negative-P1",
+        "V10-C-plain_negative-P2",
+        "V10-C-plain_negative_past-P1",
+        "V10-C-plain_negative_past-P2",
+        "V10-C-polite_nonpast-P1",
+        "V10-C-polite_nonpast-P2",
+        "V10-C-polite_past-P1",
+        "V10-C-polite_past-P2",
+        "V10-C-polite_negative-P1",
+        "V10-C-polite_negative-P2",
+        "V10-C-polite_negative_past-P1",
+        "V10-C-polite_negative_past-P2",
+        "V11-C-plain_past-P1",
+        "V11-C-plain_negative-P1",
+        "V11-C-plain_negative_past-P1",
+        "V11-C-polite_nonpast-P1",
+        "V11-C-polite_past-P1",
+        "V11-C-polite_negative-P1",
+        "V11-C-polite_negative_past-P1",
+        "V11-IRR-kuru",
+        "V10-IRR-suru",
+        "V10-IRR-kuru",
+        "AMB-01",
+        "EXACT-DERIVED-書ける",
+        "EXACT-DERIVED-できる",
+        "V10-N1",
+        "NEG-RULE-verb-potential:plain-past",
+        "NEG-RULE-verb-potential:plain-negative",
+        "NEG-RULE-verb-potential:plain-negative-past",
+        "NEG-RULE-verb-potential:polite-nonpast",
+        "NEG-RULE-verb-potential:polite-past",
+        "NEG-RULE-verb-potential:polite-negative",
+        "NEG-RULE-verb-potential:polite-negative-past",
+        "ASYNC-01"
+      ],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ],
+      "inclusion": "required",
+      "scope_basis": "User approved previous case-review.md; completed material awaits final review",
+      "variants": [
+        "ambiguous",
+        "composition",
+        "plain_past",
+        "plain_negative",
+        "plain_negative_past",
+        "polite_nonpast",
+        "polite_past",
+        "polite_negative",
+        "polite_negative_past",
+        "irregular",
+        "lexical_relation",
+        "reader_choice",
+        "exact_first",
+        "derived_entry",
+        "async"
+      ],
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "V11",
+      "word_group": "verb",
+      "form": "Bị động",
+      "example": "書かれる→書く",
+      "proposal": "add",
+      "proposed_rule_id": "conjugation:verb-passive",
+      "po_decision": "previous_draft_accepted_final_packet_pending",
+      "case_ids": [
+        "V11-P1",
+        "V11-P2",
+        "V11-C-plain_past-P1",
+        "V11-C-plain_past-P2",
+        "V11-C-plain_negative-P1",
+        "V11-C-plain_negative-P2",
+        "V11-C-plain_negative_past-P1",
+        "V11-C-plain_negative_past-P2",
+        "V11-C-polite_nonpast-P1",
+        "V11-C-polite_nonpast-P2",
+        "V11-C-polite_past-P1",
+        "V11-C-polite_past-P2",
+        "V11-C-polite_negative-P1",
+        "V11-C-polite_negative-P2",
+        "V11-C-polite_negative_past-P1",
+        "V11-C-polite_negative_past-P2",
+        "V11-IRR-suru",
+        "V11-IRR-kuru",
+        "V10-IRR-kuru",
+        "AMB-01",
+        "V11-N1",
+        "NEG-RULE-verb-passive:plain-past",
+        "NEG-RULE-verb-passive:plain-negative",
+        "NEG-RULE-verb-passive:plain-negative-past",
+        "NEG-RULE-verb-passive:polite-nonpast",
+        "NEG-RULE-verb-passive:polite-past",
+        "NEG-RULE-verb-passive:polite-negative",
+        "NEG-RULE-verb-passive:polite-negative-past",
+        "ASYNC-01"
+      ],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ],
+      "inclusion": "required",
+      "scope_basis": "User approved previous case-review.md; completed material awaits final review",
+      "variants": [
+        "ambiguous",
+        "composition",
+        "plain_past",
+        "plain_negative",
+        "plain_negative_past",
+        "polite_nonpast",
+        "polite_past",
+        "polite_negative",
+        "polite_negative_past",
+        "irregular",
+        "reader_choice",
+        "async"
+      ],
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "V12",
+      "word_group": "verb",
+      "form": "Sai khiến",
+      "example": "書かせる→書く",
+      "proposal": "add",
+      "proposed_rule_id": "conjugation:verb-causative",
+      "po_decision": "previous_draft_accepted_final_packet_pending",
+      "case_ids": [
+        "V12-P1",
+        "V12-P2",
+        "V12-C-plain_past-P1",
+        "V12-C-plain_past-P2",
+        "V12-C-plain_negative-P1",
+        "V12-C-plain_negative-P2",
+        "V12-C-plain_negative_past-P1",
+        "V12-C-plain_negative_past-P2",
+        "V12-C-polite_nonpast-P1",
+        "V12-C-polite_nonpast-P2",
+        "V12-C-polite_past-P1",
+        "V12-C-polite_past-P2",
+        "V12-C-polite_negative-P1",
+        "V12-C-polite_negative-P2",
+        "V12-C-polite_negative_past-P1",
+        "V12-C-polite_negative_past-P2",
+        "V12-IRR-suru",
+        "V12-IRR-kuru",
+        "V12-N1",
+        "NEG-RULE-verb-causative:plain-past",
+        "NEG-RULE-verb-causative:plain-negative",
+        "NEG-RULE-verb-causative:plain-negative-past",
+        "NEG-RULE-verb-causative:polite-nonpast",
+        "NEG-RULE-verb-causative:polite-past",
+        "NEG-RULE-verb-causative:polite-negative",
+        "NEG-RULE-verb-causative:polite-negative-past"
+      ],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ],
+      "inclusion": "required",
+      "scope_basis": "User approved previous case-review.md; completed material awaits final review",
+      "variants": [
+        "composition",
+        "plain_past",
+        "plain_negative",
+        "plain_negative_past",
+        "polite_nonpast",
+        "polite_past",
+        "polite_negative",
+        "polite_negative_past",
+        "irregular"
+      ],
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "V13",
+      "word_group": "verb",
+      "form": "Sai khiến-bị động",
+      "example": "食べさせられる→食べる",
+      "proposal": "add",
+      "proposed_rule_id": "conjugation:verb-causative-passive",
+      "po_decision": "previous_draft_accepted_final_packet_pending",
+      "case_ids": [
+        "V13-P1",
+        "V13-P2",
+        "V13-C-plain_past-P1",
+        "V13-C-plain_past-P2",
+        "V13-C-plain_negative-P1",
+        "V13-C-plain_negative-P2",
+        "V13-C-plain_negative_past-P1",
+        "V13-C-plain_negative_past-P2",
+        "V13-C-polite_nonpast-P1",
+        "V13-C-polite_nonpast-P2",
+        "V13-C-polite_past-P1",
+        "V13-C-polite_past-P2",
+        "V13-C-polite_negative-P1",
+        "V13-C-polite_negative-P2",
+        "V13-C-polite_negative_past-P1",
+        "V13-C-polite_negative_past-P2",
+        "V13-IRR-suru",
+        "V13-IRR-kuru",
+        "V13-SHORT-書く",
+        "V13-SHORT-読む",
+        "V13-N1",
+        "NEG-RULE-verb-causative-potential",
+        "NEG-RULE-verb-causative-passive:plain-past",
+        "NEG-RULE-verb-causative-potential:plain-past",
+        "NEG-RULE-verb-causative-passive:plain-negative",
+        "NEG-RULE-verb-causative-potential:plain-negative",
+        "NEG-RULE-verb-causative-passive:plain-negative-past",
+        "NEG-RULE-verb-causative-potential:plain-negative-past",
+        "NEG-RULE-verb-causative-passive:polite-nonpast",
+        "NEG-RULE-verb-causative-potential:polite-nonpast",
+        "NEG-RULE-verb-causative-passive:polite-past",
+        "NEG-RULE-verb-causative-potential:polite-past",
+        "NEG-RULE-verb-causative-passive:polite-negative",
+        "NEG-RULE-verb-causative-potential:polite-negative",
+        "NEG-RULE-verb-causative-passive:polite-negative-past",
+        "NEG-RULE-verb-causative-potential:polite-negative-past",
+        "NEG-RULE-verb-causative-passive:contracted"
+      ],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ],
+      "inclusion": "required",
+      "scope_basis": "User approved previous case-review.md; completed material awaits final review",
+      "variants": [
+        "ambiguous",
+        "composition",
+        "plain_past",
+        "plain_negative",
+        "plain_negative_past",
+        "polite_nonpast",
+        "polite_past",
+        "polite_negative",
+        "polite_negative_past",
+        "irregular",
+        "variant",
+        "contracted"
+      ],
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "V14",
+      "word_group": "verb",
+      "form": "Điều kiện ば",
+      "example": "書けば→書く",
+      "proposal": "add",
+      "proposed_rule_id": "conjugation:verb-conditional-ba",
+      "po_decision": "previous_draft_accepted_final_packet_pending",
+      "case_ids": [
+        "V14-P1",
+        "V14-P2",
+        "V14-IRR-suru",
+        "V14-IRR-kuru",
+        "V14-N1"
+      ],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ],
+      "inclusion": "required",
+      "scope_basis": "User approved previous case-review.md; completed material awaits final review",
+      "variants": [
+        "irregular"
+      ],
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "V15",
+      "word_group": "verb",
+      "form": "Điều kiện たら",
+      "example": "食べたら→食べる",
+      "proposal": "add",
+      "proposed_rule_id": "conjugation:verb-conditional-tara",
+      "po_decision": "previous_draft_accepted_final_packet_pending",
+      "case_ids": [
+        "V15-P1",
+        "V15-P2",
+        "V15-IRR-suru",
+        "V15-IRR-kuru",
+        "V15-N1"
+      ],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ],
+      "inclusion": "required",
+      "scope_basis": "User approved previous case-review.md; completed material awaits final review",
+      "variants": [
+        "irregular"
+      ],
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "V16",
+      "word_group": "verb",
+      "form": "Ý chí",
+      "example": "書こう→書く",
+      "proposal": "add",
+      "proposed_rule_id": "conjugation:verb-volitional",
+      "po_decision": "previous_draft_accepted_final_packet_pending",
+      "case_ids": [
+        "V16-P1",
+        "V16-P2",
+        "V16-IRR-suru",
+        "V16-IRR-kuru",
+        "V16-N1"
+      ],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ],
+      "inclusion": "required",
+      "scope_basis": "User approved previous case-review.md; completed material awaits final review",
+      "variants": [
+        "irregular"
+      ],
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "V17",
+      "word_group": "verb",
+      "form": "Mệnh lệnh",
+      "example": "食べろ→食べる",
+      "proposal": "add",
+      "proposed_rule_id": "conjugation:verb-imperative",
+      "po_decision": "previous_draft_accepted_final_packet_pending",
+      "case_ids": [
+        "V17-P1",
+        "V17-P2",
+        "V17-IRR-suru",
+        "V17-IRR-kuru",
+        "AMB-02",
+        "V17-N1"
+      ],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ],
+      "inclusion": "required",
+      "scope_basis": "User approved previous case-review.md; completed material awaits final review",
+      "variants": [
+        "irregular",
+        "provider_base_mismatch"
+      ],
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "V18",
+      "word_group": "verb",
+      "form": "Cấm đoán",
+      "example": "食べるな→食べる",
+      "proposal": "add",
+      "proposed_rule_id": "conjugation:verb-prohibition",
+      "po_decision": "previous_draft_accepted_final_packet_pending",
+      "case_ids": [
+        "V18-P1",
+        "V18-P2",
+        "V18-IRR-suru",
+        "V18-IRR-kuru",
+        "V18-N1"
+      ],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ],
+      "inclusion": "required",
+      "scope_basis": "User approved previous case-review.md; completed material awaits final review",
+      "variants": [
+        "irregular"
+      ],
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "V19",
+      "word_group": "verb",
+      "form": "Mong muốn たい",
+      "example": "食べたい→食べる",
+      "proposal": "add",
+      "proposed_rule_id": "conjugation:verb-desiderative",
+      "po_decision": "previous_draft_accepted_final_packet_pending",
+      "case_ids": [
+        "V19-P1",
+        "V19-P2",
+        "V19-C-plain_past-P1",
+        "V19-C-plain_past-P2",
+        "V19-C-plain_negative-P1",
+        "V19-C-plain_negative-P2",
+        "V19-C-plain_negative_past-P1",
+        "V19-C-plain_negative_past-P2",
+        "V19-C-polite_nonpast-P1",
+        "V19-C-polite_nonpast-P2",
+        "V19-C-polite_past-P1",
+        "V19-C-polite_past-P2",
+        "V19-C-polite_negative-P1",
+        "V19-C-polite_negative-P2",
+        "V19-C-polite_negative_past-P1",
+        "V19-C-polite_negative_past-P2",
+        "V19-IRR-suru",
+        "V19-IRR-kuru",
+        "V19-N1",
+        "NEG-RULE-verb-desiderative:plain-past",
+        "NEG-RULE-verb-desiderative:plain-negative",
+        "NEG-RULE-verb-desiderative:plain-negative-past",
+        "NEG-RULE-verb-desiderative:polite-nonpast",
+        "NEG-RULE-verb-desiderative:polite-past",
+        "NEG-RULE-verb-desiderative:polite-negative",
+        "NEG-RULE-verb-desiderative:polite-negative-past"
+      ],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ],
+      "inclusion": "required",
+      "scope_basis": "User approved previous case-review.md; completed material awaits final review",
+      "variants": [
+        "composition",
+        "plain_past",
+        "plain_negative",
+        "plain_negative_past",
+        "polite_nonpast",
+        "polite_past",
+        "polite_negative",
+        "polite_negative_past",
+        "irregular"
+      ],
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "V20",
+      "word_group": "verb",
+      "form": "Tiếp diễn/trạng thái ている",
+      "example": "食べている→食べる",
+      "proposal": "add",
+      "proposed_rule_id": "conjugation:verb-te-iru",
+      "po_decision": "previous_draft_accepted_final_packet_pending",
+      "case_ids": [
+        "V20-P1",
+        "V20-P2",
+        "V20-C-plain_past-P1",
+        "V20-C-plain_past-P2",
+        "V20-C-plain_negative-P1",
+        "V20-C-plain_negative-P2",
+        "V20-C-plain_negative_past-P1",
+        "V20-C-plain_negative_past-P2",
+        "V20-C-polite_nonpast-P1",
+        "V20-C-polite_nonpast-P2",
+        "V20-C-polite_past-P1",
+        "V20-C-polite_past-P2",
+        "V20-C-polite_negative-P1",
+        "V20-C-polite_negative-P2",
+        "V20-C-polite_negative_past-P1",
+        "V20-C-polite_negative_past-P2",
+        "V20-IRR-suru",
+        "V20-IRR-kuru",
+        "V20-N1",
+        "NEG-RULE-verb-te-iru:plain-past",
+        "NEG-RULE-verb-te-iru:plain-negative",
+        "NEG-RULE-verb-te-iru:plain-negative-past",
+        "NEG-RULE-verb-te-iru:polite-nonpast",
+        "NEG-RULE-verb-te-iru:polite-past",
+        "NEG-RULE-verb-te-iru:polite-negative",
+        "NEG-RULE-verb-te-iru:polite-negative-past"
+      ],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ],
+      "inclusion": "required",
+      "scope_basis": "User approved previous case-review.md; completed material awaits final review",
+      "variants": [
+        "composition",
+        "plain_past",
+        "plain_negative",
+        "plain_negative_past",
+        "polite_nonpast",
+        "polite_past",
+        "polite_negative",
+        "polite_negative_past",
+        "irregular"
+      ],
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "I00",
+      "word_group": "i_adjective",
+      "form": "Nguyên dạng",
+      "example": "高い→高い",
+      "proposal": "exact_first",
+      "proposed_rule_id": null,
+      "po_decision": "previous_draft_accepted_final_packet_pending",
+      "case_ids": [
+        "I00-P1",
+        "I00-P2"
+      ],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ],
+      "inclusion": "required",
+      "scope_basis": "User approved previous case-review.md; completed material awaits final review",
+      "variants": [
+        "exact_first"
+      ],
+      "proposed_rule_version": null
+    },
+    {
+      "slot_id": "I01",
+      "word_group": "i_adjective",
+      "form": "Quá khứ thường",
+      "example": "高かった→高い",
+      "proposal": "revise_editorial_text",
+      "proposed_rule_id": "conjugation:adjective-past",
+      "po_decision": "previous_draft_accepted_final_packet_pending",
+      "case_ids": [
+        "I01-P1",
+        "I01-P2",
+        "I01-IRR-ii",
+        "I01-N1"
+      ],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ],
+      "inclusion": "required",
+      "scope_basis": "User approved previous case-review.md; completed material awaits final review",
+      "variants": [
+        "irregular",
+        "ii_yoi"
+      ],
+      "baseline_rule_version": 1,
+      "proposed_rule_version": 2
+    },
+    {
+      "slot_id": "I02",
+      "word_group": "i_adjective",
+      "form": "Phủ định thường",
+      "example": "高くない→高い",
+      "proposal": "revise_editorial_text",
+      "proposed_rule_id": "conjugation:adjective-negative",
+      "po_decision": "previous_draft_accepted_final_packet_pending",
+      "case_ids": [
+        "I02-P1",
+        "I02-P2",
+        "I02-IRR-ii",
+        "I02-N1"
+      ],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ],
+      "inclusion": "required",
+      "scope_basis": "User approved previous case-review.md; completed material awaits final review",
+      "variants": [
+        "irregular",
+        "ii_yoi"
+      ],
+      "baseline_rule_version": 1,
+      "proposed_rule_version": 2
+    },
+    {
+      "slot_id": "I03",
+      "word_group": "i_adjective",
+      "form": "Phủ định quá khứ thường",
+      "example": "高くなかった→高い",
+      "proposal": "revise_editorial_text",
+      "proposed_rule_id": "conjugation:adjective-negative-past",
+      "po_decision": "previous_draft_accepted_final_packet_pending",
+      "case_ids": [
+        "I03-P1",
+        "I03-P2",
+        "I03-IRR-ii",
+        "I03-N1"
+      ],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ],
+      "inclusion": "required",
+      "scope_basis": "User approved previous case-review.md; completed material awaits final review",
+      "variants": [
+        "irregular",
+        "ii_yoi"
+      ],
+      "baseline_rule_version": 1,
+      "proposed_rule_version": 2
+    },
+    {
+      "slot_id": "I04",
+      "word_group": "i_adjective",
+      "form": "Không quá khứ lịch sự",
+      "example": "高いです→高い",
+      "proposal": "add",
+      "proposed_rule_id": "conjugation:adjective-polite-nonpast",
+      "po_decision": "previous_draft_accepted_final_packet_pending",
+      "case_ids": [
+        "I04-P1",
+        "I04-P2",
+        "I04-N1"
+      ],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ],
+      "inclusion": "required",
+      "scope_basis": "User approved previous case-review.md; completed material awaits final review",
+      "variants": [],
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "I05",
+      "word_group": "i_adjective",
+      "form": "Quá khứ lịch sự",
+      "example": "高かったです→高い",
+      "proposal": "add",
+      "proposed_rule_id": "conjugation:adjective-polite-past",
+      "po_decision": "previous_draft_accepted_final_packet_pending",
+      "case_ids": [
+        "I05-P1",
+        "I05-P2",
+        "I05-N1"
+      ],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ],
+      "inclusion": "required",
+      "scope_basis": "User approved previous case-review.md; completed material awaits final review",
+      "variants": [],
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "I06",
+      "word_group": "i_adjective",
+      "form": "Phủ định lịch sự",
+      "example": "高くないです/高くありません→高い",
+      "proposal": "add",
+      "proposed_rule_id": "conjugation:adjective-polite-negative",
+      "po_decision": "previous_draft_accepted_final_packet_pending",
+      "case_ids": [
+        "I06-P1",
+        "I06-P2",
+        "I06-ALT-高い",
+        "I06-ALT-安い",
+        "I06-N1"
+      ],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ],
+      "inclusion": "required",
+      "scope_basis": "User approved previous case-review.md; completed material awaits final review",
+      "variants": [
+        "variant",
+        "arimasen"
+      ],
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "I07",
+      "word_group": "i_adjective",
+      "form": "Phủ định quá khứ lịch sự",
+      "example": "高くなかったです/高くありませんでした→高い",
+      "proposal": "add",
+      "proposed_rule_id": "conjugation:adjective-polite-negative-past",
+      "po_decision": "previous_draft_accepted_final_packet_pending",
+      "case_ids": [
+        "I07-P1",
+        "I07-P2",
+        "I07-ALT-高い",
+        "I07-ALT-安い",
+        "I07-N1"
+      ],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ],
+      "inclusion": "required",
+      "scope_basis": "User approved previous case-review.md; completed material awaits final review",
+      "variants": [
+        "variant",
+        "arimasen"
+      ],
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "I08",
+      "word_group": "i_adjective",
+      "form": "Thể nối くて",
+      "example": "高くて→高い",
+      "proposal": "add",
+      "proposed_rule_id": "conjugation:adjective-connective",
+      "po_decision": "previous_draft_accepted_final_packet_pending",
+      "case_ids": [
+        "I08-P1",
+        "I08-P2",
+        "I08-IRR-ii",
+        "I08-N1"
+      ],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ],
+      "inclusion": "required",
+      "scope_basis": "User approved previous case-review.md; completed material awaits final review",
+      "variants": [
+        "irregular",
+        "ii_yoi"
+      ],
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "I09",
+      "word_group": "i_adjective",
+      "form": "Trạng từ く",
+      "example": "高く→高い",
+      "proposal": "add",
+      "proposed_rule_id": "conjugation:adjective-adverbial",
+      "po_decision": "previous_draft_accepted_final_packet_pending",
+      "case_ids": [
+        "I09-P1",
+        "I09-P2",
+        "I09-IRR-ii",
+        "I09-N1"
+      ],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ],
+      "inclusion": "required",
+      "scope_basis": "User approved previous case-review.md; completed material awaits final review",
+      "variants": [
+        "irregular",
+        "ii_yoi",
+        "cross_group"
+      ],
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "I10",
+      "word_group": "i_adjective",
+      "form": "Điều kiện ければ",
+      "example": "高ければ→高い",
+      "proposal": "add",
+      "proposed_rule_id": "conjugation:adjective-conditional-ba",
+      "po_decision": "previous_draft_accepted_final_packet_pending",
+      "case_ids": [
+        "I10-P1",
+        "I10-P2",
+        "I10-IRR-ii",
+        "I10-N1"
+      ],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ],
+      "inclusion": "required",
+      "scope_basis": "User approved previous case-review.md; completed material awaits final review",
+      "variants": [
+        "irregular",
+        "ii_yoi"
+      ],
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "I11",
+      "word_group": "i_adjective",
+      "form": "Điều kiện かったら",
+      "example": "高かったら→高い",
+      "proposal": "add",
+      "proposed_rule_id": "conjugation:adjective-conditional-tara",
+      "po_decision": "previous_draft_accepted_final_packet_pending",
+      "case_ids": [
+        "I11-P1",
+        "I11-P2",
+        "I11-IRR-ii",
+        "I11-N1"
+      ],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "f09-project-editorial-b"
+      ],
+      "inclusion": "required",
+      "scope_basis": "User approved previous case-review.md; completed material awaits final review",
+      "variants": [
+        "irregular",
+        "ii_yoi"
+      ],
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "A00",
+      "word_group": "na_adjective",
+      "form": "Thân từ điển",
+      "example": "静か→静か",
+      "proposal": "exact_first",
+      "proposed_rule_id": null,
+      "po_decision": "previous_draft_accepted_final_packet_pending",
+      "case_ids": [
+        "A00-P1",
+        "A00-P2"
+      ],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "jf-irodori-plain-polite-table",
+        "f09-project-editorial-b"
+      ],
+      "inclusion": "required",
+      "scope_basis": "User approved previous case-review.md; completed material awaits final review",
+      "variants": [
+        "exact_first"
+      ],
+      "proposed_rule_version": null
+    },
+    {
+      "slot_id": "A01",
+      "word_group": "na_adjective",
+      "form": "Khẳng định thường không quá khứ",
+      "example": "静かだ→静か",
+      "proposal": "add",
+      "proposed_rule_id": "conjugation:na-copula-nonpast",
+      "po_decision": "previous_draft_accepted_final_packet_pending",
+      "case_ids": [
+        "A01-P1",
+        "A01-P2",
+        "POS-01",
+        "A01-N1",
+        "N01-N1"
+      ],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "jf-irodori-plain-polite-table",
+        "f09-project-editorial-b"
+      ],
+      "inclusion": "required",
+      "scope_basis": "User approved previous case-review.md; completed material awaits final review",
+      "variants": [
+        "cross_group",
+        "not_i_adjective"
+      ],
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "A02",
+      "word_group": "na_adjective",
+      "form": "Khẳng định thường quá khứ",
+      "example": "静かだった→静か",
+      "proposal": "add",
+      "proposed_rule_id": "conjugation:na-copula-past",
+      "po_decision": "previous_draft_accepted_final_packet_pending",
+      "case_ids": [
+        "A02-P1",
+        "A02-P2",
+        "A02-N1",
+        "N02-N1"
+      ],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "jf-irodori-plain-polite-table",
+        "f09-project-editorial-b"
+      ],
+      "inclusion": "required",
+      "scope_basis": "User approved previous case-review.md; completed material awaits final review",
+      "variants": [
+        "cross_group"
+      ],
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "A03",
+      "word_group": "na_adjective",
+      "form": "Phủ định thường không quá khứ",
+      "example": "静かじゃない/静かではない→静か",
+      "proposal": "add",
+      "proposed_rule_id": "conjugation:na-copula-negative",
+      "po_decision": "previous_draft_accepted_final_packet_pending",
+      "case_ids": [
+        "A03-P1",
+        "A03-P2",
+        "A03-ALT-dewa-静か",
+        "A03-ALT-dewa-便利",
+        "A03-N1",
+        "N03-N1"
+      ],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "jf-irodori-plain-polite-table",
+        "f09-project-editorial-b"
+      ],
+      "inclusion": "required",
+      "scope_basis": "User approved previous case-review.md; completed material awaits final review",
+      "variants": [
+        "variant",
+        "dewa",
+        "cross_group"
+      ],
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "A04",
+      "word_group": "na_adjective",
+      "form": "Phủ định thường quá khứ",
+      "example": "静かじゃなかった/静かではなかった→静か",
+      "proposal": "add",
+      "proposed_rule_id": "conjugation:na-copula-negative-past",
+      "po_decision": "previous_draft_accepted_final_packet_pending",
+      "case_ids": [
+        "A04-P1",
+        "A04-P2",
+        "A04-ALT-dewa-静か",
+        "A04-ALT-dewa-便利",
+        "A04-N1",
+        "N04-N1"
+      ],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "jf-irodori-plain-polite-table",
+        "f09-project-editorial-b"
+      ],
+      "inclusion": "required",
+      "scope_basis": "User approved previous case-review.md; completed material awaits final review",
+      "variants": [
+        "variant",
+        "dewa",
+        "cross_group"
+      ],
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "A05",
+      "word_group": "na_adjective",
+      "form": "Khẳng định lịch sự không quá khứ",
+      "example": "静かです→静か",
+      "proposal": "add",
+      "proposed_rule_id": "conjugation:na-copula-polite-nonpast",
+      "po_decision": "previous_draft_accepted_final_packet_pending",
+      "case_ids": [
+        "A05-P1",
+        "A05-P2",
+        "A05-N1",
+        "N05-N1"
+      ],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "jf-irodori-plain-polite-table",
+        "f09-project-editorial-b"
+      ],
+      "inclusion": "required",
+      "scope_basis": "User approved previous case-review.md; completed material awaits final review",
+      "variants": [
+        "cross_group"
+      ],
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "A06",
+      "word_group": "na_adjective",
+      "form": "Khẳng định lịch sự quá khứ",
+      "example": "静かでした→静か",
+      "proposal": "add",
+      "proposed_rule_id": "conjugation:na-copula-polite-past",
+      "po_decision": "previous_draft_accepted_final_packet_pending",
+      "case_ids": [
+        "A06-P1",
+        "A06-P2",
+        "A06-N1",
+        "N06-N1"
+      ],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "jf-irodori-plain-polite-table",
+        "f09-project-editorial-b"
+      ],
+      "inclusion": "required",
+      "scope_basis": "User approved previous case-review.md; completed material awaits final review",
+      "variants": [
+        "cross_group"
+      ],
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "A07",
+      "word_group": "na_adjective",
+      "form": "Phủ định lịch sự không quá khứ",
+      "example": "静かじゃないです/静かじゃありません/静かではありません→静か",
+      "proposal": "add",
+      "proposed_rule_id": "conjugation:na-copula-polite-negative",
+      "po_decision": "previous_draft_accepted_final_packet_pending",
+      "case_ids": [
+        "A07-P1",
+        "A07-P2",
+        "A07-ALT-ja_arimasen-静か",
+        "A07-ALT-ja_arimasen-便利",
+        "A07-ALT-dewa_arimasen-静か",
+        "A07-ALT-dewa_arimasen-便利",
+        "A07-N1",
+        "N07-N1"
+      ],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "jf-irodori-plain-polite-table",
+        "f09-project-editorial-b"
+      ],
+      "inclusion": "required",
+      "scope_basis": "User approved previous case-review.md; completed material awaits final review",
+      "variants": [
+        "variant",
+        "ja_arimasen",
+        "dewa_arimasen",
+        "cross_group"
+      ],
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "A08",
+      "word_group": "na_adjective",
+      "form": "Phủ định lịch sự quá khứ",
+      "example": "静かじゃなかったです/静かじゃありませんでした/静かではありませんでした→静か",
+      "proposal": "add",
+      "proposed_rule_id": "conjugation:na-copula-polite-negative-past",
+      "po_decision": "previous_draft_accepted_final_packet_pending",
+      "case_ids": [
+        "A08-P1",
+        "A08-P2",
+        "A08-ALT-ja_arimasen-静か",
+        "A08-ALT-ja_arimasen-便利",
+        "A08-ALT-dewa_arimasen-静か",
+        "A08-ALT-dewa_arimasen-便利",
+        "A08-N1",
+        "N08-N1"
+      ],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "jf-irodori-plain-polite-table",
+        "f09-project-editorial-b"
+      ],
+      "inclusion": "required",
+      "scope_basis": "User approved previous case-review.md; completed material awaits final review",
+      "variants": [
+        "variant",
+        "ja_arimasen",
+        "dewa_arimasen",
+        "cross_group"
+      ],
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "A09",
+      "word_group": "na_adjective",
+      "form": "Bổ nghĩa 連体形 `な`",
+      "example": "静かな→静か",
+      "proposal": "add",
+      "proposed_rule_id": "conjugation:na-attributive",
+      "po_decision": "previous_draft_accepted_final_packet_pending",
+      "case_ids": [
+        "A09-P1",
+        "A09-P2",
+        "A09-N1"
+      ],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "jf-irodori-plain-polite-table",
+        "f09-project-editorial-b"
+      ],
+      "inclusion": "required",
+      "scope_basis": "User approved previous case-review.md; completed material awaits final review",
+      "variants": [],
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "A10",
+      "word_group": "na_adjective",
+      "form": "Trạng từ `に`",
+      "example": "静かに→静か",
+      "proposal": "add",
+      "proposed_rule_id": "conjugation:na-adverbial",
+      "po_decision": "previous_draft_accepted_final_packet_pending",
+      "case_ids": [
+        "A10-P1",
+        "A10-P2",
+        "I09-N1",
+        "A10-N1"
+      ],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "jf-irodori-plain-polite-table",
+        "f09-project-editorial-b"
+      ],
+      "inclusion": "required",
+      "scope_basis": "User approved previous case-review.md; completed material awaits final review",
+      "variants": [
+        "cross_group"
+      ],
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "A11",
+      "word_group": "na_adjective",
+      "form": "Thể nối `で`",
+      "example": "静かで→静か",
+      "proposal": "add",
+      "proposed_rule_id": "conjugation:na-connective",
+      "po_decision": "previous_draft_accepted_final_packet_pending",
+      "case_ids": [
+        "A11-P1",
+        "A11-P2",
+        "A11-N1"
+      ],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "jf-irodori-plain-polite-table",
+        "f09-project-editorial-b"
+      ],
+      "inclusion": "required",
+      "scope_basis": "User approved previous case-review.md; completed material awaits final review",
+      "variants": [
+        "cross_group"
+      ],
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "A12",
+      "word_group": "na_adjective",
+      "form": "Điều kiện `なら`",
+      "example": "静かなら→静か",
+      "proposal": "add",
+      "proposed_rule_id": "conjugation:na-conditional-nara",
+      "po_decision": "previous_draft_accepted_final_packet_pending",
+      "case_ids": [
+        "A12-P1",
+        "A12-P2",
+        "A12-N1",
+        "N09-N1"
+      ],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "jf-irodori-plain-polite-table",
+        "f09-project-editorial-b"
+      ],
+      "inclusion": "required",
+      "scope_basis": "User approved previous case-review.md; completed material awaits final review",
+      "variants": [
+        "cross_group"
+      ],
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "A13",
+      "word_group": "na_adjective",
+      "form": "Điều kiện `だったら`",
+      "example": "静かだったら→静か",
+      "proposal": "add",
+      "proposed_rule_id": "conjugation:na-conditional-tara",
+      "po_decision": "previous_draft_accepted_final_packet_pending",
+      "case_ids": [
+        "A13-P1",
+        "A13-P2",
+        "A13-N1",
+        "N10-N1"
+      ],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "jf-irodori-plain-polite-table",
+        "f09-project-editorial-b"
+      ],
+      "inclusion": "required",
+      "scope_basis": "User approved previous case-review.md; completed material awaits final review",
+      "variants": [
+        "cross_group"
+      ],
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "N00",
+      "word_group": "noun_copula",
+      "form": "Danh từ nguyên dạng",
+      "example": "学生→学生",
+      "proposal": "exact_first",
+      "proposed_rule_id": null,
+      "po_decision": "previous_draft_accepted_final_packet_pending",
+      "case_ids": [
+        "N00-P1",
+        "N00-P2"
+      ],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "jf-irodori-plain-polite-table",
+        "f09-project-editorial-b"
+      ],
+      "inclusion": "required",
+      "scope_basis": "User approved previous case-review.md; completed material awaits final review",
+      "variants": [
+        "exact_first"
+      ],
+      "proposed_rule_version": null
+    },
+    {
+      "slot_id": "N01",
+      "word_group": "noun_copula",
+      "form": "`だ` thường không quá khứ",
+      "example": "学生だ→学生",
+      "proposal": "add",
+      "proposed_rule_id": "conjugation:noun-copula-nonpast",
+      "po_decision": "previous_draft_accepted_final_packet_pending",
+      "case_ids": [
+        "N01-P1",
+        "N01-P2",
+        "A01-N1",
+        "N01-N1"
+      ],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "jf-irodori-plain-polite-table",
+        "f09-project-editorial-b"
+      ],
+      "inclusion": "required",
+      "scope_basis": "User approved previous case-review.md; completed material awaits final review",
+      "variants": [
+        "cross_group"
+      ],
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "N02",
+      "word_group": "noun_copula",
+      "form": "`だった` thường quá khứ",
+      "example": "学生だった→学生",
+      "proposal": "add",
+      "proposed_rule_id": "conjugation:noun-copula-past",
+      "po_decision": "previous_draft_accepted_final_packet_pending",
+      "case_ids": [
+        "N02-P1",
+        "N02-P2",
+        "A02-N1",
+        "N02-N1"
+      ],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "jf-irodori-plain-polite-table",
+        "f09-project-editorial-b"
+      ],
+      "inclusion": "required",
+      "scope_basis": "User approved previous case-review.md; completed material awaits final review",
+      "variants": [
+        "cross_group"
+      ],
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "N03",
+      "word_group": "noun_copula",
+      "form": "Phủ định thường không quá khứ",
+      "example": "学生じゃない/学生ではない→学生",
+      "proposal": "add",
+      "proposed_rule_id": "conjugation:noun-copula-negative",
+      "po_decision": "previous_draft_accepted_final_packet_pending",
+      "case_ids": [
+        "N03-P1",
+        "N03-P2",
+        "N03-ALT-dewa-学生",
+        "N03-ALT-dewa-先生",
+        "A03-N1",
+        "N03-N1"
+      ],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "jf-irodori-plain-polite-table",
+        "f09-project-editorial-b"
+      ],
+      "inclusion": "required",
+      "scope_basis": "User approved previous case-review.md; completed material awaits final review",
+      "variants": [
+        "variant",
+        "dewa",
+        "cross_group"
+      ],
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "N04",
+      "word_group": "noun_copula",
+      "form": "Phủ định thường quá khứ",
+      "example": "学生じゃなかった/学生ではなかった→学生",
+      "proposal": "add",
+      "proposed_rule_id": "conjugation:noun-copula-negative-past",
+      "po_decision": "previous_draft_accepted_final_packet_pending",
+      "case_ids": [
+        "N04-P1",
+        "N04-P2",
+        "N04-ALT-dewa-学生",
+        "N04-ALT-dewa-先生",
+        "A04-N1",
+        "N04-N1"
+      ],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "jf-irodori-plain-polite-table",
+        "f09-project-editorial-b"
+      ],
+      "inclusion": "required",
+      "scope_basis": "User approved previous case-review.md; completed material awaits final review",
+      "variants": [
+        "variant",
+        "dewa",
+        "cross_group"
+      ],
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "N05",
+      "word_group": "noun_copula",
+      "form": "`です` lịch sự không quá khứ",
+      "example": "学生です→学生",
+      "proposal": "add",
+      "proposed_rule_id": "conjugation:noun-copula-polite-nonpast",
+      "po_decision": "previous_draft_accepted_final_packet_pending",
+      "case_ids": [
+        "N05-P1",
+        "N05-P2",
+        "UNI-02",
+        "A05-N1",
+        "N05-N1",
+        "UNI-01"
+      ],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "jf-irodori-plain-polite-table",
+        "f09-project-editorial-b"
+      ],
+      "inclusion": "required",
+      "scope_basis": "User approved previous case-review.md; completed material awaits final review",
+      "variants": [
+        "unicode",
+        "supplementary",
+        "cross_group",
+        "word_boundary"
+      ],
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "N06",
+      "word_group": "noun_copula",
+      "form": "`でした` lịch sự quá khứ",
+      "example": "学生でした→学生",
+      "proposal": "add",
+      "proposed_rule_id": "conjugation:noun-copula-polite-past",
+      "po_decision": "previous_draft_accepted_final_packet_pending",
+      "case_ids": [
+        "N06-P1",
+        "N06-P2",
+        "A06-N1",
+        "N06-N1"
+      ],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "jf-irodori-plain-polite-table",
+        "f09-project-editorial-b"
+      ],
+      "inclusion": "required",
+      "scope_basis": "User approved previous case-review.md; completed material awaits final review",
+      "variants": [
+        "cross_group"
+      ],
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "N07",
+      "word_group": "noun_copula",
+      "form": "Phủ định lịch sự không quá khứ",
+      "example": "学生じゃないです/学生じゃありません/学生ではありません→学生",
+      "proposal": "add",
+      "proposed_rule_id": "conjugation:noun-copula-polite-negative",
+      "po_decision": "previous_draft_accepted_final_packet_pending",
+      "case_ids": [
+        "N07-P1",
+        "N07-P2",
+        "N07-ALT-ja_arimasen-学生",
+        "N07-ALT-ja_arimasen-先生",
+        "N07-ALT-dewa_arimasen-学生",
+        "N07-ALT-dewa_arimasen-先生",
+        "A07-N1",
+        "N07-N1"
+      ],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "jf-irodori-plain-polite-table",
+        "f09-project-editorial-b"
+      ],
+      "inclusion": "required",
+      "scope_basis": "User approved previous case-review.md; completed material awaits final review",
+      "variants": [
+        "variant",
+        "ja_arimasen",
+        "dewa_arimasen",
+        "cross_group"
+      ],
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "N08",
+      "word_group": "noun_copula",
+      "form": "Phủ định lịch sự quá khứ",
+      "example": "学生じゃなかったです/学生じゃありませんでした/学生ではありませんでした→学生",
+      "proposal": "add",
+      "proposed_rule_id": "conjugation:noun-copula-polite-negative-past",
+      "po_decision": "previous_draft_accepted_final_packet_pending",
+      "case_ids": [
+        "N08-P1",
+        "N08-P2",
+        "N08-ALT-ja_arimasen-学生",
+        "N08-ALT-ja_arimasen-先生",
+        "N08-ALT-dewa_arimasen-学生",
+        "N08-ALT-dewa_arimasen-先生",
+        "BND-01",
+        "A08-N1",
+        "N08-N1"
+      ],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "jf-irodori-plain-polite-table",
+        "f09-project-editorial-b"
+      ],
+      "inclusion": "required",
+      "scope_basis": "User approved previous case-review.md; completed material awaits final review",
+      "variants": [
+        "variant",
+        "ja_arimasen",
+        "dewa_arimasen",
+        "long_chain",
+        "provider_layout",
+        "cross_group"
+      ],
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "N09",
+      "word_group": "noun_copula",
+      "form": "Điều kiện `なら`",
+      "example": "学生なら→学生",
+      "proposal": "add",
+      "proposed_rule_id": "conjugation:noun-conditional-nara",
+      "po_decision": "previous_draft_accepted_final_packet_pending",
+      "case_ids": [
+        "N09-P1",
+        "N09-P2",
+        "A12-N1",
+        "N09-N1"
+      ],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "jf-irodori-plain-polite-table",
+        "f09-project-editorial-b"
+      ],
+      "inclusion": "required",
+      "scope_basis": "User approved previous case-review.md; completed material awaits final review",
+      "variants": [
+        "cross_group"
+      ],
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "N10",
+      "word_group": "noun_copula",
+      "form": "Điều kiện `だったら`",
+      "example": "学生だったら→学生",
+      "proposal": "add",
+      "proposed_rule_id": "conjugation:noun-conditional-tara",
+      "po_decision": "previous_draft_accepted_final_packet_pending",
+      "case_ids": [
+        "N10-P1",
+        "N10-P2",
+        "A13-N1",
+        "N10-N1"
+      ],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "jf-irodori-plain-polite-table",
+        "f09-project-editorial-b"
+      ],
+      "inclusion": "required",
+      "scope_basis": "User approved previous case-review.md; completed material awaits final review",
+      "variants": [
+        "cross_group"
+      ],
+      "proposed_rule_version": 1
+    },
+    {
+      "slot_id": "N11",
+      "word_group": "noun_copula",
+      "form": "`で` nối mệnh đề",
+      "example": "学生で→学生",
+      "proposal": "add",
+      "proposed_rule_id": "conjugation:noun-copula-connective",
+      "po_decision": "previous_draft_accepted_final_packet_pending",
+      "case_ids": [
+        "N11-P1",
+        "N11-P2",
+        "A11-N1",
+        "N11-N1"
+      ],
+      "source_refs": [
+        "jf-irodori-grammar-notes",
+        "jf-irodori-plain-polite-table",
+        "f09-project-editorial-b"
+      ],
+      "inclusion": "required",
+      "scope_basis": "User approved previous case-review.md; completed material awaits final review",
+      "variants": [
+        "cross_group"
+      ],
+      "proposed_rule_version": 1
+    }
+  ],
+  "rules": [
+    {
+      "rule_id": "conjugation:verb-polite-nonpast",
+      "rule_version": 2,
+      "slot_ids": [
+        "V01"
+      ],
+      "positive_case_ids": [
+        "V01-P1",
+        "V01-P2",
+        "V01-IRR-suru",
+        "V01-IRR-kuru"
+      ],
+      "negative_case_ids": [
+        "V01-N1"
+      ],
+      "proposal_status": "revise_editorial_text",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-polite-past",
+      "rule_version": 2,
+      "slot_ids": [
+        "V02"
+      ],
+      "positive_case_ids": [
+        "V02-P1",
+        "V02-P2",
+        "V02-IRR-suru",
+        "V02-IRR-kuru"
+      ],
+      "negative_case_ids": [
+        "V02-N1"
+      ],
+      "proposal_status": "revise_editorial_text",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-polite-negative",
+      "rule_version": 2,
+      "slot_ids": [
+        "V03"
+      ],
+      "positive_case_ids": [
+        "V03-P1",
+        "V03-P2",
+        "V03-IRR-suru",
+        "V03-IRR-kuru"
+      ],
+      "negative_case_ids": [
+        "V03-N1"
+      ],
+      "proposal_status": "revise_editorial_text",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-polite-negative-past",
+      "rule_version": 1,
+      "slot_ids": [
+        "V04"
+      ],
+      "positive_case_ids": [
+        "V04-P1",
+        "V04-P2",
+        "V04-IRR-suru",
+        "V04-IRR-kuru"
+      ],
+      "negative_case_ids": [
+        "V04-N1"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-past",
+      "rule_version": 2,
+      "slot_ids": [
+        "V05"
+      ],
+      "positive_case_ids": [
+        "V05-P1",
+        "V05-P2",
+        "V05-IRR-suru",
+        "V05-IRR-kuru",
+        "V05-ONBIN-yomu"
+      ],
+      "negative_case_ids": [
+        "V05-N1"
+      ],
+      "proposal_status": "revise_editorial_text",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-negative",
+      "rule_version": 2,
+      "slot_ids": [
+        "V06"
+      ],
+      "positive_case_ids": [
+        "V06-P1",
+        "V06-P2",
+        "V06-IRR-suru",
+        "V06-IRR-kuru"
+      ],
+      "negative_case_ids": [
+        "V06-N1"
+      ],
+      "proposal_status": "revise_editorial_text",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-negative-past",
+      "rule_version": 2,
+      "slot_ids": [
+        "V07"
+      ],
+      "positive_case_ids": [
+        "V07-P1",
+        "V07-P2",
+        "V07-IRR-suru",
+        "V07-IRR-kuru"
+      ],
+      "negative_case_ids": [
+        "V07-N1"
+      ],
+      "proposal_status": "revise_editorial_text",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-te",
+      "rule_version": 1,
+      "slot_ids": [
+        "V08"
+      ],
+      "positive_case_ids": [
+        "V08-P1",
+        "V08-P2",
+        "V08-IRR-suru",
+        "V08-IRR-kuru",
+        "V08-ONBIN-行く",
+        "V08-ONBIN-読む"
+      ],
+      "negative_case_ids": [
+        "V08-N1"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-negative-connective",
+      "rule_version": 1,
+      "slot_ids": [
+        "V09"
+      ],
+      "positive_case_ids": [
+        "V09-P1",
+        "V09-P2",
+        "V09-IRR-suru",
+        "V09-IRR-kuru"
+      ],
+      "negative_case_ids": [
+        "V09-N1"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-potential",
+      "rule_version": 1,
+      "slot_ids": [
+        "V10"
+      ],
+      "positive_case_ids": [
+        "V10-P1",
+        "V10-P2",
+        "V11-P1",
+        "V11-IRR-kuru",
+        "V10-IRR-suru",
+        "V10-IRR-kuru",
+        "AMB-01"
+      ],
+      "negative_case_ids": [
+        "V10-N1"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-passive",
+      "rule_version": 1,
+      "slot_ids": [
+        "V11"
+      ],
+      "positive_case_ids": [
+        "V11-P1",
+        "V11-P2",
+        "V11-IRR-suru",
+        "V11-IRR-kuru",
+        "V10-IRR-kuru",
+        "AMB-01"
+      ],
+      "negative_case_ids": [
+        "V11-N1"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-causative",
+      "rule_version": 1,
+      "slot_ids": [
+        "V12"
+      ],
+      "positive_case_ids": [
+        "V12-P1",
+        "V12-P2",
+        "V12-IRR-suru",
+        "V12-IRR-kuru"
+      ],
+      "negative_case_ids": [
+        "V12-N1"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-causative-passive",
+      "rule_version": 1,
+      "slot_ids": [
+        "V13"
+      ],
+      "positive_case_ids": [
+        "V13-P1",
+        "V13-P2",
+        "V13-IRR-suru",
+        "V13-IRR-kuru"
+      ],
+      "negative_case_ids": [
+        "V13-N1"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-causative-potential",
+      "rule_version": 1,
+      "slot_ids": [
+        "V13"
+      ],
+      "positive_case_ids": [
+        "V13-P1",
+        "V13-P2",
+        "V13-IRR-suru",
+        "V13-IRR-kuru"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-causative-potential"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-conditional-ba",
+      "rule_version": 1,
+      "slot_ids": [
+        "V14"
+      ],
+      "positive_case_ids": [
+        "V14-P1",
+        "V14-P2",
+        "V14-IRR-suru",
+        "V14-IRR-kuru"
+      ],
+      "negative_case_ids": [
+        "V14-N1"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-conditional-tara",
+      "rule_version": 1,
+      "slot_ids": [
+        "V15"
+      ],
+      "positive_case_ids": [
+        "V15-P1",
+        "V15-P2",
+        "V15-IRR-suru",
+        "V15-IRR-kuru"
+      ],
+      "negative_case_ids": [
+        "V15-N1"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-volitional",
+      "rule_version": 1,
+      "slot_ids": [
+        "V16"
+      ],
+      "positive_case_ids": [
+        "V16-P1",
+        "V16-P2",
+        "V16-IRR-suru",
+        "V16-IRR-kuru"
+      ],
+      "negative_case_ids": [
+        "V16-N1"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-imperative",
+      "rule_version": 1,
+      "slot_ids": [
+        "V17"
+      ],
+      "positive_case_ids": [
+        "V17-P1",
+        "V17-P2",
+        "V17-IRR-suru",
+        "V17-IRR-kuru",
+        "AMB-02"
+      ],
+      "negative_case_ids": [
+        "V17-N1"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-prohibition",
+      "rule_version": 1,
+      "slot_ids": [
+        "V18"
+      ],
+      "positive_case_ids": [
+        "V18-P1",
+        "V18-P2",
+        "V18-IRR-suru",
+        "V18-IRR-kuru"
+      ],
+      "negative_case_ids": [
+        "V18-N1"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-desiderative",
+      "rule_version": 1,
+      "slot_ids": [
+        "V19"
+      ],
+      "positive_case_ids": [
+        "V19-P1",
+        "V19-P2",
+        "V19-IRR-suru",
+        "V19-IRR-kuru"
+      ],
+      "negative_case_ids": [
+        "V19-N1"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-te-iru",
+      "rule_version": 1,
+      "slot_ids": [
+        "V20"
+      ],
+      "positive_case_ids": [
+        "V20-P1",
+        "V20-P2",
+        "V20-IRR-suru",
+        "V20-IRR-kuru"
+      ],
+      "negative_case_ids": [
+        "V20-N1"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-potential:plain-past",
+      "rule_version": 1,
+      "slot_ids": [
+        "V10"
+      ],
+      "positive_case_ids": [
+        "V10-C-plain_past-P1",
+        "V10-C-plain_past-P2",
+        "V11-C-plain_past-P1"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-potential:plain-past"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-potential:plain-negative",
+      "rule_version": 1,
+      "slot_ids": [
+        "V10"
+      ],
+      "positive_case_ids": [
+        "V10-C-plain_negative-P1",
+        "V10-C-plain_negative-P2",
+        "V11-C-plain_negative-P1"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-potential:plain-negative"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-potential:plain-negative-past",
+      "rule_version": 1,
+      "slot_ids": [
+        "V10"
+      ],
+      "positive_case_ids": [
+        "V10-C-plain_negative_past-P1",
+        "V10-C-plain_negative_past-P2",
+        "V11-C-plain_negative_past-P1"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-potential:plain-negative-past"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-potential:polite-nonpast",
+      "rule_version": 1,
+      "slot_ids": [
+        "V10"
+      ],
+      "positive_case_ids": [
+        "V10-C-polite_nonpast-P1",
+        "V10-C-polite_nonpast-P2",
+        "V11-C-polite_nonpast-P1"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-potential:polite-nonpast"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-potential:polite-past",
+      "rule_version": 1,
+      "slot_ids": [
+        "V10"
+      ],
+      "positive_case_ids": [
+        "V10-C-polite_past-P1",
+        "V10-C-polite_past-P2",
+        "V11-C-polite_past-P1"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-potential:polite-past"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-potential:polite-negative",
+      "rule_version": 1,
+      "slot_ids": [
+        "V10"
+      ],
+      "positive_case_ids": [
+        "V10-C-polite_negative-P1",
+        "V10-C-polite_negative-P2",
+        "V11-C-polite_negative-P1"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-potential:polite-negative"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-potential:polite-negative-past",
+      "rule_version": 1,
+      "slot_ids": [
+        "V10"
+      ],
+      "positive_case_ids": [
+        "V10-C-polite_negative_past-P1",
+        "V10-C-polite_negative_past-P2",
+        "V11-C-polite_negative_past-P1"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-potential:polite-negative-past"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-passive:plain-past",
+      "rule_version": 1,
+      "slot_ids": [
+        "V11"
+      ],
+      "positive_case_ids": [
+        "V11-C-plain_past-P1",
+        "V11-C-plain_past-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-passive:plain-past"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-passive:plain-negative",
+      "rule_version": 1,
+      "slot_ids": [
+        "V11"
+      ],
+      "positive_case_ids": [
+        "V11-C-plain_negative-P1",
+        "V11-C-plain_negative-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-passive:plain-negative"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-passive:plain-negative-past",
+      "rule_version": 1,
+      "slot_ids": [
+        "V11"
+      ],
+      "positive_case_ids": [
+        "V11-C-plain_negative_past-P1",
+        "V11-C-plain_negative_past-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-passive:plain-negative-past"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-passive:polite-nonpast",
+      "rule_version": 1,
+      "slot_ids": [
+        "V11"
+      ],
+      "positive_case_ids": [
+        "V11-C-polite_nonpast-P1",
+        "V11-C-polite_nonpast-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-passive:polite-nonpast"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-passive:polite-past",
+      "rule_version": 1,
+      "slot_ids": [
+        "V11"
+      ],
+      "positive_case_ids": [
+        "V11-C-polite_past-P1",
+        "V11-C-polite_past-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-passive:polite-past"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-passive:polite-negative",
+      "rule_version": 1,
+      "slot_ids": [
+        "V11"
+      ],
+      "positive_case_ids": [
+        "V11-C-polite_negative-P1",
+        "V11-C-polite_negative-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-passive:polite-negative"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-passive:polite-negative-past",
+      "rule_version": 1,
+      "slot_ids": [
+        "V11"
+      ],
+      "positive_case_ids": [
+        "V11-C-polite_negative_past-P1",
+        "V11-C-polite_negative_past-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-passive:polite-negative-past"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-causative:plain-past",
+      "rule_version": 1,
+      "slot_ids": [
+        "V12"
+      ],
+      "positive_case_ids": [
+        "V12-C-plain_past-P1",
+        "V12-C-plain_past-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-causative:plain-past"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-causative:plain-negative",
+      "rule_version": 1,
+      "slot_ids": [
+        "V12"
+      ],
+      "positive_case_ids": [
+        "V12-C-plain_negative-P1",
+        "V12-C-plain_negative-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-causative:plain-negative"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-causative:plain-negative-past",
+      "rule_version": 1,
+      "slot_ids": [
+        "V12"
+      ],
+      "positive_case_ids": [
+        "V12-C-plain_negative_past-P1",
+        "V12-C-plain_negative_past-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-causative:plain-negative-past"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-causative:polite-nonpast",
+      "rule_version": 1,
+      "slot_ids": [
+        "V12"
+      ],
+      "positive_case_ids": [
+        "V12-C-polite_nonpast-P1",
+        "V12-C-polite_nonpast-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-causative:polite-nonpast"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-causative:polite-past",
+      "rule_version": 1,
+      "slot_ids": [
+        "V12"
+      ],
+      "positive_case_ids": [
+        "V12-C-polite_past-P1",
+        "V12-C-polite_past-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-causative:polite-past"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-causative:polite-negative",
+      "rule_version": 1,
+      "slot_ids": [
+        "V12"
+      ],
+      "positive_case_ids": [
+        "V12-C-polite_negative-P1",
+        "V12-C-polite_negative-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-causative:polite-negative"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-causative:polite-negative-past",
+      "rule_version": 1,
+      "slot_ids": [
+        "V12"
+      ],
+      "positive_case_ids": [
+        "V12-C-polite_negative_past-P1",
+        "V12-C-polite_negative_past-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-causative:polite-negative-past"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-causative-passive:plain-past",
+      "rule_version": 1,
+      "slot_ids": [
+        "V13"
+      ],
+      "positive_case_ids": [
+        "V13-C-plain_past-P1",
+        "V13-C-plain_past-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-causative-passive:plain-past"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-causative-potential:plain-past",
+      "rule_version": 1,
+      "slot_ids": [
+        "V13"
+      ],
+      "positive_case_ids": [
+        "V13-C-plain_past-P1",
+        "V13-C-plain_past-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-causative-potential:plain-past"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-causative-passive:plain-negative",
+      "rule_version": 1,
+      "slot_ids": [
+        "V13"
+      ],
+      "positive_case_ids": [
+        "V13-C-plain_negative-P1",
+        "V13-C-plain_negative-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-causative-passive:plain-negative"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-causative-potential:plain-negative",
+      "rule_version": 1,
+      "slot_ids": [
+        "V13"
+      ],
+      "positive_case_ids": [
+        "V13-C-plain_negative-P1",
+        "V13-C-plain_negative-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-causative-potential:plain-negative"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-causative-passive:plain-negative-past",
+      "rule_version": 1,
+      "slot_ids": [
+        "V13"
+      ],
+      "positive_case_ids": [
+        "V13-C-plain_negative_past-P1",
+        "V13-C-plain_negative_past-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-causative-passive:plain-negative-past"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-causative-potential:plain-negative-past",
+      "rule_version": 1,
+      "slot_ids": [
+        "V13"
+      ],
+      "positive_case_ids": [
+        "V13-C-plain_negative_past-P1",
+        "V13-C-plain_negative_past-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-causative-potential:plain-negative-past"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-causative-passive:polite-nonpast",
+      "rule_version": 1,
+      "slot_ids": [
+        "V13"
+      ],
+      "positive_case_ids": [
+        "V13-C-polite_nonpast-P1",
+        "V13-C-polite_nonpast-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-causative-passive:polite-nonpast"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-causative-potential:polite-nonpast",
+      "rule_version": 1,
+      "slot_ids": [
+        "V13"
+      ],
+      "positive_case_ids": [
+        "V13-C-polite_nonpast-P1",
+        "V13-C-polite_nonpast-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-causative-potential:polite-nonpast"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-causative-passive:polite-past",
+      "rule_version": 1,
+      "slot_ids": [
+        "V13"
+      ],
+      "positive_case_ids": [
+        "V13-C-polite_past-P1",
+        "V13-C-polite_past-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-causative-passive:polite-past"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-causative-potential:polite-past",
+      "rule_version": 1,
+      "slot_ids": [
+        "V13"
+      ],
+      "positive_case_ids": [
+        "V13-C-polite_past-P1",
+        "V13-C-polite_past-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-causative-potential:polite-past"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-causative-passive:polite-negative",
+      "rule_version": 1,
+      "slot_ids": [
+        "V13"
+      ],
+      "positive_case_ids": [
+        "V13-C-polite_negative-P1",
+        "V13-C-polite_negative-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-causative-passive:polite-negative"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-causative-potential:polite-negative",
+      "rule_version": 1,
+      "slot_ids": [
+        "V13"
+      ],
+      "positive_case_ids": [
+        "V13-C-polite_negative-P1",
+        "V13-C-polite_negative-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-causative-potential:polite-negative"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-causative-passive:polite-negative-past",
+      "rule_version": 1,
+      "slot_ids": [
+        "V13"
+      ],
+      "positive_case_ids": [
+        "V13-C-polite_negative_past-P1",
+        "V13-C-polite_negative_past-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-causative-passive:polite-negative-past"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-causative-potential:polite-negative-past",
+      "rule_version": 1,
+      "slot_ids": [
+        "V13"
+      ],
+      "positive_case_ids": [
+        "V13-C-polite_negative_past-P1",
+        "V13-C-polite_negative_past-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-causative-potential:polite-negative-past"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-te-iru:plain-past",
+      "rule_version": 1,
+      "slot_ids": [
+        "V20"
+      ],
+      "positive_case_ids": [
+        "V20-C-plain_past-P1",
+        "V20-C-plain_past-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-te-iru:plain-past"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-te-iru:plain-negative",
+      "rule_version": 1,
+      "slot_ids": [
+        "V20"
+      ],
+      "positive_case_ids": [
+        "V20-C-plain_negative-P1",
+        "V20-C-plain_negative-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-te-iru:plain-negative"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-te-iru:plain-negative-past",
+      "rule_version": 1,
+      "slot_ids": [
+        "V20"
+      ],
+      "positive_case_ids": [
+        "V20-C-plain_negative_past-P1",
+        "V20-C-plain_negative_past-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-te-iru:plain-negative-past"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-te-iru:polite-nonpast",
+      "rule_version": 1,
+      "slot_ids": [
+        "V20"
+      ],
+      "positive_case_ids": [
+        "V20-C-polite_nonpast-P1",
+        "V20-C-polite_nonpast-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-te-iru:polite-nonpast"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-te-iru:polite-past",
+      "rule_version": 1,
+      "slot_ids": [
+        "V20"
+      ],
+      "positive_case_ids": [
+        "V20-C-polite_past-P1",
+        "V20-C-polite_past-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-te-iru:polite-past"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-te-iru:polite-negative",
+      "rule_version": 1,
+      "slot_ids": [
+        "V20"
+      ],
+      "positive_case_ids": [
+        "V20-C-polite_negative-P1",
+        "V20-C-polite_negative-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-te-iru:polite-negative"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-te-iru:polite-negative-past",
+      "rule_version": 1,
+      "slot_ids": [
+        "V20"
+      ],
+      "positive_case_ids": [
+        "V20-C-polite_negative_past-P1",
+        "V20-C-polite_negative_past-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-te-iru:polite-negative-past"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-desiderative:plain-past",
+      "rule_version": 1,
+      "slot_ids": [
+        "V19"
+      ],
+      "positive_case_ids": [
+        "V19-C-plain_past-P1",
+        "V19-C-plain_past-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-desiderative:plain-past"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-desiderative:plain-negative",
+      "rule_version": 1,
+      "slot_ids": [
+        "V19"
+      ],
+      "positive_case_ids": [
+        "V19-C-plain_negative-P1",
+        "V19-C-plain_negative-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-desiderative:plain-negative"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-desiderative:plain-negative-past",
+      "rule_version": 1,
+      "slot_ids": [
+        "V19"
+      ],
+      "positive_case_ids": [
+        "V19-C-plain_negative_past-P1",
+        "V19-C-plain_negative_past-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-desiderative:plain-negative-past"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-desiderative:polite-nonpast",
+      "rule_version": 1,
+      "slot_ids": [
+        "V19"
+      ],
+      "positive_case_ids": [
+        "V19-C-polite_nonpast-P1",
+        "V19-C-polite_nonpast-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-desiderative:polite-nonpast"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-desiderative:polite-past",
+      "rule_version": 1,
+      "slot_ids": [
+        "V19"
+      ],
+      "positive_case_ids": [
+        "V19-C-polite_past-P1",
+        "V19-C-polite_past-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-desiderative:polite-past"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-desiderative:polite-negative",
+      "rule_version": 1,
+      "slot_ids": [
+        "V19"
+      ],
+      "positive_case_ids": [
+        "V19-C-polite_negative-P1",
+        "V19-C-polite_negative-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-desiderative:polite-negative"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-desiderative:polite-negative-past",
+      "rule_version": 1,
+      "slot_ids": [
+        "V19"
+      ],
+      "positive_case_ids": [
+        "V19-C-polite_negative_past-P1",
+        "V19-C-polite_negative_past-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-desiderative:polite-negative-past"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-negative-connective:without",
+      "rule_version": 1,
+      "slot_ids": [
+        "V09"
+      ],
+      "positive_case_ids": [
+        "V09-WITHOUT-P1",
+        "V09-WITHOUT-P2"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-negative-connective:without"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:verb-causative-passive:contracted",
+      "rule_version": 1,
+      "slot_ids": [
+        "V13"
+      ],
+      "positive_case_ids": [
+        "V13-SHORT-書く",
+        "V13-SHORT-読む"
+      ],
+      "negative_case_ids": [
+        "NEG-RULE-verb-causative-passive:contracted"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:adjective-past",
+      "rule_version": 2,
+      "slot_ids": [
+        "I01"
+      ],
+      "positive_case_ids": [
+        "I01-P1",
+        "I01-P2",
+        "I01-IRR-ii"
+      ],
+      "negative_case_ids": [
+        "I01-N1"
+      ],
+      "proposal_status": "revise_editorial_text",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:adjective-negative",
+      "rule_version": 2,
+      "slot_ids": [
+        "I02"
+      ],
+      "positive_case_ids": [
+        "I02-P1",
+        "I02-P2",
+        "I02-IRR-ii"
+      ],
+      "negative_case_ids": [
+        "I02-N1"
+      ],
+      "proposal_status": "revise_editorial_text",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:adjective-negative-past",
+      "rule_version": 2,
+      "slot_ids": [
+        "I03"
+      ],
+      "positive_case_ids": [
+        "I03-P1",
+        "I03-P2",
+        "I03-IRR-ii"
+      ],
+      "negative_case_ids": [
+        "I03-N1"
+      ],
+      "proposal_status": "revise_editorial_text",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:adjective-polite-nonpast",
+      "rule_version": 1,
+      "slot_ids": [
+        "I04"
+      ],
+      "positive_case_ids": [
+        "I04-P1",
+        "I04-P2"
+      ],
+      "negative_case_ids": [
+        "I04-N1"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:adjective-polite-past",
+      "rule_version": 1,
+      "slot_ids": [
+        "I05"
+      ],
+      "positive_case_ids": [
+        "I05-P1",
+        "I05-P2"
+      ],
+      "negative_case_ids": [
+        "I05-N1"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:adjective-polite-negative",
+      "rule_version": 1,
+      "slot_ids": [
+        "I06"
+      ],
+      "positive_case_ids": [
+        "I06-P1",
+        "I06-P2",
+        "I06-ALT-高い",
+        "I06-ALT-安い"
+      ],
+      "negative_case_ids": [
+        "I06-N1"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:adjective-polite-negative-past",
+      "rule_version": 1,
+      "slot_ids": [
+        "I07"
+      ],
+      "positive_case_ids": [
+        "I07-P1",
+        "I07-P2",
+        "I07-ALT-高い",
+        "I07-ALT-安い"
+      ],
+      "negative_case_ids": [
+        "I07-N1"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:adjective-connective",
+      "rule_version": 1,
+      "slot_ids": [
+        "I08"
+      ],
+      "positive_case_ids": [
+        "I08-P1",
+        "I08-P2",
+        "I08-IRR-ii"
+      ],
+      "negative_case_ids": [
+        "I08-N1"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:adjective-adverbial",
+      "rule_version": 1,
+      "slot_ids": [
+        "I09"
+      ],
+      "positive_case_ids": [
+        "I09-P1",
+        "I09-P2",
+        "I09-IRR-ii"
+      ],
+      "negative_case_ids": [
+        "I09-N1"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:adjective-conditional-ba",
+      "rule_version": 1,
+      "slot_ids": [
+        "I10"
+      ],
+      "positive_case_ids": [
+        "I10-P1",
+        "I10-P2",
+        "I10-IRR-ii"
+      ],
+      "negative_case_ids": [
+        "I10-N1"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:adjective-conditional-tara",
+      "rule_version": 1,
+      "slot_ids": [
+        "I11"
+      ],
+      "positive_case_ids": [
+        "I11-P1",
+        "I11-P2",
+        "I11-IRR-ii"
+      ],
+      "negative_case_ids": [
+        "I11-N1"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:na-copula-nonpast",
+      "rule_version": 1,
+      "slot_ids": [
+        "A01"
+      ],
+      "positive_case_ids": [
+        "A01-P1",
+        "A01-P2",
+        "POS-01",
+        "N01-N1"
+      ],
+      "negative_case_ids": [
+        "A01-N1"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:na-copula-past",
+      "rule_version": 1,
+      "slot_ids": [
+        "A02"
+      ],
+      "positive_case_ids": [
+        "A02-P1",
+        "A02-P2",
+        "N02-N1"
+      ],
+      "negative_case_ids": [
+        "A02-N1"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:na-copula-negative",
+      "rule_version": 1,
+      "slot_ids": [
+        "A03"
+      ],
+      "positive_case_ids": [
+        "A03-P1",
+        "A03-P2",
+        "A03-ALT-dewa-静か",
+        "A03-ALT-dewa-便利",
+        "N03-N1"
+      ],
+      "negative_case_ids": [
+        "A03-N1"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:na-copula-negative-past",
+      "rule_version": 1,
+      "slot_ids": [
+        "A04"
+      ],
+      "positive_case_ids": [
+        "A04-P1",
+        "A04-P2",
+        "A04-ALT-dewa-静か",
+        "A04-ALT-dewa-便利",
+        "N04-N1"
+      ],
+      "negative_case_ids": [
+        "A04-N1"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:na-copula-polite-nonpast",
+      "rule_version": 1,
+      "slot_ids": [
+        "A05"
+      ],
+      "positive_case_ids": [
+        "A05-P1",
+        "A05-P2",
+        "N05-N1"
+      ],
+      "negative_case_ids": [
+        "A05-N1"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:na-copula-polite-past",
+      "rule_version": 1,
+      "slot_ids": [
+        "A06"
+      ],
+      "positive_case_ids": [
+        "A06-P1",
+        "A06-P2",
+        "N06-N1"
+      ],
+      "negative_case_ids": [
+        "A06-N1"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:na-copula-polite-negative",
+      "rule_version": 1,
+      "slot_ids": [
+        "A07"
+      ],
+      "positive_case_ids": [
+        "A07-P1",
+        "A07-P2",
+        "A07-ALT-ja_arimasen-静か",
+        "A07-ALT-ja_arimasen-便利",
+        "A07-ALT-dewa_arimasen-静か",
+        "A07-ALT-dewa_arimasen-便利",
+        "N07-N1"
+      ],
+      "negative_case_ids": [
+        "A07-N1"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:na-copula-polite-negative-past",
+      "rule_version": 1,
+      "slot_ids": [
+        "A08"
+      ],
+      "positive_case_ids": [
+        "A08-P1",
+        "A08-P2",
+        "A08-ALT-ja_arimasen-静か",
+        "A08-ALT-ja_arimasen-便利",
+        "A08-ALT-dewa_arimasen-静か",
+        "A08-ALT-dewa_arimasen-便利",
+        "N08-N1"
+      ],
+      "negative_case_ids": [
+        "A08-N1"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:na-attributive",
+      "rule_version": 1,
+      "slot_ids": [
+        "A09"
+      ],
+      "positive_case_ids": [
+        "A09-P1",
+        "A09-P2"
+      ],
+      "negative_case_ids": [
+        "A09-N1"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:na-adverbial",
+      "rule_version": 1,
+      "slot_ids": [
+        "A10"
+      ],
+      "positive_case_ids": [
+        "A10-P1",
+        "A10-P2",
+        "I09-N1"
+      ],
+      "negative_case_ids": [
+        "A10-N1"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:na-connective",
+      "rule_version": 1,
+      "slot_ids": [
+        "A11"
+      ],
+      "positive_case_ids": [
+        "A11-P1",
+        "A11-P2"
+      ],
+      "negative_case_ids": [
+        "A11-N1"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:na-conditional-nara",
+      "rule_version": 1,
+      "slot_ids": [
+        "A12"
+      ],
+      "positive_case_ids": [
+        "A12-P1",
+        "A12-P2",
+        "N09-N1"
+      ],
+      "negative_case_ids": [
+        "A12-N1"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:na-conditional-tara",
+      "rule_version": 1,
+      "slot_ids": [
+        "A13"
+      ],
+      "positive_case_ids": [
+        "A13-P1",
+        "A13-P2",
+        "N10-N1"
+      ],
+      "negative_case_ids": [
+        "A13-N1"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:noun-copula-nonpast",
+      "rule_version": 1,
+      "slot_ids": [
+        "N01"
+      ],
+      "positive_case_ids": [
+        "N01-P1",
+        "N01-P2",
+        "A01-N1"
+      ],
+      "negative_case_ids": [
+        "N01-N1"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:noun-copula-past",
+      "rule_version": 1,
+      "slot_ids": [
+        "N02"
+      ],
+      "positive_case_ids": [
+        "N02-P1",
+        "N02-P2",
+        "A02-N1"
+      ],
+      "negative_case_ids": [
+        "N02-N1"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:noun-copula-negative",
+      "rule_version": 1,
+      "slot_ids": [
+        "N03"
+      ],
+      "positive_case_ids": [
+        "N03-P1",
+        "N03-P2",
+        "N03-ALT-dewa-学生",
+        "N03-ALT-dewa-先生",
+        "A03-N1"
+      ],
+      "negative_case_ids": [
+        "N03-N1"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:noun-copula-negative-past",
+      "rule_version": 1,
+      "slot_ids": [
+        "N04"
+      ],
+      "positive_case_ids": [
+        "N04-P1",
+        "N04-P2",
+        "N04-ALT-dewa-学生",
+        "N04-ALT-dewa-先生",
+        "A04-N1"
+      ],
+      "negative_case_ids": [
+        "N04-N1"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:noun-copula-polite-nonpast",
+      "rule_version": 1,
+      "slot_ids": [
+        "N05"
+      ],
+      "positive_case_ids": [
+        "N05-P1",
+        "N05-P2",
+        "UNI-02",
+        "A05-N1"
+      ],
+      "negative_case_ids": [
+        "N05-N1"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:noun-copula-polite-past",
+      "rule_version": 1,
+      "slot_ids": [
+        "N06"
+      ],
+      "positive_case_ids": [
+        "N06-P1",
+        "N06-P2",
+        "A06-N1"
+      ],
+      "negative_case_ids": [
+        "N06-N1"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:noun-copula-polite-negative",
+      "rule_version": 1,
+      "slot_ids": [
+        "N07"
+      ],
+      "positive_case_ids": [
+        "N07-P1",
+        "N07-P2",
+        "N07-ALT-ja_arimasen-学生",
+        "N07-ALT-ja_arimasen-先生",
+        "N07-ALT-dewa_arimasen-学生",
+        "N07-ALT-dewa_arimasen-先生",
+        "A07-N1"
+      ],
+      "negative_case_ids": [
+        "N07-N1"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:noun-copula-polite-negative-past",
+      "rule_version": 1,
+      "slot_ids": [
+        "N08"
+      ],
+      "positive_case_ids": [
+        "N08-P1",
+        "N08-P2",
+        "N08-ALT-ja_arimasen-学生",
+        "N08-ALT-ja_arimasen-先生",
+        "N08-ALT-dewa_arimasen-学生",
+        "N08-ALT-dewa_arimasen-先生",
+        "BND-01",
+        "A08-N1"
+      ],
+      "negative_case_ids": [
+        "N08-N1"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:noun-conditional-nara",
+      "rule_version": 1,
+      "slot_ids": [
+        "N09"
+      ],
+      "positive_case_ids": [
+        "N09-P1",
+        "N09-P2",
+        "A12-N1"
+      ],
+      "negative_case_ids": [
+        "N09-N1"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:noun-conditional-tara",
+      "rule_version": 1,
+      "slot_ids": [
+        "N10"
+      ],
+      "positive_case_ids": [
+        "N10-P1",
+        "N10-P2",
+        "A13-N1"
+      ],
+      "negative_case_ids": [
+        "N10-N1"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    },
+    {
+      "rule_id": "conjugation:noun-copula-connective",
+      "rule_version": 1,
+      "slot_ids": [
+        "N11"
+      ],
+      "positive_case_ids": [
+        "N11-P1",
+        "N11-P2",
+        "A11-N1"
+      ],
+      "negative_case_ids": [
+        "N11-N1"
+      ],
+      "proposal_status": "add",
+      "language_review": "pending_final_packet_review"
+    }
+  ],
+  "cases_file": "cases.json",
+  "sources_file": "sources.json",
+  "scope_material_ref": "scope-material.json",
+  "cases_sha256": "c01782fe102c072b774701f53028f901e02f6ba631d5d3abd60c2397f147c980",
+  "sources_sha256": "ccbc841c3f18c184910351628414675f922fdbbf0c8612020b2d2941f5287a9f",
+  "scope_material_sha256": "0dcb33a8dd48ba0a4627953d79bdcbbacf1b0e306f7dfe615ccc40c52cd1f1d3",
+  "approval": {
+    "state": "pending_final_review",
+    "approver": null,
+    "approved_at_utc": null,
+    "reviewer_id": null,
+    "prior_receipt": "../../reviews/user-review-receipt-20261013.json",
+    "note": "Previous conceptual packet approved; this completed revision contains new component/case details."
+  }
+}

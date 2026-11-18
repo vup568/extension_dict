@@ -38,3 +38,7 @@ TestResults/
 
 # Local reference material (not part of the V2 source baseline)
 spec-driven-&-agent-driven-development.pdf
+
+# Python caches
+__pycache__/
+*.pyc

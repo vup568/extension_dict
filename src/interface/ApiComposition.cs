@@ -18,14 +18,20 @@ public static class ApiComposition
         builder.Services.AddApplicationServices();
         builder.Services.AddInfrastructureServices(builder.Configuration);
         builder.Services.AddHealthChecks();
+        builder.Services.AddScanServices();
+        builder.Services.AddSingleton<SpeechQuota>();
     }
 
     public static void MapEndpoints(WebApplication app)
     {
+        app.UseRateLimiter();
         app.MapHealthChecks("/health/live");
         app.MapDictionaryEndpoints();
         app.MapKanjiEndpoints();
         app.MapGrammarEndpoints();
         app.MapAnalysisEndpoints();
+        app.MapTranslationEndpoints();
+        app.MapScanEndpoints();
+        app.MapSpeechEndpoints();
     }
 }

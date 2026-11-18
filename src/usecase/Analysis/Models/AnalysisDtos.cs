@@ -2,6 +2,7 @@ namespace Application.Analysis.Models;
 
 using System.Text.Json.Serialization;
 using Application.Dictionary.Models;
+using Application.Dictionary;
 using Application.Conjugation.Models;
 using Application.Grammar.Models;
 using Application.Kanji.Models;
@@ -46,4 +47,8 @@ public sealed record AnalysisResultDto(
     [property: JsonPropertyName("kanji")] IReadOnlyList<KanjiDetailDto> Kanji,
     [property: JsonPropertyName("conjugations")] IReadOnlyList<ConjugationExplanationDto> Conjugations,
     [property: JsonPropertyName("grammar_occurrences")] IReadOnlyList<GrammarOccurrenceDto> GrammarOccurrences,
-    [property: JsonPropertyName("capabilities")] AnalysisCapabilitiesDto Capabilities);
+    [property: JsonPropertyName("capabilities")] AnalysisCapabilitiesDto Capabilities,
+    [property: JsonPropertyName("vocabulary_occurrences"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    IReadOnlyList<VocabularyOccurrence>? VocabularyOccurrences = null,
+    [property: JsonPropertyName("vocabulary_truncated"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    bool? VocabularyTruncated = null);

@@ -19,6 +19,9 @@ public class Reading
     /// <summary>Đánh dấu reading phổ biến (common).</summary>
     public bool IsCommon { get; set; }
 
+    /// <summary>JMdict re_nokanji: reading chỉ dùng kana, không ghép với dạng viết.</summary>
+    public bool IsNoKanji { get; set; }
+
     /// <summary>Thông tin bổ sung từ nguồn (re_inf trong JMdict).</summary>
     public string[]? Info { get; set; }
 

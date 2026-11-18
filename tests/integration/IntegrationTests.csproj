@@ -15,6 +15,12 @@
              Link="WebApi\ApiComposition.cs" />
     <Compile Include="..\..\src\interface\DatabaseStartup.cs"
              Link="WebApi\DatabaseStartup.cs" />
+    <Compile Include="..\..\src\interface\DatabaseRecoveryCommand.cs"
+             Link="WebApi\DatabaseRecoveryCommand.cs" />
+    <Compile Include="..\..\src\interface\DemoDictionaryCommand.cs"
+             Link="WebApi\DemoDictionaryCommand.cs" />
+    <Compile Include="..\..\src\interface\DictionaryImportCommand.cs"
+             Link="WebApi\DictionaryImportCommand.cs" />
     <Compile Include="..\..\src\interface\Endpoints\*.cs"
              Link="WebApiEndpoints\%(Filename)%(Extension)" />
   </ItemGroup>

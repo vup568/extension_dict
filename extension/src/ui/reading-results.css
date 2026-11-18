@@ -1,0 +1,72 @@
+.jp-header-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.jp-disclosure summary {
+  cursor: pointer;
+  min-block-size: 34px;
+  padding-block: 6px;
+  color: #345c49;
+}
+.jp-disclosure summary:focus-visible {
+  outline: 2px solid #28694e;
+  outline-offset: 2px;
+}
+.jp-disclosure summary h3 { display: inline; }
+.jp-occurrences {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  max-block-size: 108px;
+  overflow: auto;
+  margin: 0 -3px 9px;
+  padding: 3px;
+  list-style: none;
+}
+.jp-occurrences li { max-width: 100%; }
+.jp-occurrences button {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  text-align: left;
+  overflow-wrap: anywhere;
+}
+.jp-occurrences button[aria-pressed="true"] {
+  background: #e5efe3;
+  border-color: #28694e;
+  font-weight: 650;
+}
+.jp-occurrence-number { color: #465d50; font-size: 11px; font-variant-numeric: tabular-nums; }
+.jp-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.jp-entry .jp-headword { display: flex; gap: 8px; flex-wrap: wrap; align-items: baseline; }
+.jp-entry-details { margin-block-start: 6px; font-size: 12px; }
+.jp-entry-details ul { margin: 4px 0; padding-inline-start: 16px; list-style: disc; }
+.jp-reading-controls { margin-block-start: 8px; }
+.jp-reading-controls label { display: grid; gap: 4px; margin-block-end: 6px; }
+.jp-reading-controls select {
+  font: inherit;
+  color: #244b3d;
+  background: #fffdf7;
+  border: 1px solid #a9bbb0;
+  border-radius: 4px;
+  min-block-size: 34px;
+  max-inline-size: 100%;
+  padding-inline: 6px;
+}
+.jp-reading-controls select:focus-visible {
+  outline: 2px solid #28694e;
+  outline-offset: 2px;
+}
+@media (pointer: coarse) {
+  .jp-occurrences button, .jp-disclosure summary, .jp-reading-controls select { min-block-size: 44px; }
+}

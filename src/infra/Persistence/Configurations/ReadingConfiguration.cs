@@ -16,6 +16,7 @@ public class ReadingConfiguration : IEntityTypeConfiguration<Reading>
         builder.Property(e => e.ReadingText).HasColumnName("reading").IsRequired();
         builder.Property(e => e.Priority).HasColumnName("priority");
         builder.Property(e => e.IsCommon).HasColumnName("is_common").HasDefaultValue(false);
+        builder.Property(e => e.IsNoKanji).HasColumnName("is_no_kanji").HasDefaultValue(false);
         builder.Property(e => e.Info).HasColumnName("info");
         builder.Property(e => e.RestrictedToForms).HasColumnName("restricted_to_forms");
         builder.Property(e => e.CreatedAt).HasColumnName("created_at").HasDefaultValueSql("now()");

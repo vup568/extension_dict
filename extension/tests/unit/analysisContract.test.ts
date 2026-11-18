@@ -1,8 +1,21 @@
 import { describe, expect, it } from "vitest";
 import { AnalysisFailure, parseAnalysisResponse, type AnalysisResponse } from "../../src/api/analysisContract.ts";
-import { analysisFixture, interactionId } from "./analysisFixtures.ts";
+import { analysisFixture, conjugationFixture, interactionId, v3ConjugationFixture } from "./analysisFixtures.ts";
 
 describe("F-04 actual unified analysis contract", () => {
+  it.each([analysisFixture, conjugationFixture, v3ConjugationFixture])("accepts kana-only info in existing API versions", makeFixture => {
+    const fixture = makeFixture();
+    const match = fixture.data.dictionary_matches[0]!;
+    match.matchedWrittenForm = null; match.matchedReading = "かな"; match.writtenForms = [];
+    match.readings[0]!.readingText = "かな";
+    match.readings[0]!.info = ["reading:no-kanji"];
+    match.readings[0]!.restrictedToForms = null;
+    match.senses[0]!.restrictions = [];
+    fixture.data.conjugations.forEach(conjugation => { conjugation.base_form = "かな"; });
+    const reading = parseAnalysisResponse(fixture, interactionId).data.dictionary_matches[0]!.readings[0]!;
+    expect(reading.info).toEqual(["reading:no-kanji"]);
+    expect(reading).not.toHaveProperty("isNoKanji");
+  });
   it("accepts actual mixed-case dictionary/kanji and snake_case envelope/grammar", () => {
     const fixture = analysisFixture(); expect(parseAnalysisResponse(fixture, interactionId)).toBe(fixture);
   });

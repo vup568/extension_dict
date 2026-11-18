@@ -17,8 +17,12 @@ export interface ConjugationExplanation {
   rule_id: string; rule_version: number; dataset_version: string;
   segments: { surface: string; explanation: string; span: ConjugationSpan }[];
 }
+export interface VocabularyOccurrence {
+  surface: string; span: ConjugationSpan; matches: EntryMatch[]; conjugations: ConjugationExplanation[];
+}
 export interface AnalysisResponse {
   data: { normalized_text: string; tokens: unknown[]; dictionary_matches: EntryMatch[]; kanji: KanjiDetail[]; conjugations: ConjugationExplanation[];
+    vocabulary_occurrences?: VocabularyOccurrence[]; vocabulary_truncated?: boolean;
     grammar_occurrences: GrammarOccurrence[]; capabilities: Record<"vocabulary" | "kanji" | "grammar" | "morphology" | "conjugation", CapabilityStatus> };
   meta: { request_id: string; interaction_id: string; contract_version: "1" | "2" | "3" };
 }
@@ -85,6 +89,38 @@ function kanji(value: unknown): void {
   for (const key of ["strokeCount", "grade", "jlptLevel", "frequency", "radicalNumber"]) nullableInteger(v[key]);
   for (const key of ["onReadings", "kunReadings", "meaningsVi", "meaningsEn", "nanoriReadings"]) strings(v[key]);
 }
+function validateConjugations(value: unknown, text: string, matches: EntryMatch[], version: string, vocabularyStatus: unknown): string | undefined {
+  const identities = new Set<string>();
+  let datasetVersion: string | undefined;
+  array(value, item => {
+    const c = record(item);
+    for (const key of ["surface", "base_form", "explanation", "rule_id", "dataset_version"]) {
+      string(c[key]); if ((c[key] as string).trim().length === 0) invalid();
+    }
+    integer(c.rule_version); if (c.rule_version <= 0 || c.language_tag !== "vi") invalid();
+    const identity = JSON.stringify([c.rule_id, c.rule_version, c.base_form]);
+    if (identities.has(identity) || (datasetVersion !== undefined && datasetVersion !== c.dataset_version)) invalid();
+    identities.add(identity); datasetVersion = c.dataset_version as string;
+    const span = record(c.span); integer(span.start); integer(span.end);
+    const occurrenceEnd = span.end;
+    if (span.unit !== "utf16" || span.start !== 0 || span.end !== text.length || c.surface !== text) invalid();
+    let position = span.start;
+    array(c.segments, segmentValue => {
+      const segment = record(segmentValue); string(segment.surface); string(segment.explanation);
+      const bounds = record(segment.span); integer(bounds.start); integer(bounds.end);
+      if (bounds.unit !== "utf16" || bounds.start !== position || bounds.end <= bounds.start || bounds.end > occurrenceEnd ||
+        !utf16Boundary(text, bounds.start) || !utf16Boundary(text, bounds.end) ||
+        text.slice(bounds.start, bounds.end) !== segment.surface || segment.explanation.trim().length === 0) invalid();
+      position = bounds.end;
+    });
+    if (position !== span.end || vocabularyStatus !== "completed" ||
+      !matches.some(entry => entry.matchedWrittenForm === c.base_form || entry.matchedReading === c.base_form)) invalid();
+    if (version === "3" && !matches.some(entry => entry.canonicalId.trim().length > 0 &&
+      ((entry.matchedWrittenForm === c.base_form && entry.writtenForms.some(w => w.form === c.base_form)) ||
+       (entry.matchedReading === c.base_form && entry.readings.some(r => r.readingText === c.base_form))))) invalid();
+  });
+  return datasetVersion;
+}
 /** EARS[Ubiquitous]: Untrusted results SHALL preserve contract and current interaction identity. */
 export function parseAnalysisResponse(value: unknown, expectedId: string): AnalysisResponse {
   const v = record(value), data = record(v.data), meta = record(v.meta), capabilities = record(data.capabilities);
@@ -102,36 +138,27 @@ export function parseAnalysisResponse(value: unknown, expectedId: string): Analy
     if (!["completed", "failed", "unavailable"].includes(capabilities[key] as string)) invalid();
   }
   if (!Array.isArray(data.tokens) || data.tokens.length !== 0 || capabilities.morphology !== "unavailable") invalid();
-  const identities = new Set<string>();
-  let datasetVersion: string | undefined;
-  array(data.conjugations, item => {
-    const c = record(item);
-    for (const key of ["surface", "base_form", "explanation", "rule_id", "dataset_version"]) {
-      string(c[key]); if ((c[key] as string).trim().length === 0) invalid();
-    }
-    integer(c.rule_version); if (c.rule_version <= 0 || c.language_tag !== "vi") invalid();
-    const identity = JSON.stringify([c.rule_id, c.rule_version, c.base_form]);
-    if (identities.has(identity) || (datasetVersion !== undefined && datasetVersion !== c.dataset_version)) invalid();
-    identities.add(identity); datasetVersion = c.dataset_version as string;
-    const span = record(c.span); integer(span.start); integer(span.end);
-    const occurrenceEnd = span.end;
-    if (span.unit !== "utf16" || span.start !== 0 || span.end !== normalizedText.length || c.surface !== normalizedText) invalid();
-    let position = span.start;
-    array(c.segments, item => {
-      const segment = record(item); string(segment.surface); string(segment.explanation);
-      const bounds = record(segment.span); integer(bounds.start); integer(bounds.end);
-      if (bounds.unit !== "utf16" || bounds.start !== position || bounds.end <= bounds.start || bounds.end > occurrenceEnd ||
-        !utf16Boundary(normalizedText, bounds.start) || !utf16Boundary(normalizedText, bounds.end) ||
-        normalizedText.slice(bounds.start, bounds.end) !== segment.surface || segment.explanation.trim().length === 0) invalid();
-      position = bounds.end;
+  let datasetVersion = validateConjugations(data.conjugations, normalizedText, data.dictionary_matches as EntryMatch[], meta.contract_version as string, capabilities.vocabulary);
+  if (data.vocabulary_occurrences !== undefined) {
+    if (meta.contract_version !== "3") invalid();
+    let previousEnd = 0;
+    array(data.vocabulary_occurrences, item => {
+      const occurrence = record(item); string(occurrence.surface);
+      const span = record(occurrence.span); integer(span.start); integer(span.end);
+      // EARS[Unwanted]: Sentence offsets must identify ordered, distinct UTF-16 substrings.
+      if (span.unit !== "utf16" || span.start < previousEnd || span.end <= span.start || span.end > normalizedText.length ||
+        !utf16Boundary(normalizedText, span.start) || !utf16Boundary(normalizedText, span.end) ||
+        normalizedText.slice(span.start, span.end) !== occurrence.surface || !occurrence.surface.trim()) invalid();
+      previousEnd = span.end;
+      array(occurrence.matches, entry);
+      const occurrenceVersion = validateConjugations(occurrence.conjugations, occurrence.surface, occurrence.matches as EntryMatch[], "3", capabilities.vocabulary);
+      if (occurrenceVersion !== undefined && datasetVersion !== undefined && occurrenceVersion !== datasetVersion) invalid();
+      datasetVersion ??= occurrenceVersion;
     });
-    if (position !== span.end || capabilities.vocabulary !== "completed" ||
-      !(data.dictionary_matches as EntryMatch[]).some(entry => entry.matchedWrittenForm === c.base_form || entry.matchedReading === c.base_form)) invalid();
-    if (meta.contract_version === "3" && !(data.dictionary_matches as EntryMatch[]).some(entry =>
-      entry.canonicalId.trim().length > 0 &&
-      ((entry.matchedWrittenForm === c.base_form && entry.writtenForms.some(w => w.form === c.base_form)) ||
-       (entry.matchedReading === c.base_form && entry.readings.some(r => r.readingText === c.base_form))))) invalid();
-  });
+    if ((data.vocabulary_occurrences as unknown[]).length > 0 && capabilities.vocabulary !== "completed") invalid();
+  }
+  if (data.vocabulary_truncated !== undefined && (typeof data.vocabulary_truncated !== "boolean" ||
+      meta.contract_version !== "3" || !Array.isArray(data.vocabulary_occurrences))) invalid();
   if (meta.contract_version !== "3" && (data.conjugations as unknown[]).length > 1) invalid();
   if (meta.contract_version === "1" && ((data.conjugations as unknown[]).length !== 0 || capabilities.conjugation !== "unavailable")) invalid();
   for (const [capability, field] of [["vocabulary", "dictionary_matches"], ["kanji", "kanji"], ["grammar", "grammar_occurrences"], ["conjugation", "conjugations"]]) {

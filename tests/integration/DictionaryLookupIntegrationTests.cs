@@ -20,6 +20,63 @@ public sealed class DictionaryLookupIntegrationTests(PostgreSqlFixture fixture) 
     }
 
     [Fact]
+    public async Task ImportedReadProjectionHonorsPersistedNoKanjiJointRestrictionsAndReview()
+    {
+        var options = CreateDbContextOptions();
+        var suffix = Guid.NewGuid().ToString("N");
+        var written = new WrittenForm { Form = $"試験{suffix}" };
+        var other = new WrittenForm { Form = $"別{suffix}" };
+        var regular = new Reading { ReadingText = $"しけん{suffix}", RestrictedToForms = [written.Form] };
+        var kana = new Reading { ReadingText = $"かな{suffix}", IsNoKanji = true, Info = ["synthetic-source-info"] };
+        await using (var setup = new AppDbContext(options))
+        {
+            await setup.Database.MigrateAsync(TestContext.Current.CancellationToken);
+            var entry = new DictionaryEntry
+            {
+                CanonicalId = $"dictionary:synthetic-restrictions-{suffix}",
+                WrittenForms = [written, other], Readings = [regular, kana]
+            };
+            setup.DictionaryEntries.Add(entry);
+            await setup.SaveChangesAsync(TestContext.Current.CancellationToken);
+            entry.Senses = [
+                new()
+                {
+                    SenseKey = "written", PartOfSpeech = ["n"],
+                    Applicabilities = [new() { WrittenFormId = written.Id, ReadingId = regular.Id }],
+                    Glosses = [new() { LanguageTag = "en", GlossText = "review fallback" },
+                        new() { LanguageTag = "vi", GlossText = "chờ duyệt", ReviewStatus = "pending" }]
+                },
+                new()
+                {
+                    SenseKey = "kana", PartOfSpeech = ["n"],
+                    Applicabilities = [new() { ReadingId = kana.Id }],
+                    Glosses = [new() { LanguageTag = "en", GlossText = "kana only" },
+                        new() { LanguageTag = "vi", GlossText = "nghĩa thử nghiệm đã duyệt", ReviewStatus = "approved" }]
+                },
+                new()
+                {
+                    SenseKey = "impossible", PartOfSpeech = ["v1"],
+                    Applicabilities = [new() { WrittenFormId = written.Id, ReadingId = kana.Id }],
+                    Glosses = [new() { LanguageTag = "en", GlossText = "must never appear" }]
+                }
+            ];
+            await setup.SaveChangesAsync(TestContext.Current.CancellationToken);
+        }
+
+        await using var context = new AppDbContext(options);
+        var useCase = new LookupWordUseCase(new EfDictionaryRepository(context), new NullTokenizerAdapter());
+        var writtenMatch = (await useCase.ExecuteAsync(written.Form, TestContext.Current.CancellationToken)).Matches.Single();
+        writtenMatch.Readings.Should().ContainSingle().Which.Id.Should().Be(regular.Id);
+        writtenMatch.Senses.Should().ContainSingle().Which.SenseKey.Should().Be("written");
+        writtenMatch.Senses[0].Glosses.Should().ContainSingle().Which.GlossText.Should().Be("review fallback");
+        var kanaMatch = (await useCase.ExecuteAsync(kana.ReadingText, TestContext.Current.CancellationToken)).Matches.Single();
+        kanaMatch.WrittenForms.Should().BeEmpty();
+        kanaMatch.Readings.Should().ContainSingle().Which.Info.Should().Equal("synthetic-source-info", "reading:no-kanji");
+        kanaMatch.Senses.Should().ContainSingle().Which.SenseKey.Should().Be("kana");
+        kanaMatch.Senses[0].Glosses.Should().ContainSingle().Which.LanguageTag.Should().Be("vi");
+    }
+
+    [Fact]
     public async Task AC002_ExactMatchLookup_ReturnsEntryWithCorrectFormsReadingsAndGlosses()
     {
         // Arrange
@@ -39,7 +96,7 @@ public sealed class DictionaryLookupIntegrationTests(PostgreSqlFixture fixture) 
                         SenseKey = "1",
                         Position = 1,
                         PartOfSpeech = ["noun"],
-                        Glosses = [new LocalizedGloss { LanguageTag = "vi", GlossText = "Tiếng Nhật", Position = 1 }]
+                        Glosses = [new LocalizedGloss { LanguageTag = "vi", GlossText = "Tiếng Nhật", Position = 1, ReviewStatus = "approved" }]
                     }
                 ]
             };
@@ -91,7 +148,7 @@ public sealed class DictionaryLookupIntegrationTests(PostgreSqlFixture fixture) 
                         Position = 1,
                         Glosses = [
                             new LocalizedGloss { LanguageTag = "en", GlossText = "cat", Position = 1 },
-                            new LocalizedGloss { LanguageTag = "vi", GlossText = "con mèo", Position = 1 }
+                            new LocalizedGloss { LanguageTag = "vi", GlossText = "con mèo", Position = 1, ReviewStatus = "approved" }
                         ]
                     }
                 ]
@@ -185,7 +242,7 @@ public sealed class DictionaryLookupIntegrationTests(PostgreSqlFixture fixture) 
                     {
                         SenseKey = "1",
                         Position = 1,
-                        Glosses = [new LocalizedGloss { LanguageTag = "vi", GlossText = "mặt ngoài, bề mặt", Position = 1 }]
+                        Glosses = [new LocalizedGloss { LanguageTag = "vi", GlossText = "mặt ngoài, bề mặt", Position = 1, ReviewStatus = "approved" }]
                     }
                 ]
             };
@@ -244,7 +301,7 @@ public sealed class DictionaryLookupIntegrationTests(PostgreSqlFixture fixture) 
                     {
                         SenseKey = "1",
                         Position = 1,
-                        Glosses = [new LocalizedGloss { LanguageTag = "vi", GlossText = "từ điển", Position = 1 }]
+                        Glosses = [new LocalizedGloss { LanguageTag = "vi", GlossText = "từ điển", Position = 1, ReviewStatus = "approved" }]
                     }
                 ]
             });

@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "version": "candidate-20261110.1",
+  "extends": "candidate-20261013.1",
+  "corpus_manifest_sha256": "8845f0db6c5e8cd89338b483ff03f9634d9280dc941ce948129f141add5b90be",
+  "source_refs": ["ninjal-shimau", "tufs-plain-forms"],
+  "paradigms": [
+    {
+      "rule_id": "conjugation:verb-te-shimau",
+      "rule_version": 1,
+      "word_group": "verb",
+      "lexical_class": "ichidan",
+      "canonical_suffix": "る",
+      "required_base": null,
+      "excluded_bases": [],
+      "dictionary_pos": ["v1", "verb:ichidan"],
+      "explanation_vi": "Dạng thường, khẳng định, không quá khứ của mẫu て/で + しまう. Mẫu này nhấn vào sự hoàn tất hoặc kết quả của hành động. Kết quả có thể ngoài ý muốn tùy ngữ cảnh. Dạng gốc là {base_form}.",
+      "components": [
+        {"surface_template": "{stem}", "explanation_vi": "Phần động từ của {base_form}."},
+        {"surface_template": "て", "explanation_vi": "Thể nối て trước trợ động từ."},
+        {"surface_template": "しまう", "explanation_vi": "Trợ động từ biểu thị sự hoàn tất hoặc kết quả, ở dạng không quá khứ."}
+      ],
+      "head_base_templates": ["{stem}る"],
+      "head_categories": ["verb"]
+    },
+    {
+      "rule_id": "conjugation:verb-te-shimau",
+      "rule_version": 1,
+      "word_group": "verb",
+      "lexical_class": "godan-む",
+      "canonical_suffix": "む",
+      "required_base": null,
+      "excluded_bases": [],
+      "dictionary_pos": ["v5m", "verb:godan-m"],
+      "explanation_vi": "Dạng thường, khẳng định, không quá khứ của mẫu て/で + しまう. Mẫu này nhấn vào sự hoàn tất hoặc kết quả của hành động. Kết quả có thể ngoài ý muốn tùy ngữ cảnh. Dạng gốc là {base_form}.",
+      "components": [
+        {"surface_template": "{stem}ん", "explanation_vi": "Phần động từ của {base_form} sau biến âm mũi."},
+        {"surface_template": "で", "explanation_vi": "Thể nối で sau biến âm mũi."},
+        {"surface_template": "しまう", "explanation_vi": "Trợ động từ biểu thị sự hoàn tất hoặc kết quả, ở dạng không quá khứ."}
+      ],
+      "head_base_templates": ["{stem}む"],
+      "head_categories": ["verb"]
+    },
+    {
+      "rule_id": "conjugation:verb-te-shimau:plain-past",
+      "rule_version": 1,
+      "word_group": "verb",
+      "lexical_class": "ichidan",
+      "canonical_suffix": "る",
+      "required_base": null,
+      "excluded_bases": [],
+      "dictionary_pos": ["v1", "verb:ichidan"],
+      "explanation_vi": "Dạng thường, khẳng định, quá khứ của mẫu て/で + しまう. Mẫu này nhấn vào sự hoàn tất hoặc kết quả của hành động. Kết quả có thể ngoài ý muốn tùy ngữ cảnh. Dạng gốc là {base_form}.",
+      "components": [
+        {"surface_template": "{stem}", "explanation_vi": "Phần động từ của {base_form}."},
+        {"surface_template": "て", "explanation_vi": "Thể nối て trước trợ động từ."},
+        {"surface_template": "しまっ", "explanation_vi": "Phần biến âm của しまう trước dấu hiệu quá khứ."},
+        {"surface_template": "た", "explanation_vi": "Đánh dấu quá khứ của trợ động từ."}
+      ],
+      "head_base_templates": ["{stem}る"],
+      "head_categories": ["verb"]
+    },
+    {
+      "rule_id": "conjugation:verb-te-shimau:plain-past",
+      "rule_version": 1,
+      "word_group": "verb",
+      "lexical_class": "godan-む",
+      "canonical_suffix": "む",
+      "required_base": null,
+      "excluded_bases": [],
+      "dictionary_pos": ["v5m", "verb:godan-m"],
+      "explanation_vi": "Dạng thường, khẳng định, quá khứ của mẫu て/で + しまう. Mẫu này nhấn vào sự hoàn tất hoặc kết quả của hành động. Kết quả có thể ngoài ý muốn tùy ngữ cảnh. Dạng gốc là {base_form}.",
+      "components": [
+        {"surface_template": "{stem}ん", "explanation_vi": "Phần động từ của {base_form} sau biến âm mũi."},
+        {"surface_template": "で", "explanation_vi": "Thể nối で sau biến âm mũi."},
+        {"surface_template": "しまっ", "explanation_vi": "Phần biến âm của しまう trước dấu hiệu quá khứ."},
+        {"surface_template": "た", "explanation_vi": "Đánh dấu quá khứ của trợ động từ."}
+      ],
+      "head_base_templates": ["{stem}む"],
+      "head_categories": ["verb"]
+    }
+  ]
+}

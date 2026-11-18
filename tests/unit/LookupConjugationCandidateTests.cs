@@ -56,6 +56,19 @@ public sealed class LookupConjugationCandidateTests
         result.Alternatives.Should().ContainSingle(); result.Conjugation.Should().NotBeNull();
     }
 
+    [Fact]
+    public async Task MergesOnlyVerifiedSensesAcrossAlternativesForTheSameEntry()
+    {
+        var entry = Entry();
+        entry.Senses.Add(new() { SenseKey = "2", Position = 2, PartOfSpeech = ["n"] });
+        entry.Senses.Add(new() { SenseKey = "3", Position = 3, PartOfSpeech = ["adj-na"] });
+        var noun = Candidate("conjugation:noun") with { DictionaryPartOfSpeech = ["n"] };
+        var (useCase, _) = Setup([Candidate(), noun], [entry]);
+        var result = await useCase.ExecuteAsync("食べられる", TestContext.Current.CancellationToken);
+        result.Matches.Should().ContainSingle().Which.Senses.Select(s => s.SenseKey).Should().Equal("1", "2");
+        result.Alternatives.Should().HaveCount(2);
+    }
+
     [Theory]
     [InlineData("n")]
     [InlineData("adj-na")]

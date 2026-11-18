@@ -158,7 +158,7 @@ public sealed class ConjugationCorpusIntegrationTests(F09CorpusFixture fixture) 
         await using var context = fixture.Runtime.CreateContext();
         var canonical = "dictionary:generalization-" + root;
         context.DictionaryEntries.Add(new() { CanonicalId = canonical, WrittenForms = [new() { Form = root }],
-            Senses = [new() { SenseKey = "1", PartOfSpeech = [pos], Glosses = [new() { LanguageTag = "vi", GlossText = "Mục từ kiểm thử." }] }] });
+            Senses = [new() { SenseKey = "1", PartOfSpeech = [pos], Glosses = [new() { LanguageTag = "vi", GlossText = "Mục từ kiểm thử.", ReviewStatus = "demo" }] }] });
         await context.SaveChangesAsync(TestContext.Current.CancellationToken);
         using var channel = GrpcChannel.ForAddress(fixture.Runtime.Address);
         var adapter = new GrpcDictionaryTokenizerAdapter(new(channel), new EfConjugationDatasetRepository(context), ConjugationCorpusFiles.CandidateVersion);
@@ -228,7 +228,7 @@ public sealed class F09CorpusFixture : IAsyncLifetime
                     WrittenForms = f.GetProperty("forms").EnumerateArray().Select(x => new WrittenForm { Form = x.GetString()! }).ToList(),
                     Readings = f.GetProperty("readings").EnumerateArray().Select(x => new Reading { ReadingText = x.GetString()! }).ToList(),
                     Senses = [new() { SenseKey = "1", Position = 1, PartOfSpeech = [pos],
-                        Glosses = [new() { LanguageTag = "vi", GlossText = f.GetProperty("gloss_vi").GetString()!, Position = 1 }] }] });
+                        Glosses = [new() { LanguageTag = "vi", GlossText = f.GetProperty("gloss_vi").GetString()!, Position = 1, ReviewStatus = "demo" }] }] });
             }
             await context.SaveChangesAsync(TestContext.Current.CancellationToken);
         }

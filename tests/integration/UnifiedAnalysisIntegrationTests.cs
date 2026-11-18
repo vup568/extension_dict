@@ -474,6 +474,7 @@ public sealed class UnifiedAnalysisIntegrationTests(PostgreSqlFixture fixture) :
                     {
                         LanguageTag = "vi",
                         GlossText = "đã ăn",
+                        ReviewStatus = "demo",
                         Position = 1
                     }]
                 }]

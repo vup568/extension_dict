@@ -138,7 +138,7 @@ public class AnalyzeTextUseCaseTests
         _dictionaryRepo.SearchByFormOrReadingAsync("食べた", Arg.Any<CancellationToken>())
             .Returns(new List<DictionaryEntry>
             {
-                CreateDummyDictionaryEntry("dictionary:12345", "食べる")
+                CreateDummyDictionaryEntry("dictionary:12345", "食べた")
             });
 
         // Kanji: return 1 match
@@ -190,7 +190,7 @@ public class AnalyzeTextUseCaseTests
         _dictionaryRepo.SearchByFormOrReadingAsync("食べた", Arg.Any<CancellationToken>())
             .Returns(new List<DictionaryEntry>
             {
-                CreateDummyDictionaryEntry("dictionary:12345", "食べる")
+                CreateDummyDictionaryEntry("dictionary:12345", "食べた")
             });
 
         // Kanji THROWS
@@ -390,7 +390,7 @@ public class AnalyzeTextUseCaseTests
                 }
             },
             Readings = new List<Reading>(),
-            Senses = new List<DictionarySense>()
+            Senses = [new() { SenseKey = "synthetic", PartOfSpeech = ["v1"] }]
         };
     }
 }

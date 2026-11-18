@@ -4,6 +4,8 @@ using Application.Dictionary.Ports;
 using Application.Conjugation.Ports;
 using Application.Grammar.Ports;
 using Application.Kanji.Ports;
+using Application.Speech;
+using Application.Translation;
 using Grpc.Net.Client;
 using Infrastructure.Adapters;
 using Infrastructure.Adapters.Grpc;
@@ -27,6 +29,14 @@ public static class DependencyInjection
                 "Missing PostgreSQL configuration. Set ConnectionStrings__DefaultConnection before starting the backend.");
 
         services.AddMemoryCache();
+        // EARS[Unwanted]: A provider must never forward content or credentials through a redirect.
+        services.AddSingleton<ITranslationProvider>(_ => new GeminiTranslationProvider(
+            new HttpClient(new HttpClientHandler { AllowAutoRedirect = false }) { Timeout = Timeout.InfiniteTimeSpan },
+            configuration["Translation:Gemini:ApiKey"]));
+        services.AddSingleton<ISpeechProvider>(_ => new GeminiSpeechProvider(
+            new HttpClient(new HttpClientHandler { AllowAutoRedirect = false }) { Timeout = Timeout.InfiniteTimeSpan },
+            configuration["Speech:Gemini:ApiKey"], configuration["Translation:Gemini:ApiKey"],
+            configuration["Speech:Gemini:Model"], configuration["Speech:Gemini:Voice"]));
         // Analysis capabilities run concurrently and must retain independent EF contexts.
         services.AddDbContext<AppDbContext>(
             options => options.UseNpgsql(connectionString),
@@ -43,7 +53,8 @@ public static class DependencyInjection
                 sp.GetRequiredService<IConjugationDatasetRepository>(), datasetVersion));
 
         // Register GrpcChannel connection reuse (Singleton) for Python Tokenizer Sidecar
-        var sidecarAddress = configuration["GrpcTokenizerAddress"] ?? "http://localhost:50051";
+        // Local Compose publishes IPv4 only; avoid localhost's IPv6-first connection delay.
+        var sidecarAddress = configuration["GrpcTokenizerAddress"] ?? "http://127.0.0.1:50051";
         services.AddSingleton(sp => GrpcChannel.ForAddress(sidecarAddress));
         services.AddSingleton(sp =>
         {

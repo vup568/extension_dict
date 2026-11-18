@@ -179,7 +179,7 @@ public sealed class TokenizerDeinflectionFixture : IAsyncLifetime
                 {
                     CanonicalId = $"dictionary:live-{form}", WrittenForms = [new() { Form = form }],
                     Readings = [new() { ReadingText = reading }],
-                    Senses = [new() { SenseKey = "1", Position = 1, Glosses = [new() { LanguageTag = "vi", GlossText = "Nghĩa kiểm thử", Position = 1 }] }]
+                    Senses = [new() { SenseKey = "1", Position = 1, Glosses = [new() { LanguageTag = "vi", GlossText = "Nghĩa kiểm thử", Position = 1, ReviewStatus = "demo" }] }]
                 });
             await context.SaveChangesAsync(TestContext.Current.CancellationToken);
         }

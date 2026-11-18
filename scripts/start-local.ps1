@@ -23,7 +23,7 @@ if ($ValidateOnly) {
 $updates = @{
     ConnectionStrings__DefaultConnection = $connection
     ConjugationDatasetVersion = $DatasetVersion
-    GrpcTokenizerAddress = 'http://localhost:50051'
+    GrpcTokenizerAddress = 'http://127.0.0.1:50051'
 }
 foreach ($key in $values.Keys) { $updates[$key] = $values[$key] }
 $original = @{}
@@ -35,7 +35,11 @@ try {
         & docker compose --project-directory $projectRoot --env-file $EnvFile --profile nlp up -d --no-build --wait db tokenizer
         if ($LASTEXITCODE -ne 0) { throw 'Docker services failed to start. Check Docker Desktop and existing images.' }
     }
-    Write-Output 'Starting local backend. Its existing EF migrations will run on the configured database.'
+    if ([string]::IsNullOrWhiteSpace([Environment]::GetEnvironmentVariable('DictionaryImport__LocalTarget', 'Process'))) {
+        Write-Output 'Starting local backend. Its existing EF migrations will run on the configured database.'
+    } else {
+        Write-Output 'Starting local backend. The imported dictionary will be verified without applying migrations.'
+    }
     & dotnet run --project (Join-Path $projectRoot 'src/interface/WebApi.csproj') --no-restore --urls http://127.0.0.1:5000
     if ($LASTEXITCODE -ne 0) { throw 'Backend startup failed. Check PostgreSQL and configuration; no connection string is printed.' }
 } finally {

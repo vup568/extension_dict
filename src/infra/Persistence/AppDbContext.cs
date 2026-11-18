@@ -30,6 +30,8 @@ public class AppDbContext : DbContext
     // Knowledge Operations
     public DbSet<SourceManifest> SourceManifests => Set<SourceManifest>();
     public DbSet<SourceRecord> SourceRecords => Set<SourceRecord>();
+    public DbSet<DictionaryImportRun> DictionaryImportRuns => Set<DictionaryImportRun>();
+    public DbSet<DictionaryImportCheckpoint> DictionaryImportCheckpoints => Set<DictionaryImportCheckpoint>();
     public DbSet<EditorialMapping> EditorialMappings => Set<EditorialMapping>();
     public DbSet<KnowledgeRelease> KnowledgeReleases => Set<KnowledgeRelease>();
     public DbSet<CurrentKnowledgeRelease> CurrentKnowledgeRelease => Set<CurrentKnowledgeRelease>();

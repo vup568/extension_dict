@@ -19,6 +19,7 @@ for (const filename of ["content.js", "background.js"]) {
 const common = {
   manifest_version: 3, name: "JP Reading Platform", version: "0.1.0",
   description: "Tra cứu tiếng Nhật từ văn bản bôi chọn trên trang.",
+  permissions: ["storage"],
   host_permissions: [`${origin}/*`],
   content_scripts: [{ matches: ["http://*/*", "https://*/*"], js: ["content.js"], run_at: "document_idle", all_frames: true }],
 };

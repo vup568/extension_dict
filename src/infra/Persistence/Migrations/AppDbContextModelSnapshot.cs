@@ -95,6 +95,96 @@ namespace Infrastructure.Persistence.Migrations
                     b.ToTable("dictionary_entries", (string)null);
                 });
 
+            modelBuilder.Entity("Domain.Entities.DictionaryImportCheckpoint", b =>
+                {
+                    b.Property<string>("RunId")
+                        .HasColumnType("text")
+                        .HasColumnName("run_id");
+
+                    b.Property<string>("SourceId")
+                        .HasColumnType("text")
+                        .HasColumnName("source_id");
+
+                    b.Property<long>("AcceptedRecords")
+                        .HasColumnType("bigint")
+                        .HasColumnName("accepted_records");
+
+                    b.Property<string>("BatchChainHash")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("batch_chain_hash");
+
+                    b.Property<string>("LastSourceIdentity")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("last_source_identity");
+
+                    b.Property<long>("ManifestId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("manifest_id");
+
+                    b.HasKey("RunId", "SourceId");
+
+                    b.HasIndex("ManifestId")
+                        .IsUnique();
+
+                    b.ToTable("dictionary_import_checkpoints", null, t =>
+                        {
+                            t.HasCheckConstraint("ck_import_checkpoint_count", "accepted_records >= 0");
+                        });
+                });
+
+            modelBuilder.Entity("Domain.Entities.DictionaryImportRun", b =>
+                {
+                    b.Property<string>("RunId")
+                        .HasColumnType("text")
+                        .HasColumnName("run_id");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at")
+                        .HasDefaultValueSql("now()");
+
+                    b.Property<long>("DatabaseOid")
+                        .HasColumnType("bigint")
+                        .HasColumnName("database_oid");
+
+                    b.Property<string>("FactsHash")
+                        .HasColumnType("text")
+                        .HasColumnName("facts_hash");
+
+                    b.Property<string>("FingerprintHash")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("fingerprint_hash");
+
+                    b.Property<string>("SourceLockHash")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("source_lock_hash");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("state");
+
+                    b.Property<string>("TargetDatabase")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("target_database");
+
+                    b.HasKey("RunId");
+
+                    b.HasIndex("TargetDatabase")
+                        .IsUnique();
+
+                    b.ToTable("dictionary_import_runs", null, t =>
+                        {
+                            t.HasCheckConstraint("ck_import_state", "state IN ('new','loading','failed','cancelled','imported','validated','approved_for_local_test','sealed')");
+                        });
+                });
+
             modelBuilder.Entity("Domain.Entities.DictionarySense", b =>
                 {
                     b.Property<long>("Id")
@@ -610,6 +700,12 @@ namespace Infrastructure.Persistence.Migrations
                         .HasDefaultValue(false)
                         .HasColumnName("is_common");
 
+                    b.Property<bool>("IsNoKanji")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false)
+                        .HasColumnName("is_no_kanji");
+
                     b.Property<short?>("Priority")
                         .HasColumnType("smallint")
                         .HasColumnName("priority");
@@ -1009,6 +1105,25 @@ namespace Infrastructure.Persistence.Migrations
                     b.Navigation("Release");
                 });
 
+            modelBuilder.Entity("Domain.Entities.DictionaryImportCheckpoint", b =>
+                {
+                    b.HasOne("Domain.Entities.SourceManifest", "Manifest")
+                        .WithMany()
+                        .HasForeignKey("ManifestId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.DictionaryImportRun", "Run")
+                        .WithMany("Checkpoints")
+                        .HasForeignKey("RunId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Manifest");
+
+                    b.Navigation("Run");
+                });
+
             modelBuilder.Entity("Domain.Entities.DictionarySense", b =>
                 {
                     b.HasOne("Domain.Entities.DictionaryEntry", "Entry")
@@ -1166,6 +1281,11 @@ namespace Infrastructure.Persistence.Migrations
                     b.Navigation("Senses");
 
                     b.Navigation("WrittenForms");
+                });
+
+            modelBuilder.Entity("Domain.Entities.DictionaryImportRun", b =>
+                {
+                    b.Navigation("Checkpoints");
                 });
 
             modelBuilder.Entity("Domain.Entities.DictionarySense", b =>

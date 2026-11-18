@@ -70,7 +70,7 @@ public static class AnalysisEndpoints
             }
 
             // PRIV-002: KHÔNG log request.Text hoặc request.Context
-            var result = await useCase.ExecuteAsync(request, cancellationToken);
+            var result = await useCase.ExecuteAsync(request, cancellationToken, includeSentenceVocabulary: contractVersion == "3");
             // EARS[State]: Default contract v1 keeps the historical unavailable conjugation shape.
             if (contractVersion == "1")
                 result = result with { Conjugations = [], Capabilities = result.Capabilities with { Conjugation = "unavailable" } };

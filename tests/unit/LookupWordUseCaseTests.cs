@@ -180,7 +180,7 @@ public class LookupWordUseCaseTests
                     Position = 1,
                     Glosses = [
                         new LocalizedGloss { Id = 101, LanguageTag = "en", GlossText = "cat", Position = 1 },
-                        new LocalizedGloss { Id = 102, LanguageTag = "vi", GlossText = "con mèo", Position = 1 }
+                        new LocalizedGloss { Id = 102, LanguageTag = "vi", GlossText = "con mèo", Position = 1, ReviewStatus = "approved" }
                     ]
                 }
             ]
@@ -251,7 +251,7 @@ public class LookupWordUseCaseTests
                     Id = 31,
                     SenseKey = "1",
                     Position = 1,
-                    Glosses = [new LocalizedGloss { Id = 103, LanguageTag = "vi", GlossText = "bề mặt", Position = 1 }],
+                    Glosses = [new LocalizedGloss { Id = 103, LanguageTag = "vi", GlossText = "bề mặt", Position = 1, ReviewStatus = "approved" }],
                     Applicabilities = [
                         new SenseApplicability { Id = 50, SenseId = 31, WrittenFormId = 11, ReadingId = 21 }
                     ]
@@ -308,7 +308,7 @@ public class LookupWordUseCaseTests
                     Id = 30,
                     SenseKey = "1",
                     Position = 1,
-                    Glosses = [new LocalizedGloss { Id = 100, LanguageTag = lang, GlossText = glossText, Position = 1 }]
+                    Glosses = [new LocalizedGloss { Id = 100, LanguageTag = lang, GlossText = glossText, Position = 1, ReviewStatus = "approved" }]
                 }
             ]
         };

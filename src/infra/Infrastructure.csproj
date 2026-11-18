@@ -22,5 +22,6 @@
     <Protobuf Include="..\..\sidecars\tokenizer\proto\tokenizer.proto" GrpcServices="Client" Link="Protos\tokenizer.proto" />
     <EmbeddedResource Include="Conjugation\Data\development-20261013.1.json" LogicalName="Infrastructure.Conjugation.Data.development-20261013.1.json" />
     <EmbeddedResource Include="Conjugation\Data\candidate-20261013.1.json" LogicalName="Infrastructure.Conjugation.Data.candidate-20261013.1.json" />
+    <EmbeddedResource Include="Persistence\SeedData\grammar_rules_seed.json" LogicalName="Infrastructure.Persistence.SeedData.grammar_rules_seed.json" />
   </ItemGroup>
 </Project>

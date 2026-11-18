@@ -10,7 +10,7 @@ interface PopupHarness {
   select(selector: string): void;
   clear(): void;
   attempts(): { text: string; interactionId: string; aborted: boolean }[];
-  succeed(index: number, variant?: "rich" | "empty" | "unavailable" | "conjugation" | "conjugation-v3"): void;
+  succeed(index: number, variant?: "rich" | "empty" | "unavailable" | "conjugation" | "conjugation-v3" | "kana-only"): void;
   fail(index: number): void;
   dispose(): void;
 }
@@ -36,7 +36,12 @@ window.popupHarness = {
     if (variant === "conjugation-v3") { attempt.resolve(v3ConjugationFixture(attempt.interactionId, attempt.text)); return; }
     const response = analysisFixture(attempt.interactionId);
     response.data.normalized_text = attempt.text;
-    if (variant === "rich") {
+    if (variant === "kana-only") {
+      const match = response.data.dictionary_matches[0]!;
+      match.matchedWrittenForm = null; match.matchedReading = "かな"; match.writtenForms = [];
+      match.readings[0]!.readingText = "かな"; match.readings[0]!.info = ["reading:no-kanji"];
+      match.readings[0]!.restrictedToForms = null; match.senses[0]!.restrictions = [];
+    } else if (variant === "rich") {
       response.data.dictionary_matches[0]!.senses[0]!.glosses.push({ languageTag: "en", glossText: "meal" });
       response.data.kanji[0]!.jlptLevel = 5;
       response.data.kanji[0]!.jlptProvenance = "legacy-estimate";

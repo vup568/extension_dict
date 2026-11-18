@@ -139,6 +139,7 @@ Ngày 2026-11-04. Cập nhật 2026-11-10. Đang triển khai. Xem [báo cáo ki
   - **Touchpoints:** regression F09, sentence/scan use cases, backend integration and contract tests.
   - **Đầu ra:** so sánh corpus cũ/mới, lemma-only fallback, UTF-16 nested spans, candidate budget/cancellation/latency và đường quay lại dataset đã xác minh.
   - **Kiểm chứng:** toàn bộ **YCO-AC01–YCO-AC08**, **G-C**; không kích hoạt dataset chưa qua validation hoặc lấy số lượng test làm độ phủ mọi tiếng Nhật.
+  - **Tiến độ 18/11:** đã cài bằng migration tiến `AddYcoConjugationCandidate`; 21 ca YCO qua `/api/analysis` và `/api/scan` với PostgreSQL và Sudachi thật đạt trên cả hai pin; 404 ca F‑09 và hợp đồng 1/2/3 đạt với pin mới. [Báo cáo T19](evidence/test-report.md). Còn kiểm popup trên DB local với pin mới và quyết định đổi pin mặc định trước khi tick.
 
 ## P5 — Phát âm AI Gemini
 

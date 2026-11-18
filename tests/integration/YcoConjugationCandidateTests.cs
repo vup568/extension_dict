@@ -18,10 +18,21 @@ namespace IntegrationTests;
 
 public sealed class YcoConjugationCandidateTests
 {
-    private const string Candidate = "candidate-20261110.1";
+    private const string Candidate = YcoConjugationCandidateData.Version;
     private static readonly string CorpusRoot = Path.Combine(ConjugationCorpusFiles.Root,
         ".sdd/specs/005-yomitan-reading-experience/corpus");
-    private static readonly Lazy<Task<string>> CandidateContent = new(CompileCandidateAsync);
+    // Exercise the embedded snapshot that the migration installs, not a fresh compilation.
+    private static readonly Lazy<Task<string>> CandidateContent = new(() => Task.FromResult(YcoConjugationCandidateData.ReadContent()));
+
+    [Fact]
+    public async Task EmbeddedSnapshotEqualsReviewedRuleCompilation()
+    {
+        // The compiler re-verifies the frozen corpus, F-09 baseline hashes and rule overlap before emitting JSON.
+        using var compiled = JsonDocument.Parse(await CompileCandidateAsync());
+        using var embedded = JsonDocument.Parse(YcoConjugationCandidateData.ReadContent());
+        JsonElement.DeepEquals(compiled.RootElement, embedded.RootElement).Should().BeTrue();
+        embedded.RootElement.GetProperty("version").GetString().Should().Be(Candidate);
+    }
 
     [Theory]
     [InlineData("AUX-01-NONPAST")]

@@ -19,8 +19,11 @@ namespace IntegrationTests;
 
 public sealed class ConjugationCorpusIntegrationTests(F09CorpusFixture fixture) : IClassFixture<F09CorpusFixture>
 {
-    [Fact]
-    public async Task ApprovedCorpusMatchesRealSudachiAndCanonicalPostgreSqlFixtures()
+    // EARS[Event] YCO-08: The accepted F-09 corpus must hold for the YCO candidate before activation.
+    [Theory]
+    [InlineData(ConjugationCorpusFiles.CandidateVersion)]
+    [InlineData(YcoConjugationCandidateData.Version)]
+    public async Task ApprovedCorpusMatchesRealSudachiAndCanonicalPostgreSqlFixtures(string datasetVersion)
     {
         using var corpus = ConjugationCorpusFiles.Read(Path.Combine(ConjugationCorpusFiles.Packet, "cases.json"));
         using var channel = GrpcChannel.ForAddress(fixture.Runtime.Address);
@@ -30,7 +33,7 @@ public sealed class ConjugationCorpusIntegrationTests(F09CorpusFixture fixture) 
             await using var context = fixture.Runtime.CreateContext();
             var ids = c.GetProperty("dictionary_fixture_ids").EnumerateArray().Select(x => "fixture:word:" + x.GetString()!.Split(':')[1]).ToHashSet();
             var repo = new CorpusRepository(new EfDictionaryRepository(context), ids);
-            var adapter = new GrpcDictionaryTokenizerAdapter(new(channel), new EfConjugationDatasetRepository(context), ConjugationCorpusFiles.CandidateVersion);
+            var adapter = new GrpcDictionaryTokenizerAdapter(new(channel), new EfConjugationDatasetRepository(context), datasetVersion);
             var text = c.GetProperty("input").GetProperty("text").GetString()!;
             var result = await new LookupWordUseCase(repo, adapter).ExecuteAsync(text, TestContext.Current.CancellationToken);
             var expected = c.GetProperty("expected");
@@ -50,7 +53,7 @@ public sealed class ConjugationCorpusIntegrationTests(F09CorpusFixture fixture) 
                 var e = expected.GetProperty("alternatives").EnumerateArray().Single(e => e.GetProperty("rule_id").GetString() == a.RuleId);
                 a.BaseForm.Should().Be(e.GetProperty("base_form").GetString(), $"case {cid}");
                 a.RuleVersion.Should().Be(e.GetProperty("rule_version").GetInt32());
-                a.DatasetVersion.Should().Be(ConjugationCorpusFiles.CandidateVersion);
+                a.DatasetVersion.Should().Be(datasetVersion);
                 a.LanguageTag.Should().Be("vi");
                 a.Segments.Select(s => s.Surface).Should().Equal(e.GetProperty("segments").EnumerateArray().Select(s => s.GetProperty("surface").GetString()), $"case {cid}");
                 // Equivalent duplicate editorial cases can use different accepted VI phrasings.
@@ -76,15 +79,18 @@ public sealed class ConjugationCorpusIntegrationTests(F09CorpusFixture fixture) 
     }
 
     [Theory]
-    [InlineData("食べられる", 3)]
-    [InlineData("食べさせられる", 2)]
-    [InlineData("食べました", 1)]
-    public async Task AnonymousContractsV1V2V3PreserveCardinalityAndDictionaryIdentity(string text, int count)
+    [InlineData("食べられる", 3, ConjugationCorpusFiles.CandidateVersion)]
+    [InlineData("食べさせられる", 2, ConjugationCorpusFiles.CandidateVersion)]
+    [InlineData("食べました", 1, ConjugationCorpusFiles.CandidateVersion)]
+    [InlineData("食べられる", 3, YcoConjugationCandidateData.Version)]
+    [InlineData("食べさせられる", 2, YcoConjugationCandidateData.Version)]
+    [InlineData("食べました", 1, YcoConjugationCandidateData.Version)]
+    public async Task AnonymousContractsV1V2V3PreserveCardinalityAndDictionaryIdentity(string text, int count, string datasetVersion)
     {
         var builder = WebApplication.CreateBuilder();
         builder.Configuration["ConnectionStrings:DefaultConnection"] = fixture.Runtime.ConnectionString;
         builder.Configuration["GrpcTokenizerAddress"] = fixture.Runtime.Address;
-        builder.Configuration["ConjugationDatasetVersion"] = ConjugationCorpusFiles.CandidateVersion;
+        builder.Configuration["ConjugationDatasetVersion"] = datasetVersion;
         WebApi.ApiComposition.RegisterServices(builder);
         await using var app = builder.Build(); WebApi.ApiComposition.MapEndpoints(app);
         app.Urls.Add("http://127.0.0.1:0"); await app.StartAsync(TestContext.Current.CancellationToken);

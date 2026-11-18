@@ -1,0 +1,10 @@
+{
+  "skill": "ck:fix",
+  "mode": "review",
+  "task": "Align local Sudachi defaults with the IPv4-only Docker host port",
+  "acceptanceCriteria": ["Fix first-inflected local startup lookup", "Preserve explicit Sidecar overrides", "Preserve 500ms and linguistic/API/data behavior", "Prove original DB and accepted artifacts unchanged"],
+  "touchpoints": ["src/infra/DependencyInjection.cs", "src/interface/appsettings.json", "scripts/start-local.ps1", "tests/integration/LocalTokenizerAddressTests.cs", "tests/integration/LocalBackendScriptTests.cs"],
+  "publicContracts": ["Existing GrpcTokenizerAddress setting retained", "No public API, schema, linguistic dataset or deadline change"],
+  "blastRadius": ["Shared Dictionary/Grammar gRPC transport", "Local and demo launchers", "Configuration override/restoration"],
+  "scoutSummary": "localhost resolves IPv6 first while Docker publishes IPv4 only. Fresh-process A/B/A reproduced and removed the startup fault by address alone."
+}

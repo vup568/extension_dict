@@ -1,0 +1,10 @@
+{
+  "skill": "ck:fix",
+  "mode": "auto",
+  "task": "Recover reviewed local legacy database without data reset",
+  "acceptanceCriteria": ["Backup restores on clone", "Known legacy schema checked before initial baseline", "Unknown schema rejected without committing", "Original row fingerprints preserved", "Normal startup and API work after official migrations"],
+  "touchpoints": ["src/infra/Persistence/LegacySchemaNormalizer.cs", "src/interface/DatabaseRecoveryCommand.cs", "src/interface/DatabaseStartup.cs", "src/interface/Program.cs", "scripts/recover-local-database.ps1", "scripts/local-recovery-tools.ps1", "tests/integration/LegacySchemaNormalizerTests.cs", "tests/integration/LocalRecoveryScriptTests.cs"],
+  "publicContracts": ["HTTP shapes unchanged", "Recovery is explicit local-only CLI", "Serial and stronger uniqueness retained as reviewed compatibility", "No dictionary import"],
+  "blastRadius": ["Local database schema/history", "Backend startup", "Dictionary/grammar/conjugation repositories", "Operator backup and clone procedure"],
+  "scoutSummary": "Existing manual17-table schema and empty EF history trigger duplicate dictionary_entries CREATE. Fresh test databases had valid history and missed this legacy state."
+}

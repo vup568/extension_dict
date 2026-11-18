@@ -1,0 +1,13 @@
+{
+  "decision": "PASS_WITH_RISK",
+  "score": 8,
+  "criticalCount": 0,
+  "acceptanceCoverage": ["Independent runtime/source review finds no blocker for Windows local scope", "Missing configuration,startup failure,safe helper and context lifetime covered"],
+  "regressionProof": ["Implementing agent fresh17 targeted,79 unit,135 integration,251 frontend and typecheck pass", "Reviewer independent synthetic field-injection probe passes"],
+  "contractStatus": "Windows local startup change intentional;HTTP/schema/F09 unchanged;Ubuntu CI not clean",
+  "blockingReasons": ["Hard delivery blocked:known Windows-only test executable names incompatible with Ubuntu CI;user declined remediation"],
+  "scope": "Windows handoff only",
+  "inScopeBlockingCount": 0,
+  "reviewer": "/root/startup_fix_review",
+  "reviewLimitations": ["Reviewer sandbox test did not complete;not represented as independent test pass", "Original user backend not restarted"]
+}

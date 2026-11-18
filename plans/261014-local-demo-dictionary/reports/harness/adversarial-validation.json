@@ -1,0 +1,8 @@
+{
+  "decision": "PASS_WITH_RISK",
+  "disprovenClaims": [],
+  "unverifiedClaims": ["Complete grammar/schema integrity is not claimed", "Error-free latency and Chrome automated acceptance are not claimed"],
+  "missingProof": [],
+  "reachableRegressions": [],
+  "limitations": ["The first actual popup conjugation-unavailable result was retained; root RPC cause remains unproven", "No push/merge/production approval inferred"]
+}

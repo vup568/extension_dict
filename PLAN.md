@@ -1,5 +1,39 @@
 # Plan
 
+## Current Task — Trải nghiệm đọc tham khảo Yomitan (2026-11-08)
+
+- [x] Đối chiếu SPEC 005 với nền tảng selection, tra từ trong câu, dịch và F09. Ghi các mặc định triển khai và provenance.
+- [x] Triển khai nội dung popup, ghim/resize, quét Shift và phát âm AI. Xác minh build, unit, integration có phạm vi và các smoke với fixtures.
+- [x] Xác minh popup và quét Shift qua PostgreSQL/Sudachi thật trên extension đóng gói Edge ngày 2026-11-10.
+- [x] Kiểm chứng viewport, focus, resize và ranh giới frame của popup trên Chrome, Edge và Brave trong phạm vi T10.
+- [ ] Kiểm vòng đời liên nhóm với audio thực tế và chốt giới hạn browser ở P6.
+- [x] Chốt gap catalog thể chia `yco-gap-20261110.1` sau rà soát độc lập.
+- [x] Tạo và rà soát corpus `yco-20261110.1` gồm 21 ca cho T17.
+- [x] Bổ sung và kiểm quy tắc thể chia từ đơn trong dataset `candidate-20261110.1` cho T18.
+- [ ] Kiểm toàn tuyến và hồi quy corpus cũ/mới trên môi trường cô lập cho T19 trước khi kích hoạt dataset.
+- [ ] Ghi model, giọng, hạn mức quan sát được và kết quả nghe theo mẫu trước nghiệm thu audio.
+
+Theo dõi [kế hoạch 005](plans/261104-yomitan-reading-experience/plan.md), [checklist 28 việc](plans/261104-yomitan-reading-experience/task.md) và [báo cáo kiểm chứng](plans/261104-yomitan-reading-experience/evidence/test-report.md).
+
+## Current Task — Real Dictionary Import Execution (2026-10-15)
+
+- [x] Receive implementation authorization; read SPEC/PLAN and preserve the existing working tree.
+- [x] Create dependency-ordered feature TASKS; separate source/mapping/activation gates.
+- [ ] P0: Audit-download permission received; artifacts/counts and 40 proposed cases prepared. Source/license/corpus owner decisions remain pending.
+- [x] P1: Correct joint applicability/no-kanji and Vietnamese review filtering with regression tests.
+- [ ] P2: Build fixture-tested secure parsers, guarded CLI and transactional resumable import mechanism.
+- [x] P2 foundation: secure parsers, explicit inspect/import/resume/validate dispatch, forward schema, guarded fresh-target preparation library and transactional JMdict/KANJIDIC mechanics implemented; final integration verification pending.
+- [ ] P2 remaining: operator prepare wrapper, reviewed Vietnamese canonical writer, complete validation/metrics and ready-receipt workflow.
+- [ ] P3: Full inventories exist for 172,321 Vietnamese records and 50 V1 overrides; semantic/license/mapping decisions remain pending.
+- [ ] P4: Full import into an explicitly authorized isolated database and verify all success criteria.
+- [ ] P5: Obtain receipt-bound local cutover/Chrome acceptance and provide attribution/rollback.
+
+### Issues Encountered — Import Execution
+
+- G0a audit downloads authorized; all 218,914 JMdict records, 13,108 KANJIDIC2 characters and 172,321 Vietnamese records audited without real database writes. JMdict1339160/sense2 has contradictory no-kanji/written restrictions; canonical import fails closed.
+- OD-009/source approval, semantic review, full real import and cutover remain explicit gates. Original OVDP archive audit is authorized, but SourceForge responses currently contain HTML rather than the requested archive.
+- Current evidence and FR/SC traceability: `.sdd/specs/002-import-dictionary-data/reviews/execution-validation.md`; available commands/limitations: `docs/dictionary-import.md`.
+
 - [x] Tạo cây thư mục đích.
 - [x] Di chuyển tài liệu hiện có và tạo scaffold rỗng.
 - [x] Cập nhật đường dẫn nội bộ và cấu hình Spec Kit.
@@ -506,3 +540,31 @@ vẫn là giới hạn trước Git delivery;không tuyên bố gate hook đạt
 - [x] Ghi coherent commits cho SPEC/corpus, implementation/tests/script và tài liệu; không đưa secrets/generated test results/harness JSON vào Git.
 
 Checkpoint local không giải quyết CI Ubuntu hoặc thay cho workflow hook chưa có; các bằng chứng nghiệm thu cũ giữ nguyên.
+
+## Current Task — Legacy Local Database Recovery (2026-10-14)
+
+- [x] User duyệt backup/clone/repair giữ dữ liệu;import từ điển hoãn.
+- [x] Catalog guard/explicit CLI/script/recovery regressions,review PASS local-only.
+- [x] Backup restore rehearsal và Apply DB gốc;17 fingerprints/counts giữ nguyên,4 migrations/5grammar/2datasets.
+- [x] Build0warning/error,79unit/164integration/251FE/typecheck và33target đạt;12F09acceptedhashes giữ nguyên.
+- [x] Script startup2lần DB up-to-date;health200,APIv1/v2/v3 200,blank400 vàgRPC base-form smoke.
+- [x] Docs/journal/memory/report cập nhật;backup vàDBrehearsal giữ local,không reset/import/commit/push/merge.
+
+Recovery completed;dictionary0rows vẫn cần bước import riêng. Backend test của agent đã dừng;
+người dùng chạy scripts/start-local.ps1 để dùng session riêng. Các lỗi Docker/timing và giới hạn
+workflow hook/Ubuntu được ghi rõ,không coi fullsuitepass là latency certification.
+
+## Current Task — Real Dictionary Import Specification and Plan (2026-10-15)
+
+- [x] User chốt đầy đủ từ vựng, kanji, nghĩa Việt tương đương V1; duyệt Shadow Plan/Proceed chỉ viết tài liệu.
+- [x] Đọc Constitution, pipeline V1, schema/usecase V2; nghiên cứu nguồn và giấy phép bằng metadata/documentation.
+- [x] Viết SPEC/checklist tại `.sdd/specs/002-import-dictionary-data/`.
+- [x] Viết PLAN/research/data-model/contracts/quickstart, kiểm tra traceability và safeguards.
+- [x] Kiểm tra tài liệu/fingerprint249 runtime files/12 F09 bindings và cập nhật Project Memory.
+
+### Issues Encountered — Import Planning
+
+- OD-009 vẫn cần duyệt nguồn/license và semantic mapping FVDP/OVDP; scope approval không thay source clearance.
+- Reader hiện không release-filter; `ReviewStatus` cũng chưa lọc gloss. Plan phải cô lập DB và chặn candidate chưa duyệt khỏi dữ liệu đang phục vụ.
+- Không code/import/download dataset/DB/Git mutation trong nhiệm vụ này; dữ liệu F09 đã nghiệm thu giữ nguyên.
+- Review sửa ordering: G0a cho tải audit, G0b verify/duyệt nguồn; P2 test importer bằng fixtures nhỏ, P3 review mapping offline, P4 mới full import với final lock. Nguồn Việt chưa clear thì không gọi đủ phạm vi hoàn tất.

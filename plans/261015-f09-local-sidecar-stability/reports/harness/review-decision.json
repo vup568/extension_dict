@@ -1,0 +1,10 @@
+{
+  "decision": "PASS_WITH_RISK",
+  "score": 9,
+  "criticalCount": 0,
+  "acceptanceCoverage": ["Three local defaults aligned", "Explicit overrides and launcher restoration retained", "Red-green regression plus fresh API/popup", "Data/privacy/linguistic boundaries preserved"],
+  "regressionProof": ["79 units", "209 integration", "251 frontend", "48 fresh-default API requests", "3 packaged Brave tests/18 requests"],
+  "contractStatus": "OK",
+  "blockingReasons": [],
+  "limitations": ["Historical RPC status not captured", "No universal latency certification", "Brave automated verification is not Chrome/Firefox", "Existing Windows-only CI limitation and missing official workflow hook"]
+}

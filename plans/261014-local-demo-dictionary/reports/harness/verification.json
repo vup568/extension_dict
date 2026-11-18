@@ -1,0 +1,14 @@
+{
+  "commands": [
+    {"command": "dotnet build JPReadingPlatform.sln -c Release --no-restore", "status": "pass", "exitCode": 0, "timestamp": "2026-10-14", "summary": "Zero warnings/errors"},
+    {"command": "dotnet test UnitTests Release --no-build --no-restore", "status": "pass", "exitCode": 0, "timestamp": "2026-10-14", "summary": "79 passing unit tests"},
+    {"command": "dotnet test IntegrationTests Release --no-build --no-restore", "status": "pass", "exitCode": 0, "timestamp": "2026-10-14", "summary": "202 passing integration tests including 38 demo cases"},
+    {"command": "npm run typecheck; npm test; npm run build (separate executions)", "status": "pass", "exitCode": 0, "timestamp": "2026-10-14", "summary": "251 frontend tests; installed dependencies only"},
+    {"command": "dotnet format whitespace --verify-no-changes (scoped)", "status": "pass", "exitCode": 0, "timestamp": "2026-10-14", "summary": "New C# formatting verified"},
+    {"command": "prepare-demo.ps1 and private fingerprint comparison", "status": "pass", "exitCode": 0, "timestamp": "2026-10-14", "summary": "Repeated 17-fixture seed stable; original 20 tables and 12 F09 hash bindings unchanged"},
+    {"command": "playwright test --config playwright.demo.config.ts", "status": "pass", "exitCode": 0, "timestamp": "2026-10-14", "summary": "Brave real-backend rerun passes 1 test/6 selections; initial failure retained in report"}
+  ],
+  "beforeAfter": {"before": "Original dictionary empty; no demo launch path", "after": "Separate synthetic 17-word demo with explicit safe seed/start tools"},
+  "initialFailures": ["EF JSON-brace mutation fixture corrected", "PowerShell IDictionary test inspection corrected", "Vitest sandbox cache failure resolved by unchanged escalated execution", "First popup conjugation unavailable; later unchanged rerun pass, cause unproven"],
+  "report": "plans/261014-local-demo-dictionary/reports/validation-report.md"
+}

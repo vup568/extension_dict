@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Pinned V1 override audit inventory",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "source_commit",
+    "source_path",
+    "source_blob_sha256",
+    "section_sha256",
+    "record_count",
+    "approved_count",
+    "quarantined_count",
+    "records"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "source_commit": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{40}$"
+    },
+    "source_path": {
+      "const": "scripts/prepare-javi.ts"
+    },
+    "source_blob_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "section_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "record_count": {
+      "const": 50
+    },
+    "approved_count": {
+      "const": 0
+    },
+    "quarantined_count": {
+      "const": 50
+    },
+    "records": {
+      "type": "array",
+      "minItems": 50,
+      "maxItems": 50,
+      "items": {
+        "type": "object",
+        "required": [
+          "ordinal",
+          "source_identity",
+          "headword",
+          "vietnamese_text",
+          "raw_declaration",
+          "disposition",
+          "reason",
+          "canonical_target",
+          "sense_key",
+          "reviewer",
+          "reviewed_at",
+          "evidence"
+        ],
+        "properties": {
+          "ordinal": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 50
+          },
+          "source_identity": {
+            "type": "string"
+          },
+          "headword": {
+            "type": "string"
+          },
+          "vietnamese_text": {
+            "type": "string"
+          },
+          "raw_declaration": {
+            "type": "string"
+          },
+          "disposition": {
+            "const": "quarantined"
+          },
+          "reason": {
+            "const": "pending-source-license-and-sense-equivalence-review"
+          },
+          "canonical_target": {
+            "type": "null"
+          },
+          "sense_key": {
+            "type": "null"
+          },
+          "reviewer": {
+            "type": "null"
+          },
+          "reviewed_at": {
+            "type": "null"
+          },
+          "evidence": {
+            "type": "array",
+            "maxItems": 0
+          }
+        }
+      }
+    }
+  }
+}

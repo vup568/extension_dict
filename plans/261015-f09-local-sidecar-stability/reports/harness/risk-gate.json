@@ -1,0 +1,8 @@
+{
+  "highRisk": false,
+  "reasons": ["Host-local endpoint defaults only; no schema, secrets, auth, API or production deployment edits"],
+  "autoStopRequired": false,
+  "humanApproved": true,
+  "approvalScope": "User Proceed approved the local-address correction, regression tests and live demo verification; no Git delivery or import",
+  "largeDiff": false
+}

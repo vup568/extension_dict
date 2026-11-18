@@ -1,0 +1,9 @@
+{
+  "highRisk": true,
+  "reasons": ["Authorized local schema/history repair", "Process-local credential handling", "Private database backup"],
+  "autoStopRequired": true,
+  "humanApproved": true,
+  "largeDiff": false,
+  "approvalScope": "User approved Proceed for backup/clone/schema-preserving repair,then explicitly requested finish original local Apply. Dictionary import deferred;no commit/push/merge or production recovery.",
+  "operationalPrecondition": "Backend and other database clients remain disconnected;idle checks are not a universal future-writer lock."
+}

@@ -1,0 +1,11 @@
+{
+  "decision": "PASS",
+  "disprovenClaims": [],
+  "unverifiedClaims": [],
+  "missingProof": [],
+  "reachableRegressions": [],
+  "scope": "Reviewed local recovery design and targeted tests only",
+  "validatedClaims": ["Unknown schema differences rollback/no baseline", "Public inheritance checked on both sides", "Trigger namespace and unique deferral spoofing refused", "Explicit clone restore/fingerprints before Apply", "Connection/private row output suppressed"],
+  "notClaimed": ["Original database/HTTP fixed before runtime verification", "Production concurrent-safe recovery", "Populated dictionary or Ubuntu CI success"],
+  "workflowHook": "Absent from checkout;not represented as a passing original validator"
+}

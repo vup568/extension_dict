@@ -1,0 +1,15 @@
+{
+  "commands": [
+    { "command": "dotnet build JPReadingPlatform.sln --no-restore --configuration Release", "status": "pass", "exitCode": 0, "timestamp": "2026-10-14", "summary": "Zero warnings/errors,existing dependencies only." },
+    { "command": "dotnet test targeted recovery/startup classes", "status": "pass", "exitCode": 0, "timestamp": "2026-10-14", "summary": "33 tests pass,including final external-child guard." },
+    { "command": "dotnet test tests/unit/UnitTests.csproj --no-build --configuration Release", "status": "pass", "exitCode": 0, "timestamp": "2026-10-14", "summary": "79 unit tests pass." },
+    { "command": "dotnet test tests/integration/IntegrationTests.csproj --no-build --configuration Release", "status": "pass", "exitCode": 0, "timestamp": "2026-10-14", "summary": "Final quiet run164 tests pass,no failure/skip. Prior Docker-off106 failures and concurrent-recovery3F09 failures documented,not hidden." },
+    { "command": "npm run typecheck and npm run test -- --run", "status": "pass", "exitCode": 0, "timestamp": "2026-10-14", "summary": "Typecheck and251 frontend tests pass." },
+    { "command": "scripts/recover-local-database.ps1 -Apply", "status": "pass", "exitCode": 0, "timestamp": "2026-10-14", "summary": "Restorable private backup,clone-first schema check,original17-table counts/fingerprints retained,history4. No reset/import." },
+    { "command": "scripts/start-local.ps1 -SkipDependencies and local HTTP probes", "status": "pass", "exitCode": 0, "timestamp": "2026-10-14", "summary": "Both startup attempts DB up-to-date/listen5000;first health200,APIv1-v3 200,blank400. Own test processes then stopped intentionally." },
+    { "command": "docker compose exec tokenizer synthetic gRPC smoke", "status": "pass", "exitCode": 0, "timestamp": "2026-10-14", "summary": "gRPC and expected base-form check true;no user input persisted." }
+  ],
+  "beforeAfter": { "before": "Existing legacy tables/history0 caused duplicate dictionary_entries CREATE and backend startup refusal.", "after": "Original data preserved,history4,dataset2;actual startup/API usable. Dictionary0 remains intentional deferred-import limitation." },
+  "failureHistory": ["Docker unavailable prevented106 tests", "Concurrent recovery correlated with3F09 deadline-path failures;quiet unchanged rerun passes", "Safe preflight/helper/parser failures recorded in report"],
+  "workflowHook": "Absent;documented invocation failed MODULE_NOT_FOUND. Explicit fallback field checks,not hook approval."
+}

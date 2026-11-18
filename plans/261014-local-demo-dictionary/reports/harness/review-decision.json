@@ -1,0 +1,10 @@
+{
+  "decision": "PASS_WITH_RISK",
+  "score": 9,
+  "criticalCount": 0,
+  "acceptanceCoverage": ["Local-only guarded seed", "Synthetic provenance/17 fixtures", "Idempotency and original fingerprints", "Real API-backed Brave popup"],
+  "regressionProof": ["79 units", "202 integration tests", "251 frontend tests/typecheck", "Unchanged accepted F09 hashes"],
+  "contractStatus": "OK",
+  "blockingReasons": [],
+  "limitations": ["First popup transient failure remains unexplained", "Chrome manual acceptance separate", "Existing Windows-only CI limitation", "Official workflow validator absent"]
+}

@@ -1,0 +1,9 @@
+{
+  "decision": "PASS_WITH_RISK",
+  "disprovenClaims": [],
+  "unverifiedClaims": [],
+  "missingProof": [],
+  "reachableRegressions": [],
+  "limitations": ["No claim of the exact historical RPC status, global latency guarantees, cross-platform CI, branded Chrome automation, real-data import or production approval"],
+  "independentReview": "plans/261015-f09-local-sidecar-stability/reports/final-review.md"
+}

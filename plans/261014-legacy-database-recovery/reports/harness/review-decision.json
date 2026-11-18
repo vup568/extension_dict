@@ -1,0 +1,12 @@
+{
+  "decision": "PASS",
+  "score": 9.3,
+  "criticalCount": 0,
+  "acceptanceCoverage": ["Explicit local operator recovery", "Reviewed schema comparison before transactional baseline", "Restored backup and clone-first rehearsal", "Old-row counts/fingerprints preserved", "Private output suppressed"],
+  "regressionProof": ["Fresh targeted33/33 includes final external-child case", "Rules,trigger namespace,deferred uniqueness and sequence guards covered", "Independent CLI refuses without confirmation", "Actual clone rehearsal17 fingerprints/history4 verified"],
+  "contractStatus": "Intentional documented legacy compatibility;HTTP unchanged",
+  "blockingReasons": [],
+  "reviewer": "/root/legacy_recovery_review",
+  "scope": "Authorized local recovery execution,not original-runtime completion or Git delivery",
+  "limitations": ["Original Apply/HTTP require actual runtime evidence", "Ubuntu CI and absent artifact hook remain outside local approval"]
+}

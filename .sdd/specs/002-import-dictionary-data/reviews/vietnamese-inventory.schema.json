@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Vietnamese raw quarantine inventory (one JSON object per line)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "Ordinal",
+    "SourceIdentity",
+    "Headword",
+    "Content",
+    "RawLine",
+    "Disposition",
+    "Reason"
+  ],
+  "properties": {
+    "Ordinal": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "SourceIdentity": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}:[1-9][0-9]*$"
+    },
+    "Headword": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "Content": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "RawLine": {
+      "type": "string",
+      "description": "Original logical record before CR/LF separator; no trim, HTML decoding or semantic cleaning."
+    },
+    "Disposition": {
+      "const": "quarantined"
+    },
+    "Reason": {
+      "enum": [
+        "pending-license-and-semantic-review",
+        "malformed-tab-record"
+      ]
+    }
+  }
+}

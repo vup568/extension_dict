@@ -1,0 +1,8 @@
+{
+  "highRisk": true,
+  "reasons": ["Explicit local database provisioning", "Existing dirty recovery work preserved"],
+  "autoStopRequired": false,
+  "humanApproved": true,
+  "approvalScope": "Latest user explicitly approved this isolated demo implementation plan, not Git delivery or production publication",
+  "largeDiff": true
+}

@@ -77,13 +77,47 @@ báo cáo kiểm thử là snapshot trước duyệt, được giữ nguyên đ�
 
 Nếu cần ngữ pháp, chạy tokenizer sidecar này và đặt
 `GrpcTokenizerAddress` theo địa chỉ local của dịch vụ (mặc định
-`http://localhost:50051`). Khi sidecar không sẵn sàng, analysis có thể trả grammar
+`http://127.0.0.1:50051`, khớp cổng IPv4 Compose). Trên Windows, `localhost` có thể
+ưu tiên IPv6 trong khi Compose chỉ mở IPv4, gây lỗi ở lần phân tích đầu.
+Launcher local dùng địa chỉ IPv4 này; cấu hình triển khai riêng vẫn được DI giữ nguyên.
+Khi sidecar không sẵn sàng, analysis có thể trả grammar
 `failed` cùng kết quả vocabulary/kanji còn khả dụng.
 
 Nếu chạy `dotnet run` thủ công, phải cung cấp
 `ConnectionStrings__DefaultConnection` từ cấu hình local/secret store trong cùng
 cửa sổ trước; `dotnet run` không tự đọc `.env`. Không sao chép credential vào source
 hoặc tài liệu.
+
+### Phục hồi database local cũ — 2026-10-14
+
+Nếu startup tạo lại `dictionary_entries` đã tồn tại vì lịch sử EF migration rỗng,
+không reset volume hoặc tự chèn lịch sử. Có công cụ phục hồi **một lần**: sao lưu
+binary, restore vào clone, đối chiếu schema/dữ liệu rồi thử migrations chính thức.
+Mặc định chỉ sửa clone; `-Apply` mới ghi DB Compose gốc sau khi rehearsal đạt.
+Cần **PowerShell 7**, Release build với dependencies đã restore, backend đã dừng
+và các client DB đã ngắt kết nối. Startup thông thường vẫn hỗ trợ PowerShell 5.1.
+
+Xem [quy trình phục hồi an toàn](docs/local-backend-testing.md#phục-hồi-database-local-cũ--2026-10-14).
+Backup/clone được giữ lại, không xóa dữ liệu hoặc import từ điển. DB local hiện
+chưa có mục từ; việc import đang hoãn, nên backend chạy được chưa đồng nghĩa
+tra từ/F09 có kết quả trên dữ liệu thật.
+
+### Tra thử với 17 mục từ demo
+
+DB gốc vẫn trống; để thử kết quả tra từ/F09, dùng **PowerShell 7** và DB riêng
+`jp_dict_demo` trong PostgreSQL Docker hiện có:
+
+```powershell
+cd E:\jp-dict-extension
+pwsh -NoProfile -File .\scripts\start-demo.ps1
+```
+
+Dừng backend cũ ở cổng 5000 trước, Reload Extension và tải lại tab rồi chọn
+`食べる`, `食べました`, `食べられる`, `静かでした` hoặc `学生です`.
+Đây là 17 fixture tổng hợp, **không phải từ điển thật**; không nạp đáp án test,
+không sửa `.env` hay seed DB gốc. Ctrl+C rồi chạy `start-local.ps1` để quay về
+cấu hình gốc. Xem [hướng dẫn demo](docs/local-demo-testing.md) để biết danh sách,
+giới hạn và cách xử lý lỗi; không reset volume khi seed bị từ chối.
 
 ## Build và nạp Extension
 
@@ -169,6 +203,12 @@ Cập nhật 2026-10-14: F09 được nghiệm thu G1/G2/G3 cho corpus .3; 412/4
 (Chrome/Edge/Brave và packaged MV3) cùng 12 Python tests đạt. Không chạy lại suite
 chỉ để ghi nhận approval; Firefox vẫn chưa kiểm chứng. Chưa migrate DB của bạn,
 commit/push/merge hoặc phát hành production.
+
+Cập nhật 2026-10-15: sửa địa chỉ Sidecar local sang IPv4 để khớp Compose;
+79 backend unit, 209 integration, 251 client unit, typecheck/build đạt.
+Hai backend mới qua 48 request; ba popup test package Brave qua 18 request,
+không prewarm/retry hoặc tăng deadline. DB gốc và `.env` không đổi; đây không
+phải chứng nhận latency hoặc Chrome tự động. Xem [bằng chứng ổn định local](plans/261015-f09-local-sidecar-stability/reports/validation-report.md).
 
 - [Product Requirements](REQUIREMENT.md), [Design Principles](DESIGN.md).
 - [Constitution](.sdd/constitution.md), [Migration Decision](MIGRATION_DECISION.md).

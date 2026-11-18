@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "corpus_version": "yco-20261110.1",
+  "catalog": {
+    "version": "yco-gap-20261110.1",
+    "path": "plans/261104-yomitan-reading-experience/evidence/conjugation-gap-catalog.md",
+    "sha256": "b70b51ef3c76ca9ab7cba164ad79eaaa9242e4e37633354dcb175716b6686e91"
+  },
+  "baseline": {
+    "version": "f09-expanded-20261013.3",
+    "dataset_version": "candidate-20261013.1",
+    "path": ".sdd/specs/feat-conjugation-explanation/evidence/acceptance-manifest.json",
+    "sha256": "d6cb2cf7450f149941a7b0646d74942e0edff63043390a5dcbae56ae953565a6",
+    "case_ids": [
+      "V04-P1", "V07-IRR-kuru", "V08-ONBIN-行く", "I03-P1", "I03-IRR-ii",
+      "A04-ALT-dewa-静か", "N06-P1", "AMB-01", "V13-P1", "I09-N1",
+      "EXACT-DERIVED-書ける", "V20-P1", "V20-C-plain_past-P1", "V20-C-plain_negative-P1"
+    ]
+  },
+  "bindings": {
+    "cases.json": "c2e33ef6673867a8e9f705e373cd8f2c28a432984ab3355049a1dfa43f7807ae",
+    "sources.json": "0b597616ad08ff8b312ab7abbb6a8501d6be5401612331ddf7d422832fc495ff"
+  },
+  "required_gap_ids": [
+    "YCO-IRR-01", "YCO-IRR-02", "YCO-ASP-01", "YCO-ASP-02", "YCO-AUX-01",
+    "YCO-AUX-02", "YCO-AUX-03", "YCO-SPAN-01", "YCO-SPAN-02"
+  ]
+}

@@ -1,0 +1,74 @@
+# Kiểm chứng đợt code đầu của feature 005
+
+Ngày 08/11/2026. [Checklist triển khai](../task.md) ghi những task đủ bằng chứng ở phạm vi hiện tại. Các gate nghiệm thu tích hợp G-A–G-G vẫn mở.
+
+## Kết quả lượt 08/11/2026
+
+| Phạm vi | Kết quả | Bằng chứng |
+|---|---|---|
+| .NET build | 0 cảnh báo, 0 lỗi | `dotnet build JPReadingPlatform.sln --no-restore -m:1 -p:UseSharedCompilation=false -nr:false` |
+| .NET unit và HTTP integration | 130 unit và 48 integration đạt | xUnit direct runner. Integration chọn `ScanIntegrationTests`, `SpeechEndpointTests`, `GeminiSpeechProviderTests`, `TranslationIntegrationTests`, `GeminiTranslationProviderTests` trên HTTP loopback/adapter giả |
+| Extension | Typecheck, 296 Vitest và build Chromium/Firefox đạt | `npm --prefix extension run typecheck`, `test`, `build` với dependencies hiện có |
+| Chrome | 38 ca popup/translation và 8 ca scan/resize/audio đạt | Playwright headless, fixture Vite đóng gói nạp qua route fulfill. Runner webServer mặc định hết thời gian chờ Vite loopback |
+| Edge MV3 đóng gói | Hai smoke dùng API giả lập đạt | Extension thật, profile riêng và backend localhost. Shift thật ở giữa viewport gửi `🐈日本語` với offset UTF‑16 4. Shift giả tạo zero request. Trang CSP `media-src 'none'` phát WAV hợp lệ qua Web Audio và nghe lại dùng buffer hiện hành |
+| F09 đã nghiệm thu | 12/12 hash khớp, 60 ô và 412 ca | [Đối chiếu corpus](conjugation-gap-catalog.md) |
+
+## Truy vết phần đã kiểm tra
+
+| Nhóm | Mã và test | Giới hạn |
+|---|---|---|
+| YUI | `PopupShell`, `dictionarySpeechOptions`, `TranslationPanel`, fixtures popup/translation và tests chọn reading | Có fixtures cho từ lặp, đồng âm, restriction, kết quả cũ, lỗi riêng và dịch chủ động. T07 còn bộ response từ điển thật |
+| YPO | `createPopupView`, `startSelectionPopup`, preference store, browser `reading-interaction` và `selection-popup` | Kiểm focus return, viewport 320 px, pointer blur, ghim, thay selection, nhả Shift, close. Ma trận zoom/text dọc/cross-frame/browser còn mở |
+| YSC | `extractPointerWindow`, `startPointerScan`, `readingTransport`, `ScanTextUseCase`, `ScanEndpoints` | Kiểm bounded UTF‑16/ruby/nguồn editable, offset/correlation, debounce, stale, quota, cap chunked và tương thích analysis. T13/T15 cần chạy PostgreSQL/Sudachi thật |
+| YAU | `SpeechPanel`, `readingContracts`, `SpeechUseCase`, `GeminiSpeechProvider`, `SpeechEndpoints` | Kiểm click thật, cặp canonical/reading/form, WAV/PCM sai, cap, deadline, quota, stale, CSP và replay. T20/T24 cần model/quota thật và người nghe review tiếng Nhật |
+| YCO | Baseline F09 và gap catalog | Duyệt nguồn/đáp án cho T16, rồi tạo corpus phiên bản mới trước khi mở rộng rule |
+
+## Giới hạn lượt 08/11/2026
+
+- Docker Desktop Linux engine không chạy trong phiên này. Bộ integration PostgreSQL/Sudachi và packaged smoke từ điển thật vẫn chờ.
+- Edge chạy được dưới cấu hình packaged riêng. Runner harness Edge mặc định lỗi khởi chạy trong môi trường Windows. Brave và Firefox runtime chưa có bằng chứng mới.
+- Chưa thực hiện probe Gemini live hoặc benchmark p95. Số liệu fixture không đại diện cho giọng đọc Nhật, dataset thật hoặc hiệu năng phát hành.
+- Còn kiểm chứng tích hợp liên nhóm, traceability đầy đủ và rà soát privacy/browser trước khi đánh dấu milestone hoàn thành.
+
+## Kiểm chứng từ điển thật ngày 10/11/2026
+
+- Docker Desktop, PostgreSQL 16 và Sudachi đã chạy. Database `jp_dict_real_jaen_20261030_v3` có 218.914 mục từ, 13.108 kanji và 5 mẫu ngữ pháp. Backend đã qua xác minh nguồn và dữ kiện canonical trước khi báo healthy. Lượt test dùng binary WebApi đã build ngày 08/11. Cách gán builder trong lệnh thử không đưa `default_transaction_read_only=on` vào chuỗi kết nối thực tế. Khi truyền `Options` trực tiếp, kiểm tra trên binary xác nhận `IsolatedImportTarget` từ chối chuỗi. Hướng dẫn hiện dùng chuỗi kết nối đã được guard chấp nhận. Cache NuGet hiện thiếu `Microsoft.Extensions.DependencyInjection.Abstractions` 10.0.4 nên lệnh build lại .NET chưa thành công.
+- `npm --prefix extension run typecheck`, 296 Vitest và build Chromium/Firefox đạt. Playwright dùng Edge đã cài, profile riêng và extension Chromium vừa build.
+- `playwright test --config playwright.real-dictionary.config.ts` đạt. Popup tra được `食べる`, `食べました`, `橋`, `箸`, giữ ID JMdict, nghĩa tương ứng và thông tin kanji `食`. Lượt đầu kẹt khi thư mục output mặc định chứa log backend đang mở. Config hiện dùng thư mục riêng và lượt chạy lại đã qua.
+- `playwright test --config playwright.sentence-vocabulary.config.ts` đạt. Bốn ca bôi đen xác minh span, từ lặp và giải thích thể chia. Ba ca Shift xác minh `日本語` tại UTF‑16 offset 4 với emoji/ruby, `食べました → 食べる` tại offset 3 và trợ từ `を` tại offset 1 trả `target_span: null`. Request chỉ có text giới hạn, offset và UUID, không kèm cookie. Nhả Shift giữ popup. Cả lượt có zero request dịch và phát âm.
+- Chrome qua 10 ca `reading-interaction` với fixture Playwright. Các ca bổ sung xác minh 100 lần di chuyển chuột khi tắt quét hoặc thiếu Shift, đổi A → B rồi bỏ phản hồi trễ của A, bôi đen khi scan đang chờ, bỏ qua closed shadow root và giữ audio hiện tại khi đã ghim popup.
+- Các probe `/api/analysis` v3 bổ sung cho thể chia ghi tại [bảng đối chiếu corpus](conjugation-gap-catalog.md). Browser matrix đầy đủ, benchmark p95, kiểm thử Gemini live và duyệt corpus phiên bản mới vẫn là các điều kiện riêng.
+
+### Xử lý lỗi Gemini khi nghe mẫu
+
+Probe do người dùng chạy trả HTTP 400 `invalid_request` với chi tiết `Audio delivery mode is not supported.` Adapter và probe đã bỏ `response_format.delivery`, giữ yêu cầu WAV mono đã xác minh khi nhận. Bản thử đặt tại `src/interface/bin/tts-fix/net10.0/`, build lại Infrastructure từ dependencies đã có. 14 kiểm thử adapter và probe PowerShell 5.1 với HTTP giả lập đạt.
+
+Ngày 10/11/2026, chủ dự án thử lại trong popup và xác nhận giọng đọc dùng ổn. Đây là bằng chứng nghe được từ luồng Gemini thật sau bản sửa. T20/T24 còn cần ghi model, giọng, hạn mức quan sát được và kết quả theo từng mẫu của YAU-AC09.
+
+## T16 — Chốt danh mục thể chia ngày 10/11/2026
+
+- [Danh mục `yco-gap-20261110.1`](conjugation-gap-catalog.md) đã qua rà soát độc lập về cách đọc, POS, ID JMdict, trường hợp âm và span UTF‑16. SHA‑256 của catalog là `b70b51ef3c76ca9ab7cba164ad79eaaa9242e4e37633354dcb175716b6686e91`.
+- Baseline F‑09 khớp 12/12 SHA‑256 theo manifest nghiệm thu. Validator `validate-corpus-20261013.3.mjs` chạy với `--self-test --verify-freeze` đạt trên 412 ca, 60 ô, 115 rule ID, 17 fixture và 369 đầu vào có quan sát gRPC lưu trữ. T17 sẽ cụ thể hóa các đáp án thành corpus phiên bản riêng để rà soát trước T18.
+
+## T10 — Kiểm chứng vòng đời popup ngày 10/11/2026
+
+- Typecheck, 296 ca Vitest và build Chromium/Firefox đạt. Playwright chạy bốn bộ `reading-viewport-frames`, `reading-interaction`, `selection-popup` và `translation-popup` với Chrome, Edge và Brave. Kết quả 134 ca đạt, gồm 17/18 ca T10 tập trung. Một ca MV3 đóng gói được cấu hình bỏ qua ở Chrome và đã đạt ở Edge lẫn Brave.
+- Khi `showPopover` thiếu hoặc ném lỗi, popup gắn vào `documentElement` để tránh tọa độ bị dịch theo `body` có CSS transform. Hai nhánh fallback qua bài kiểm tra mở và đóng ở viewport 320 × 400. Nhánh top layer mở trong `body` và giữ lề 12 px khi visual viewport giảm xuống 320 px ở mức scale 200% qua CDP.
+- Fixture xác minh focus/Escape, bố cục chữ dọc, `pointercancel` nhả capture và giữ selection lẫn yêu cầu nghe đang chờ. Extension đóng gói xác minh popup nằm trong frame cùng nguồn và khác nguồn được phép, không mở trong frame `data:`, lưu kích thước và đặt lại ghim khi tải lại. Các ca frame dùng chốt độ dài cục bộ nên không gọi backend.
+- Firefox có bản build, môi trường kiểm thử thiếu runtime. Các ca vòng đời dùng stub audio. T25/P6 còn lượt kiểm tích hợp với phát âm thật và đánh giá tương thích trước phát hành.
+
+## T17 — Xác thực corpus thể chia ngày 10/11/2026
+
+- [Corpus `yco-20261110.1`](../../../.sdd/specs/005-yomitan-reading-experience/corpus/yco-20261110.1/README.md) có 21 ca thuộc 9 nhóm, gồm 7 ca hồi quy, 10 ca cho dataset mới và 4 ca đối chiếu ngôn ngữ. Hồ sơ ghi 11 nguồn và trỏ trực tiếp đến 14 ca F‑09. Sáu trong tám fixture đã được đối chiếu ID JMdict đã pin, từ loại, cặp dạng viết–cách đọc và nghĩa. Hai fixture tổng hợp dùng cùng một canonical ID để kiểm giới hạn giữa các cặp.
+- Rà soát độc lập đạt sau khi ghi rõ `match_policy: "any"` cho ca chỉ yêu cầu một mục từ hợp lệ tại span, sửa dạng viết `仕舞う` / `仕舞った`, bổ sung liên kết đáp án Irodori và neo ca hồi quy fallback `書きながら → 書く` cho YCO‑AC05.
+- `node .sdd/specs/005-yomitan-reading-experience/corpus/validate-yco-corpus.mjs --self-test` đạt 9 phép thử phát hiện sai lệch dữ liệu và xác minh 12 hash baseline. [Manifest YCO](../../../.sdd/specs/005-yomitan-reading-experience/corpus/yco-20261110.1/manifest.json) có SHA‑256 `8845f0db6c5e8cd89338b483ff03f9634d9280dc941ce948129f141add5b90be` trên UTF‑8 xuống dòng LF. Validator F‑09 với `--self-test --verify-freeze` tiếp tục xác minh 412 ca, 60 ô và 115 rule ID.
+- 48 ca hồi quy .NET hiện có đạt khi chạy trực tiếp binary xUnit đã build, gồm `SentenceVocabularyUseCaseTests`, `DictionaryReadCorrectnessTests` và `LookupConjugationCandidateTests`.
+- Lượt này xác thực cấu trúc, tham chiếu, hash và span. Các kỳ vọng dành cho bộ phân tích được chạy ở T18/T19.
+
+## T18 — Kiểm chứng dataset ứng viên ngày 10/11/2026
+
+- `candidate-20261110.1` thêm bốn biến thể bằng dữ liệu cho `v1` và `v5m`, gồm dạng thường khẳng định không quá khứ và quá khứ của `Vて/で + しまう`. Hai rule ID mới nâng tổng lên 913 biến thể và 117 rule ID. Cả 909 biến thể F‑09 khớp bản gốc và 12 hash nghiệm thu khớp manifest. [Dữ liệu quy tắc](../../../src/infra/Conjugation/Data/candidate-20261110.1.rules.json)
+- [Script biên dịch](../../../.sdd/specs/005-yomitan-reading-experience/corpus/compile-yco-candidate.mjs) tạo cùng dữ liệu JSON trên stdout với SHA‑256 `ef4fc15ff7c36ca0acce2023101bd268d0163714cfef33d4fb195fd580489c19`. Validator T17 xác minh 21 ca, 9 nhóm và 9 phép thử phát hiện sai lệch. Validator F‑09 xác minh 412 ca, 60 ô và 115 rule ID với `--verify-freeze`. Rà soát độc lập đạt.
+- [Bộ test T18](../../../tests/integration/YcoConjugationCandidateTests.cs) đạt 9/9 ca với phản hồi gRPC và từ điển thay thế, gồm ưu tiên khớp chính xác, dạng biến âm sai, giới hạn cặp dạng viết–cách đọc, span và chọn phiên bản dataset. Các ca được biên dịch bằng Roslyn với DLL hiện có vì cache NuGet thiếu `Microsoft.Extensions.DependencyInjection.Abstractions` 10.0.4 cho build chuẩn `--no-restore`. Các binary có sẵn chạy riêng đạt 130 unit và 28 integration có phạm vi.
+- Quan sát gRPC thật với 17 đầu vào tổng hợp khác nhau trong container tạm chỉ đọc, tắt mạng ngoài, dùng image có sẵn `jp-reading-tokenizer:verified-20261013`. Image dùng SudachiPy 0.7.0, từ điển core 20260723.1 và gRPC 1.84.0. Đối chiếu tự động bốn ca từ dương của T17 xác nhận gốc động từ chính, surface của token và ranh giới UTF‑16 khớp kỳ vọng. Kiểm tích hợp API, PostgreSQL và popup thuộc T19.
+- Việc cài và chọn dataset ứng viên thuộc T19. Cơ chế xác minh từ điển đã nhập đối chiếu chính xác lịch sử migration, nên quyết định cài cần kiểm tương thích với cơ chế đó.

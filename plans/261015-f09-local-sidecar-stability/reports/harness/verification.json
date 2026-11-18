@@ -1,0 +1,14 @@
+{
+  "commands": [
+    {"command": "Focused LocalTokenizerAddressTests and LocalBackendScriptTests before source patch", "status": "expected_red", "exitCode": 1, "timestamp": "2026-10-15", "summary": "Four old-default failures, twelve passing cases; addressed by the approved three-default correction"},
+    {"command": "Focused regression after patch and test-only whitespace normalization", "status": "pass", "exitCode": 0, "timestamp": "2026-10-15", "summary": "16/16 passing, no weakened assertions"},
+    {"command": "dotnet build Release --no-restore; unit/integration runs executed sequentially", "status": "pass", "exitCode": 0, "timestamp": "2026-10-15", "summary": "Build zero warnings/errors; 79 units and 209 integration tests, zero failures/skips"},
+    {"command": "Scoped dotnet format whitespace --verify-no-changes", "status": "pass", "exitCode": 0, "timestamp": "2026-10-15", "summary": "Changed C# test files/DI formatting verified"},
+    {"command": "npm run typecheck; npm test; npm run build executed separately", "status": "pass", "exitCode": 0, "timestamp": "2026-10-15", "summary": "251 frontend tests pass; existing dependencies only"},
+    {"command": "Fresh backend default-path exact-to-past verification", "status": "pass", "exitCode": 0, "timestamp": "2026-10-15", "summary": "48 requests across DI fallback/appsettings processes, first inflected request succeeds without warmup"},
+    {"command": "Actual start-demo then existing packaged Playwright test repeat-each=3", "status": "pass", "exitCode": 0, "timestamp": "2026-10-15", "summary": "Three fresh Brave profiles and 18 real API requests; no skip, retry or prewarm"},
+    {"command": "Private original-table/.env comparison and accepted-file hash checks", "status": "pass", "exitCode": 0, "timestamp": "2026-10-15", "summary": "20 original tables, .env and 12 accepted F09 file bindings unchanged"}
+  ],
+  "beforeAfter": {"before": "Fresh localhost backend missed first past lookup; reversal reproduced", "after": "IPv4 defaults pass first past lookup and repeated real popup"},
+  "report": "plans/261015-f09-local-sidecar-stability/reports/validation-report.md"
+}

@@ -1,0 +1,10 @@
+{
+  "skill": "ck:cook",
+  "mode": "code",
+  "task": "Implement user-approved isolated local dictionary demo",
+  "acceptanceCriteria": ["Only loopback jp_dict_demo may be seeded", "Seed 17 frozen synthetic fixtures, not expected answers", "Idempotent repeat and unchanged original database", "Real API-backed packaged popup shows Vietnamese meaning and F09"],
+  "touchpoints": ["src/infra/Demo/DemoDictionarySeeder.cs", "src/interface/DemoDictionaryCommand.cs", "src/interface/Program.cs", "scripts/prepare-demo.ps1", "scripts/start-demo.ps1", "extension/tests/demo/demo-dictionary-smoke.test.ts"],
+  "publicContracts": ["Explicit --seed-demo-dictionary operator CLI", "prepare-demo.ps1/start-demo.ps1", "Existing analysis contracts remain unchanged"],
+  "blastRadius": ["Local demo provisioning", "Normal startup command dispatch", "Existing Windows launcher reuse"],
+  "scoutSummary": "Original dictionary is empty. Corpus has 17 synthetic word fixtures. Separate database in existing PostgreSQL container avoids production import/reset."
+}

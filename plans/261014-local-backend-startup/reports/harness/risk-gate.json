@@ -1,0 +1,9 @@
+{
+  "highRisk": true,
+  "reasons": ["Process-local database credential handling", "Startup failure behavior changes", "Known Ubuntu CI incompatibility retained outside user-selected Windows scope"],
+  "autoStopRequired": true,
+  "humanApproved": true,
+  "largeDiff": false,
+  "approvalScope": "Actual Proceed approved local startup fixes;later user explicitly chose Windows-only and declined Ubuntu changes. No Git delivery or user database migration authorized.",
+  "deliveryBlocked": true
+}

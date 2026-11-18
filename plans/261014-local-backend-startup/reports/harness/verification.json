@@ -1,0 +1,14 @@
+{
+  "commands": [
+    { "command": "dotnet build JPReadingPlatform.sln --no-restore --configuration Release", "status": "pass", "exitCode": 0, "timestamp": "2026-10-14", "summary": "Zero warnings and errors;existing dependencies only." },
+    { "command": "dotnet test tests/integration/IntegrationTests.csproj --no-build --configuration Release --filter startup/config/script classes", "status": "pass", "exitCode": 0, "timestamp": "2026-10-14", "summary": "17 targeted tests pass,no failures/skips;Windows PowerShell5 and7 exercised." },
+    { "command": "dotnet test tests/unit/UnitTests.csproj --no-build --configuration Release", "status": "pass", "exitCode": 0, "timestamp": "2026-10-14", "summary": "79 unit tests pass,no failures/skips." },
+    { "command": "dotnet test tests/integration/IntegrationTests.csproj --no-build --configuration Release", "status": "pass", "exitCode": 0, "timestamp": "2026-10-14", "summary": "135 tests pass,no failures/skips;real database and original analysis HTTP boundary exercised in isolated fixtures." },
+    { "command": "npm run typecheck and npm run test -- --run", "status": "pass", "exitCode": 0, "timestamp": "2026-10-14", "summary": "Typecheck and251 frontend tests pass;temporary-cache sandbox failure resolved by escalated rerun." },
+    { "command": "scripts/start-local.ps1 -ValidateOnly", "status": "pass", "exitCode": 0, "timestamp": "2026-10-14", "summary": "Real local configuration validates without displaying values,starting services or modifying the database." }
+  ],
+  "beforeAfter": { "before": "Missing configuration allowed health200 while analysis failed resolving context;missing-value regression failed.", "after": "Missing configuration fails fast,startup database errors block HTTP,and analysis returns200 on isolated host. Existing user process remains untouched." },
+  "platform": "Windows",
+  "unverified": ["Ubuntu execution", "User smoke after restarting original backend"],
+  "workflowHook": "Documented invocation failed MODULE_NOT_FOUND;not a passing validator result. Explicit fallback preserves hard-delivery blocker."
+}

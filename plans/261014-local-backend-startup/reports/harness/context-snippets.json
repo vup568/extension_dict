@@ -1,0 +1,11 @@
+{
+  "skill": "ck:fix",
+  "mode": "auto",
+  "task": "Fix Windows local backend startup configuration",
+  "acceptanceCriteria": ["Missing database configuration fails early", "Database initialization must precede HTTP", "Local helper safely supplies configuration", "Windows regression passes without changing accepted F09 artifacts"],
+  "touchpoints": ["src/infra/DependencyInjection.cs", "src/interface/Program.cs", "src/interface/DatabaseStartup.cs", "scripts/start-local.ps1", "scripts/local-backend-config.ps1", "tests/integration/BackendConfigurationTests.cs", "tests/integration/DatabaseStartupTests.cs", "tests/integration/LocalBackendScriptTests.cs"],
+  "publicContracts": ["HTTP response shapes and database schema unchanged", "Startup intentionally fails on absent configuration or failed migration", "Existing process configuration takes precedence"],
+  "blastRadius": ["Backend startup", "EF repository resolution", "Dictionary and unified analysis", "Local launch workflow", "Integration test execution"],
+  "scoutSummary": "Conditional context registration plus swallowed initialization exposed healthy HTTP with unresolved EF repositories. Direct dotnet run did not load the Compose dotenv configuration.",
+  "scope": "Windows local handoff;Ubuntu fix explicitly declined by user"
+}

@@ -1,0 +1,2720 @@
+{
+  "schema_version": 1,
+  "status": "proposed-owner-review-required",
+  "method": "Independent Python stdlib ElementTree reads pinned source bytes, without using importer or runtime DTO projections. Expected raw facts require owner semantic review.",
+  "source_hashes": {
+    "JMdict_e.gz": "1e89ac398ec0230b7bb1daa246ce0095421bf3667bb6509aab93e26e7fdfd1b5",
+    "kanjidic2.xml.gz": "83f7b8775e6a66a4c10620b49101644d51d6de75cea329e1bff6994a982cc70d",
+    "star_nhatviet.tab": "0ab16ce4121f5228a529203506bb771392b33dcd64eef1b109f91facad433f0e"
+  },
+  "cases": [
+    {
+      "case_id": "lookup-01",
+      "kind": "exact-source",
+      "query": "裁判官",
+      "expected_source_records": [
+        {
+          "canonical_id": "dictionary:jmdict:1296130",
+          "forms": [
+            "裁判官"
+          ],
+          "readings": [
+            {
+              "text": "さいばんかん",
+              "no_kanji": false,
+              "restricted_to_forms": []
+            }
+          ],
+          "senses": [
+            {
+              "sense_key": "1",
+              "pos_descriptions": [
+                "noun (common) (futsuumeishi)"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "judge"
+              ]
+            }
+          ]
+        }
+      ],
+      "review_status": "proposed"
+    },
+    {
+      "case_id": "lookup-02",
+      "kind": "exact-source",
+      "query": "学生",
+      "expected_source_records": [
+        {
+          "canonical_id": "dictionary:jmdict:1206900",
+          "forms": [
+            "学生",
+            "學生"
+          ],
+          "readings": [
+            {
+              "text": "がくせい",
+              "no_kanji": false,
+              "restricted_to_forms": []
+            }
+          ],
+          "senses": [
+            {
+              "sense_key": "1",
+              "pos_descriptions": [
+                "noun (common) (futsuumeishi)"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "student (esp. a university student)"
+              ]
+            }
+          ]
+        },
+        {
+          "canonical_id": "dictionary:jmdict:2586260",
+          "forms": [
+            "学生"
+          ],
+          "readings": [
+            {
+              "text": "がくしょう",
+              "no_kanji": false,
+              "restricted_to_forms": []
+            },
+            {
+              "text": "がくそう",
+              "no_kanji": false,
+              "restricted_to_forms": []
+            }
+          ],
+          "senses": [
+            {
+              "sense_key": "1",
+              "pos_descriptions": [
+                "noun (common) (futsuumeishi)"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "Heian-period student of government administration"
+              ]
+            },
+            {
+              "sense_key": "2",
+              "pos_descriptions": [
+                "noun (common) (futsuumeishi)"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "Buddhist scholar",
+                "researcher at a Buddhist temple",
+                "person studying Buddhism"
+              ]
+            },
+            {
+              "sense_key": "3",
+              "pos_descriptions": [
+                "noun (common) (futsuumeishi)"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "learning",
+                "scholarship"
+              ]
+            }
+          ]
+        }
+      ],
+      "review_status": "proposed"
+    },
+    {
+      "case_id": "lookup-03",
+      "kind": "exact-source",
+      "query": "経済",
+      "expected_source_records": [
+        {
+          "canonical_id": "dictionary:jmdict:1251320",
+          "forms": [
+            "経済"
+          ],
+          "readings": [
+            {
+              "text": "けいざい",
+              "no_kanji": false,
+              "restricted_to_forms": []
+            }
+          ],
+          "senses": [
+            {
+              "sense_key": "1",
+              "pos_descriptions": [
+                "noun (common) (futsuumeishi)"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "economy",
+                "economics"
+              ]
+            },
+            {
+              "sense_key": "2",
+              "pos_descriptions": [
+                "noun (common) (futsuumeishi)"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "finance",
+                "(one's) finances",
+                "financial circumstances"
+              ]
+            },
+            {
+              "sense_key": "3",
+              "pos_descriptions": [
+                "noun (common) (futsuumeishi)"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "being economical",
+                "economy",
+                "thrift"
+              ]
+            }
+          ]
+        }
+      ],
+      "review_status": "proposed"
+    },
+    {
+      "case_id": "lookup-04",
+      "kind": "exact-source",
+      "query": "図書館",
+      "expected_source_records": [
+        {
+          "canonical_id": "dictionary:jmdict:1370420",
+          "forms": [
+            "図書館"
+          ],
+          "readings": [
+            {
+              "text": "としょかん",
+              "no_kanji": false,
+              "restricted_to_forms": []
+            },
+            {
+              "text": "ずしょかん",
+              "no_kanji": false,
+              "restricted_to_forms": []
+            }
+          ],
+          "senses": [
+            {
+              "sense_key": "1",
+              "pos_descriptions": [
+                "noun (common) (futsuumeishi)"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "library"
+              ]
+            }
+          ]
+        }
+      ],
+      "review_status": "proposed"
+    },
+    {
+      "case_id": "lookup-05",
+      "kind": "exact-source",
+      "query": "約束",
+      "expected_source_records": [
+        {
+          "canonical_id": "dictionary:jmdict:1538130",
+          "forms": [
+            "約束"
+          ],
+          "readings": [
+            {
+              "text": "やくそく",
+              "no_kanji": false,
+              "restricted_to_forms": []
+            }
+          ],
+          "senses": [
+            {
+              "sense_key": "1",
+              "pos_descriptions": [
+                "noun (common) (futsuumeishi)",
+                "noun or participle which takes the aux. verb suru",
+                "transitive verb"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "promise",
+                "agreement",
+                "arrangement",
+                "one's word",
+                "contract",
+                "pact"
+              ]
+            },
+            {
+              "sense_key": "2",
+              "pos_descriptions": [
+                "noun (common) (futsuumeishi)"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "appointment",
+                "engagement",
+                "date"
+              ]
+            },
+            {
+              "sense_key": "3",
+              "pos_descriptions": [
+                "noun (common) (futsuumeishi)"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "convention",
+                "rule"
+              ]
+            },
+            {
+              "sense_key": "4",
+              "pos_descriptions": [
+                "noun (common) (futsuumeishi)",
+                "noun or participle which takes the aux. verb suru",
+                "transitive verb"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "destiny",
+                "fate"
+              ]
+            }
+          ]
+        }
+      ],
+      "review_status": "proposed"
+    },
+    {
+      "case_id": "lookup-06",
+      "kind": "exact-source",
+      "query": "病院",
+      "expected_source_records": [
+        {
+          "canonical_id": "dictionary:jmdict:1490220",
+          "forms": [
+            "病院"
+          ],
+          "readings": [
+            {
+              "text": "びょういん",
+              "no_kanji": false,
+              "restricted_to_forms": []
+            }
+          ],
+          "senses": [
+            {
+              "sense_key": "1",
+              "pos_descriptions": [
+                "noun (common) (futsuumeishi)"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "hospital",
+                "clinic",
+                "doctor's office",
+                "doctor's surgery",
+                "infirmary"
+              ]
+            }
+          ]
+        }
+      ],
+      "review_status": "proposed"
+    },
+    {
+      "case_id": "lookup-07",
+      "kind": "exact-source",
+      "query": "電車",
+      "expected_source_records": [
+        {
+          "canonical_id": "dictionary:jmdict:1443530",
+          "forms": [
+            "電車"
+          ],
+          "readings": [
+            {
+              "text": "でんしゃ",
+              "no_kanji": false,
+              "restricted_to_forms": []
+            }
+          ],
+          "senses": [
+            {
+              "sense_key": "1",
+              "pos_descriptions": [
+                "noun (common) (futsuumeishi)"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "train",
+                "electric train"
+              ]
+            }
+          ]
+        }
+      ],
+      "review_status": "proposed"
+    },
+    {
+      "case_id": "lookup-08",
+      "kind": "exact-source",
+      "query": "新聞",
+      "expected_source_records": [
+        {
+          "canonical_id": "dictionary:jmdict:1362360",
+          "forms": [
+            "新聞"
+          ],
+          "readings": [
+            {
+              "text": "しんぶん",
+              "no_kanji": false,
+              "restricted_to_forms": []
+            }
+          ],
+          "senses": [
+            {
+              "sense_key": "1",
+              "pos_descriptions": [
+                "noun (common) (futsuumeishi)"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "newspaper"
+              ]
+            }
+          ]
+        }
+      ],
+      "review_status": "proposed"
+    },
+    {
+      "case_id": "lookup-09",
+      "kind": "exact-source",
+      "query": "会社",
+      "expected_source_records": [
+        {
+          "canonical_id": "dictionary:jmdict:1198550",
+          "forms": [
+            "会社",
+            "會社"
+          ],
+          "readings": [
+            {
+              "text": "かいしゃ",
+              "no_kanji": false,
+              "restricted_to_forms": []
+            }
+          ],
+          "senses": [
+            {
+              "sense_key": "1",
+              "pos_descriptions": [
+                "noun (common) (futsuumeishi)"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "company",
+                "corporation",
+                "firm"
+              ]
+            },
+            {
+              "sense_key": "2",
+              "pos_descriptions": [
+                "noun (common) (futsuumeishi)"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "one's workplace"
+              ]
+            }
+          ]
+        }
+      ],
+      "review_status": "proposed"
+    },
+    {
+      "case_id": "lookup-10",
+      "kind": "exact-source",
+      "query": "勉強",
+      "expected_source_records": [
+        {
+          "canonical_id": "dictionary:jmdict:1512670",
+          "forms": [
+            "勉強"
+          ],
+          "readings": [
+            {
+              "text": "べんきょう",
+              "no_kanji": false,
+              "restricted_to_forms": []
+            }
+          ],
+          "senses": [
+            {
+              "sense_key": "1",
+              "pos_descriptions": [
+                "noun (common) (futsuumeishi)",
+                "noun or participle which takes the aux. verb suru",
+                "transitive verb"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "study"
+              ]
+            },
+            {
+              "sense_key": "2",
+              "pos_descriptions": [
+                "noun (common) (futsuumeishi)",
+                "noun or participle which takes the aux. verb suru",
+                "intransitive verb"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "diligence",
+                "working hard"
+              ]
+            },
+            {
+              "sense_key": "3",
+              "pos_descriptions": [
+                "noun (common) (futsuumeishi)"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "experience",
+                "knowledge",
+                "lesson (for the future)"
+              ]
+            },
+            {
+              "sense_key": "4",
+              "pos_descriptions": [
+                "noun (common) (futsuumeishi)",
+                "noun or participle which takes the aux. verb suru",
+                "transitive verb",
+                "intransitive verb"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "discount",
+                "price reduction"
+              ]
+            }
+          ]
+        }
+      ],
+      "review_status": "proposed"
+    },
+    {
+      "case_id": "lookup-11",
+      "kind": "exact-source",
+      "query": "泳ぐ",
+      "expected_source_records": [
+        {
+          "canonical_id": "dictionary:jmdict:1174340",
+          "forms": [
+            "泳ぐ",
+            "游ぐ"
+          ],
+          "readings": [
+            {
+              "text": "およぐ",
+              "no_kanji": false,
+              "restricted_to_forms": []
+            }
+          ],
+          "senses": [
+            {
+              "sense_key": "1",
+              "pos_descriptions": [
+                "Godan verb with 'gu' ending",
+                "intransitive verb"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "to swim"
+              ]
+            },
+            {
+              "sense_key": "2",
+              "pos_descriptions": [
+                "Godan verb with 'gu' ending",
+                "intransitive verb"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "to struggle through (a crowd)"
+              ]
+            },
+            {
+              "sense_key": "3",
+              "pos_descriptions": [
+                "Godan verb with 'gu' ending",
+                "intransitive verb"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "to make one's way through the world",
+                "to get along (in life)"
+              ]
+            },
+            {
+              "sense_key": "4",
+              "pos_descriptions": [
+                "Godan verb with 'gu' ending",
+                "intransitive verb"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "to totter",
+                "to lose one's balance"
+              ]
+            }
+          ]
+        }
+      ],
+      "review_status": "proposed"
+    },
+    {
+      "case_id": "lookup-12",
+      "kind": "exact-source",
+      "query": "読む",
+      "expected_source_records": [
+        {
+          "canonical_id": "dictionary:jmdict:1456360",
+          "forms": [
+            "読む",
+            "讀む",
+            "訓む"
+          ],
+          "readings": [
+            {
+              "text": "よむ",
+              "no_kanji": false,
+              "restricted_to_forms": []
+            }
+          ],
+          "senses": [
+            {
+              "sense_key": "1",
+              "pos_descriptions": [
+                "Godan verb with 'mu' ending",
+                "transitive verb"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "to read"
+              ]
+            },
+            {
+              "sense_key": "2",
+              "pos_descriptions": [
+                "Godan verb with 'mu' ending",
+                "transitive verb"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "to recite (e.g. a sutra)",
+                "to chant"
+              ]
+            },
+            {
+              "sense_key": "3",
+              "pos_descriptions": [
+                "Godan verb with 'mu' ending",
+                "transitive verb"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "to predict",
+                "to guess",
+                "to forecast",
+                "to read (someone's thoughts)",
+                "to see (e.g. into someone's heart)",
+                "to divine"
+              ]
+            },
+            {
+              "sense_key": "4",
+              "pos_descriptions": [
+                "Godan verb with 'mu' ending",
+                "transitive verb"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "to pronounce",
+                "to read (e.g. a kanji)"
+              ]
+            },
+            {
+              "sense_key": "5",
+              "pos_descriptions": [
+                "Godan verb with 'mu' ending",
+                "transitive verb"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "to decipher",
+                "to read (a meter, graph, music, etc.)",
+                "to tell (the time)"
+              ]
+            },
+            {
+              "sense_key": "6",
+              "pos_descriptions": [
+                "Godan verb with 'mu' ending",
+                "transitive verb"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "to count",
+                "to estimate"
+              ]
+            },
+            {
+              "sense_key": "7",
+              "pos_descriptions": [
+                "Godan verb with 'mu' ending",
+                "transitive verb"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "to read (a kanji) with its native Japanese reading"
+              ]
+            }
+          ]
+        }
+      ],
+      "review_status": "proposed"
+    },
+    {
+      "case_id": "lookup-13",
+      "kind": "exact-source",
+      "query": "書く",
+      "expected_source_records": [
+        {
+          "canonical_id": "dictionary:jmdict:1343950",
+          "forms": [
+            "書く"
+          ],
+          "readings": [
+            {
+              "text": "かく",
+              "no_kanji": false,
+              "restricted_to_forms": []
+            }
+          ],
+          "senses": [
+            {
+              "sense_key": "1",
+              "pos_descriptions": [
+                "Godan verb with 'ku' ending",
+                "transitive verb"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "to write",
+                "to compose",
+                "to pen"
+              ]
+            },
+            {
+              "sense_key": "2",
+              "pos_descriptions": [
+                "Godan verb with 'ku' ending",
+                "transitive verb"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "to draw",
+                "to paint"
+              ]
+            }
+          ]
+        }
+      ],
+      "review_status": "proposed"
+    },
+    {
+      "case_id": "lookup-14",
+      "kind": "exact-source",
+      "query": "行く",
+      "expected_source_records": [
+        {
+          "canonical_id": "dictionary:jmdict:1578850",
+          "forms": [
+            "行く",
+            "往く"
+          ],
+          "readings": [
+            {
+              "text": "いく",
+              "no_kanji": false,
+              "restricted_to_forms": []
+            },
+            {
+              "text": "ゆく",
+              "no_kanji": false,
+              "restricted_to_forms": []
+            },
+            {
+              "text": "イク",
+              "no_kanji": false,
+              "restricted_to_forms": []
+            }
+          ],
+          "senses": [
+            {
+              "sense_key": "1",
+              "pos_descriptions": [
+                "Godan verb - Iku/Yuku special class",
+                "intransitive verb"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "to go",
+                "to move (towards)",
+                "to head (towards)",
+                "to leave (for)"
+              ]
+            },
+            {
+              "sense_key": "2",
+              "pos_descriptions": [
+                "Godan verb - Iku/Yuku special class",
+                "intransitive verb"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "to move through",
+                "to travel across",
+                "to walk along (e.g. a road)"
+              ]
+            },
+            {
+              "sense_key": "3",
+              "pos_descriptions": [
+                "Godan verb - Iku/Yuku special class",
+                "intransitive verb"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "to go (well, badly, etc.)",
+                "to proceed",
+                "to turn out",
+                "to get along"
+              ]
+            },
+            {
+              "sense_key": "4",
+              "pos_descriptions": [
+                "Godan verb - Iku/Yuku special class",
+                "intransitive verb"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "to do (in a particular way)",
+                "to go (with; a choice)",
+                "to try"
+              ]
+            },
+            {
+              "sense_key": "5",
+              "pos_descriptions": [
+                "Godan verb - Iku/Yuku special class",
+                "intransitive verb"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "to pass (of time, seasons, etc.)",
+                "to go by"
+              ]
+            },
+            {
+              "sense_key": "6",
+              "pos_descriptions": [
+                "Godan verb - Iku/Yuku special class",
+                "intransitive verb"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "to stream",
+                "to flow"
+              ]
+            },
+            {
+              "sense_key": "7",
+              "pos_descriptions": [
+                "Godan verb - Iku/Yuku special class",
+                "intransitive verb"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "to die",
+                "to pass away"
+              ]
+            },
+            {
+              "sense_key": "8",
+              "pos_descriptions": [
+                "Godan verb - Iku/Yuku special class",
+                "intransitive verb"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "to reach (a stage, extent, age, etc.)",
+                "to get to",
+                "to go (so far as ...)"
+              ]
+            },
+            {
+              "sense_key": "9",
+              "pos_descriptions": [
+                "Godan verb - Iku/Yuku special class",
+                "intransitive verb"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "to reach (of information, instructions, wind, etc.)",
+                "to arrive"
+              ]
+            },
+            {
+              "sense_key": "10",
+              "pos_descriptions": [
+                "auxiliary verb",
+                "Godan verb - Iku/Yuku special class"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "to continue ...",
+                "to go on ...",
+                "to (progress) steadily",
+                "to gradually ...",
+                "to progressively ..."
+              ]
+            },
+            {
+              "sense_key": "11",
+              "pos_descriptions": [
+                "Godan verb - Iku/Yuku special class",
+                "intransitive verb"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "to have an orgasm",
+                "to come",
+                "to cum"
+              ]
+            },
+            {
+              "sense_key": "12",
+              "pos_descriptions": [
+                "Godan verb - Iku/Yuku special class",
+                "intransitive verb"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "to trip",
+                "to get high",
+                "to have a drug-induced hallucination"
+              ]
+            }
+          ]
+        }
+      ],
+      "review_status": "proposed"
+    },
+    {
+      "case_id": "lookup-15",
+      "kind": "exact-source",
+      "query": "来る",
+      "expected_source_records": [
+        {
+          "canonical_id": "dictionary:jmdict:1547720",
+          "forms": [
+            "来る",
+            "來る"
+          ],
+          "readings": [
+            {
+              "text": "くる",
+              "no_kanji": false,
+              "restricted_to_forms": []
+            },
+            {
+              "text": "クる",
+              "no_kanji": false,
+              "restricted_to_forms": []
+            }
+          ],
+          "senses": [
+            {
+              "sense_key": "1",
+              "pos_descriptions": [
+                "Kuru verb - special class",
+                "intransitive verb"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "to come (spatially or temporally)",
+                "to approach",
+                "to arrive"
+              ]
+            },
+            {
+              "sense_key": "2",
+              "pos_descriptions": [
+                "Kuru verb - special class",
+                "intransitive verb",
+                "auxiliary verb"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "to come back",
+                "to do ... and come back"
+              ]
+            },
+            {
+              "sense_key": "3",
+              "pos_descriptions": [
+                "Kuru verb - special class",
+                "intransitive verb",
+                "auxiliary verb"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "to come to be",
+                "to become",
+                "to get",
+                "to grow",
+                "to continue"
+              ]
+            },
+            {
+              "sense_key": "4",
+              "pos_descriptions": [
+                "Kuru verb - special class",
+                "intransitive verb"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "to come from",
+                "to be caused by",
+                "to derive from"
+              ]
+            },
+            {
+              "sense_key": "5",
+              "pos_descriptions": [
+                "Kuru verb - special class",
+                "intransitive verb"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "to come to (e.g. \"when it comes to spinach ...\")"
+              ]
+            }
+          ]
+        },
+        {
+          "canonical_id": "dictionary:jmdict:1591270",
+          "forms": [
+            "来る",
+            "来たる"
+          ],
+          "readings": [
+            {
+              "text": "きたる",
+              "no_kanji": false,
+              "restricted_to_forms": []
+            }
+          ],
+          "senses": [
+            {
+              "sense_key": "1",
+              "pos_descriptions": [
+                "pre-noun adjectival (rentaishi)"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "next (e.g. \"next April\")",
+                "forthcoming",
+                "coming"
+              ]
+            },
+            {
+              "sense_key": "2",
+              "pos_descriptions": [
+                "Godan verb with 'ru' ending",
+                "intransitive verb"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "to come",
+                "to arrive",
+                "to be due to"
+              ]
+            }
+          ]
+        }
+      ],
+      "review_status": "proposed"
+    },
+    {
+      "case_id": "lookup-16",
+      "kind": "exact-source",
+      "query": "する",
+      "expected_source_records": [
+        {
+          "canonical_id": "dictionary:jmdict:1157170",
+          "forms": [
+            "為る"
+          ],
+          "readings": [
+            {
+              "text": "する",
+              "no_kanji": false,
+              "restricted_to_forms": []
+            }
+          ],
+          "senses": [
+            {
+              "sense_key": "1",
+              "pos_descriptions": [
+                "suru verb - included"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "to do",
+                "to carry out",
+                "to perform"
+              ]
+            },
+            {
+              "sense_key": "2",
+              "pos_descriptions": [
+                "suru verb - included"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "to cause to become",
+                "to make (into)",
+                "to turn (into)"
+              ]
+            },
+            {
+              "sense_key": "3",
+              "pos_descriptions": [
+                "suru verb - included"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "to serve as",
+                "to act as",
+                "to work as"
+              ]
+            },
+            {
+              "sense_key": "4",
+              "pos_descriptions": [
+                "suru verb - included"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "to wear (clothes, a facial expression, etc.)"
+              ]
+            },
+            {
+              "sense_key": "5",
+              "pos_descriptions": [
+                "suru verb - included"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "to judge as being",
+                "to view as being",
+                "to think of as",
+                "to treat as",
+                "to use as"
+              ]
+            },
+            {
+              "sense_key": "6",
+              "pos_descriptions": [
+                "suru verb - included"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "to decide on",
+                "to choose"
+              ]
+            },
+            {
+              "sense_key": "7",
+              "pos_descriptions": [
+                "suru verb - included",
+                "intransitive verb"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "to be sensed (of a smell, noise, etc.)"
+              ]
+            },
+            {
+              "sense_key": "8",
+              "pos_descriptions": [
+                "suru verb - included",
+                "intransitive verb"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "to be (in a state, condition, etc.)"
+              ]
+            },
+            {
+              "sense_key": "9",
+              "pos_descriptions": [
+                "suru verb - included",
+                "intransitive verb"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "to be worth",
+                "to cost"
+              ]
+            },
+            {
+              "sense_key": "10",
+              "pos_descriptions": [
+                "suru verb - included",
+                "intransitive verb"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "to pass (of time)",
+                "to elapse"
+              ]
+            },
+            {
+              "sense_key": "11",
+              "pos_descriptions": [
+                "suru verb - included",
+                "transitive verb"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "to place, or raise, person A to a post or status B"
+              ]
+            },
+            {
+              "sense_key": "12",
+              "pos_descriptions": [
+                "suru verb - included",
+                "transitive verb"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "to transform A to B",
+                "to make A into B",
+                "to exchange A for B"
+              ]
+            },
+            {
+              "sense_key": "13",
+              "pos_descriptions": [
+                "suru verb - included",
+                "transitive verb"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "to make use of A for B",
+                "to view A as B",
+                "to handle A as if it were B"
+              ]
+            },
+            {
+              "sense_key": "14",
+              "pos_descriptions": [
+                "suru verb - included",
+                "transitive verb"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "to feel A about B"
+              ]
+            },
+            {
+              "sense_key": "15",
+              "pos_descriptions": [
+                "suffix",
+                "suru verb - included"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "verbalizing suffix (applies to nouns noted in this dictionary with the part of speech \"vs\")"
+              ]
+            },
+            {
+              "sense_key": "16",
+              "pos_descriptions": [
+                "auxiliary verb",
+                "suru verb - included"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "creates a humble verb (after a noun prefixed with \"o\" or \"go\")"
+              ]
+            },
+            {
+              "sense_key": "17",
+              "pos_descriptions": [
+                "auxiliary verb",
+                "suru verb - included"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "to be just about to",
+                "to be just starting to",
+                "to try to",
+                "to attempt to"
+              ]
+            }
+          ]
+        },
+        {
+          "canonical_id": "dictionary:jmdict:1298670",
+          "forms": [
+            "刷る",
+            "摺る"
+          ],
+          "readings": [
+            {
+              "text": "する",
+              "no_kanji": false,
+              "restricted_to_forms": []
+            }
+          ],
+          "senses": [
+            {
+              "sense_key": "1",
+              "pos_descriptions": [
+                "Godan verb with 'ru' ending",
+                "transitive verb"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "to print"
+              ]
+            },
+            {
+              "sense_key": "2",
+              "pos_descriptions": [
+                "Godan verb with 'ru' ending",
+                "transitive verb"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "to color or pattern fabric using a wooden mold"
+              ]
+            }
+          ]
+        },
+        {
+          "canonical_id": "dictionary:jmdict:1567440",
+          "forms": [
+            "掏る"
+          ],
+          "readings": [
+            {
+              "text": "する",
+              "no_kanji": false,
+              "restricted_to_forms": []
+            },
+            {
+              "text": "スる",
+              "no_kanji": true,
+              "restricted_to_forms": []
+            }
+          ],
+          "senses": [
+            {
+              "sense_key": "1",
+              "pos_descriptions": [
+                "Godan verb with 'ru' ending",
+                "transitive verb"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "to pickpocket",
+                "to steal"
+              ]
+            }
+          ]
+        },
+        {
+          "canonical_id": "dictionary:jmdict:1581900",
+          "forms": [
+            "剃る"
+          ],
+          "readings": [
+            {
+              "text": "そる",
+              "no_kanji": false,
+              "restricted_to_forms": []
+            },
+            {
+              "text": "する",
+              "no_kanji": false,
+              "restricted_to_forms": []
+            }
+          ],
+          "senses": [
+            {
+              "sense_key": "1",
+              "pos_descriptions": [
+                "Godan verb with 'ru' ending",
+                "transitive verb"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "to shave"
+              ]
+            }
+          ]
+        },
+        {
+          "canonical_id": "dictionary:jmdict:1595910",
+          "forms": [
+            "擦る",
+            "擂る",
+            "摩る",
+            "磨る"
+          ],
+          "readings": [
+            {
+              "text": "する",
+              "no_kanji": false,
+              "restricted_to_forms": []
+            }
+          ],
+          "senses": [
+            {
+              "sense_key": "1",
+              "pos_descriptions": [
+                "Godan verb with 'ru' ending",
+                "transitive verb"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "to rub",
+                "to chafe",
+                "to strike (match)",
+                "to file",
+                "to frost (glass)"
+              ]
+            },
+            {
+              "sense_key": "2",
+              "pos_descriptions": [
+                "Godan verb with 'ru' ending",
+                "transitive verb"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "to squander (one's money)",
+                "to run through (one's fortune)",
+                "to lose money (e.g. by gambling)"
+              ]
+            }
+          ]
+        }
+      ],
+      "review_status": "proposed"
+    },
+    {
+      "case_id": "lookup-17",
+      "kind": "exact-source",
+      "query": "食べる",
+      "expected_source_records": [
+        {
+          "canonical_id": "dictionary:jmdict:1358280",
+          "forms": [
+            "食べる",
+            "喰べる"
+          ],
+          "readings": [
+            {
+              "text": "たべる",
+              "no_kanji": false,
+              "restricted_to_forms": []
+            }
+          ],
+          "senses": [
+            {
+              "sense_key": "1",
+              "pos_descriptions": [
+                "Ichidan verb",
+                "transitive verb"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "to eat"
+              ]
+            },
+            {
+              "sense_key": "2",
+              "pos_descriptions": [
+                "Ichidan verb",
+                "transitive verb"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "to live on (e.g. a salary)",
+                "to live off",
+                "to subsist on"
+              ]
+            }
+          ]
+        }
+      ],
+      "review_status": "proposed"
+    },
+    {
+      "case_id": "lookup-18",
+      "kind": "exact-source",
+      "query": "高い",
+      "expected_source_records": [
+        {
+          "canonical_id": "dictionary:jmdict:1283190",
+          "forms": [
+            "高い",
+            "高価い",
+            "高ーい"
+          ],
+          "readings": [
+            {
+              "text": "たかい",
+              "no_kanji": false,
+              "restricted_to_forms": []
+            },
+            {
+              "text": "たかーい",
+              "no_kanji": false,
+              "restricted_to_forms": []
+            },
+            {
+              "text": "たっけー",
+              "no_kanji": false,
+              "restricted_to_forms": []
+            },
+            {
+              "text": "たっかーい",
+              "no_kanji": false,
+              "restricted_to_forms": []
+            }
+          ],
+          "senses": [
+            {
+              "sense_key": "1",
+              "pos_descriptions": [
+                "adjective (keiyoushi)"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "high",
+                "tall"
+              ]
+            },
+            {
+              "sense_key": "2",
+              "pos_descriptions": [
+                "adjective (keiyoushi)"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "expensive",
+                "high-priced"
+              ]
+            },
+            {
+              "sense_key": "3",
+              "pos_descriptions": [
+                "adjective (keiyoushi)"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "high (level)",
+                "above average (in degree, quality, etc.)"
+              ]
+            },
+            {
+              "sense_key": "4",
+              "pos_descriptions": [
+                "adjective (keiyoushi)"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "loud"
+              ]
+            },
+            {
+              "sense_key": "5",
+              "pos_descriptions": [
+                "adjective (keiyoushi)"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "high-pitched",
+                "shrill"
+              ]
+            }
+          ]
+        }
+      ],
+      "review_status": "proposed"
+    },
+    {
+      "case_id": "lookup-19",
+      "kind": "exact-source",
+      "query": "静か",
+      "expected_source_records": [
+        {
+          "canonical_id": "dictionary:jmdict:1381820",
+          "forms": [
+            "静か",
+            "閑か",
+            "徐か"
+          ],
+          "readings": [
+            {
+              "text": "しずか",
+              "no_kanji": false,
+              "restricted_to_forms": []
+            }
+          ],
+          "senses": [
+            {
+              "sense_key": "1",
+              "pos_descriptions": [
+                "adjectival nouns or quasi-adjectives (keiyodoshi)"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "quiet",
+                "silent"
+              ]
+            },
+            {
+              "sense_key": "2",
+              "pos_descriptions": [
+                "adjectival nouns or quasi-adjectives (keiyodoshi)"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "slow",
+                "unhurried"
+              ]
+            },
+            {
+              "sense_key": "3",
+              "pos_descriptions": [
+                "adjectival nouns or quasi-adjectives (keiyodoshi)"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "calm",
+                "peaceful"
+              ]
+            }
+          ]
+        }
+      ],
+      "review_status": "proposed"
+    },
+    {
+      "case_id": "lookup-20",
+      "kind": "exact-source",
+      "query": "猫",
+      "expected_source_records": [
+        {
+          "canonical_id": "dictionary:jmdict:1467640",
+          "forms": [
+            "猫"
+          ],
+          "readings": [
+            {
+              "text": "ねこ",
+              "no_kanji": false,
+              "restricted_to_forms": []
+            },
+            {
+              "text": "ネコ",
+              "no_kanji": true,
+              "restricted_to_forms": []
+            }
+          ],
+          "senses": [
+            {
+              "sense_key": "1",
+              "pos_descriptions": [
+                "noun (common) (futsuumeishi)"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "cat (esp. the domestic cat, Felis catus)",
+                "feline"
+              ]
+            },
+            {
+              "sense_key": "2",
+              "pos_descriptions": [
+                "noun (common) (futsuumeishi)"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "shamisen"
+              ]
+            },
+            {
+              "sense_key": "3",
+              "pos_descriptions": [
+                "noun (common) (futsuumeishi)"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "geisha"
+              ]
+            },
+            {
+              "sense_key": "4",
+              "pos_descriptions": [
+                "noun (common) (futsuumeishi)"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "wheelbarrow"
+              ]
+            },
+            {
+              "sense_key": "5",
+              "pos_descriptions": [
+                "noun (common) (futsuumeishi)"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "clay bed-warmer"
+              ]
+            },
+            {
+              "sense_key": "6",
+              "pos_descriptions": [
+                "noun (common) (futsuumeishi)"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "bottom (submissive partner of a homosexual relationship)"
+              ]
+            }
+          ]
+        },
+        {
+          "canonical_id": "dictionary:jmdict:2698030",
+          "forms": [
+            "猫"
+          ],
+          "readings": [
+            {
+              "text": "ねこま",
+              "no_kanji": false,
+              "restricted_to_forms": []
+            }
+          ],
+          "senses": [
+            {
+              "sense_key": "1",
+              "pos_descriptions": [
+                "noun (common) (futsuumeishi)"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "cat"
+              ]
+            }
+          ]
+        }
+      ],
+      "review_status": "proposed"
+    },
+    {
+      "case_id": "lookup-21",
+      "kind": "exact-source",
+      "query": "ありがとう",
+      "expected_source_records": [
+        {
+          "canonical_id": "dictionary:jmdict:1586820",
+          "forms": [
+            "有難う",
+            "有り難う",
+            "有りがとう"
+          ],
+          "readings": [
+            {
+              "text": "ありがとう",
+              "no_kanji": false,
+              "restricted_to_forms": []
+            }
+          ],
+          "senses": [
+            {
+              "sense_key": "1",
+              "pos_descriptions": [
+                "interjection (kandoushi)"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "thank you",
+                "thanks"
+              ]
+            }
+          ]
+        }
+      ],
+      "review_status": "proposed"
+    },
+    {
+      "case_id": "lookup-22",
+      "kind": "exact-source",
+      "query": "おはよう",
+      "expected_source_records": [
+        {
+          "canonical_id": "dictionary:jmdict:1612820",
+          "forms": [
+            "お早う",
+            "御早う"
+          ],
+          "readings": [
+            {
+              "text": "おはよう",
+              "no_kanji": false,
+              "restricted_to_forms": []
+            },
+            {
+              "text": "おはよー",
+              "no_kanji": false,
+              "restricted_to_forms": []
+            }
+          ],
+          "senses": [
+            {
+              "sense_key": "1",
+              "pos_descriptions": [
+                "interjection (kandoushi)"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "good morning"
+              ]
+            }
+          ]
+        }
+      ],
+      "review_status": "proposed"
+    },
+    {
+      "case_id": "lookup-23",
+      "kind": "exact-source",
+      "query": "あまり",
+      "expected_source_records": [
+        {
+          "canonical_id": "dictionary:jmdict:1584930",
+          "forms": [
+            "余り",
+            "餘り",
+            "剰り"
+          ],
+          "readings": [
+            {
+              "text": "あまり",
+              "no_kanji": false,
+              "restricted_to_forms": []
+            },
+            {
+              "text": "あんまり",
+              "no_kanji": false,
+              "restricted_to_forms": []
+            }
+          ],
+          "senses": [
+            {
+              "sense_key": "1",
+              "pos_descriptions": [
+                "noun (common) (futsuumeishi)",
+                "nouns which may take the genitive case particle 'no'"
+              ],
+              "stagk": [],
+              "stagr": [
+                "あまり"
+              ],
+              "english": [
+                "remainder",
+                "remnant",
+                "rest",
+                "balance",
+                "surplus",
+                "remains (of a meal)",
+                "leftovers"
+              ]
+            },
+            {
+              "sense_key": "2",
+              "pos_descriptions": [
+                "adverb (fukushi)"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "(not) very",
+                "(not) much"
+              ]
+            },
+            {
+              "sense_key": "3",
+              "pos_descriptions": [
+                "adverb (fukushi)"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "too much",
+                "excessively",
+                "overly"
+              ]
+            },
+            {
+              "sense_key": "4",
+              "pos_descriptions": [
+                "adjectival nouns or quasi-adjectives (keiyodoshi)",
+                "nouns which may take the genitive case particle 'no'"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "extreme",
+                "great",
+                "severe",
+                "tremendous",
+                "terrible"
+              ]
+            },
+            {
+              "sense_key": "5",
+              "pos_descriptions": [
+                "adjectival nouns or quasi-adjectives (keiyodoshi)"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "not very good",
+                "so-so",
+                "mediocre"
+              ]
+            },
+            {
+              "sense_key": "6",
+              "pos_descriptions": [
+                "noun, used as a suffix"
+              ],
+              "stagk": [],
+              "stagr": [
+                "あまり"
+              ],
+              "english": [
+                "more than",
+                "over"
+              ]
+            }
+          ]
+        }
+      ],
+      "review_status": "proposed"
+    },
+    {
+      "case_id": "lookup-24",
+      "kind": "exact-source",
+      "query": "一昨日",
+      "expected_source_records": [
+        {
+          "canonical_id": "dictionary:jmdict:1576050",
+          "forms": [
+            "一昨日"
+          ],
+          "readings": [
+            {
+              "text": "おととい",
+              "no_kanji": false,
+              "restricted_to_forms": []
+            },
+            {
+              "text": "おとつい",
+              "no_kanji": false,
+              "restricted_to_forms": []
+            },
+            {
+              "text": "いっさくじつ",
+              "no_kanji": false,
+              "restricted_to_forms": []
+            }
+          ],
+          "senses": [
+            {
+              "sense_key": "1",
+              "pos_descriptions": [
+                "noun (common) (futsuumeishi)",
+                "adverb (fukushi)"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "day before yesterday"
+              ]
+            }
+          ]
+        }
+      ],
+      "review_status": "proposed"
+    },
+    {
+      "case_id": "lookup-25",
+      "kind": "exact-source",
+      "query": "明日",
+      "expected_source_records": [
+        {
+          "canonical_id": "dictionary:jmdict:1584660",
+          "forms": [
+            "明日"
+          ],
+          "readings": [
+            {
+              "text": "あした",
+              "no_kanji": false,
+              "restricted_to_forms": []
+            },
+            {
+              "text": "あす",
+              "no_kanji": false,
+              "restricted_to_forms": []
+            },
+            {
+              "text": "みょうにち",
+              "no_kanji": false,
+              "restricted_to_forms": []
+            }
+          ],
+          "senses": [
+            {
+              "sense_key": "1",
+              "pos_descriptions": [
+                "noun (common) (futsuumeishi)",
+                "adverb (fukushi)"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "tomorrow"
+              ]
+            },
+            {
+              "sense_key": "2",
+              "pos_descriptions": [
+                "noun (common) (futsuumeishi)",
+                "adverb (fukushi)"
+              ],
+              "stagk": [],
+              "stagr": [
+                "あす"
+              ],
+              "english": [
+                "near future"
+              ]
+            }
+          ]
+        }
+      ],
+      "review_status": "proposed"
+    },
+    {
+      "case_id": "restriction-no-kanji",
+      "kind": "no-kanji",
+      "expected_source_records": [
+        {
+          "canonical_id": "dictionary:jmdict:1000060",
+          "forms": [
+            "々"
+          ],
+          "readings": [
+            {
+              "text": "のま",
+              "no_kanji": false,
+              "restricted_to_forms": []
+            },
+            {
+              "text": "ノマ",
+              "no_kanji": true,
+              "restricted_to_forms": []
+            }
+          ],
+          "senses": [
+            {
+              "sense_key": "1",
+              "pos_descriptions": [
+                "unclassified"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "kanji repetition mark"
+              ]
+            }
+          ]
+        }
+      ],
+      "expected_policy": "Return only joint pairs allowed by reading no-kanji/re_restr AND sense stagk/stagr; test excluded pairs separately.",
+      "review_status": "proposed"
+    },
+    {
+      "case_id": "restriction-reading-restriction",
+      "kind": "reading-restriction",
+      "expected_source_records": [
+        {
+          "canonical_id": "dictionary:jmdict:1000110",
+          "forms": [
+            "ＣＤプレーヤー",
+            "ＣＤプレイヤー"
+          ],
+          "readings": [
+            {
+              "text": "シーディープレーヤー",
+              "no_kanji": false,
+              "restricted_to_forms": [
+                "ＣＤプレーヤー"
+              ]
+            },
+            {
+              "text": "シーディープレイヤー",
+              "no_kanji": false,
+              "restricted_to_forms": [
+                "ＣＤプレイヤー"
+              ]
+            }
+          ],
+          "senses": [
+            {
+              "sense_key": "1",
+              "pos_descriptions": [
+                "noun (common) (futsuumeishi)"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "CD player"
+              ]
+            }
+          ]
+        }
+      ],
+      "expected_policy": "Return only joint pairs allowed by reading no-kanji/re_restr AND sense stagk/stagr; test excluded pairs separately.",
+      "review_status": "proposed"
+    },
+    {
+      "case_id": "restriction-sense-reading",
+      "kind": "sense-reading",
+      "expected_source_records": [
+        {
+          "canonical_id": "dictionary:jmdict:1000320",
+          "forms": [
+            "彼処",
+            "彼所"
+          ],
+          "readings": [
+            {
+              "text": "あそこ",
+              "no_kanji": false,
+              "restricted_to_forms": []
+            },
+            {
+              "text": "あすこ",
+              "no_kanji": false,
+              "restricted_to_forms": []
+            },
+            {
+              "text": "かしこ",
+              "no_kanji": false,
+              "restricted_to_forms": []
+            },
+            {
+              "text": "アソコ",
+              "no_kanji": true,
+              "restricted_to_forms": []
+            },
+            {
+              "text": "あしこ",
+              "no_kanji": false,
+              "restricted_to_forms": []
+            }
+          ],
+          "senses": [
+            {
+              "sense_key": "1",
+              "pos_descriptions": [
+                "pronoun"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "there",
+                "over there",
+                "that place",
+                "yonder",
+                "you-know-where"
+              ]
+            },
+            {
+              "sense_key": "2",
+              "pos_descriptions": [
+                "noun (common) (futsuumeishi)"
+              ],
+              "stagk": [],
+              "stagr": [
+                "あそこ",
+                "あすこ",
+                "アソコ"
+              ],
+              "english": [
+                "genitals",
+                "private parts",
+                "nether regions"
+              ]
+            },
+            {
+              "sense_key": "3",
+              "pos_descriptions": [
+                "noun (common) (futsuumeishi)"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "that far",
+                "that much",
+                "that point"
+              ]
+            }
+          ]
+        }
+      ],
+      "expected_policy": "Return only joint pairs allowed by reading no-kanji/re_restr AND sense stagk/stagr; test excluded pairs separately.",
+      "review_status": "proposed"
+    },
+    {
+      "case_id": "restriction-sense-written",
+      "kind": "sense-written",
+      "expected_source_records": [
+        {
+          "canonical_id": "dictionary:jmdict:1010230",
+          "forms": [
+            "半片",
+            "半平"
+          ],
+          "readings": [
+            {
+              "text": "はんぺん",
+              "no_kanji": false,
+              "restricted_to_forms": []
+            },
+            {
+              "text": "はんぺい",
+              "no_kanji": false,
+              "restricted_to_forms": [
+                "半平"
+              ]
+            }
+          ],
+          "senses": [
+            {
+              "sense_key": "1",
+              "pos_descriptions": [
+                "noun (common) (futsuumeishi)"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "pounded fish cake"
+              ]
+            },
+            {
+              "sense_key": "2",
+              "pos_descriptions": [
+                "noun (common) (futsuumeishi)"
+              ],
+              "stagk": [
+                "半片"
+              ],
+              "stagr": [],
+              "english": [
+                "half a slice",
+                "half a ticket",
+                "ticket stub"
+              ]
+            }
+          ]
+        }
+      ],
+      "expected_policy": "Return only joint pairs allowed by reading no-kanji/re_restr AND sense stagk/stagr; test excluded pairs separately.",
+      "review_status": "proposed"
+    },
+    {
+      "case_id": "f09-30",
+      "kind": "f09-regression",
+      "query": "食べました",
+      "base_form": "食べる",
+      "expected_source_records": [
+        {
+          "canonical_id": "dictionary:jmdict:1358280",
+          "forms": [
+            "食べる",
+            "喰べる"
+          ],
+          "readings": [
+            {
+              "text": "たべる",
+              "no_kanji": false,
+              "restricted_to_forms": []
+            }
+          ],
+          "senses": [
+            {
+              "sense_key": "1",
+              "pos_descriptions": [
+                "Ichidan verb",
+                "transitive verb"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "to eat"
+              ]
+            },
+            {
+              "sense_key": "2",
+              "pos_descriptions": [
+                "Ichidan verb",
+                "transitive verb"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "to live on (e.g. a salary)",
+                "to live off",
+                "to subsist on"
+              ]
+            }
+          ]
+        }
+      ],
+      "expected_policy": "polite past",
+      "review_status": "proposed"
+    },
+    {
+      "case_id": "f09-31",
+      "kind": "f09-regression",
+      "query": "食べられる",
+      "base_form": "食べる",
+      "expected_source_records": [
+        {
+          "canonical_id": "dictionary:jmdict:1358280",
+          "forms": [
+            "食べる",
+            "喰べる"
+          ],
+          "readings": [
+            {
+              "text": "たべる",
+              "no_kanji": false,
+              "restricted_to_forms": []
+            }
+          ],
+          "senses": [
+            {
+              "sense_key": "1",
+              "pos_descriptions": [
+                "Ichidan verb",
+                "transitive verb"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "to eat"
+              ]
+            },
+            {
+              "sense_key": "2",
+              "pos_descriptions": [
+                "Ichidan verb",
+                "transitive verb"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "to live on (e.g. a salary)",
+                "to live off",
+                "to subsist on"
+              ]
+            }
+          ]
+        }
+      ],
+      "expected_policy": "all evidenced potential/passive/honorific alternatives",
+      "review_status": "proposed"
+    },
+    {
+      "case_id": "f09-32",
+      "kind": "f09-regression",
+      "query": "静かでした",
+      "base_form": "静か",
+      "expected_source_records": [
+        {
+          "canonical_id": "dictionary:jmdict:1381820",
+          "forms": [
+            "静か",
+            "閑か",
+            "徐か"
+          ],
+          "readings": [
+            {
+              "text": "しずか",
+              "no_kanji": false,
+              "restricted_to_forms": []
+            }
+          ],
+          "senses": [
+            {
+              "sense_key": "1",
+              "pos_descriptions": [
+                "adjectival nouns or quasi-adjectives (keiyodoshi)"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "quiet",
+                "silent"
+              ]
+            },
+            {
+              "sense_key": "2",
+              "pos_descriptions": [
+                "adjectival nouns or quasi-adjectives (keiyodoshi)"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "slow",
+                "unhurried"
+              ]
+            },
+            {
+              "sense_key": "3",
+              "pos_descriptions": [
+                "adjectival nouns or quasi-adjectives (keiyodoshi)"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "calm",
+                "peaceful"
+              ]
+            }
+          ]
+        }
+      ],
+      "expected_policy": "na-adjective polite past",
+      "review_status": "proposed"
+    },
+    {
+      "case_id": "f09-33",
+      "kind": "f09-regression",
+      "query": "学生でした",
+      "base_form": "学生",
+      "expected_source_records": [
+        {
+          "canonical_id": "dictionary:jmdict:1206900",
+          "forms": [
+            "学生",
+            "學生"
+          ],
+          "readings": [
+            {
+              "text": "がくせい",
+              "no_kanji": false,
+              "restricted_to_forms": []
+            }
+          ],
+          "senses": [
+            {
+              "sense_key": "1",
+              "pos_descriptions": [
+                "noun (common) (futsuumeishi)"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "student (esp. a university student)"
+              ]
+            }
+          ]
+        },
+        {
+          "canonical_id": "dictionary:jmdict:2586260",
+          "forms": [
+            "学生"
+          ],
+          "readings": [
+            {
+              "text": "がくしょう",
+              "no_kanji": false,
+              "restricted_to_forms": []
+            },
+            {
+              "text": "がくそう",
+              "no_kanji": false,
+              "restricted_to_forms": []
+            }
+          ],
+          "senses": [
+            {
+              "sense_key": "1",
+              "pos_descriptions": [
+                "noun (common) (futsuumeishi)"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "Heian-period student of government administration"
+              ]
+            },
+            {
+              "sense_key": "2",
+              "pos_descriptions": [
+                "noun (common) (futsuumeishi)"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "Buddhist scholar",
+                "researcher at a Buddhist temple",
+                "person studying Buddhism"
+              ]
+            },
+            {
+              "sense_key": "3",
+              "pos_descriptions": [
+                "noun (common) (futsuumeishi)"
+              ],
+              "stagk": [],
+              "stagr": [],
+              "english": [
+                "learning",
+                "scholarship"
+              ]
+            }
+          ]
+        }
+      ],
+      "expected_policy": "noun-copula polite past",
+      "review_status": "proposed"
+    },
+    {
+      "case_id": "kanji-5B66",
+      "kind": "kanji",
+      "query": "学",
+      "expected_canonical_id": "kanji:5B66",
+      "source_xml": "<character>\n<literal>学</literal>\n<codepoint>\n<cp_value cp_type=\"ucs\">5b66</cp_value>\n<cp_value cp_type=\"jis208\">1-19-56</cp_value>\n</codepoint>\n<radical>\n<rad_value rad_type=\"classical\">39</rad_value>\n</radical>\n<misc>\n<grade>1</grade>\n<stroke_count>8</stroke_count>\n<variant var_type=\"jis208\">1-53-60</variant>\n<variant var_type=\"jis208\">1-53-61</variant>\n<variant var_type=\"jis212\">1-33-55</variant>\n<freq>63</freq>\n<jlpt>4</jlpt>\n</misc>\n<dic_number>\n<dic_ref dr_type=\"nelson_c\">1271</dic_ref>\n<dic_ref dr_type=\"nelson_n\">1294</dic_ref>\n<dic_ref dr_type=\"halpern_njecd\">2555</dic_ref>\n<dic_ref dr_type=\"halpern_kkd\">3162</dic_ref>\n<dic_ref dr_type=\"halpern_kkld\">1625</dic_ref>\n<dic_ref dr_type=\"halpern_kkld_2ed\">2211</dic_ref>\n<dic_ref dr_type=\"heisig\">324</dic_ref>\n<dic_ref dr_type=\"heisig6\">346</dic_ref>\n<dic_ref dr_type=\"gakken\">33</dic_ref>\n<dic_ref dr_type=\"oneill_names\">719</dic_ref>\n<dic_ref dr_type=\"oneill_kk\">66</dic_ref>\n<dic_ref dr_type=\"moro\" m_vol=\"3\" m_page=\"0858\">6974</dic_ref>\n<dic_ref dr_type=\"henshall\">10</dic_ref>\n<dic_ref dr_type=\"sh_kk\">109</dic_ref>\n<dic_ref dr_type=\"sh_kk2\">109</dic_ref>\n<dic_ref dr_type=\"sakade\">57</dic_ref>\n<dic_ref dr_type=\"jf_cards\">44</dic_ref>\n<dic_ref dr_type=\"henshall3\">45</dic_ref>\n<dic_ref dr_type=\"tutt_cards\">71</dic_ref>\n<dic_ref dr_type=\"crowley\">15</dic_ref>\n<dic_ref dr_type=\"kanji_in_context\">50</dic_ref>\n<dic_ref dr_type=\"busy_people\">2.9</dic_ref>\n<dic_ref dr_type=\"kodansha_compact\">460</dic_ref>\n<dic_ref dr_type=\"maniette\">330</dic_ref>\n</dic_number>\n<query_code>\n<q_code qc_type=\"skip\">2-5-3</q_code>\n<q_code qc_type=\"sh_desc\">3n4.2</q_code>\n<q_code qc_type=\"four_corner\">3240.7</q_code>\n<q_code qc_type=\"four_corner\">9040.7</q_code>\n<q_code qc_type=\"deroo\">947</q_code>\n<q_code qc_type=\"skip\" skip_misclass=\"posn\">2-3-5</q_code>\n<q_code qc_type=\"skip\" skip_misclass=\"stroke_count\">2-5-2</q_code>\n<q_code qc_type=\"skip\" skip_misclass=\"stroke_and_posn\">2-3-4</q_code>\n</query_code>\n<reading_meaning>\n<rmgroup>\n<reading r_type=\"pinyin\">xue2</reading>\n<reading r_type=\"korean_r\">hag</reading>\n<reading r_type=\"korean_h\">학</reading>\n<reading r_type=\"vietnam\">Học</reading>\n<reading r_type=\"ja_on\">ガク</reading>\n<reading r_type=\"ja_kun\">まな.ぶ</reading>\n<meaning>study</meaning>\n<meaning>learning</meaning>\n<meaning>science</meaning>\n<meaning m_lang=\"fr\">étudier</meaning>\n<meaning m_lang=\"fr\">apprendre</meaning>\n<meaning m_lang=\"fr\">science</meaning>\n<meaning m_lang=\"es\">estudio</meaning>\n<meaning m_lang=\"es\">aprendizaje</meaning>\n<meaning m_lang=\"es\">ciencia</meaning>\n<meaning m_lang=\"es\">estudiar</meaning>\n<meaning m_lang=\"pt\">estudo</meaning>\n<meaning m_lang=\"pt\">aprendizagem</meaning>\n<meaning m_lang=\"pt\">ciência</meaning>\n</rmgroup>\n<nanori>たか</nanori>\n<nanori>のり</nanori>\n</reading_meaning>\n</character>\n\n",
+      "expected_policy": "vietnam readings are HanViet, never MeaningsVi; retain punctuation and supplementary scalar.",
+      "review_status": "proposed"
+    },
+    {
+      "case_id": "kanji-5B98",
+      "kind": "kanji",
+      "query": "官",
+      "expected_canonical_id": "kanji:5B98",
+      "source_xml": "<character>\n<literal>官</literal>\n<codepoint>\n<cp_value cp_type=\"ucs\">5b98</cp_value>\n<cp_value cp_type=\"jis208\">1-20-17</cp_value>\n</codepoint>\n<radical>\n<rad_value rad_type=\"classical\">40</rad_value>\n</radical>\n<misc>\n<grade>4</grade>\n<stroke_count>8</stroke_count>\n<freq>230</freq>\n<jlpt>2</jlpt>\n</misc>\n<dic_number>\n<dic_ref dr_type=\"nelson_c\">1295</dic_ref>\n<dic_ref dr_type=\"nelson_n\">1322</dic_ref>\n<dic_ref dr_type=\"halpern_njecd\">2226</dic_ref>\n<dic_ref dr_type=\"halpern_kkd\">2766</dic_ref>\n<dic_ref dr_type=\"halpern_kkld\">1417</dic_ref>\n<dic_ref dr_type=\"halpern_kkld_2ed\">1912</dic_ref>\n<dic_ref dr_type=\"heisig\">1271</dic_ref>\n<dic_ref dr_type=\"heisig6\">1363</dic_ref>\n<dic_ref dr_type=\"gakken\">225</dic_ref>\n<dic_ref dr_type=\"oneill_names\">672</dic_ref>\n<dic_ref dr_type=\"oneill_kk\">318</dic_ref>\n<dic_ref dr_type=\"moro\" m_vol=\"3\" m_page=\"0962\">7107</dic_ref>\n<dic_ref dr_type=\"henshall\">441</dic_ref>\n<dic_ref dr_type=\"sh_kk\">326</dic_ref>\n<dic_ref dr_type=\"sh_kk2\">326</dic_ref>\n<dic_ref dr_type=\"sakade\">364</dic_ref>\n<dic_ref dr_type=\"jf_cards\">462</dic_ref>\n<dic_ref dr_type=\"henshall3\">465</dic_ref>\n<dic_ref dr_type=\"tutt_cards\">498</dic_ref>\n<dic_ref dr_type=\"crowley\">202</dic_ref>\n<dic_ref dr_type=\"kanji_in_context\">540</dic_ref>\n<dic_ref dr_type=\"kodansha_compact\">469</dic_ref>\n<dic_ref dr_type=\"maniette\">1279</dic_ref>\n</dic_number>\n<query_code>\n<q_code qc_type=\"skip\">2-3-5</q_code>\n<q_code qc_type=\"sh_desc\">3m5.6</q_code>\n<q_code qc_type=\"four_corner\">3077.7</q_code>\n<q_code qc_type=\"deroo\">777</q_code>\n</query_code>\n<reading_meaning>\n<rmgroup>\n<reading r_type=\"pinyin\">guan1</reading>\n<reading r_type=\"korean_r\">gwan</reading>\n<reading r_type=\"korean_h\">관</reading>\n<reading r_type=\"vietnam\">Quan</reading>\n<reading r_type=\"ja_on\">カン</reading>\n<meaning>bureaucrat</meaning>\n<meaning>the government</meaning>\n<meaning>organ</meaning>\n<meaning m_lang=\"fr\">fonctionnaire</meaning>\n<meaning m_lang=\"fr\">gouvernemental</meaning>\n<meaning m_lang=\"es\">gobierno</meaning>\n<meaning m_lang=\"es\">gubernamental (lugar</meaning>\n<meaning m_lang=\"es\">persona)</meaning>\n<meaning m_lang=\"es\">órgano del cuerpo</meaning>\n<meaning m_lang=\"pt\">burocracia</meaning>\n<meaning m_lang=\"pt\">o governo</meaning>\n</rmgroup>\n</reading_meaning>\n</character>\n\n",
+      "expected_policy": "vietnam readings are HanViet, never MeaningsVi; retain punctuation and supplementary scalar.",
+      "review_status": "proposed"
+    },
+    {
+      "case_id": "kanji-88C1",
+      "kind": "kanji",
+      "query": "裁",
+      "expected_canonical_id": "kanji:88C1",
+      "source_xml": "<character>\n<literal>裁</literal>\n<codepoint>\n<cp_value cp_type=\"ucs\">88c1</cp_value>\n<cp_value cp_type=\"jis208\">1-26-59</cp_value>\n</codepoint>\n<radical>\n<rad_value rad_type=\"classical\">145</rad_value>\n<rad_value rad_type=\"nelson_c\">24</rad_value>\n</radical>\n<misc>\n<grade>6</grade>\n<stroke_count>12</stroke_count>\n<freq>297</freq>\n<jlpt>1</jlpt>\n</misc>\n<dic_number>\n<dic_ref dr_type=\"nelson_c\">788</dic_ref>\n<dic_ref dr_type=\"nelson_n\">5454</dic_ref>\n<dic_ref dr_type=\"halpern_njecd\">3299</dic_ref>\n<dic_ref dr_type=\"halpern_kkd\">4090</dic_ref>\n<dic_ref dr_type=\"halpern_kkld\">2076</dic_ref>\n<dic_ref dr_type=\"halpern_kkld_2ed\">2813</dic_ref>\n<dic_ref dr_type=\"heisig\">397</dic_ref>\n<dic_ref dr_type=\"heisig6\">424</dic_ref>\n<dic_ref dr_type=\"gakken\">498</dic_ref>\n<dic_ref dr_type=\"oneill_kk\">1129</dic_ref>\n<dic_ref dr_type=\"moro\" m_vol=\"10\" m_page=\"0211\">34258</dic_ref>\n<dic_ref dr_type=\"henshall\">872</dic_ref>\n<dic_ref dr_type=\"sh_kk\">1123</dic_ref>\n<dic_ref dr_type=\"sh_kk2\">1175</dic_ref>\n<dic_ref dr_type=\"jf_cards\">1727</dic_ref>\n<dic_ref dr_type=\"henshall3\">882</dic_ref>\n<dic_ref dr_type=\"tutt_cards\">944</dic_ref>\n<dic_ref dr_type=\"kanji_in_context\">1163</dic_ref>\n<dic_ref dr_type=\"kodansha_compact\">1624</dic_ref>\n<dic_ref dr_type=\"maniette\">404</dic_ref>\n</dic_number>\n<query_code>\n<q_code qc_type=\"skip\">3-6-6</q_code>\n<q_code qc_type=\"sh_desc\">5e6.9</q_code>\n<q_code qc_type=\"four_corner\">4375.0</q_code>\n<q_code qc_type=\"deroo\">1459</q_code>\n<q_code qc_type=\"skip\" skip_misclass=\"posn\">4-12-4</q_code>\n</query_code>\n<reading_meaning>\n<rmgroup>\n<reading r_type=\"pinyin\">cai2</reading>\n<reading r_type=\"korean_r\">jae</reading>\n<reading r_type=\"korean_h\">재</reading>\n<reading r_type=\"vietnam\">Tài</reading>\n<reading r_type=\"ja_on\">サイ</reading>\n<reading r_type=\"ja_kun\">た.つ</reading>\n<reading r_type=\"ja_kun\">さば.く</reading>\n<meaning>tailor</meaning>\n<meaning>judge</meaning>\n<meaning>decision</meaning>\n<meaning>cut out (pattern)</meaning>\n<meaning m_lang=\"fr\">tailleur</meaning>\n<meaning m_lang=\"fr\">juge</meaning>\n<meaning m_lang=\"fr\">tribunal</meaning>\n<meaning m_lang=\"fr\">décision</meaning>\n<meaning m_lang=\"fr\">tailler (un vêtement)</meaning>\n<meaning m_lang=\"es\">cortar (tela</meaning>\n<meaning m_lang=\"es\">papel)</meaning>\n<meaning m_lang=\"es\">juzgar</meaning>\n<meaning m_lang=\"es\">forma</meaning>\n<meaning m_lang=\"es\">decidir</meaning>\n<meaning m_lang=\"pt\">alfaiate</meaning>\n<meaning m_lang=\"pt\">juiz</meaning>\n<meaning m_lang=\"pt\">decisão</meaning>\n<meaning m_lang=\"pt\">paradigma</meaning>\n</rmgroup>\n</reading_meaning>\n</character>\n\n",
+      "expected_policy": "vietnam readings are HanViet, never MeaningsVi; retain punctuation and supplementary scalar.",
+      "review_status": "proposed"
+    },
+    {
+      "case_id": "kanji-98DF",
+      "kind": "kanji",
+      "query": "食",
+      "expected_canonical_id": "kanji:98DF",
+      "source_xml": "<character>\n<literal>食</literal>\n<codepoint>\n<cp_value cp_type=\"ucs\">98df</cp_value>\n<cp_value cp_type=\"jis208\">1-31-09</cp_value>\n</codepoint>\n<radical>\n<rad_value rad_type=\"classical\">184</rad_value>\n</radical>\n<misc>\n<grade>2</grade>\n<stroke_count>9</stroke_count>\n<freq>328</freq>\n<jlpt>4</jlpt>\n</misc>\n<dic_number>\n<dic_ref dr_type=\"nelson_c\">5154</dic_ref>\n<dic_ref dr_type=\"nelson_n\">6674</dic_ref>\n<dic_ref dr_type=\"halpern_njecd\">2075</dic_ref>\n<dic_ref dr_type=\"halpern_kkd\">2578</dic_ref>\n<dic_ref dr_type=\"halpern_kkld\">1316</dic_ref>\n<dic_ref dr_type=\"halpern_kkld_2ed\">1787</dic_ref>\n<dic_ref dr_type=\"heisig\">1472</dic_ref>\n<dic_ref dr_type=\"heisig6\">1582</dic_ref>\n<dic_ref dr_type=\"gakken\">269</dic_ref>\n<dic_ref dr_type=\"oneill_names\">1159</dic_ref>\n<dic_ref dr_type=\"oneill_kk\">283</dic_ref>\n<dic_ref dr_type=\"moro\" m_vol=\"12\" m_page=\"0371\">44014</dic_ref>\n<dic_ref dr_type=\"henshall\">146</dic_ref>\n<dic_ref dr_type=\"sh_kk\">322</dic_ref>\n<dic_ref dr_type=\"sh_kk2\">322</dic_ref>\n<dic_ref dr_type=\"sakade\">253</dic_ref>\n<dic_ref dr_type=\"jf_cards\">99</dic_ref>\n<dic_ref dr_type=\"henshall3\">163</dic_ref>\n<dic_ref dr_type=\"tutt_cards\">180</dic_ref>\n<dic_ref dr_type=\"crowley\">207</dic_ref>\n<dic_ref dr_type=\"kanji_in_context\">131</dic_ref>\n<dic_ref dr_type=\"busy_people\">2.13</dic_ref>\n<dic_ref dr_type=\"kodansha_compact\">1900</dic_ref>\n<dic_ref dr_type=\"maniette\">1484</dic_ref>\n</dic_number>\n<query_code>\n<q_code qc_type=\"skip\">2-2-7</q_code>\n<q_code qc_type=\"sh_desc\">8b0.1</q_code>\n<q_code qc_type=\"four_corner\">8073.2</q_code>\n<q_code qc_type=\"deroo\">2865</q_code>\n</query_code>\n<reading_meaning>\n<rmgroup>\n<reading r_type=\"pinyin\">shi2</reading>\n<reading r_type=\"pinyin\">si4</reading>\n<reading r_type=\"korean_r\">sig</reading>\n<reading r_type=\"korean_r\">sa</reading>\n<reading r_type=\"korean_h\">식</reading>\n<reading r_type=\"korean_h\">사</reading>\n<reading r_type=\"vietnam\">Thực</reading>\n<reading r_type=\"vietnam\">Tự</reading>\n<reading r_type=\"ja_on\">ショク</reading>\n<reading r_type=\"ja_on\">ジキ</reading>\n<reading r_type=\"ja_kun\">く.う</reading>\n<reading r_type=\"ja_kun\">く.らう</reading>\n<reading r_type=\"ja_kun\">た.べる</reading>\n<reading r_type=\"ja_kun\">は.む</reading>\n<meaning>eat</meaning>\n<meaning>food</meaning>\n<meaning m_lang=\"fr\">manger</meaning>\n<meaning m_lang=\"fr\">nourriture</meaning>\n<meaning m_lang=\"es\">alimento</meaning>\n<meaning m_lang=\"es\">comida</meaning>\n<meaning m_lang=\"es\">eclipse</meaning>\n<meaning m_lang=\"es\">comer</meaning>\n<meaning m_lang=\"pt\">comer</meaning>\n<meaning m_lang=\"pt\">comida</meaning>\n<meaning m_lang=\"pt\">alimento</meaning>\n</rmgroup>\n<nanori>ぐい</nanori>\n</reading_meaning>\n</character>\n\n",
+      "expected_policy": "vietnam readings are HanViet, never MeaningsVi; retain punctuation and supplementary scalar.",
+      "review_status": "proposed"
+    },
+    {
+      "case_id": "kanji-751F",
+      "kind": "kanji",
+      "query": "生",
+      "expected_canonical_id": "kanji:751F",
+      "source_xml": "<character>\n<literal>生</literal>\n<codepoint>\n<cp_value cp_type=\"ucs\">751f</cp_value>\n<cp_value cp_type=\"jis208\">1-32-24</cp_value>\n</codepoint>\n<radical>\n<rad_value rad_type=\"classical\">100</rad_value>\n</radical>\n<misc>\n<grade>1</grade>\n<stroke_count>5</stroke_count>\n<freq>29</freq>\n<jlpt>4</jlpt>\n</misc>\n<dic_number>\n<dic_ref dr_type=\"nelson_c\">2991</dic_ref>\n<dic_ref dr_type=\"nelson_n\">3715</dic_ref>\n<dic_ref dr_type=\"halpern_njecd\">3497</dic_ref>\n<dic_ref dr_type=\"halpern_kkd\">4309</dic_ref>\n<dic_ref dr_type=\"halpern_kkld\">2179</dic_ref>\n<dic_ref dr_type=\"halpern_kkld_2ed\">2933</dic_ref>\n<dic_ref dr_type=\"heisig\">1555</dic_ref>\n<dic_ref dr_type=\"heisig6\">1675</dic_ref>\n<dic_ref dr_type=\"gakken\">29</dic_ref>\n<dic_ref dr_type=\"oneill_names\">214</dic_ref>\n<dic_ref dr_type=\"oneill_kk\">67</dic_ref>\n<dic_ref dr_type=\"moro\" m_vol=\"7\" m_page=\"1027\">21670</dic_ref>\n<dic_ref dr_type=\"henshall\">42</dic_ref>\n<dic_ref dr_type=\"sh_kk\">44</dic_ref>\n<dic_ref dr_type=\"sh_kk2\">44</dic_ref>\n<dic_ref dr_type=\"sakade\">34</dic_ref>\n<dic_ref dr_type=\"jf_cards\">71</dic_ref>\n<dic_ref dr_type=\"henshall3\">44</dic_ref>\n<dic_ref dr_type=\"tutt_cards\">43</dic_ref>\n<dic_ref dr_type=\"crowley\">9</dic_ref>\n<dic_ref dr_type=\"kanji_in_context\">49</dic_ref>\n<dic_ref dr_type=\"busy_people\">2.4</dic_ref>\n<dic_ref dr_type=\"kodansha_compact\">1327</dic_ref>\n<dic_ref dr_type=\"maniette\">1569</dic_ref>\n</dic_number>\n<query_code>\n<q_code qc_type=\"skip\">4-5-2</q_code>\n<q_code qc_type=\"sh_desc\">0a5.29</q_code>\n<q_code qc_type=\"four_corner\">2510.0</q_code>\n<q_code qc_type=\"deroo\">2472</q_code>\n</query_code>\n<reading_meaning>\n<rmgroup>\n<reading r_type=\"pinyin\">sheng1</reading>\n<reading r_type=\"korean_r\">saeng</reading>\n<reading r_type=\"korean_h\">생</reading>\n<reading r_type=\"vietnam\">Sanh</reading>\n<reading r_type=\"vietnam\">Sinh</reading>\n<reading r_type=\"ja_on\">セイ</reading>\n<reading r_type=\"ja_on\">ショウ</reading>\n<reading r_type=\"ja_kun\">い.きる</reading>\n<reading r_type=\"ja_kun\">い.かす</reading>\n<reading r_type=\"ja_kun\">い.ける</reading>\n<reading r_type=\"ja_kun\">う.まれる</reading>\n<reading r_type=\"ja_kun\">うま.れる</reading>\n<reading r_type=\"ja_kun\">う.まれ</reading>\n<reading r_type=\"ja_kun\">うまれ</reading>\n<reading r_type=\"ja_kun\">う.む</reading>\n<reading r_type=\"ja_kun\">お.う</reading>\n<reading r_type=\"ja_kun\">は.える</reading>\n<reading r_type=\"ja_kun\">は.やす</reading>\n<reading r_type=\"ja_kun\">き</reading>\n<reading r_type=\"ja_kun\">なま</reading>\n<reading r_type=\"ja_kun\">なま-</reading>\n<reading r_type=\"ja_kun\">な.る</reading>\n<reading r_type=\"ja_kun\">な.す</reading>\n<reading r_type=\"ja_kun\">む.す</reading>\n<reading r_type=\"ja_kun\">-う</reading>\n<meaning>life</meaning>\n<meaning>genuine</meaning>\n<meaning>birth</meaning>\n<meaning m_lang=\"fr\">vie</meaning>\n<meaning m_lang=\"fr\">naissance</meaning>\n<meaning m_lang=\"fr\">authentique</meaning>\n<meaning m_lang=\"fr\">cru</meaning>\n<meaning m_lang=\"es\">vida</meaning>\n<meaning m_lang=\"es\">nacimiento</meaning>\n<meaning m_lang=\"es\">vivir</meaning>\n<meaning m_lang=\"es\">existir</meaning>\n<meaning m_lang=\"es\">nacer</meaning>\n<meaning m_lang=\"es\">dar a luz</meaning>\n<meaning m_lang=\"es\">puro</meaning>\n<meaning m_lang=\"es\">crudo</meaning>\n<meaning m_lang=\"pt\">vida</meaning>\n<meaning m_lang=\"pt\">genuína</meaning>\n<meaning m_lang=\"pt\">nascimento</meaning>\n</rmgroup>\n<nanori>あさ</nanori>\n<nanori>いき</nanori>\n<nanori>いく</nanori>\n<nanori>いけ</nanori>\n<nanori>うぶ</nanori>\n<nanori>うまい</nanori>\n<nanori>え</nanori>\n<nanori>おい</nanori>\n<nanori>ぎゅう</nanori>\n<nanori>くるみ</nanori>\n<nanori>ごせ</nanori>\n<nanori>さ</nanori>\n<nanori>じょう</nanori>\n<nanori>すぎ</nanori>\n<nanori>そ</nanori>\n<nanori>そう</nanori>\n<nanori>ちる</nanori>\n<nanori>なば</nanori>\n<nanori>にう</nanori>\n<nanori>にゅう</nanori>\n<nanori>ふ</nanori>\n<nanori>み</nanori>\n<nanori>もう</nanori>\n<nanori>よい</nanori>\n<nanori>りゅう</nanori>\n</reading_meaning>\n</character>\n\n",
+      "expected_policy": "vietnam readings are HanViet, never MeaningsVi; retain punctuation and supplementary scalar.",
+      "review_status": "proposed"
+    },
+    {
+      "case_id": "kanji-5224",
+      "kind": "kanji",
+      "query": "判",
+      "expected_canonical_id": "kanji:5224",
+      "source_xml": "<character>\n<literal>判</literal>\n<codepoint>\n<cp_value cp_type=\"ucs\">5224</cp_value>\n<cp_value cp_type=\"jis208\">1-40-29</cp_value>\n</codepoint>\n<radical>\n<rad_value rad_type=\"classical\">18</rad_value>\n</radical>\n<misc>\n<grade>5</grade>\n<stroke_count>7</stroke_count>\n<freq>197</freq>\n<jlpt>2</jlpt>\n</misc>\n<dic_number>\n<dic_ref dr_type=\"nelson_c\">673</dic_ref>\n<dic_ref dr_type=\"nelson_n\">465</dic_ref>\n<dic_ref dr_type=\"halpern_njecd\">1122</dic_ref>\n<dic_ref dr_type=\"halpern_kkd\">1441</dic_ref>\n<dic_ref dr_type=\"halpern_kkld\">765</dic_ref>\n<dic_ref dr_type=\"halpern_kkld_2ed\">1038</dic_ref>\n<dic_ref dr_type=\"heisig\">1205</dic_ref>\n<dic_ref dr_type=\"heisig6\">1289</dic_ref>\n<dic_ref dr_type=\"gakken\">291</dic_ref>\n<dic_ref dr_type=\"oneill_names\">434</dic_ref>\n<dic_ref dr_type=\"oneill_kk\">497</dic_ref>\n<dic_ref dr_type=\"moro\" m_vol=\"2\" m_page=\"0233\">1923</dic_ref>\n<dic_ref dr_type=\"henshall\">769</dic_ref>\n<dic_ref dr_type=\"sh_kk\">1026</dic_ref>\n<dic_ref dr_type=\"sh_kk2\">1065</dic_ref>\n<dic_ref dr_type=\"sakade\">860</dic_ref>\n<dic_ref dr_type=\"jf_cards\">354</dic_ref>\n<dic_ref dr_type=\"henshall3\">790</dic_ref>\n<dic_ref dr_type=\"tutt_cards\">673</dic_ref>\n<dic_ref dr_type=\"crowley\">187</dic_ref>\n<dic_ref dr_type=\"kanji_in_context\">899</dic_ref>\n<dic_ref dr_type=\"kodansha_compact\">187</dic_ref>\n<dic_ref dr_type=\"maniette\">1213</dic_ref>\n</dic_number>\n<query_code>\n<q_code qc_type=\"skip\">1-5-2</q_code>\n<q_code qc_type=\"sh_desc\">2f5.2</q_code>\n<q_code qc_type=\"four_corner\">9250.0</q_code>\n<q_code qc_type=\"deroo\">1043</q_code>\n</query_code>\n<reading_meaning>\n<rmgroup>\n<reading r_type=\"pinyin\">pan4</reading>\n<reading r_type=\"korean_r\">pan</reading>\n<reading r_type=\"korean_h\">판</reading>\n<reading r_type=\"vietnam\">Phán</reading>\n<reading r_type=\"ja_on\">ハン</reading>\n<reading r_type=\"ja_on\">バン</reading>\n<reading r_type=\"ja_kun\">わか.る</reading>\n<meaning>judgement</meaning>\n<meaning>judgment</meaning>\n<meaning>signature</meaning>\n<meaning>stamp</meaning>\n<meaning>seal</meaning>\n<meaning m_lang=\"fr\">jugement</meaning>\n<meaning m_lang=\"fr\">signature</meaning>\n<meaning m_lang=\"fr\">tampon</meaning>\n<meaning m_lang=\"fr\">sceau</meaning>\n<meaning m_lang=\"es\">diferenciar</meaning>\n<meaning m_lang=\"es\">distinguir</meaning>\n<meaning m_lang=\"es\">juzgar</meaning>\n<meaning m_lang=\"es\">sello</meaning>\n<meaning m_lang=\"es\">marca</meaning>\n<meaning m_lang=\"es\">señal</meaning>\n<meaning m_lang=\"es\">sufijo para tamaño (papel)</meaning>\n<meaning m_lang=\"pt\">julgamento</meaning>\n<meaning m_lang=\"pt\">assinatura</meaning>\n<meaning m_lang=\"pt\">selo</meaning>\n<meaning m_lang=\"pt\">carimbo</meaning>\n</rmgroup>\n</reading_meaning>\n</character>\n\n",
+      "expected_policy": "vietnam readings are HanViet, never MeaningsVi; retain punctuation and supplementary scalar.",
+      "review_status": "proposed"
+    },
+    {
+      "case_id": "kanji-20B9F",
+      "kind": "kanji",
+      "query": "𠮟",
+      "expected_canonical_id": "kanji:20B9F",
+      "source_xml": "<character>\n<literal>𠮟</literal>\n<codepoint>\n<cp_value cp_type=\"ucs\">20B9F</cp_value>\n<cp_value cp_type=\"jis213\">1-47-52</cp_value>\n</codepoint>\n<radical>\n<rad_value rad_type=\"classical\">30</rad_value>\n</radical>\n<misc>\n<grade>8</grade>\n<stroke_count>5</stroke_count>\n<variant var_type=\"ucs\">53F1</variant>\n</misc>\n<dic_number>\n<dic_ref dr_type=\"halpern_kkd\">210</dic_ref>\n</dic_number>\n<query_code>\n<q_code qc_type=\"skip\">1-3-2</q_code>\n</query_code>\n<reading_meaning>\n<rmgroup>\n<reading r_type=\"ja_on\">シツ</reading>\n<reading r_type=\"ja_on\">シチ</reading>\n<reading r_type=\"ja_on\">カ</reading>\n<reading r_type=\"ja_kun\">しか.る</reading>\n<meaning>scold</meaning>\n<meaning>reprove</meaning>\n</rmgroup>\n</reading_meaning>\n</character>\n\n",
+      "expected_policy": "vietnam readings are HanViet, never MeaningsVi; retain punctuation and supplementary scalar.",
+      "review_status": "proposed"
+    }
+  ],
+  "pending": [
+    "VI semantic target review",
+    "negative-pair enumeration review",
+    "source/license G0b",
+    "owner corpus approval"
+  ]
+}

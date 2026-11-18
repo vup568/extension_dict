@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "corpus_version": "yco-20261110.1",
+  "sources": [
+    {
+      "source_id": "irodori-ta",
+      "kind": "grammar_reference",
+      "reference": "https://www.irodori.jpf.go.jp/assets/data/resources/Grammar_Worksheets_Answer.pdf",
+      "use": "Ngoại lệ của 行く trong bảng thể タ.",
+      "external_content_imported": false
+    },
+    {
+      "source_id": "bunkacho-okurigana",
+      "kind": "grammar_reference",
+      "reference": "https://www.bunka.go.jp/tokei_hakusho_shuppan/hakusho_nenjihokokusho/archive/pdf/93728801_03.pdf#page=41",
+      "use": "Phân biệt hai cách đọc của 行った.",
+      "external_content_imported": false
+    },
+    {
+      "source_id": "ninjal-shimau",
+      "kind": "grammar_reference",
+      "reference": "https://mmsrv.ninjal.ac.jp/kamus/data/item2981.html",
+      "use": "Cách dùng trợ động từ, động từ chỉ việc cất và thán từ.",
+      "external_content_imported": false
+    },
+    {
+      "source_id": "tufs-plain-forms",
+      "kind": "grammar_reference",
+      "reference": "https://www.coelang.tufs.ac.jp/modules/ja/gmod/courses/c01/lesson11/step1/card/038.html",
+      "use": "Biến âm của 読む trước で.",
+      "external_content_imported": false
+    },
+    {
+      "source_id": "tufs-te-iru",
+      "kind": "grammar_reference",
+      "reference": "https://www.coelang.tufs.ac.jp/mt/ja/gmod/contents/explanation/044.html",
+      "use": "Cấu tạo ている và dạng phủ định.",
+      "external_content_imported": false
+    },
+    {
+      "source_id": "marugoto-te-ita",
+      "kind": "grammar_reference",
+      "reference": "https://marugoto.jpf.go.jp/assets/docs/teacher/resource/intermediate1/intermediate1_teaching_topic.pdf#page=154",
+      "use": "Dạng quá khứ của ている.",
+      "external_content_imported": false
+    },
+    {
+      "source_id": "jmdict-pin",
+      "kind": "canonical_dictionary",
+      "reference": "https://www.edrdg.org/pub/Nihongo/JMdict_e.gz",
+      "use": "Đối chiếu ID, cặp viết–đọc và POS của mục từ. Chỉ lưu dữ kiện cần kiểm, không sao chép gloss.",
+      "artifact_sha256": "1e89ac398ec0230b7bb1daa246ce0095421bf3667bb6509aab93e26e7fdfd1b5"
+    },
+    {
+      "source_id": "f09-baseline",
+      "kind": "approved_local",
+      "reference": ".sdd/specs/feat-conjugation-explanation/evidence/acceptance-manifest.json",
+      "use": "Tham chiếu ca và quy tắc đã nghiệm thu."
+    },
+    {
+      "source_id": "t16-catalog",
+      "kind": "reviewed_local",
+      "reference": "plans/261104-yomitan-reading-experience/evidence/conjugation-gap-catalog.md",
+      "use": "Phạm vi, đáp án đã đối chiếu và quan sát runtime ngày 10/11."
+    },
+    {
+      "source_id": "joint-applicability",
+      "kind": "synthetic_local",
+      "reference": "tests/unit/DictionaryReadCorrectnessTests.cs",
+      "use": "Mô hình cặp viết–đọc–sense ràng buộc. Các dạng thử tổng hợp chỉ dùng kiểm tra ánh xạ."
+    },
+    {
+      "source_id": "scan-contract",
+      "kind": "contract",
+      "reference": ".sdd/specs/005-yomitan-reading-experience/contracts.md",
+      "use": "Quy ước offset, ranh giới UTF‑16, kết quả span và lỗi đầu vào."
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "decision": "PASS_WITH_RISK",
+  "disprovenClaims": [],
+  "unverifiedClaims": ["User's existing process fixed after restart:pending user smoke", "Ubuntu tests pass:not claimed;user excluded platform"],
+  "missingProof": ["Original workflow artifact validator absent from checkout", "No Ubuntu run authorized"],
+  "reachableRegressions": ["Windows PowerShell executable names in tests break Ubuntu integration workflow;explicitly retained outside scope and block hard delivery"],
+  "validatedClaims": ["Synthetic delimiter/quote/Host payload cannot inject connection field", "Startup error logs do not include raw provider exception", "Transient contexts and public API/schema preserved"],
+  "hardDeliveryState": "BLOCKED",
+  "scopedHandoffState": "Windows ready with disclosed risk"
+}

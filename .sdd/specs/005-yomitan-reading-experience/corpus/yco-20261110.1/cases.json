@@ -1,0 +1,1054 @@
+{
+  "schema_version": 1,
+  "corpus_version": "yco-20261110.1",
+  "dictionary_fixtures": [
+    {
+      "fixture_id": "iku",
+      "canonical_id": "dictionary:jmdict:1578850",
+      "form": "行く",
+      "reading": "いく",
+      "pos": [
+        "v5k-s",
+        "vi"
+      ],
+      "sense_ordinal": 1
+    },
+    {
+      "fixture_id": "okonau",
+      "canonical_id": "dictionary:jmdict:1589060",
+      "form": "行う",
+      "reading": "おこなう",
+      "pos": [
+        "v5u",
+        "vt"
+      ],
+      "sense_ordinal": 1
+    },
+    {
+      "fixture_id": "taberu",
+      "canonical_id": "dictionary:jmdict:1358280",
+      "form": "食べる",
+      "reading": "たべる",
+      "pos": [
+        "v1",
+        "vt"
+      ],
+      "sense_ordinal": 1
+    },
+    {
+      "fixture_id": "yomu",
+      "canonical_id": "dictionary:jmdict:1456360",
+      "form": "読む",
+      "reading": "よむ",
+      "pos": [
+        "v5m",
+        "vt"
+      ],
+      "sense_ordinal": 1
+    },
+    {
+      "fixture_id": "shimau_storage",
+      "canonical_id": "dictionary:jmdict:1305380",
+      "form": "仕舞う",
+      "reading": "しまう",
+      "pos": [
+        "v5u",
+        "vt"
+      ],
+      "sense_ordinal": 3
+    },
+    {
+      "fixture_id": "shimatta_interjection",
+      "canonical_id": "dictionary:jmdict:1005600",
+      "form": "仕舞った",
+      "reading": "しまった",
+      "pos": [
+        "int"
+      ],
+      "sense_ordinal": 1
+    },
+    {
+      "fixture_id": "restricted_noun",
+      "canonical_id": "dictionary:synthetic-yco-reading",
+      "form": "読む",
+      "reading": "よみ",
+      "pos": [
+        "n"
+      ],
+      "sense_key": "noun_only",
+      "reading_restricted_to": [
+        "読む"
+      ]
+    },
+    {
+      "fixture_id": "restricted_verb",
+      "canonical_id": "dictionary:synthetic-yco-reading",
+      "form": "読ム",
+      "reading": "よむ",
+      "pos": [
+        "v5m"
+      ],
+      "sense_key": "verb_only",
+      "reading_restricted_to": [
+        "読ム"
+      ]
+    }
+  ],
+  "cases": [
+    {
+      "case_id": "IRR-01-PAST",
+      "gap_id": "YCO-IRR-01",
+      "stage": "regression",
+      "source_refs": ["irodori-ta", "bunkacho-okurigana", "jmdict-pin"],
+      "input": {
+        "kind": "word",
+        "text": "行った",
+        "fixture_policy": "base_only",
+        "fixture_ids": ["iku"]
+      },
+      "expected": {
+        "occurrences": [
+          {
+            "surface": "行った",
+            "span": [0, 3],
+            "matches": [
+              {
+                "fixture_id": "iku",
+                "construction": "verb-past",
+                "segments": [
+                  {
+                    "surface": "行っ",
+                    "span": [0, 2],
+                    "role": "lexical_head"
+                  },
+                  {
+                    "surface": "た",
+                    "span": [2, 3],
+                    "role": "past"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "IRR-01-WRONG-ONBIN",
+      "gap_id": "YCO-IRR-01",
+      "stage": "regression",
+      "source_refs": ["irodori-ta", "bunkacho-okurigana", "jmdict-pin"],
+      "input": {
+        "kind": "word",
+        "text": "行いた",
+        "fixture_policy": "base_only",
+        "fixture_ids": ["iku"]
+      },
+      "expected": {
+        "occurrences": [],
+        "forbidden": [
+          {
+            "construction": "verb-past",
+            "fixture_id": "iku"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "IRR-01-HOMOGRAPHS",
+      "gap_id": "YCO-IRR-01",
+      "stage": "linguistic_only",
+      "source_refs": ["irodori-ta", "bunkacho-okurigana", "jmdict-pin"],
+      "input": {
+        "kind": "word",
+        "text": "行った",
+        "fixture_policy": "reference_only",
+        "fixture_ids": ["iku", "okonau"]
+      },
+      "expected": {
+        "occurrences": [
+          {
+            "surface": "行った",
+            "span": [0, 3],
+            "matches": [
+              {
+                "fixture_id": "iku",
+                "construction": "verb-past",
+                "surface_reading": "いった"
+              },
+              {
+                "fixture_id": "okonau",
+                "construction": "verb-past",
+                "surface_reading": "おこなった"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "IRR-02-STATION",
+      "gap_id": "YCO-IRR-02",
+      "stage": "linguistic_only",
+      "source_refs": ["irodori-ta", "bunkacho-okurigana", "jmdict-pin"],
+      "input": {
+        "kind": "sentence",
+        "text": "昨日、駅へ行った。",
+        "fixture_policy": "reference_only",
+        "fixture_ids": ["iku", "okonau"]
+      },
+      "expected": {
+        "occurrences": [
+          {
+            "surface": "行った",
+            "span": [5, 8],
+            "matches": [
+              {
+                "fixture_id": "iku",
+                "construction": "verb-past",
+                "surface_reading": "いった"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "IRR-02-EXPERIMENT",
+      "gap_id": "YCO-IRR-02",
+      "stage": "linguistic_only",
+      "source_refs": ["irodori-ta", "bunkacho-okurigana", "jmdict-pin"],
+      "input": {
+        "kind": "sentence",
+        "text": "昨日、実験を行った。",
+        "fixture_policy": "reference_only",
+        "fixture_ids": ["iku", "okonau"]
+      },
+      "expected": {
+        "occurrences": [
+          {
+            "surface": "行った",
+            "span": [6, 9],
+            "matches": [
+              {
+                "fixture_id": "okonau",
+                "construction": "verb-past",
+                "surface_reading": "おこなった"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "ASP-01-PAST",
+      "gap_id": "YCO-ASP-01",
+      "stage": "regression",
+      "source_refs": ["f09-baseline", "tufs-te-iru", "marugoto-te-ita", "jmdict-pin"],
+      "input": {
+        "kind": "sentence",
+        "text": "昨日はパンを食べていた。",
+        "fixture_policy": "sentence",
+        "fixture_ids": ["taberu"]
+      },
+      "expected": {
+        "occurrences": [
+          {
+            "surface": "食べていた",
+            "span": [6, 11],
+            "matches": [
+              {
+                "fixture_id": "taberu",
+                "construction": "te-iru-past",
+                "segments": [
+                  {
+                    "surface": "食べ",
+                    "span": [0, 2],
+                    "role": "lexical_head"
+                  },
+                  {
+                    "surface": "て",
+                    "span": [2, 3],
+                    "role": "te_connective"
+                  },
+                  {
+                    "surface": "い",
+                    "span": [3, 4],
+                    "role": "progressive"
+                  },
+                  {
+                    "surface": "た",
+                    "span": [4, 5],
+                    "role": "past"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "forbidden": [
+          {
+            "construction": "te-iru-negative",
+            "span": [6, 11]
+          },
+          {
+            "construction": "te-shimau-past",
+            "span": [6, 11]
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "ASP-02-NEGATIVE",
+      "gap_id": "YCO-ASP-02",
+      "stage": "regression",
+      "source_refs": ["f09-baseline", "tufs-te-iru", "marugoto-te-ita", "jmdict-pin"],
+      "input": {
+        "kind": "sentence",
+        "text": "まだパンを食べていない。",
+        "fixture_policy": "sentence",
+        "fixture_ids": ["taberu"]
+      },
+      "expected": {
+        "occurrences": [
+          {
+            "surface": "食べていない",
+            "span": [5, 11],
+            "matches": [
+              {
+                "fixture_id": "taberu",
+                "construction": "te-iru-negative",
+                "segments": [
+                  {
+                    "surface": "食べ",
+                    "span": [0, 2],
+                    "role": "lexical_head"
+                  },
+                  {
+                    "surface": "て",
+                    "span": [2, 3],
+                    "role": "te_connective"
+                  },
+                  {
+                    "surface": "い",
+                    "span": [3, 4],
+                    "role": "progressive"
+                  },
+                  {
+                    "surface": "ない",
+                    "span": [4, 6],
+                    "role": "negative"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "forbidden": [
+          {
+            "construction": "te-iru-nonpast",
+            "span": [5, 11]
+          },
+          {
+            "construction": "te-iru-past",
+            "span": [5, 11]
+          },
+          {
+            "construction": "te-shimau-nonpast",
+            "span": [5, 11]
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "AUX-01-NONPAST",
+      "gap_id": "YCO-AUX-01",
+      "stage": "candidate",
+      "source_refs": ["ninjal-shimau", "jmdict-pin"],
+      "input": {
+        "kind": "word",
+        "text": "食べてしまう",
+        "fixture_policy": "base_only",
+        "fixture_ids": ["taberu"]
+      },
+      "expected": {
+        "occurrences": [
+          {
+            "surface": "食べてしまう",
+            "span": [0, 6],
+            "matches": [
+              {
+                "fixture_id": "taberu",
+                "construction": "te-shimau-nonpast",
+                "segments": [
+                  {
+                    "surface": "食べ",
+                    "span": [0, 2],
+                    "role": "lexical_head"
+                  },
+                  {
+                    "surface": "て",
+                    "span": [2, 3],
+                    "role": "te_connective"
+                  },
+                  {
+                    "surface": "しまう",
+                    "span": [3, 6],
+                    "role": "auxiliary"
+                  }
+                ],
+                "interpretation_label": "Cách hiểu có thể"
+              }
+            ]
+          }
+        ],
+        "forbidden": [
+          {
+            "construction": "te-shimau-past"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "AUX-01-PAST",
+      "gap_id": "YCO-AUX-01",
+      "stage": "candidate",
+      "source_refs": ["ninjal-shimau", "jmdict-pin"],
+      "input": {
+        "kind": "word",
+        "text": "食べてしまった",
+        "fixture_policy": "base_only",
+        "fixture_ids": ["taberu"]
+      },
+      "expected": {
+        "occurrences": [
+          {
+            "surface": "食べてしまった",
+            "span": [0, 7],
+            "matches": [
+              {
+                "fixture_id": "taberu",
+                "construction": "te-shimau-past",
+                "segments": [
+                  {
+                    "surface": "食べ",
+                    "span": [0, 2],
+                    "role": "lexical_head"
+                  },
+                  {
+                    "surface": "て",
+                    "span": [2, 3],
+                    "role": "te_connective"
+                  },
+                  {
+                    "surface": "しまっ",
+                    "span": [3, 6],
+                    "role": "auxiliary"
+                  },
+                  {
+                    "surface": "た",
+                    "span": [6, 7],
+                    "role": "past"
+                  }
+                ],
+                "interpretation_label": "Cách hiểu có thể"
+              }
+            ]
+          }
+        ],
+        "forbidden": [
+          {
+            "construction": "te-shimau-nonpast"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "AUX-02-NONPAST",
+      "gap_id": "YCO-AUX-02",
+      "stage": "candidate",
+      "source_refs": ["tufs-plain-forms", "ninjal-shimau", "jmdict-pin"],
+      "input": {
+        "kind": "word",
+        "text": "読んでしまう",
+        "fixture_policy": "base_only",
+        "fixture_ids": ["yomu"]
+      },
+      "expected": {
+        "occurrences": [
+          {
+            "surface": "読んでしまう",
+            "span": [0, 6],
+            "matches": [
+              {
+                "fixture_id": "yomu",
+                "construction": "te-shimau-nonpast",
+                "segments": [
+                  {
+                    "surface": "読ん",
+                    "span": [0, 2],
+                    "role": "lexical_head"
+                  },
+                  {
+                    "surface": "で",
+                    "span": [2, 3],
+                    "role": "te_connective"
+                  },
+                  {
+                    "surface": "しまう",
+                    "span": [3, 6],
+                    "role": "auxiliary"
+                  }
+                ],
+                "interpretation_label": "Cách hiểu có thể"
+              }
+            ]
+          }
+        ],
+        "forbidden": [
+          {
+            "construction": "te-shimau-past"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "AUX-02-PAST",
+      "gap_id": "YCO-AUX-02",
+      "stage": "candidate",
+      "source_refs": ["tufs-plain-forms", "ninjal-shimau", "jmdict-pin"],
+      "input": {
+        "kind": "word",
+        "text": "読んでしまった",
+        "fixture_policy": "base_only",
+        "fixture_ids": ["yomu"]
+      },
+      "expected": {
+        "occurrences": [
+          {
+            "surface": "読んでしまった",
+            "span": [0, 7],
+            "matches": [
+              {
+                "fixture_id": "yomu",
+                "construction": "te-shimau-past",
+                "segments": [
+                  {
+                    "surface": "読ん",
+                    "span": [0, 2],
+                    "role": "lexical_head"
+                  },
+                  {
+                    "surface": "で",
+                    "span": [2, 3],
+                    "role": "te_connective"
+                  },
+                  {
+                    "surface": "しまっ",
+                    "span": [3, 6],
+                    "role": "auxiliary"
+                  },
+                  {
+                    "surface": "た",
+                    "span": [6, 7],
+                    "role": "past"
+                  }
+                ],
+                "interpretation_label": "Cách hiểu có thể"
+              }
+            ]
+          }
+        ],
+        "forbidden": [
+          {
+            "construction": "te-shimau-nonpast"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "AUX-02-WRONG-ONBIN-NONPAST",
+      "gap_id": "YCO-AUX-02",
+      "stage": "candidate",
+      "source_refs": ["tufs-plain-forms", "ninjal-shimau", "jmdict-pin"],
+      "input": {
+        "kind": "word",
+        "text": "読んてしまう",
+        "fixture_policy": "base_only",
+        "fixture_ids": ["yomu"]
+      },
+      "expected": {
+        "occurrences": [],
+        "forbidden": [
+          {
+            "construction": "te-shimau-nonpast",
+            "fixture_id": "yomu"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "AUX-02-WRONG-ONBIN-PAST",
+      "gap_id": "YCO-AUX-02",
+      "stage": "candidate",
+      "source_refs": ["tufs-plain-forms", "ninjal-shimau", "jmdict-pin"],
+      "input": {
+        "kind": "word",
+        "text": "読んてしまった",
+        "fixture_policy": "base_only",
+        "fixture_ids": ["yomu"]
+      },
+      "expected": {
+        "occurrences": [],
+        "forbidden": [
+          {
+            "construction": "te-shimau-past",
+            "fixture_id": "yomu"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "AUX-02-RESTRICTED-SENSE",
+      "gap_id": "YCO-AUX-02",
+      "stage": "candidate",
+      "source_refs": ["tufs-plain-forms", "joint-applicability"],
+      "input": {
+        "kind": "word",
+        "text": "読んでしまった",
+        "fixture_policy": "restricted_entry",
+        "fixture_ids": ["restricted_noun", "restricted_verb"]
+      },
+      "expected": {
+        "occurrences": [],
+        "forbidden": [
+          {
+            "construction": "te-shimau-past"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "AUX-03-LEXICAL",
+      "gap_id": "YCO-AUX-03",
+      "stage": "linguistic_only",
+      "source_refs": ["ninjal-shimau", "jmdict-pin"],
+      "input": {
+        "kind": "sentence",
+        "text": "本を箱にしまった。",
+        "fixture_policy": "reference_only",
+        "fixture_ids": ["shimau_storage"]
+      },
+      "expected": {
+        "occurrences": [
+          {
+            "surface": "しまった",
+            "span": [4, 8],
+            "matches": [
+              {
+                "fixture_id": "shimau_storage",
+                "construction": "verb-past"
+              }
+            ]
+          }
+        ],
+        "forbidden": [
+          {
+            "construction": "te-shimau-past",
+            "span": [4, 8]
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "AUX-03-NO-AUXILIARY",
+      "gap_id": "YCO-AUX-03",
+      "stage": "candidate",
+      "source_refs": ["ninjal-shimau", "jmdict-pin"],
+      "input": {
+        "kind": "sentence",
+        "text": "本を箱にしまった。",
+        "fixture_policy": "sentence",
+        "fixture_ids": ["shimau_storage", "shimatta_interjection"]
+      },
+      "expected": {
+        "occurrences": [
+          {
+            "surface": "しまった",
+            "span": [4, 8],
+            "match_policy": "any",
+            "matches": []
+          }
+        ],
+        "forbidden": [
+          {
+            "construction": "te-shimau-past",
+            "span": [4, 8]
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "AUX-03-EXACT-INTERJECTION",
+      "gap_id": "YCO-AUX-03",
+      "stage": "regression",
+      "source_refs": ["ninjal-shimau", "jmdict-pin"],
+      "input": {
+        "kind": "word",
+        "text": "しまった",
+        "fixture_policy": "exact_surface",
+        "fixture_ids": ["shimatta_interjection", "shimau_storage"]
+      },
+      "expected": {
+        "occurrences": [
+          {
+            "surface": "しまった",
+            "span": [0, 4],
+            "matches": [
+              {
+                "fixture_id": "shimatta_interjection",
+                "construction": "exact"
+              }
+            ]
+          }
+        ],
+        "forbidden": [
+          {
+            "construction": "verb-past"
+          },
+          {
+            "construction": "te-shimau-past"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "SPAN-01-BASELINE",
+      "gap_id": "YCO-SPAN-01",
+      "stage": "regression",
+      "source_refs": ["f09-baseline", "ninjal-shimau", "scan-contract", "t16-catalog"],
+      "input": {
+        "kind": "sentence",
+        "text": "🐈食べている。食べてしまった。",
+        "fixture_policy": "baseline_sentence",
+        "fixture_ids": ["taberu"]
+      },
+      "expected": {
+        "occurrences": [
+          {
+            "surface": "食べている",
+            "span": [2, 7],
+            "matches": [
+              {
+                "fixture_id": "taberu",
+                "construction": "te-iru-nonpast",
+                "segments": [
+                  {
+                    "surface": "食べ",
+                    "span": [0, 2],
+                    "role": "lexical_head"
+                  },
+                  {
+                    "surface": "て",
+                    "span": [2, 3],
+                    "role": "te_connective"
+                  },
+                  {
+                    "surface": "い",
+                    "span": [3, 4],
+                    "role": "progressive"
+                  },
+                  {
+                    "surface": "る",
+                    "span": [4, 5],
+                    "role": "nonpast"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "surface": "食べてしまった",
+            "span": [8, 15],
+            "matches": [
+              {
+                "fixture_id": "taberu",
+                "construction": "lemma-only"
+              }
+            ]
+          }
+        ],
+        "forbidden": [
+          {
+            "construction": "te-shimau-past",
+            "span": [8, 15]
+          }
+        ],
+        "scan": [
+          {
+            "offset": 6,
+            "status": 200,
+            "target_span": [2, 7]
+          },
+          {
+            "offset": 14,
+            "status": 200,
+            "target_span": [8, 15]
+          },
+          {
+            "offset": 1,
+            "status": 400,
+            "error_code": "VALIDATION_FAILED"
+          },
+          {
+            "offset": 7,
+            "status": 400,
+            "error_code": "VALIDATION_FAILED"
+          },
+          {
+            "offset": 15,
+            "status": 400,
+            "error_code": "VALIDATION_FAILED"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "SPAN-01-CANDIDATE",
+      "gap_id": "YCO-SPAN-01",
+      "stage": "candidate",
+      "source_refs": ["f09-baseline", "ninjal-shimau", "scan-contract", "t16-catalog"],
+      "input": {
+        "kind": "sentence",
+        "text": "🐈食べている。食べてしまった。",
+        "fixture_policy": "sentence",
+        "fixture_ids": ["taberu"]
+      },
+      "expected": {
+        "occurrences": [
+          {
+            "surface": "食べている",
+            "span": [2, 7],
+            "matches": [
+              {
+                "fixture_id": "taberu",
+                "construction": "te-iru-nonpast",
+                "segments": [
+                  {
+                    "surface": "食べ",
+                    "span": [0, 2],
+                    "role": "lexical_head"
+                  },
+                  {
+                    "surface": "て",
+                    "span": [2, 3],
+                    "role": "te_connective"
+                  },
+                  {
+                    "surface": "い",
+                    "span": [3, 4],
+                    "role": "progressive"
+                  },
+                  {
+                    "surface": "る",
+                    "span": [4, 5],
+                    "role": "nonpast"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "surface": "食べてしまった",
+            "span": [8, 15],
+            "matches": [
+              {
+                "fixture_id": "taberu",
+                "construction": "te-shimau-past",
+                "segments": [
+                  {
+                    "surface": "食べ",
+                    "span": [0, 2],
+                    "role": "lexical_head"
+                  },
+                  {
+                    "surface": "て",
+                    "span": [2, 3],
+                    "role": "te_connective"
+                  },
+                  {
+                    "surface": "しまっ",
+                    "span": [3, 6],
+                    "role": "auxiliary"
+                  },
+                  {
+                    "surface": "た",
+                    "span": [6, 7],
+                    "role": "past"
+                  }
+                ],
+                "interpretation_label": "Cách hiểu có thể"
+              }
+            ]
+          }
+        ],
+        "scan": [
+          {
+            "offset": 6,
+            "status": 200,
+            "target_span": [2, 7]
+          },
+          {
+            "offset": 14,
+            "status": 200,
+            "target_span": [8, 15]
+          },
+          {
+            "offset": 1,
+            "status": 400,
+            "error_code": "VALIDATION_FAILED"
+          },
+          {
+            "offset": 7,
+            "status": 400,
+            "error_code": "VALIDATION_FAILED"
+          },
+          {
+            "offset": 15,
+            "status": 400,
+            "error_code": "VALIDATION_FAILED"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "SPAN-02-PUNCTUATION",
+      "gap_id": "YCO-SPAN-02",
+      "stage": "candidate",
+      "source_refs": ["f09-baseline", "ninjal-shimau", "scan-contract", "t16-catalog"],
+      "input": {
+        "kind": "sentence",
+        "text": "食べて。しまった",
+        "fixture_policy": "sentence",
+        "fixture_ids": ["taberu", "shimatta_interjection"]
+      },
+      "expected": {
+        "occurrences": [
+          {
+            "surface": "食べて",
+            "span": [0, 3],
+            "matches": [
+              {
+                "fixture_id": "taberu",
+                "construction": "verb-te",
+                "segments": [
+                  {
+                    "surface": "食べ",
+                    "span": [0, 2],
+                    "role": "lexical_head"
+                  },
+                  {
+                    "surface": "て",
+                    "span": [2, 3],
+                    "role": "te_connective"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "surface": "しまった",
+            "span": [4, 8],
+            "match_policy": "any",
+            "matches": []
+          }
+        ],
+        "forbidden": [
+          {
+            "construction": "te-shimau-past"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "SPAN-02-REPEATED",
+      "gap_id": "YCO-SPAN-02",
+      "stage": "regression",
+      "source_refs": ["f09-baseline", "scan-contract", "t16-catalog"],
+      "input": {
+        "kind": "sentence",
+        "text": "食べている。食べている。",
+        "fixture_policy": "sentence",
+        "fixture_ids": ["taberu"]
+      },
+      "expected": {
+        "occurrences": [
+          {
+            "surface": "食べている",
+            "span": [0, 5],
+            "matches": [
+              {
+                "fixture_id": "taberu",
+                "construction": "te-iru-nonpast",
+                "segments": [
+                  {
+                    "surface": "食べ",
+                    "span": [0, 2],
+                    "role": "lexical_head"
+                  },
+                  {
+                    "surface": "て",
+                    "span": [2, 3],
+                    "role": "te_connective"
+                  },
+                  {
+                    "surface": "い",
+                    "span": [3, 4],
+                    "role": "progressive"
+                  },
+                  {
+                    "surface": "る",
+                    "span": [4, 5],
+                    "role": "nonpast"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "surface": "食べている",
+            "span": [6, 11],
+            "matches": [
+              {
+                "fixture_id": "taberu",
+                "construction": "te-iru-nonpast",
+                "segments": [
+                  {
+                    "surface": "食べ",
+                    "span": [0, 2],
+                    "role": "lexical_head"
+                  },
+                  {
+                    "surface": "て",
+                    "span": [2, 3],
+                    "role": "te_connective"
+                  },
+                  {
+                    "surface": "い",
+                    "span": [3, 4],
+                    "role": "progressive"
+                  },
+                  {
+                    "surface": "る",
+                    "span": [4, 5],
+                    "role": "nonpast"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 # Kế hoạch code: trải nghiệm đọc tham khảo Yomitan
 
-Ngày 2026-11-04. Phiên bản 1.0. Cập nhật 2026-11-10. Đang triển khai, 21/28 việc hoàn thành theo checklist. Xem [báo cáo kiểm chứng](evidence/test-report.md) và [baseline triển khai](evidence/provenance.md).
+Ngày 2026-11-04. Phiên bản 1.0. Cập nhật 2026-11-23. Đang triển khai, 22/28 việc hoàn thành theo checklist. Xem [báo cáo kiểm chứng](evidence/test-report.md) và [baseline triển khai](evidence/provenance.md).
 
 ## 1. Mục tiêu và tài liệu nguồn
 
@@ -31,7 +31,7 @@ Không thêm dependency tự động. Không đưa key vào chat, markdown, sour
 | P1 — Nội dung popup | T04–T07 | Danh sách occurrence, chi tiết từ, reading/restrictions, trạng thái độc lập | P0 | YUI-AC01–08 đạt; legacy từ đơn còn chạy | 4/4, smoke Edge với từ điển thật đạt |
 | P2 — Vòng đời popup | T08–T10 | Resize, preference, pin, keyboard/focus và cleanup | P1 | YPO-AC01–10 ở component/harness; audio dùng stub/lifecycle spy. E2E speech thật lặp ở P6 sau P5 | 3/3, Chrome/Edge/Brave đạt. Firefox đã build, chưa chạy runtime |
 | P3 — Pointer scan | T11–T15 | DOM buffer, endpoint scan, transport và UI target | P0 + P2 | YSC-AC01–09 đạt với Postgres/Sudachi/browser | 5/5, kiểm thử toàn tuyến Edge và hồi quy Chrome đạt |
-| P4 — Đối chiếu thể chia | T16–T19 | Catalog, corpus/rules phiên bản mới nếu cần, regression | P0 để nghiên cứu cùng P1–P3; T19 tích hợp scan cần T13 | YCO-AC01–08 đạt và corpus có nguồn/review | 3/4, dataset `candidate-20261110.1` đã qua kiểm từ đơn. Tiếp theo T19 |
+| P4 — Đối chiếu thể chia | T16–T19 | Catalog, corpus/rules phiên bản mới nếu cần, regression | P0 để nghiên cứu cùng P1–P3; T19 tích hợp scan cần T13 | YCO-AC01–08 đạt và corpus có nguồn/review | 4/4, `candidate-20261110.1` là pin mặc định; DB thật đã nâng cấp bằng lệnh `upgrade` và nghiệm thu |
 | P5 — Phát âm Gemini | T20–T24 | Probe TTS, adapter/endpoint, nút nghe/stop/replay và kiểm âm thanh | P0 + P2; probe T20 có thể làm sớm | YAU-AC01–09 đạt, có nghe review thật ngoài fake tests | 3/5, đã nghe được trong popup, chờ ghi hạn mức và kết quả theo mẫu |
 | P6 — Nghiệm thu tích hợp | T25–T28 | Cross-capability, privacy, performance, browser, docs và artifact | P3 + P4 + P5 | G-A–G-G đạt và mọi task có bằng chứng | 0/4, đang có kiểm thử từng phần |
 

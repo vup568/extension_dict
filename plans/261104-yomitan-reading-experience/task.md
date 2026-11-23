@@ -134,12 +134,14 @@ Ngày 2026-11-04. Cập nhật 2026-11-10. Đang triển khai. Xem [báo cáo ki
   - **Kiểm chứng:** **YCO-AC02/03/04/07**; rejected candidates không trộn reading/form/meaning và không tự gán một nghĩa chắc chắn.
   - **Bằng chứng:** `candidate-20261110.1` thêm bốn paradigm `て/で + しまう` và qua 9 ca adapter/lookup từ corpus T17. [Báo cáo T18](evidence/test-report.md) ghi phép kiểm F‑09 và quan sát token từ sidecar Sudachi đã pin. Kích hoạt và kiểm toàn tuyến thuộc T19.
 
-- [ ] **T19 — Nghiệm thu corpus và tích hợp câu/scan**
+- [x] **T19 — Nghiệm thu corpus và tích hợp câu/scan**
   - **Phụ thuộc:** T18, T13.
   - **Touchpoints:** regression F09, sentence/scan use cases, backend integration and contract tests.
   - **Đầu ra:** so sánh corpus cũ/mới, lemma-only fallback, UTF-16 nested spans, candidate budget/cancellation/latency và đường quay lại dataset đã xác minh.
   - **Kiểm chứng:** toàn bộ **YCO-AC01–YCO-AC08**, **G-C**; không kích hoạt dataset chưa qua validation hoặc lấy số lượng test làm độ phủ mọi tiếng Nhật.
   - **Tiến độ 18/11:** đã cài bằng migration tiến `AddYcoConjugationCandidate`; 21 ca YCO qua `/api/analysis` và `/api/scan` với PostgreSQL và Sudachi thật đạt trên cả hai pin; 404 ca F‑09 và hợp đồng 1/2/3 đạt với pin mới. [Báo cáo T19](evidence/test-report.md). Còn kiểm popup trên DB local với pin mới và quyết định đổi pin mặc định trước khi tick.
+  - **Tiến độ 23/11:** pin mặc định đã đổi sang `candidate-20261110.1` (commit `ceb7376`). DB demo tạo mới bằng bản build 18/11 có migration YCO; smoke demo đạt với pin mới. **Chặn:** DB thật `jp_dict_real_jaen_20261030_v3` thiếu migration `20261118075656_AddYcoConjugationCandidate`, mà xác minh DB ứng viên đòi lịch sử migration khớp chính xác và không tự migrate, nên code hiện tại không khởi động được trên DB thật với bất kỳ pin nào. Cần chủ dự án chọn cách đưa migration vào DB ứng viên trước khi tick. [Báo cáo 23/11](evidence/test-report.md#t19--db-thật-thiếu-migration-yco-ngày-23112026)
+  - **Hoàn tất 23/11:** chủ dự án chọn thêm lệnh `--dictionary-import upgrade` (spec 002 FR-015). DB thật được sao lưu rồi nâng cấp; facts hash giữ nguyên `168480cd…`. Backend hiện tại qua xác minh với `candidate-20261110.1`, giải thích `食べてしまった → 食べる` bằng `verb-te-shimau:plain-past`, và 3 smoke từ điển thật đạt. [Báo cáo nâng cấp](evidence/test-report.md#t19--nâng-cấp-db-thật-và-nghiệm-thu-ngày-23112026)
 
 ## P5 — Phát âm AI Gemini
 

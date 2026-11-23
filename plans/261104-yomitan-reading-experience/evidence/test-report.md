@@ -85,3 +85,12 @@ Ngày 10/11/2026, chủ dự án thử lại trong popup và xác nhận giọng
 - Đường quay lại: hai phiên bản cùng nằm trong DB và bất biến; đổi `ConjugationDatasetVersion` hoặc `-DatasetVersion` là quay lại, không cần migration.
 - Popup không lọc `rule_id` và chỉ yêu cầu mọi giải thích trong một phản hồi cùng `dataset_version`, nên hiển thị rule mới mà không cần sửa extension.
 - Còn mở: kiểm popup trên DB local thật với pin mới và quyết định đổi pin mặc định trong script khởi động.
+
+## Bố cục tab của popup ngày 23/11/2026
+
+- Chủ dự án duyệt bản mẫu và chọn: 4 tab Từ vựng, Kanji, Ngữ pháp, Câu; bấm từ ngay trong câu ở đầu popup; tab Kanji chỉ hiện kanji của từ đang chọn; chế độ tối theo hệ thống; nhãn từ loại tiếng Việt; tô mẫu ngữ pháp trong câu. [YUI 0.3](../../../.sdd/specs/005-yomitan-reading-experience/features/popup-content.md) ghi lại hành vi.
+- Mã: `PopupShell` chia thành `PopupTabs`, `VocabularyPanel`, `ReferencePanels`, `sentenceSegments`, `partOfSpeechLabels`, `popupIcons`. Panel không hiện vẫn mounted nên đổi tab không hủy bản dịch hay âm thanh. Phân tích thất bại không hiện tab, phần dịch nằm dưới thông báo lỗi; tra bằng con trỏ không có tab Câu và không hiện phần dịch kể cả khi lỗi. Không thêm dependency, không đổi contract API.
+- `npm --prefix extension run typecheck`, 305 ca Vitest và build Chromium/Firefox đạt. Bộ test mới `popupLayout.test.ts` kiểm tách câu, nhãn từ loại, panel ẩn, phạm vi kanji theo từ, tab khi quét và khi lỗi.
+- Playwright với bản cuối: 167 ca đạt trên Chrome, Edge và Brave cho bảy bộ popup (`selection-popup`, `translation-popup`, `conjugation-popup`, `kana-only-popup`, `reading-interaction`, `reading-viewport-frames`, `host-page-no-side-effects`). Một ca MV3 đóng gói được cấu hình bỏ qua ở Chrome và đạt ở Edge lẫn Brave. Trước bản sửa chặn dịch khi quét lỗi, toàn bộ 71 ca `tests/browser` trên Chrome cho 70 đạt, 1 bỏ qua.
+- Các test đã sửa theo bố cục mới: mở tab thay cho bấm tiêu đề thu gọn, nhóm từ dùng `role="group"`, kiểm tô ngữ pháp và mục tiêu quét, thêm ca bản dịch đang chờ vẫn còn sau khi đổi tab.
+- Giới hạn: bốn smoke `tests/demo` đã sửa bộ chọn nhưng chưa chạy vì cần Docker và backend. Chưa xem popup mới trên DB từ điển thật hoặc với Gemini thật. Firefox vẫn chưa có runtime để kiểm.

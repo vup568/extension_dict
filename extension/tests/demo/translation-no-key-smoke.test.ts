@@ -55,7 +55,7 @@ test("packaged extension requests translation only on click and keeps lookup whe
     const popup = page.getByRole("dialog", { name: "Tra cứu tiếng Nhật" });
     const lookup = popup.locator('[data-canonical-id="dictionary:jmdict:1358280"]');
     await expect(lookup).toBeVisible();
-    await popup.getByRole("heading", { name: "Dịch câu", exact: true }).click();
+    await popup.getByRole("tab", { name: "Câu" }).click();
     await expect(popup.getByText(/văn bản đã chọn sẽ được gửi đến Google Gemini/)).toBeVisible();
     await page.waitForTimeout(400);
     expect(translationRequests).toHaveLength(0);
@@ -70,6 +70,7 @@ test("packaged extension requests translation only on click and keeps lookup whe
     expect((await translation.json()).error_code).toBe("SERVICE_UNAVAILABLE");
     expect(translationRequests).toEqual(["POST"]);
     await expect(popup.getByText("Dịch vụ chưa khả dụng hoặc chưa được cấu hình. Hãy kiểm tra cấu hình backend.")).toBeVisible();
+    await popup.getByRole("tab", { name: "Từ vựng" }).click();
     await expect(lookup).toBeVisible();
   } finally {
     await context?.close();

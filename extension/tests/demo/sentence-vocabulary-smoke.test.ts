@@ -172,7 +172,8 @@ test("packaged extension uses the real dictionary for selection and Shift scan",
       } else {
         const [start, end] = example.span;
         expect(result.targetSpan).toEqual({ start, end, unit: "utf16" });
-        await expect(popup.locator(".jp-selected")).toHaveText(example.surface);
+        await expect(popup.locator(".jp-selected")).toHaveText(example.text);
+        await expect(popup.locator(".jp-selected .jp-target")).toHaveText(example.surface);
         await expect(popup.locator(`[data-canonical-id="${example.canonical}"]`).getByText(`EN ${example.gloss}`, { exact: true })).toBeVisible();
         if ("base" in example) {
           await expect(popup.getByText(`${example.surface} → ${example.base}`, { exact: true })).toBeVisible();

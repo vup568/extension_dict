@@ -92,19 +92,30 @@ test("AC06 network failure is safe, explicit retry succeeds", async ({ page }) =
 test("AC07 results preserve IDs, language, restrictions, provenance and repeated occurrences", async ({ page }) => {
   await select(page, "#b"); await count(page, 1); await page.evaluate(() => window.popupHarness.succeed(0));
   await expect(dialog(page).getByRole("status")).toHaveText("Có kết quả một phần");
-  const heading = await dialog(page).getByRole("heading", { name: "Tra cứu tiếng Nhật", exact: true }).boundingBox();
+  // The selection title and the close button share the header row without overlapping.
+  const title = await dialog(page).locator(".jp-selected").boundingBox();
   const closeButton = await dialog(page).getByRole("button", { name: "Đóng tra cứu" }).boundingBox();
-  expect(heading).not.toBeNull(); expect(closeButton).not.toBeNull();
-  expect(closeButton!.x).toBeGreaterThan(heading!.x + heading!.width);
-  expect(heading!.y).toBeLessThan(closeButton!.y + closeButton!.height);
-  expect(closeButton!.y).toBeLessThan(heading!.y + heading!.height);
+  expect(title).not.toBeNull(); expect(closeButton).not.toBeNull();
+  expect(closeButton!.x).toBeGreaterThan(title!.x + title!.width);
+  expect(title!.y).toBeLessThan(closeButton!.y + closeButton!.height);
+  expect(closeButton!.y).toBeLessThan(title!.y + title!.height);
   await expect(dialog(page).locator('[data-canonical-id="jmdict:1"]')).toContainText("Giới hạn nghĩa: 食事 / しょくじ");
   await expect(dialog(page).locator('[data-canonical-id="jmdict:1"]')).toContainText("chỉ dùng với 食事");
+  await expect(dialog(page).locator('[data-canonical-id="jmdict:1"]').getByText("Danh từ", { exact: true })).toHaveAttribute("title", "JMdict: n");
   await expect(dialog(page).locator('p[lang="en"]')).toContainText("EN meal");
-  await expect(dialog(page).locator('[data-canonical-id="kanji:食"]')).toContainText("JLPT N5 (legacy-estimate)");
-  await expect(dialog(page).locator('[data-canonical-id="grammar:1"]')).toHaveCount(2);
-  await expect(dialog(page)).toContainText("Vị trí 0–1"); await expect(dialog(page)).toContainText("Vị trí 1–2");
   await expect(dialog(page)).toContainText("Tách từ và biến đổi từ: chưa khả dụng.");
+  await dialog(page).getByRole("tab", { name: "Kanji" }).click();
+  await expect(dialog(page).locator('[data-canonical-id="kanji:食"]')).toContainText("JLPT N5 (legacy-estimate)");
+  await dialog(page).getByRole("tab", { name: "Ngữ pháp" }).click();
+  const grammar = dialog(page).locator('[data-canonical-id="grammar:1"]');
+  await expect(grammar).toHaveCount(2);
+  await expect(grammar.nth(1)).toContainText("Trong câu: 事");
+  // Choosing a pattern highlights its own span in the selection; choosing it again clears the highlight.
+  await grammar.nth(1).click();
+  await expect(grammar.nth(1)).toHaveAttribute("aria-pressed", "true");
+  await expect(dialog(page).locator(".jp-selected .jp-grammar-highlight")).toHaveText("事");
+  await grammar.nth(1).click();
+  await expect(dialog(page).locator(".jp-selected .jp-grammar-highlight")).toHaveCount(0);
 });
 
 test("AC07 empty completed and unavailable results are distinct", async ({ page }) => {
@@ -131,7 +142,7 @@ test("AC08 restores focus within existing host Shadow DOM", async ({ page }) => 
 
 test("AC03 new host selection remains observable after popup pointer interaction", async ({ page }) => {
   await select(page, "#b"); await count(page, 1); await page.evaluate(() => window.popupHarness.succeed(0));
-  await dialog(page).getByRole("heading", { name: "Từ vựng" }).click();
+  await dialog(page).getByRole("tab", { name: "Từ vựng" }).click();
   await select(page, "#a"); await count(page, 2); await expect(dialog(page).locator(".jp-selected")).toHaveText("日本語");
 });
 

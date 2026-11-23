@@ -13,11 +13,13 @@
 
 ## Tra cứu và điều khiển popup
 
-- Bôi đen câu như `猫を食べました。` rồi chọn từng vị trí từ trong mục **Từ vựng**. Popup hiển thị mục từ và cách đọc tìm được, cùng giải thích thể chia khi có dữ liệu. Mở **Kanji** hoặc **Ngữ pháp** để xem các mục tương ứng.
-- Để bật quét, mở **Cài đặt** trong popup và chọn **Tra từ bằng con trỏ**. Sau đó giữ **Shift** và dừng chuột trên chữ Nhật khoảng 300 ms. Extension gửi tối đa 64 đơn vị UTF-16 quanh con trỏ đến backend tra cứu. Quét mặc định tắt và bỏ qua chú âm ruby, ô nhập liệu và vùng có thể chỉnh sửa. Nhả Shift giữ kết quả đã hiện.
-- Bấm **Ghim** để giữ kết quả khi rê chuột qua từ khác. Bôi đen vùng mới vẫn thay kết quả đã ghim. Bấm **Bỏ ghim** để quét tiếp, hoặc dùng **Đóng** hay **Esc** để đóng popup.
-- Kéo nút ↘ ở góc dưới bên phải để đổi kích thước. Với bàn phím, mở **Cài đặt** rồi dùng các nút tăng hoặc giảm chiều rộng và chiều cao. Extension lưu kích thước và tùy chọn quét.
-- Để dịch, bôi đen câu rồi mở **Dịch câu** và bấm **Dịch sang tiếng Anh**. Mở mục này chỉ hiện thông tin về dữ liệu gửi tới Google. [Cấu hình dịch Gemini](./local-gemini-translation.md)
+- Bôi đen câu như `猫を食べました。`. Câu hiện ở đầu popup, mỗi từ đã phân tích là một nút có gạch chân chấm. Bấm từ nào để xem từ đó trong tab **Từ vựng**: dạng từ điển, cách đọc, từ loại, nghĩa và giải thích thể chia khi có dữ liệu.
+- Tab **Kanji** hiện kanji của từ đang chọn. Tab **Ngữ pháp** liệt kê mẫu ngữ pháp; bấm một mẫu để tô đoạn khớp trong câu. Dùng phím mũi tên trái/phải để chuyển tab. Dấu ⚠ trên tab cho biết mục đó lỗi, chưa khả dụng hoặc chỉ có một phần.
+- Để bật quét, mở **Cài đặt** (biểu tượng thanh trượt ở góc trên popup) và chọn **Tra từ bằng con trỏ**. Sau đó giữ **Shift** và dừng chuột trên chữ Nhật khoảng 300 ms. Extension gửi tối đa 64 đơn vị UTF-16 quanh con trỏ đến backend tra cứu. Quét mặc định tắt và bỏ qua chú âm ruby, ô nhập liệu và vùng có thể chỉnh sửa. Nhả Shift giữ kết quả đã hiện.
+- Bấm nút **Ghim** (biểu tượng đinh ghim) để giữ kết quả khi rê chuột qua từ khác. Bôi đen vùng mới vẫn thay kết quả đã ghim. Bấm lại để bỏ ghim, hoặc dùng nút **Đóng** (×) hay **Esc** để đóng popup.
+- Kéo góc dưới bên phải để đổi kích thước. Với bàn phím, mở **Cài đặt** rồi dùng các nút − và + cho chiều rộng và chiều cao. Extension lưu kích thước và tùy chọn quét.
+- Để dịch, bôi đen câu rồi mở tab **Câu** và bấm **Dịch sang tiếng Anh**. Mở tab này chỉ hiện thông tin về dữ liệu gửi tới Google. [Cấu hình dịch Gemini](./local-gemini-translation.md)
+- Popup tự dùng nền tối khi Windows hoặc trình duyệt đang ở chế độ tối.
 
 ## Bật giọng đọc AI Gemini
 
@@ -52,8 +54,8 @@ try { dotnet .\bin\Debug\net10.0\WebApi.dll --urls http://127.0.0.1:5000 }
 finally { Pop-Location }
 ```
 
-- Trong một mục từ, mở **Phát âm**, chọn cách đọc nếu có nhiều lựa chọn, rồi bấm **Nghe cách đọc**.
-- Với câu đã bôi đen, mở **Đọc vùng bôi đen** rồi bấm **Nghe vùng bôi đen**. Khi tra bằng con trỏ, chỉ có tùy chọn nghe cách đọc của mục từ.
+- Trong một mục từ, bấm biểu tượng loa cạnh từ, chọn cách đọc nếu có nhiều lựa chọn, rồi bấm **Nghe cách đọc**.
+- Với câu đã bôi đen, mở tab **Câu** rồi bấm **Nghe vùng bôi đen**. Khi tra bằng con trỏ, chỉ có tùy chọn nghe cách đọc của mục từ.
 - Google nhận cách đọc đã chọn hoặc nội dung bôi đen khi bạn bấm **Nghe**. Google có thể dùng dữ liệu gửi qua gói miễn phí để cải thiện sản phẩm. Extension giải mã WAV bằng Web Audio trong bộ nhớ. **Nghe lại** phát lại bản hiện tại. Đổi kết quả hoặc đóng popup sẽ giải phóng âm thanh.
 - Nếu giọng đọc báo chưa khả dụng, kiểm tra model, giọng và API key trong cửa sổ đã khởi động backend. Khi chạm hạn mức, thử lại sau. Nếu đoạn đọc quá dài, chọn đoạn ngắn hơn.
 

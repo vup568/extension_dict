@@ -47,6 +47,10 @@ test("trusted opt-in and Shift scan skip ruby annotations and preserve the commi
   await expect(dialog(page)).toBeVisible();
   await expect(dialog(page).getByText("Dịch câu", { exact: true })).toHaveCount(0);
   await expect(dialog(page).getByRole("button", { name: "Nghe vùng bôi đen" })).toHaveCount(0);
+  // A scan shows its bounded text with the verified target highlighted and offers no sentence tab.
+  await expect(dialog(page).getByText("Tra bằng con trỏ", { exact: true })).toBeVisible();
+  await expect(dialog(page).locator(".jp-selected .jp-target")).toHaveText("日本語");
+  await expect(dialog(page).getByRole("tab")).toHaveText(["Từ vựng", "Kanji", "Ngữ pháp"].map(label => new RegExp(`^${label}`)));
   await page.keyboard.down("Shift");
   await page.waitForTimeout(330);
   await page.keyboard.up("Shift");
@@ -144,7 +148,7 @@ test("pinned result keeps current audio while the pointer moves over another wor
     document.body.append(word);
   });
   await select(page);
-  await dialog(page).getByText("Đọc vùng bôi đen", { exact: true }).click();
+  await dialog(page).getByRole("tab", { name: "Câu" }).click();
   await dialog(page).getByRole("button", { name: "Nghe vùng bôi đen" }).click();
   await dialog(page).getByRole("button", { name: "Ghim", exact: true }).click();
   await page.keyboard.down("Shift");
@@ -191,7 +195,7 @@ test("keyboard resize stores only size and keeps the close control inside a narr
 
 test("pointer resize releases capture on blur without canceling current speech", async ({ page }) => {
   await select(page);
-  await dialog(page).getByText("Đọc vùng bôi đen", { exact: true }).click();
+  await dialog(page).getByRole("tab", { name: "Câu" }).click();
   await dialog(page).getByRole("button", { name: "Nghe vùng bôi đen" }).click();
   const popup = page.locator("[data-jp-reading-popup]");
   const handle = dialog(page).getByLabel("Kéo đổi kích thước popup");
@@ -214,7 +218,7 @@ test("pointer resize releases capture on blur without canceling current speech",
 
 test("only a trusted listen click sends selected Japanese; close ignores late audio", async ({ page }) => {
   await page.evaluate(() => window.readingHarness.select("#padded"));
-  await dialog(page).getByText("Đọc vùng bôi đen", { exact: true }).click();
+  await dialog(page).getByRole("tab", { name: "Câu" }).click();
   const button = dialog(page).getByRole("button", { name: "Nghe vùng bôi đen" });
   await expect(button).toBeVisible();
   await button.evaluate(element => (element as HTMLButtonElement).click());
@@ -229,7 +233,7 @@ test("only a trusted listen click sends selected Japanese; close ignores late au
 
 test("decoded WAV can replay without a second request on pages that block media URLs", async ({ page }) => {
   await select(page);
-  await dialog(page).getByText("Đọc vùng bôi đen", { exact: true }).click();
+  await dialog(page).getByRole("tab", { name: "Câu" }).click();
   await dialog(page).getByRole("button", { name: "Nghe vùng bôi đen" }).click();
   await expect.poll(() => page.evaluate(() => window.readingHarness.speech().length)).toBe(1);
   await page.evaluate(() => window.readingHarness.finishSpeech(0));

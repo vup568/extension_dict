@@ -1,6 +1,6 @@
 # YUI — Nội dung popup phục vụ đọc
 
-Ngày: 2026-11-04. Phiên bản: 0.2. Trạng thái: Draft để review, chưa triển khai. Thuộc [đặc tả tổng](../SPEC.md).
+Ngày: 2026-11-04. Phiên bản: 0.3, cập nhật 2026-11-23: bố cục tab do chủ dự án chọn. Trạng thái: Draft để review. Thuộc [đặc tả tổng](../SPEC.md).
 
 ## 1. Context & Goal
 
@@ -31,7 +31,7 @@ Yomitan tại `E:/Road To N3/Yomitan`, revision `d3c54c10264673eca0d66b970ef74cd
 | YUI-05 | THE system SHALL giữ đầy đủ nghĩa, từ loại, giới hạn dạng viết/cách đọc và nguồn/provenance đang có. Phần chi tiết được thu gọn phải mở được bằng chuột và bàn phím. |
 | YUI-06 | WHILE có nhiều mục từ đồng âm hoặc nhiều phân tích hợp lệ, hệ thống SHALL cho xem từng mục; không gộp thành một nghĩa chắc chắn hoặc chọn nghĩa bằng vị trí danh sách. |
 | YUI-07 | WHEN cùng một từ xuất hiện nhiều lần, hệ thống SHALL giữ mỗi vị trí riêng. Chọn từ thứ hai phải hiển thị surface và phân tích của đúng lần xuất hiện đó. |
-| YUI-08 | THE system SHALL cung cấp các mục Từ vựng, Kanji, Ngữ pháp và Dịch câu; mục dịch ban đầu thu gọn, mở mục dịch không tự gửi API, chỉ nút Dịch mới gửi. |
+| YUI-08 | THE system SHALL cung cấp các tab Từ vựng, Kanji, Ngữ pháp và Câu (dịch câu, nghe vùng bôi đen); mỗi lần mở popup bắt đầu ở tab Từ vựng, mở tab Câu không tự gửi API, chỉ nút Dịch hoặc Nghe mới gửi. Tra bằng con trỏ không có tab Câu. Đổi tab không hủy bản dịch hay âm thanh hiện hành. |
 | YUI-09 | IF capability lỗi, unavailable, completed-empty hoặc truncated, hệ thống SHALL thể hiện trạng thái tương ứng tại đúng mục; không gắn nhãn mọi dữ liệu thất bại chỉ vì một capability unavailable. |
 | YUI-10 | THE system SHALL giữ giao diện Việt, nghĩa Nhật–Anh hiện có và giải thích Việt. Dữ liệu chỉ đọc không yêu cầu tài khoản. |
 
@@ -56,6 +56,8 @@ Yomitan tại `E:/Road To N3/Yomitan`, revision `d3c54c10264673eca0d66b970ef74cd
 
 Sử dụng `AnalysisResultDto` v3 và các interface trong [contracts.md](../contracts.md); không đổi canonical ID hay tự dựng nghĩa ở client. Span occurrence tính trên `normalized_text`; span giải thích con tính trên surface occurrence. Luồng từ đơn không có occurrences vẫn hiển thị hợp lệ. Dữ liệu kanji và ngữ pháp vẫn truy cập được dù đang chọn chi tiết một từ.
 
+Bố cục tab: phần đầu popup hiển thị chính vùng chọn; trong câu, mỗi occurrence là một nút theo thứ tự xuất hiện, thay cho danh sách riêng. Tab Kanji chỉ hiện kanji của từ đang chọn (hoặc mục tiêu quét); chọn từ khác trong câu để xem kanji của từ đó. Kết quả từ đơn không có occurrences giữ mọi kanji trả về. Chọn một mẫu ngữ pháp sẽ tô đoạn khớp ngay trong câu. Phân tích thất bại không hiện tab; phần dịch nằm ngay dưới thông báo lỗi.
+
 Reading được hiển thị nguyên vẹn. Chỉ thêm ruby khi ánh xạ kanji–kana được xác minh; nếu chưa có ánh xạ thì hiển thị kana riêng, không ghép furigana bằng số ký tự. Nút nghe theo [YAU](ai-pronunciation.md) luôn chọn cặp mục từ/cách đọc cụ thể.
 
 ## 6. Error Handling
@@ -77,9 +79,9 @@ Reading được hiển thị nguyên vẹn. Chỉ thêm ruby khi ánh xạ kanj
 | YUI-AC02 | Tra `電気代` chỉ có một tiêu đề dạng chữ; reading và nghĩa vẫn xem được. | YUI-03/05 |
 | YUI-AC03 | `食べました` có surface và dạng gốc `食べる`; fixture fallback lemma không tự sinh giải thích. | YUI-04 |
 | YUI-AC04 | Fixture `はし` có cầu/đũa và sense bị giới hạn; từng nghĩa giữ đúng cặp viết–đọc, không gộp theo reading. | YUI-05/06 |
-| YUI-AC05 | Mở/đóng Dịch câu phát zero translation request; nhấn Dịch phát đúng một request current và không thay mục tra đang chọn. | YUI-08 |
+| YUI-AC05 | Mở tab Câu rồi quay lại phát zero translation request; nhấn Dịch phát đúng một request current, không thay mục tra đang chọn và kết quả còn khi đổi tab. | YUI-08 |
 | YUI-AC06 | Kanji completed, grammar unavailable và vocabulary truncated được phân biệt; mọi phần đã có kết quả vẫn đọc được. | YUI-09 |
-| YUI-AC07 | Tab/Enter/Space đổi mục và mở chi tiết; tiêu đề, nhãn tiếng Việt và nội dung Anh được gắn ngôn ngữ phù hợp. | YUI-02/05/10 |
+| YUI-AC07 | Tab/Enter/Space đổi mục và mở chi tiết, phím mũi tên chuyển tab; tiêu đề, nhãn tiếng Việt và nội dung Anh được gắn ngôn ngữ phù hợp. | YUI-02/05/10 |
 | YUI-AC08 | Response v1/v2 hoặc v3 từ đơn không có occurrences vẫn render được, không giả định mọi kết quả đều là câu. | YUI-01/04 |
 
 Các AC kiểm bằng component/browser fixtures kết hợp response backend thực tế cho từ đơn, câu và Unicode. Liên hệ baseline: EXT-003/006, VOC-007/008, ASYNC-001/002, NET-006, DOM-001 trong REQUIREMENT.md; kiểm thử hiện có tiếp tục là regression gate.

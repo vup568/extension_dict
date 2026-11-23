@@ -10,6 +10,7 @@ import resultsStylesheet from "../../ui/reading-results.css?inline";
 import type { Translate } from "../../platform/translationTransport.ts";
 import { defaultReadingPreferences, normalizePopupSize, type PopupSize, type ReadingPreferences } from "../../platform/readingPreferences.ts";
 import { createSpeechSession, SpeechPanel } from "../../ui/SpeechPanel.tsx";
+import { GripIcon, PinIcon, SettingsIcon } from "../../ui/popupIcons.tsx";
 import type { Speak } from "../../platform/readingTransport.ts";
 
 interface ScanPresentation { offset: number; targetSpan: ConjugationSpan | null }
@@ -131,35 +132,38 @@ export function createPopupView(doc: Document, anchor: () => DOMRect | null, clo
     if (current.phase === "hidden" || root === null) return;
     const renderSpeech = speech && ((source: SpeechSource) =>
       <SpeechPanel key={JSON.stringify(source)} session={speech} source={source} />);
+    const sizeButton = (label: string, symbol: string, width: number, height: number) =>
+      <button type="button" className="jp-button jp-size-button" aria-label={label} title={label} onClick={() => {
+        const initial = host?.getBoundingClientRect() ?? visibleSize(preferences.size);
+        resize({ width: initial.width + width, height: initial.height + height }, true);
+      }}>{symbol}</button>;
+    const pinLabel = pinned ? "Bỏ ghim" : "Ghim";
     const buttons = <>
-      <button type="button" aria-pressed={pinned} onClick={() => { pinned = !pinned; if (pinned) controls.onPin?.(); draw(); }}>
-        {pinned ? "Bỏ ghim" : "Ghim"}
+      <button type="button" className="jp-icon-button" aria-pressed={pinned} aria-label={pinLabel} title={pinLabel}
+        onClick={() => { pinned = !pinned; if (pinned) controls.onPin?.(); draw(); }}>
+        <PinIcon filled={pinned} />
       </button>
       <details className="jp-settings">
-        <summary aria-label="Cài đặt popup">Cài đặt</summary>
+        <summary className="jp-icon-button" aria-label="Cài đặt popup" title="Cài đặt"><SettingsIcon /></summary>
         <div className="jp-settings-menu">
-          {controls.onScanEnabled && <label><input type="checkbox" checked={preferences.scanEnabled}
+          {controls.onScanEnabled && <label className="jp-switch"><input type="checkbox" checked={preferences.scanEnabled}
             onClick={event => { if (!event.nativeEvent.isTrusted) event.preventDefault(); }} onChange={event => {
             if (!event.nativeEvent.isTrusted) return;
             const enabled = event.currentTarget.checked;
             preferences = { ...preferences, scanEnabled: enabled };
             controls.onScanEnabled?.(enabled);
             draw();
-          }} /> Tra từ bằng con trỏ
-            <span className="jp-muted"> Khi giữ Shift và dừng chuột, một đoạn ngắn quanh con trỏ sẽ được gửi tới máy chủ tra cứu.</span>
+          }} /><span>Tra từ bằng con trỏ</span>
+            <span className="jp-fine">Khi giữ Shift và dừng chuột, một đoạn ngắn quanh con trỏ sẽ được gửi tới máy chủ tra cứu.</span>
           </label>}
-          <div className="jp-size-buttons">
-            {([
-              ["Giảm chiều rộng", -20, 0], ["Tăng chiều rộng", 20, 0],
-              ["Giảm chiều cao", 0, -20], ["Tăng chiều cao", 0, 20],
-            ] as const).map(([label, width, height]) => <button type="button" key={label} onClick={() => {
-              const initial = host?.getBoundingClientRect() ?? visibleSize(preferences.size);
-              resize({ width: initial.width + width, height: initial.height + height }, true);
-            }}>{label}</button>)}
+          <div className="jp-size-buttons" role="group" aria-label="Kích thước popup">
+            <span>Chiều rộng</span>{sizeButton("Giảm chiều rộng", "−", -20, 0)}{sizeButton("Tăng chiều rộng", "+", 20, 0)}
+            <span>Chiều cao</span>{sizeButton("Giảm chiều cao", "−", 0, -20)}{sizeButton("Tăng chiều cao", "+", 0, 20)}
           </div>
+          <p className="jp-fine">Hoặc kéo góc dưới bên phải để đổi kích thước.</p>
         </div>
       </details>
-      <button className="jp-resize-handle" type="button" aria-label="Kéo đổi kích thước popup" tabIndex={-1} onPointerDown={beginResize}>↘</button>
+      <button className="jp-resize-handle" type="button" aria-label="Kéo đổi kích thước popup" tabIndex={-1} onPointerDown={beginResize}><GripIcon /></button>
     </>;
     // Commit shell before transport dispatch while preserving the host's focus.
     flushSync(() => root?.render(<PopupShell key={current.interactionId} state={current} onClose={close} onRetry={retry} translate={translate}
@@ -189,7 +193,8 @@ export function createPopupView(doc: Document, anchor: () => DOMRect | null, clo
           all: "initial", position: "fixed", display: "block", visibility: "visible",
           opacity: "1", transform: "none", filter: "none", margin: "0", padding: "0",
           border: "0", "z-index": "2147483647", "pointer-events": "auto",
-          "box-sizing": "border-box", isolation: "isolate", "color-scheme": "light",
+          // The popup follows the reader's light or dark preference rather than the host page's scheme.
+          "box-sizing": "border-box", isolation: "isolate", "color-scheme": "light dark",
         })) host.style.setProperty(property, value, "important");
         shadow = host.attachShadow({ mode: "open" });
         const style = doc.createElement("style");

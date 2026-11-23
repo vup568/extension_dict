@@ -3,6 +3,7 @@ import { AnalysisFailure } from "../api/analysisContract.ts";
 import { decodeSpeechWav, type SpeechSource } from "../api/readingContracts.ts";
 import { createInteractionId } from "../interaction/createInteractionId.ts";
 import type { Speak } from "../platform/readingTransport.ts";
+import { ReplayIcon, SpeakerIcon, StopIcon } from "./popupIcons.tsx";
 
 type State = { phase: "idle" | "loading" | "playing" | "ready" }
   | { phase: "error"; message: string; retryable: boolean };
@@ -117,14 +118,20 @@ export function SpeechPanel({ source, session }: { source: SpeechSource; session
   const [state, setState] = useState<State>(idle);
   useLayoutEffect(() => () => session.release(owner, false), [session, owner]);
   return <div className="jp-speech">
-    <p className="jp-muted">Giọng đọc AI. {source.kind === "selection" ? "Vùng bôi đen" : "Cách đọc đã chọn"} sẽ được gửi tới Google khi bạn nhấn Nghe. Google có thể dùng dữ liệu của gói miễn phí để cải thiện sản phẩm.</p>
-    {state.phase !== "loading" && state.phase !== "playing" && (state.phase !== "error" || state.retryable) &&
-      <button type="button" onClick={event => { if (event.nativeEvent.isTrusted) session.play(owner, source, setState); }}>
-        {state.phase === "ready" ? "Nghe lại" : state.phase === "error" ? "Thử nghe lại" : source.kind === "selection" ? "Nghe vùng bôi đen" : "Nghe cách đọc"}
-      </button>}
-    {(state.phase === "loading" || state.phase === "playing") &&
-      <button type="button" onClick={() => session.stop(owner)}>{state.phase === "loading" ? "Hủy tạo giọng đọc" : "Dừng đọc"}</button>}
-    {state.phase === "loading" && <p role="status">Đang tạo giọng đọc…</p>}
+    <p className="jp-fine">Giọng đọc AI. {source.kind === "selection" ? "Vùng bôi đen" : "Cách đọc đã chọn"} sẽ được gửi tới Google khi bạn nhấn Nghe. Google có thể dùng dữ liệu của gói miễn phí để cải thiện sản phẩm.</p>
+    <div className="jp-actions-row">
+      {state.phase !== "loading" && state.phase !== "playing" && (state.phase !== "error" || state.retryable) &&
+        <button type="button" className="jp-button jp-button-primary" onClick={event => { if (event.nativeEvent.isTrusted) session.play(owner, source, setState); }}>
+          {state.phase === "ready" ? <ReplayIcon /> : <SpeakerIcon />}
+          {state.phase === "ready" ? "Nghe lại" : state.phase === "error" ? "Thử nghe lại" : source.kind === "selection" ? "Nghe vùng bôi đen" : "Nghe cách đọc"}
+        </button>}
+      {(state.phase === "loading" || state.phase === "playing") &&
+        <button type="button" className="jp-button" onClick={() => session.stop(owner)}>
+          {state.phase === "playing" && <StopIcon />}{state.phase === "loading" ? "Hủy tạo giọng đọc" : "Dừng đọc"}
+        </button>}
+      {state.phase === "loading" && <p role="status" className="jp-status"><span className="jp-spinner" aria-hidden="true" />Đang tạo giọng đọc…</p>}
+      {state.phase === "playing" && <span className="jp-equalizer" aria-hidden="true"><span /><span /><span /><span /></span>}
+    </div>
     {state.phase === "error" && <p role="status">{state.message}</p>}
   </div>;
 }

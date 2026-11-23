@@ -47,7 +47,7 @@ test("YPO-AC03: pointercancel ends active capture without replacing selection or
   await page.waitForFunction(() => window.readingHarness !== undefined);
   await page.evaluate(() => window.readingHarness.select("#selection"));
   const dialog = page.getByRole("dialog", { name: dialogName });
-  await dialog.getByText("Đọc vùng bôi đen", { exact: true }).click();
+  await dialog.getByRole("tab", { name: "Câu" }).click();
   await dialog.getByRole("button", { name: "Nghe vùng bôi đen" }).click();
   const selection = await page.evaluate(() => getSelection()?.toString());
   const handle = dialog.getByRole("button", { name: "Kéo đổi kích thước popup" });

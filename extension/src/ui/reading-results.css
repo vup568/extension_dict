@@ -1,72 +1,95 @@
-.jp-header-actions {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  flex-wrap: wrap;
-  gap: 4px;
-}
-.jp-disclosure summary {
-  cursor: pointer;
-  min-block-size: 34px;
-  padding-block: 6px;
-  color: #345c49;
-}
-.jp-disclosure summary:focus-visible {
-  outline: 2px solid #28694e;
-  outline-offset: 2px;
-}
-.jp-disclosure summary h3 { display: inline; }
-.jp-occurrences {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  max-block-size: 108px;
-  overflow: auto;
-  margin: 0 -3px 9px;
-  padding: 3px;
-  list-style: none;
-}
-.jp-occurrences li { max-width: 100%; }
-.jp-occurrences button {
-  display: flex;
-  align-items: baseline;
-  gap: 7px;
-  text-align: left;
-  overflow-wrap: anywhere;
-}
-.jp-occurrences button[aria-pressed="true"] {
-  background: #e5efe3;
-  border-color: #28694e;
-  font-weight: 650;
-}
-.jp-occurrence-number { color: #465d50; font-size: 11px; font-variant-numeric: tabular-nums; }
-.jp-sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
-}
-.jp-entry .jp-headword { display: flex; gap: 8px; flex-wrap: wrap; align-items: baseline; }
-.jp-entry-details { margin-block-start: 6px; font-size: 12px; }
-.jp-entry-details ul { margin: 4px 0; padding-inline-start: 16px; list-style: disc; }
-.jp-reading-controls { margin-block-start: 8px; }
-.jp-reading-controls label { display: grid; gap: 4px; margin-block-end: 6px; }
-.jp-reading-controls select {
-  font: inherit;
-  color: #244b3d;
-  background: #fffdf7;
-  border: 1px solid #a9bbb0;
-  border-radius: 4px;
-  min-block-size: 34px;
-  max-inline-size: 100%;
-  padding-inline: 6px;
-}
-.jp-reading-controls select:focus-visible {
-  outline: 2px solid #28694e;
-  outline-offset: 2px;
-}
-@media (pointer: coarse) {
-  .jp-occurrences button, .jp-disclosure summary, .jp-reading-controls select { min-block-size: 44px; }
+/* Tab panel content: vocabulary entries, conjugation, kanji, grammar and the sentence tab. */
+
+/* Vocabulary entry */
+.jp-entry + .jp-entry { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--jp-border); }
+.jp-entry-head { display: flex; align-items: flex-start; gap: 8px; }
+.jp-entry-title { flex: 1; min-width: 0; display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 10px; row-gap: 2px; }
+.jp-panel .jp-headword { margin: 0; font-size: 26px; line-height: 1.3; font-weight: 600; }
+.jp-headword-label { margin-right: 6px; font: 600 11px/1 "Segoe UI", system-ui, sans-serif; letter-spacing: .04em; text-transform: uppercase; color: var(--jp-muted); vertical-align: middle; }
+.jp-readings { display: flex; flex-wrap: wrap; column-gap: 12px; row-gap: 2px; }
+.jp-reading { font-size: 15px; color: var(--jp-accent-strong); }
+.jp-reading small { font-size: 12px; color: var(--jp-muted); }
+.jp-speech-box { display: grid; gap: 8px; margin-top: 8px; padding: 10px 12px; border: 1px solid var(--jp-border); border-radius: 10px; background: var(--jp-surface); }
+.jp-reading-choices { display: flex; flex-wrap: wrap; gap: 6px; }
+.jp-panel .jp-reading-choice { min-height: 32px; padding: 0 12px; border: 1px solid var(--jp-border); border-radius: 999px; background: var(--jp-bg); font-size: 14px; cursor: pointer; }
+.jp-panel .jp-reading-choice[aria-checked="true"] { border-color: var(--jp-accent); background: var(--jp-accent); color: var(--jp-on-accent); }
+.jp-panel .jp-reading-choice:focus-visible { outline: 2px solid var(--jp-focus); outline-offset: 2px; }
+.jp-speech { display: grid; gap: 8px; }
+.jp-equalizer { display: inline-flex; align-items: flex-end; gap: 2px; height: 14px; }
+.jp-equalizer span { width: 3px; height: 100%; border-radius: 2px; background: var(--jp-accent); transform-origin: bottom; animation: jp-equalizer .9s ease-in-out infinite; }
+.jp-equalizer span:nth-child(2) { animation-delay: -.3s; }
+.jp-equalizer span:nth-child(3) { animation-delay: -.6s; }
+.jp-equalizer span:nth-child(4) { animation-delay: -.15s; }
+@keyframes jp-equalizer { 0%, 100% { transform: scaleY(.3); } 50% { transform: scaleY(1); } }
+.jp-panel .jp-tags { display: flex; flex-wrap: wrap; gap: 4px; margin: 10px 0 4px; }
+.jp-tag { padding: 0 8px; border-radius: 999px; background: var(--jp-surface-2); color: var(--jp-muted); font-size: 11.5px; font-weight: 600; line-height: 20px; }
+.jp-senses { margin: 0; padding: 0; list-style: none; }
+.jp-senses li { display: flex; gap: 8px; padding: 3px 0; }
+.jp-sense-number { flex: none; display: grid; place-items: center; width: 20px; height: 20px; margin-top: 1px; border-radius: 50%;
+  background: var(--jp-accent-soft); color: var(--jp-accent-strong); font-size: 11px; font-weight: 700; }
+.jp-sense-body { min-width: 0; }
+.jp-gloss { font-size: 14.5px; }
+.jp-language { margin-right: 4px; padding: 0 5px; border-radius: 4px; box-shadow: inset 0 0 0 1px var(--jp-border); color: var(--jp-muted); font-size: 10.5px; font-weight: 700; }
+.jp-panel .jp-restriction { margin-top: 2px; font-size: 12px; color: var(--jp-muted); }
+.jp-restriction span { color: var(--jp-text); }
+.jp-entry-details { margin-top: 10px; font-size: 12.5px; }
+.jp-entry-details summary { display: flex; align-items: center; gap: 8px; min-height: 32px; color: var(--jp-muted); cursor: pointer; list-style: none; }
+.jp-entry-details summary::-webkit-details-marker { display: none; }
+.jp-entry-details summary::before { content: ""; width: 6px; height: 6px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: rotate(-45deg); transition: transform .15s; }
+.jp-entry-details[open] summary::before { transform: rotate(45deg); }
+.jp-entry-details summary:hover { color: var(--jp-text); }
+.jp-entry-details summary:focus-visible { outline: 2px solid var(--jp-focus); outline-offset: 2px; border-radius: 4px; }
+.jp-entry-details ul { margin: 2px 0 8px; padding-left: 18px; list-style: disc; }
+.jp-entry-details li { padding: 1px 0; }
+.jp-entry-details code { font-size: 11.5px; }
+
+/* Conjugation */
+.jp-conjugation { display: grid; gap: 6px; margin-bottom: 14px; padding: 10px 12px; border: 1px solid var(--jp-border); border-radius: 10px; background: var(--jp-surface); }
+.jp-panel .jp-eyebrow { margin: 0; font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--jp-muted); }
+.jp-conjugation-item { display: grid; gap: 4px; }
+.jp-conjugation-item + .jp-conjugation-item { margin-top: 6px; padding-top: 8px; border-top: 1px dashed var(--jp-border); }
+.jp-conjugation-title { font-size: 16px; font-weight: 600; }
+.jp-chain { display: flex; flex-wrap: wrap; gap: 6px; margin: 2px 0; padding: 0; list-style: none; }
+.jp-chain li { display: grid; padding: 4px 8px; border: 1px solid var(--jp-border); border-radius: 8px; background: var(--jp-bg); }
+.jp-chain-text { font-size: 15px; font-weight: 600; }
+.jp-chain-explanation { font-size: 11.5px; line-height: 1.35; color: var(--jp-muted); }
+
+/* Kanji */
+.jp-kanji-tiles { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+.jp-panel .jp-kanji-tile { display: grid; justify-items: center; min-width: 58px; padding: 6px 10px 5px; border: 1px solid var(--jp-border); border-radius: 10px; background: var(--jp-bg); cursor: pointer; }
+.jp-panel .jp-kanji-tile:hover { border-color: var(--jp-accent); }
+.jp-panel .jp-kanji-tile[aria-pressed="true"] { border-color: var(--jp-accent); background: var(--jp-accent-soft); }
+.jp-panel .jp-kanji-tile:focus-visible { outline: 2px solid var(--jp-focus); outline-offset: 2px; }
+.jp-kanji-tile-char { font-size: 24px; line-height: 1.25; }
+.jp-kanji-tile-hanviet { font-size: 11px; color: var(--jp-muted); }
+.jp-kanji { display: flex; align-items: flex-start; gap: 14px; }
+.jp-kanji-glyph { flex: none; display: grid; place-items: center; width: 78px; height: 78px; border: 1px solid var(--jp-border); border-radius: 12px; background: var(--jp-surface); font-size: 48px; line-height: 1; }
+.jp-kanji-info { flex: 1; min-width: 0; display: grid; gap: 4px; }
+.jp-kanji-hanviet { font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--jp-accent-strong); }
+.jp-kanji-label { margin-right: 6px; font-size: 11.5px; font-weight: 600; letter-spacing: 0; text-transform: none; color: var(--jp-muted); }
+.jp-kanji-readings { display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; margin: 4px 0 0; font-size: 14px; }
+.jp-kanji-readings dt { padding-top: 2px; font-size: 12px; color: var(--jp-muted); }
+.jp-kanji-readings dd { margin: 0; }
+
+/* Grammar */
+.jp-panel .jp-hint { margin-bottom: 10px; }
+.jp-grammar-list { display: grid; gap: 8px; }
+.jp-panel .jp-grammar { display: grid; gap: 4px; width: 100%; padding: 10px 12px; border: 1px solid var(--jp-border); border-radius: 10px; background: var(--jp-bg); text-align: left; font-size: 14px; cursor: pointer; }
+.jp-panel .jp-grammar:hover { border-color: var(--jp-accent); }
+.jp-panel .jp-grammar[aria-pressed="true"] { border-color: var(--jp-accent); background: var(--jp-accent-soft); }
+.jp-panel .jp-grammar:focus-visible { outline: 2px solid var(--jp-focus); outline-offset: 2px; }
+.jp-grammar-top { display: flex; align-items: center; gap: 8px; }
+.jp-grammar-pattern { font-size: 17px; font-weight: 600; }
+.jp-grammar-match { font-size: 12px; color: var(--jp-muted); }
+.jp-grammar-match span { padding: 0 3px; border-radius: 3px; background: var(--jp-highlight); color: var(--jp-text); }
+
+/* Sentence tab */
+.jp-block { display: grid; gap: 8px; }
+.jp-block + .jp-block { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--jp-border); }
+.jp-panel .jp-block-title { display: flex; align-items: center; gap: 8px; margin: 0; font-size: 13.5px; font-weight: 700; }
+.jp-quote { padding: 10px 12px; border-radius: 10px; background: var(--jp-surface); font-size: 14.5px; }
+.jp-inline-alert { display: grid; justify-items: start; gap: 8px; padding: 10px 12px; border-radius: 10px; background: var(--jp-warn-soft); }
+
+@container jp-popup (max-width: 330px) {
+  .jp-kanji-glyph { width: 64px; height: 64px; font-size: 40px; }
 }

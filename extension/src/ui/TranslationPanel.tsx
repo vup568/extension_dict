@@ -18,7 +18,7 @@ const messages: Record<string, string> = {
   INVALID_RESPONSE: "Dịch vụ trả về kết quả không hợp lệ.",
 };
 
-/** Mounted per analysis interaction: closing/reselection releases its ephemeral text. */
+/** Mounted per analysis interaction (kept mounted while its tab is hidden): closing/reselection releases its ephemeral text. */
 export function TranslationPanel({ text, interactionId, translate }: { text: string; interactionId: string; translate: Translate }) {
   const [state, setState] = useState<TranslationState>({ phase: "idle" });
   const request = useRef<AbortController | null>(null);
@@ -47,15 +47,15 @@ export function TranslationPanel({ text, interactionId, translate }: { text: str
     });
   }
 
-  return <details className="jp-section jp-disclosure">
-    <summary><h3>Dịch câu</h3></summary>
-    <p className="jp-muted">Khi bạn chọn dịch, văn bản đã chọn sẽ được gửi đến Google Gemini để dịch và có thể được Google dùng để cải thiện sản phẩm theo điều khoản gói miễn phí.</p>
-    {state.phase === "idle" && <button type="button" onClick={start}>Dịch sang tiếng Anh</button>}
-    {state.phase === "loading" && <p role="status">Đang dịch…</p>}
-    {state.phase === "result" && <p lang="en">{state.text}</p>}
-    {state.phase === "error" && <div role="alert">
+  return <section className="jp-block" aria-label="Dịch câu">
+    <h3 className="jp-block-title">Dịch câu</h3>
+    <p className="jp-fine">Khi bạn chọn dịch, văn bản đã chọn sẽ được gửi đến Google Gemini để dịch và có thể được Google dùng để cải thiện sản phẩm theo điều khoản gói miễn phí.</p>
+    {state.phase === "idle" && <div className="jp-actions-row"><button type="button" className="jp-button jp-button-primary" onClick={start}>Dịch sang tiếng Anh</button></div>}
+    {state.phase === "loading" && <p role="status" className="jp-status"><span className="jp-spinner" aria-hidden="true" />Đang dịch…</p>}
+    {state.phase === "result" && <p lang="en" className="jp-quote">{state.text}</p>}
+    {state.phase === "error" && <div role="alert" className="jp-inline-alert">
       <p>{messages[state.code] ?? "Không thể dịch câu lúc này."}</p>
-      {state.retryable && <button type="button" onClick={start}>Thử dịch lại</button>}
+      {state.retryable && <button type="button" className="jp-button" onClick={start}>Thử dịch lại</button>}
     </div>}
-  </details>;
+  </section>;
 }

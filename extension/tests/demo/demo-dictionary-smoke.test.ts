@@ -82,7 +82,7 @@ test("actual packaged MV3 popup reads isolated demo dictionary and live F09 API"
       const popup = page.getByRole("dialog", { name: "Tra cứu tiếng Nhật" });
       await expect(popup).toBeVisible();
       await expect(popup.getByRole("alert")).toHaveCount(0);
-      const vocabulary = popup.locator("section").filter({ has: page.getByRole("heading", { name: "Từ vựng", exact: true }) });
+      const vocabulary = popup.getByRole("tabpanel", { name: "Từ vựng" });
       if (example.canonical === null) {
         expect(data.data.dictionary_matches).toHaveLength(0);
         await expect(vocabulary.getByText("Không tìm thấy kết quả.", { exact: true })).toBeVisible();

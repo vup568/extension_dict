@@ -71,7 +71,7 @@ test("packaged extension looks up JMdict words, KANJIDIC2 and conjugation throug
       if (example.base !== null) expect(data.data.conjugations.some(item => item.base_form === example.base)).toBe(true);
       if (example.text === "食べる") {
         expect(data.data.kanji.some(kanji => kanji.character === "食" && kanji.meaningsEn.includes("eat"))).toBe(true);
-        await popup.getByRole("heading", { name: "Kanji", exact: true }).click();
+        await popup.getByRole("tab", { name: "Kanji" }).click();
         await expect(popup.locator('[data-canonical-id="kanji:98DF"]')).toBeVisible();
       }
       await popup.getByRole("button", { name: "Đóng tra cứu" }).click();

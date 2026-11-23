@@ -1,10 +1,13 @@
-import { Fragment, useState, type ReactNode } from "react";
+import { useId, useState, type ReactNode } from "react";
 import type { AnalysisState } from "../interaction/analysisController.ts";
-import type { CapabilityStatus, ConjugationExplanation, ConjugationSpan, EntryMatch, KanjiDetail, GrammarOccurrence, VocabularyOccurrence } from "../api/analysisContract.ts";
-import type { SpeechSource } from "../api/readingContracts.ts";
+import type { CapabilityStatus, ConjugationSpan, VocabularyOccurrence } from "../api/analysisContract.ts";
 import type { Translate } from "../platform/translationTransport.ts";
-import { dictionarySpeechOptions } from "./dictionarySpeechOptions.ts";
+import { CloseIcon, PointerIcon, WarningIcon } from "./popupIcons.tsx";
+import { panelId, PopupTabs, tabId, type PopupTab } from "./PopupTabs.tsx";
+import { GrammarList, KanjiList } from "./ReferencePanels.tsx";
+import { sentenceSegments, type Highlight } from "./sentenceSegments.ts";
 import { TranslationPanel } from "./TranslationPanel.tsx";
+import { ConjugationBox, EntryList, OccurrenceDetail, type RenderSpeech } from "./VocabularyPanel.tsx";
 
 interface PopupShellProps {
   readonly state: Exclude<AnalysisState, { phase: "hidden" }>;
@@ -18,7 +21,7 @@ interface PopupShellProps {
   readonly renderSpeech?: RenderSpeech | undefined;
 }
 
-type RenderSpeech = (source: SpeechSource) => ReactNode;
+type TabKey = "vocabulary" | "kanji" | "grammar" | "sentence";
 
 const failures: Record<string, string> = {
   TIMEOUT: "Phân tích quá thời gian chờ.",
@@ -31,241 +34,163 @@ const failures: Record<string, string> = {
   RATE_LIMITED: "Đã đạt giới hạn tra từ. Hãy đợi rồi thử lại.",
 };
 
-function ResultSection({ title, status, empty, emptyMessage = "Không tìm thấy kết quả.", disclosure, notice, children }: {
-  title: string;
-  status: CapabilityStatus;
-  empty: boolean;
-  emptyMessage?: string;
-  disclosure?: "open" | "closed" | undefined;
-  notice?: ReactNode;
-  children: ReactNode;
+const capabilityMessage = (status: CapabilityStatus) => status === "failed" ? "Phân tích mục này gặp lỗi." : "Mục này chưa khả dụng.";
+const capabilityWarning = (status: CapabilityStatus) => status === "failed" ? "gặp lỗi" : status === "unavailable" ? "chưa khả dụng" : undefined;
+const spanKey = (span: { start: number; end: number }) => `${span.start}:${span.end}`;
+
+function TabPanel({ idBase, tab, active, children }: { idBase: string; tab: TabKey; active: boolean; children: ReactNode }) {
+  // Inactive panels stay mounted (hidden) so switching tabs never cancels a translation or an audio playback.
+  return <div className="jp-tabpanel" role="tabpanel" id={panelId(idBase, tab)} aria-labelledby={tabId(idBase, tab)} hidden={!active}>{children}</div>;
+}
+
+/** The selection is the popup title; in a sentence each analysed word is a button that opens its detail. */
+function SelectedText({ text, occurrences, activeKey, interactive, highlights, onChoose }: {
+  text: string; occurrences: readonly VocabularyOccurrence[]; activeKey: string | undefined; interactive: boolean;
+  highlights: readonly Highlight[]; onChoose: (key: string) => void;
 }) {
-  if (status === "completed" && !empty && disclosure) {
-    return <details className="jp-section jp-disclosure" open={disclosure === "open"}>
-      <summary><h3>{title}</h3></summary>
-      {children}
-      {notice}
-    </details>;
-  }
-  return <section className="jp-section">
-    <h3>{title}</h3>
-    {status !== "completed" ? <p className="jp-muted">{status === "failed" ? "Phân tích mục này gặp lỗi." : "Mục này chưa khả dụng."}</p>
-      : empty ? <p className="jp-muted">{emptyMessage}</p> : children}
-    {notice}
-  </section>;
-}
-
-function entryKey(entry: EntryMatch): string {
-  return JSON.stringify([entry.canonicalId, entry.matchedWrittenForm, entry.matchedReading]);
-}
-
-function ReadingControls({ entry, renderSpeech }: { entry: EntryMatch; renderSpeech: RenderSpeech }) {
-  const options = dictionarySpeechOptions(entry);
-  const [chosen, setChosen] = useState("");
-  if (options.length === 0) return null;
-  const key = (source: (typeof options)[number]["source"]) => `${source.reading_id}:${source.written_form_id ?? ""}`;
-  const source = options.length === 1 ? options[0]?.source : options.find(option => key(option.source) === chosen)?.source;
-  return <details className="jp-reading-controls jp-disclosure">
-    <summary>Phát âm</summary>
-    {options.length > 1 && <label>
-      Cách đọc để nghe
-      <select value={chosen} onChange={event => setChosen(event.target.value)}>
-        <option value="">Chọn cách đọc</option>
-        {options.map(option => <option key={key(option.source)} value={key(option.source)} lang="ja">{option.label}</option>)}
-      </select>
-    </label>}
-    {source && <Fragment key={key(source)}>{renderSpeech(source)}</Fragment>}
-  </details>;
-}
-
-function Vocabulary({ entry, surface, renderSpeech }: { entry: EntryMatch; surface: string; renderSpeech?: RenderSpeech | undefined }) {
-  const forms = new Map(entry.writtenForms.map((form) => [form.id, form.form]));
-  const readings = new Map(entry.readings.map((reading) => [reading.id, reading.readingText]));
-  const writtenHeading = entry.matchedWrittenForm ?? (entry.writtenForms.map((item) => item.form).join("、") || undefined);
-  const headword = writtenHeading ?? entry.matchedReading ?? entry.readings[0]?.readingText;
-  return <article className="jp-entry" data-canonical-id={entry.canonicalId}>
-    {headword !== undefined && headword !== surface && <h4 className="jp-headword">
-      {writtenHeading !== undefined && <span className="jp-muted">Dạng từ điển </span>}<span lang="ja">{headword}</span>
-    </h4>}
-    {entry.readings.map((reading) => {
-      const kanaOnly = reading.info?.includes("reading:no-kanji") === true;
-      const allowedForms = reading.restrictedToForms?.join("、");
-      const showReading = kanaOnly || Boolean(allowedForms) || (reading.readingText !== surface && reading.readingText !== headword);
-      if (!showReading) return null;
-      return <p key={reading.id} className="jp-reading">
-        <span lang="ja">{reading.readingText}</span>
-        {(kanaOnly || allowedForms) && " — "}
-        {kanaOnly ? <small>chỉ dùng kana</small>
-          : allowedForms && <small>chỉ dùng với <span lang="ja">{allowedForms}</span></small>}
-      </p>;
+  const segments = sentenceSegments(text, interactive ? occurrences.map(item => item.span) : [], highlights);
+  const parts = (items: NonNullable<typeof segments>[number]["parts"]) =>
+    items.map((part, index) => <span key={index} className={part.className || undefined}>{part.text}</span>);
+  if (segments === null) return <p className="jp-selected" lang="ja">{text}</p>;
+  return <p className="jp-selected" lang="ja" {...(interactive ? { role: "group", "aria-label": "Từ trong vùng chọn" } : {})}>
+    {segments.map(segment => {
+      if (segment.kind === "plain") return <span key={`plain:${segment.start}`}>{parts(segment.parts)}</span>;
+      const key = spanKey(segment);
+      const active = key === activeKey;
+      // EARS[Event] YUI-07: every position is its own choice, so a repeated word opens its own analysis.
+      return <button key={key} type="button" className={active ? "jp-word jp-word-active" : "jp-word"} data-occurrence-choice={key}
+        aria-pressed={active} onClick={() => onChoose(key)}>{parts(segment.parts)}</button>;
     })}
-    <ol>{entry.senses.map((sense) => <li key={sense.senseKey}>
-      <span className="jp-pos">{sense.partOfSpeech.join(" · ")}</span>
-      {sense.glosses.map((gloss, index) => <p key={index} lang={gloss.languageTag}>
-        {gloss.languageTag !== "vi" && <span className="jp-language">{gloss.languageTag.toUpperCase()} </span>}{gloss.glossText}
-      </p>)}
-      {sense.restrictions.length > 0 && <p className="jp-restriction">Giới hạn nghĩa: <span lang="ja">{sense.restrictions.map((restriction) => [
-        restriction.writtenFormId === null ? null : forms.get(restriction.writtenFormId) ?? `#${restriction.writtenFormId}`,
-        restriction.readingId === null ? null : readings.get(restriction.readingId) ?? `#${restriction.readingId}`,
-      ].filter((value) => value !== null).join(" / ")).join("; ")}</span></p>}
-    </li>)}</ol>
-    <details className="jp-entry-details jp-disclosure">
-      <summary>Dạng viết, cách đọc và nguồn</summary>
-      {entry.writtenForms.length > 0 && <ul aria-label="Dạng viết">
-        {entry.writtenForms.map((item) => <li key={item.id}>
-          <span lang="ja">{item.form}</span>{item.form === entry.matchedWrittenForm && <small> · Khớp dạng viết</small>}
-          {item.info?.length ? <small> · {item.info.join(" · ")}</small> : null}
-        </li>)}
-      </ul>}
-      {entry.readings.length > 0 && <ul aria-label="Cách đọc">
-        {entry.readings.map((reading) => <li key={reading.id}>
-          <span lang="ja">{reading.readingText}</span>{reading.readingText === entry.matchedReading && <small> · Khớp cách đọc</small>}
-          {reading.info?.filter((value) => value !== "reading:no-kanji").map((value) => <small key={value}> · {value}</small>)}
-        </li>)}
-      </ul>}
-      <p className="jp-muted">Mục từ: <code translate="no">{entry.canonicalId}</code></p>
-    </details>
-    {renderSpeech && <ReadingControls entry={entry} renderSpeech={renderSpeech} />}
-  </article>;
-}
-
-function Kanji({ item }: { item: KanjiDetail }) {
-  const hasVietnamese = item.meaningsVi.length > 0;
-  return <article className="jp-entry" data-canonical-id={item.canonicalId}>
-    <h4 lang="ja">{item.character}{item.hanViet && <small lang="vi"> · {item.hanViet}</small>}</h4>
-    <p lang={hasVietnamese ? "vi" : "en"}>{!hasVietnamese && item.meaningsEn.length > 0 && <span className="jp-language">EN </span>}{(hasVietnamese ? item.meaningsVi : item.meaningsEn).join("; ") || "Chưa có nghĩa."}</p>
-    {item.onReadings.length > 0 && <p>On: <span lang="ja">{item.onReadings.join("、")}</span></p>}
-    {item.kunReadings.length > 0 && <p>Kun: <span lang="ja">{item.kunReadings.join("、")}</span></p>}
-    <p className="jp-muted">{item.strokeCount !== null && `${item.strokeCount} nét`}{item.jlptLevel !== null && ` · JLPT N${item.jlptLevel} (${item.jlptProvenance ?? "chưa rõ nguồn"})`}</p>
-  </article>;
-}
-
-function Grammar({ item }: { item: GrammarOccurrence }) {
-  return <article className="jp-entry" data-canonical-id={item.grammar_id}>
-    <h4 lang="ja">{item.pattern} {item.jlpt_level && <small>{item.jlpt_level}</small>}</h4>
-    <p lang="ja">{item.matched_text}</p>
-    <p>{item.meaning_vi ?? "Chưa có nghĩa tiếng Việt."}</p>
-    <p className="jp-muted">Vị trí {item.span.start}–{item.span.end}</p>
-  </article>;
-}
-
-function Conjugation({ item, alternative }: { item: ConjugationExplanation; alternative: boolean }) {
-  return <article className="jp-entry" data-rule-id={item.rule_id}>
-    {alternative && <p className="jp-muted">Cách hiểu có thể</p>}
-    <h4 lang="ja">{item.surface} → {item.base_form}</h4>
-    <p lang="vi">{item.explanation}</p>
-    <ol>{item.segments.map(segment => <li key={segment.span.start}>
-      <span lang="ja">{segment.surface}</span> — {segment.explanation}
-    </li>)}</ol>
-    <p className="jp-muted">Dữ liệu: {item.dataset_version}</p>
-  </article>;
-}
-
-function Occurrence({ item, isScan, renderSpeech }: { item: VocabularyOccurrence; isScan: boolean; renderSpeech?: RenderSpeech | undefined }) {
-  return <section className="jp-entry" data-occurrence-start={item.span.start} data-occurrence-end={item.span.end}>
-    {!isScan && <h4 lang="ja">{item.surface}</h4>}
-    {item.matches.length === 0 ? <p className="jp-muted">Không tìm thấy kết quả.</p>
-      : item.matches.map((entry) => <Vocabulary key={entryKey(entry)} entry={entry} surface={item.surface} renderSpeech={renderSpeech} />)}
-    {item.conjugations.length > 0 && <details className="jp-entry-details jp-disclosure" open>
-      <summary>Biến đổi từ</summary>
-      {item.conjugations.length > 1 && <p>Các cách hiểu có thể</p>}
-      {item.conjugations.map(conjugation => <Conjugation key={JSON.stringify([conjugation.rule_id, conjugation.rule_version, conjugation.base_form])}
-        item={conjugation} alternative={item.conjugations.length > 1} />)}
-    </details>}
-  </section>;
-}
-
-function spanKey(span: ConjugationSpan): string { return `${span.start}:${span.end}`; }
-
-function OccurrenceResults({ occurrences, targetSpan, isScan, renderSpeech }: {
-  occurrences: VocabularyOccurrence[];
-  targetSpan: PopupShellProps["targetSpan"];
-  isScan: boolean;
-  renderSpeech?: RenderSpeech | undefined;
-}) {
-  const [chosenSpan, setChosenSpan] = useState<string>();
-  const target = targetSpan && occurrences.find((item) => spanKey(item.span) === spanKey(targetSpan));
-  // EARS[Event] YUI-02/YSC-10: A scan uses its verified target and never silently selects its neighbor.
-  const active = occurrences.find((item) => spanKey(item.span) === chosenSpan) ??
-    (isScan ? target : occurrences.find((item) => item.matches.length > 0) ?? occurrences[0]);
-  if (!active) return null;
-
-  return <>
-    {!isScan && <ol className="jp-occurrences" role="list" aria-label="Từ trong vùng chọn">
-      {occurrences.map((item, index) => {
-        const key = spanKey(item.span);
-        return <li key={key}>
-          <button type="button" data-occurrence-choice={key} aria-pressed={key === spanKey(active.span)} onClick={() => setChosenSpan(key)}>
-            <span className="jp-occurrence-number">{index + 1}<span className="jp-sr-only">. </span></span>
-            <span lang="ja">{item.surface}</span>
-          </button>
-        </li>;
-      })}
-    </ol>}
-    <Occurrence key={spanKey(active.span)} item={active} isScan={isScan} renderSpeech={renderSpeech} />
-  </>;
+  </p>;
 }
 
 export function PopupShell({ state, onClose, onRetry, translate, controls, isScan = false, targetSpan, scanOffset, renderSpeech }: PopupShellProps) {
+  const idBase = `jp${useId().replace(/[^a-zA-Z0-9_-]/g, "")}`;
+  const [chosenTab, setChosenTab] = useState<TabKey>();
+  const [chosenSpan, setChosenSpan] = useState<string>();
+  const [grammarIndex, setGrammarIndex] = useState(-1);
+
   const data = state.phase === "result" ? state.response.data : null;
-  const partial = data !== null && (data.vocabulary_truncated === true || Object.values(data.capabilities).some((status) => status !== "completed"));
+  const contract = state.phase === "result" ? state.response.meta.contract_version : undefined;
+  // Occurrence and grammar spans are offsets into normalized_text, so a result is always shown in that form.
+  const headerText = data?.normalized_text ?? state.text;
   const occurrences = data?.vocabulary_occurrences;
   const noScanTarget = isScan && !targetSpan;
-  const noVocabulary = noScanTarget || (occurrences === undefined
-    ? data?.dictionary_matches.length === 0 : occurrences.length === 0);
+  // EARS[Event] YUI-02/YSC-10: a scan uses its verified target and never silently selects its neighbor.
+  const active = occurrences === undefined ? undefined : isScan
+    ? (targetSpan ? occurrences.find(item => spanKey(item.span) === spanKey(targetSpan)) : undefined)
+    : occurrences.find(item => spanKey(item.span) === chosenSpan) ?? occurrences.find(item => item.matches.length > 0) ?? occurrences[0];
+  const wholeWord = occurrences?.length === 1 && occurrences[0]!.span.start === 0 && occurrences[0]!.span.end === headerText.length;
+  const interactive = !isScan && occurrences !== undefined && occurrences.length > 0 && !wholeWord;
+  const noVocabulary = noScanTarget || (occurrences === undefined ? data?.dictionary_matches.length === 0 : occurrences.length === 0);
+  const entries = active ? active.matches : occurrences === undefined ? data?.dictionary_matches ?? [] : [];
+
+  // The Kanji tab follows the word being read; a legacy single-word result keeps every kanji it returned.
+  const scannedPoint = scanOffset === undefined ? undefined : headerText.codePointAt(scanOffset);
+  const kanjiScope = isScan ? (targetSpan ? headerText.slice(targetSpan.start, targetSpan.end) : scannedPoint === undefined ? "" : String.fromCodePoint(scannedPoint))
+    : active?.surface;
+  const kanji = data === null ? [] : kanjiScope === undefined ? data.kanji : data.kanji.filter(item => kanjiScope.includes(item.character));
+  const grammar = data?.grammar_occurrences ?? [];
+
+  const tabs: PopupTab<TabKey>[] = data === null ? [
+    { key: "vocabulary", label: "Từ vựng" }, { key: "kanji", label: "Kanji" }, { key: "grammar", label: "Ngữ pháp" },
+  ] : [
+    { key: "vocabulary", label: "Từ vựng", count: entries.length > 1 ? entries.length : undefined,
+      warning: capabilityWarning(data.capabilities.vocabulary) ?? (data.vocabulary_truncated === true ? "một phần" : undefined) },
+    { key: "kanji", label: "Kanji", count: data.capabilities.kanji === "completed" ? kanji.length : undefined, warning: capabilityWarning(data.capabilities.kanji) },
+    { key: "grammar", label: "Ngữ pháp", count: data.capabilities.grammar === "completed" ? grammar.length : undefined, warning: capabilityWarning(data.capabilities.grammar) },
+  ];
+  if (!isScan && (translate || renderSpeech)) tabs.push({ key: "sentence", label: "Câu" });
+  // Every interaction opens on Từ vựng, so a "not found" message is never hidden behind another tab.
+  const tab = tabs.some(item => item.key === chosenTab) ? chosenTab! : "vocabulary";
+  const otherResults = [kanji.length > 0 && data?.capabilities.kanji === "completed" ? "Kanji" : null,
+    grammar.length > 0 && data?.capabilities.grammar === "completed" ? "Ngữ pháp" : null].filter(Boolean).join(" và ");
+
+  const highlights: Highlight[] = [];
+  if (isScan && targetSpan) highlights.push({ ...targetSpan, className: "jp-target" });
+  const highlightedGrammar = tab === "grammar" ? grammar[grammarIndex] : undefined;
+  if (highlightedGrammar) highlights.push({ ...highlightedGrammar.span, className: "jp-grammar-highlight" });
+
+  const partial = data !== null && (data.vocabulary_truncated === true || Object.values(data.capabilities).some(status => status !== "completed"));
   const emptyVocabularyMessage = isScan
     ? data?.vocabulary_truncated === true ? "Chưa xác định được từ tại điểm quét." : "Không tìm thấy từ tại điểm quét."
     : "Không tìm thấy kết quả.";
-  const displayedText = isScan && targetSpan ? state.text.slice(targetSpan.start, targetSpan.end)
-    : isScan ? "Tra từ tại con trỏ" : state.text;
-  const scannedPoint = scanOffset === undefined ? undefined : state.text.codePointAt(scanOffset);
-  const scannedKanjiText = targetSpan ? displayedText : scannedPoint === undefined ? "" : String.fromCodePoint(scannedPoint);
-  const kanji = isScan ? data?.kanji.filter(item => scannedKanjiText.includes(item.character)) : data?.kanji;
+  // EARS[Unwanted] YSC: a pointer scan never offers translation, even after a failed analysis.
+  const canTranslate = !isScan && translate !== undefined && (state.phase === "result" || (state.phase === "error" && state.code !== "INPUT_TOO_LONG"));
+
   return <div className="jp-panel" role="dialog" aria-label="Tra cứu tiếng Nhật" lang="vi" dir="ltr">
-    <header className="jp-header jp:flex jp:items-center jp:justify-between">
-      <h2>Tra cứu tiếng Nhật</h2>
+    <header className="jp-header">
+      <div className="jp-header-main">
+        {isScan && <p className="jp-mode"><PointerIcon />Tra bằng con trỏ</p>}
+        <SelectedText text={headerText} occurrences={occurrences ?? []} activeKey={active && spanKey(active.span)} interactive={interactive}
+          highlights={highlights} onChoose={key => setChosenSpan(key)} />
+      </div>
       <div className="jp-header-actions">{controls}
-        <button type="button" onClick={onClose} aria-label="Đóng tra cứu">Đóng <span aria-hidden="true">×</span></button>
+        <button type="button" className="jp-icon-button" onClick={onClose} aria-label="Đóng tra cứu" title="Đóng (Esc)"><CloseIcon /></button>
       </div>
     </header>
-    <p className="jp-selected" lang={noScanTarget ? "vi" : "ja"}>{displayedText}</p>
-    <div className="jp-content" aria-busy={state.phase === "loading"}>
-      {state.phase === "loading" && <p role="status" className="jp-state">Đang phân tích…</p>}
-      {state.phase === "error" && <div role="alert" className="jp-state">
-        <p>{failures[state.code] ?? "Dịch vụ phân tích gặp lỗi."}</p>
-        {state.retryable && <button type="button" className="jp-retry" onClick={event => { if (event.nativeEvent.isTrusted) onRetry(); }}>Thử lại</button>}
-      </div>}
-      {!isScan && translate && (state.phase === "result" || (state.phase === "error" && state.code !== "INPUT_TOO_LONG")) &&
-        <TranslationPanel key={state.interactionId} text={state.text} interactionId={state.interactionId} translate={translate} />}
-      {!isScan && renderSpeech && state.phase === "result" &&
-        <details key={`speech:${state.interactionId}`} className="jp-section jp-disclosure">
-          <summary><h3>Đọc vùng bôi đen</h3></summary>
-          {renderSpeech({ kind: "selection", text: state.text.trim() })}
-        </details>}
-      {data !== null && <>
-        <p role="status" className="jp-result-status">{partial ? "Có kết quả một phần" : "Đã phân tích"}</p>
-        <ResultSection title="Từ vựng" status={data.capabilities.vocabulary} empty={noVocabulary} emptyMessage={emptyVocabularyMessage}
-          notice={data.vocabulary_truncated === true && <p className="jp-muted">Chỉ hiển thị một phần từ vựng do giới hạn xử lý.</p>}>
-          {occurrences === undefined
-            ? data.dictionary_matches.map((entry) => <Vocabulary key={entryKey(entry)} entry={entry} surface={data.normalized_text} renderSpeech={renderSpeech} />)
-            : <OccurrenceResults key={state.interactionId} occurrences={occurrences} targetSpan={targetSpan} isScan={isScan} renderSpeech={renderSpeech} />}
-        </ResultSection>
-        <ResultSection title="Kanji" status={data.capabilities.kanji} empty={kanji?.length === 0} disclosure={noVocabulary ? "open" : "closed"}>
-          {kanji?.map((item) => <Kanji key={item.canonicalId} item={item} />)}
-        </ResultSection>
-        <ResultSection title="Ngữ pháp" status={data.capabilities.grammar} empty={data.grammar_occurrences.length === 0} disclosure={noVocabulary ? "open" : "closed"}>
-          {data.grammar_occurrences.map((item, index) => <Grammar key={`${item.grammar_id}:${item.span.start}:${item.span.end}:${index}`} item={item} />)}
-        </ResultSection>
-        {occurrences === undefined && state.phase === "result" && state.response.meta.contract_version !== "1" && <ResultSection title="Biến đổi từ" status={data.capabilities.conjugation} empty={data.conjugations.length === 0} disclosure="open">
-          {/* EARS[Event] F09 FR-007: Explain every evidenced reading without ranking meanings. */}
-          {data.conjugations.length > 1 && <p>Các cách hiểu có thể</p>}
-          {data.conjugations.map(item => <Conjugation key={JSON.stringify([item.rule_id, item.rule_version, item.base_form])}
-            item={item} alternative={state.response.meta.contract_version === "3"} />)}
-        </ResultSection>}
+
+    {state.phase === "loading" && <>
+      <PopupTabs tabs={tabs} active="vocabulary" onSelect={() => {}} idBase={idBase} disabled />
+      <div className="jp-body" aria-busy="true">
+        <p role="status" className="jp-status"><span className="jp-spinner" aria-hidden="true" />Đang phân tích…</p>
+        <div className="jp-skeleton" aria-hidden="true"><span /><span /><span /><span /><span /></div>
+      </div>
+    </>}
+
+    {state.phase === "error" && <div className="jp-body">
+      <div role="alert" className="jp-alert">
+        <p className="jp-alert-title"><WarningIcon />{failures[state.code] ?? "Dịch vụ phân tích gặp lỗi."}</p>
+        {state.retryable && <button type="button" className="jp-button jp-button-primary" onClick={event => { if (event.nativeEvent.isTrusted) onRetry(); }}>Thử lại</button>}
+      </div>
+      {canTranslate && <TranslationPanel key={state.interactionId} text={state.text} interactionId={state.interactionId} translate={translate} />}
+    </div>}
+
+    {data !== null && state.phase === "result" && <>
+      <PopupTabs tabs={tabs} active={tab} onSelect={setChosenTab} idBase={idBase} />
+      <p role="status" className="jp-sr-only">{partial ? "Có kết quả một phần" : "Đã phân tích"}</p>
+
+      <TabPanel idBase={idBase} tab="vocabulary" active={tab === "vocabulary"}>
+        {data.capabilities.vocabulary !== "completed" ? <p className="jp-muted">{capabilityMessage(data.capabilities.vocabulary)}</p> : <>
+          {data.vocabulary_truncated === true && <p className="jp-banner"><WarningIcon /><span>Chỉ hiển thị một phần từ vựng do giới hạn xử lý.</span></p>}
+          {noVocabulary ? <>
+            <p className="jp-muted">{emptyVocabularyMessage}</p>
+            {otherResults && <p className="jp-fine">Vùng chọn vẫn có kết quả trong tab {otherResults}.</p>}
+          </>
+            : occurrences === undefined ? <>
+              {contract !== "1" && data.capabilities.conjugation === "completed" &&
+                <ConjugationBox items={data.conjugations} alternative={contract === "3"} />}
+              <EntryList entries={data.dictionary_matches} surface={data.normalized_text} headerText={headerText} renderSpeech={renderSpeech} />
+            </>
+            : active && <OccurrenceDetail key={spanKey(active.span)} item={active} headerText={headerText} renderSpeech={renderSpeech} />}
+        </>}
         {occurrences === undefined && (data.capabilities.conjugation === "completed"
           ? data.capabilities.morphology !== "completed" && <p className="jp-footnote">Tách từ: {data.capabilities.morphology === "failed" ? "gặp lỗi" : "chưa khả dụng"}.</p>
           : <p className="jp-footnote">Tách từ và biến đổi từ: {data.capabilities.morphology === "failed" || data.capabilities.conjugation === "failed" ? "gặp lỗi" : "chưa khả dụng"}.</p>)}
-      </>}
-    </div>
+      </TabPanel>
+
+      <TabPanel idBase={idBase} tab="kanji" active={tab === "kanji"}>
+        {data.capabilities.kanji !== "completed" ? <p className="jp-muted">{capabilityMessage(data.capabilities.kanji)}</p>
+          : kanji.length === 0 ? <p className="jp-muted">{interactive ? "Từ đang chọn không có chữ Hán. Chọn từ khác trong câu để xem kanji." : "Không tìm thấy kết quả."}</p>
+          : <>
+            {kanjiScope && kanjiScope !== headerText && <p className="jp-scope">Kanji trong <span lang="ja">「{kanjiScope}」</span></p>}
+            <KanjiList key={kanjiScope ?? ""} items={kanji} />
+          </>}
+      </TabPanel>
+
+      <TabPanel idBase={idBase} tab="grammar" active={tab === "grammar"}>
+        {data.capabilities.grammar !== "completed" ? <p className="jp-muted">{capabilityMessage(data.capabilities.grammar)}</p>
+          : grammar.length === 0 ? <p className="jp-muted">Không tìm thấy kết quả.</p>
+          : <GrammarList items={grammar} selected={highlightedGrammar ? grammarIndex : -1} onSelect={setGrammarIndex} />}
+      </TabPanel>
+
+      {tabs.some(item => item.key === "sentence") && <TabPanel idBase={idBase} tab="sentence" active={tab === "sentence"}>
+        {canTranslate && <TranslationPanel key={state.interactionId} text={state.text} interactionId={state.interactionId} translate={translate} />}
+        {renderSpeech && <section className="jp-block" aria-label="Nghe vùng bôi đen">
+          <h3 className="jp-block-title">Nghe vùng bôi đen <span className="jp-chip">Giọng AI</span></h3>
+          {renderSpeech({ kind: "selection", text: state.text.trim() })}
+        </section>}
+      </TabPanel>}
+    </>}
   </div>;
 }

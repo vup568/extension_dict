@@ -54,6 +54,8 @@ test("packaged extension requests translation only on click and keeps lookup whe
     expect((await analysisPending).status()).toBe(200);
     const popup = page.getByRole("dialog", { name: "Tra cứu tiếng Nhật" });
     const lookup = popup.locator('[data-canonical-id="dictionary:jmdict:1358280"]');
+    // The sentence opens on its first word with results (猫); choose 食べました to read 食べる.
+    await popup.locator('[data-occurrence-choice="2:7"]').click();
     await expect(lookup).toBeVisible();
     await popup.getByRole("tab", { name: "Câu" }).click();
     await expect(popup.getByText(/văn bản đã chọn sẽ được gửi đến Google Gemini/)).toBeVisible();

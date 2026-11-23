@@ -19,7 +19,7 @@ $priorConnection = [Environment]::GetEnvironmentVariable('ConnectionStrings__Def
 try {
     [Environment]::SetEnvironmentVariable('ConnectionStrings__DefaultConnection', (New-LocalBackendConnectionString -Values $demoValues), 'Process')
     Write-Output 'DEMO MODE: jp_dict_demo, 17 synthetic words only. Stop with Ctrl+C; use start-local.ps1 for the original database.'
-    & (Join-Path $PSScriptRoot 'start-local.ps1') -EnvFile $EnvFile -DatasetVersion 'candidate-20261013.1' -SkipDependencies
+    & (Join-Path $PSScriptRoot 'start-local.ps1') -EnvFile $EnvFile -DatasetVersion 'candidate-20261110.1' -SkipDependencies
 } finally {
     [Environment]::SetEnvironmentVariable('ConnectionStrings__DefaultConnection', $priorConnection, 'Process')
 }

@@ -1,7 +1,7 @@
 [CmdletBinding()]
 param(
     [string]$EnvFile = (Join-Path (Split-Path -Parent $PSScriptRoot) '.env'),
-    [string]$DatasetVersion = 'candidate-20261013.1',
+    [string]$DatasetVersion = 'candidate-20261110.1',
     [switch]$ValidateOnly,
     [switch]$SkipDependencies
 )

@@ -5,7 +5,7 @@ param(
     [string]$Target = 'jp_dict_real_jaen_20261030_v3',
     [string]$RunId = 'jaen_20261030_v3',
     [string]$SourceLock = (Join-Path (Split-Path -Parent $PSScriptRoot) 'data/dictionary-import/audit-20261015/source-lock.ja-en-v3.json'),
-    [string]$DatasetVersion = 'candidate-20261013.1',
+    [string]$DatasetVersion = 'candidate-20261110.1',
     [switch]$SkipDependencies
 )
 

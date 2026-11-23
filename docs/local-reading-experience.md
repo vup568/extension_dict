@@ -45,7 +45,7 @@ $env:DictionaryImport__LocalTarget = $readingDb['POSTGRES_DB']
 $env:DictionaryImport__LocalRunId = 'jaen_20261030_v3'
 $env:DictionaryImport__LocalSourceLock = (Resolve-Path .\data\dictionary-import\audit-20261015\source-lock.ja-en-v3.json).Path
 $env:DictionaryImport__LocalSourceLockSha256 = (Get-FileHash $env:DictionaryImport__LocalSourceLock -Algorithm SHA256).Hash.ToLowerInvariant()
-$env:ConjugationDatasetVersion = 'candidate-20261013.1'
+$env:ConjugationDatasetVersion = 'candidate-20261110.1'
 $env:GrpcTokenizerAddress = 'http://127.0.0.1:50051'
 Push-Location .\src\interface
 try { dotnet .\bin\Debug\net10.0\WebApi.dll --urls http://127.0.0.1:5000 }

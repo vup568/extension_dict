@@ -81,7 +81,7 @@ public sealed class LocalBackendScriptTests
                     $global:LASTEXITCODE=7
                 }
                 try { & '__START__' -EnvFile '__ENV__' } catch { $script:stopped=$true }
-                [pscustomobject]@{Stopped=$script:stopped;ExplicitPreserved=$global:seenConnection -eq 'Host=explicit-host;Database=explicit-fixture';AlignedDatabase=$global:seenDatabase -eq 'fixture_db';CandidatePin=$global:seenPin -eq 'candidate-20261013.1';Ipv4Address=$global:seenAddress -eq 'http://127.0.0.1:50051';RestoredDatabase=$env:POSTGRES_DB -eq 'prior-db';RestoredAddress=$env:GrpcTokenizerAddress -eq 'http://prior-fixture:1';RestoredPin=$env:ConjugationDatasetVersion -eq 'prior-pin'} | ConvertTo-Json -Compress
+                [pscustomobject]@{Stopped=$script:stopped;ExplicitPreserved=$global:seenConnection -eq 'Host=explicit-host;Database=explicit-fixture';AlignedDatabase=$global:seenDatabase -eq 'fixture_db';CandidatePin=$global:seenPin -eq 'candidate-20261110.1';Ipv4Address=$global:seenAddress -eq 'http://127.0.0.1:50051';RestoredDatabase=$env:POSTGRES_DB -eq 'prior-db';RestoredAddress=$env:GrpcTokenizerAddress -eq 'http://prior-fixture:1';RestoredPin=$env:ConjugationDatasetVersion -eq 'prior-pin'} | ConvertTo-Json -Compress
                 """.Replace("__START__", Escape(Path.Combine(ConjugationCorpusFiles.Root, "scripts/start-local.ps1")), StringComparison.Ordinal)
                 .Replace("__ENV__", Escape(path), StringComparison.Ordinal);
             var result = await ShellAsync(shell, script);

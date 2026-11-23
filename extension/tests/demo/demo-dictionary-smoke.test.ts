@@ -95,7 +95,7 @@ test("actual packaged MV3 popup reads isolated demo dictionary and live F09 API"
       for (const conjugation of data.data.conjugations) {
         expect(conjugation.base_form).toBe(example.base);
         expect(conjugation.language_tag).toBe("vi");
-        expect(conjugation.dataset_version).toBe("candidate-20261013.1");
+        expect(conjugation.dataset_version).toBe("candidate-20261110.1");
         await expect(popup.locator(`[data-rule-id="${conjugation.rule_id}"]`).getByText(conjugation.explanation, { exact: true })).toBeVisible();
       }
       if (example.text === "食べられる") {

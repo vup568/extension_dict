@@ -34,7 +34,7 @@ Lệnh chạy thật tạo connection bằng `DbConnectionStringBuilder`, giữ 
 `ConnectionStrings__DefaultConnection` nếu bạn đã đặt trong process, bật/chờ
 `db` và `tokenizer` bằng Compose `--no-build --wait`, rồi chạy API với
 `GrpcTokenizerAddress=http://127.0.0.1:50051` và
-`ConjugationDatasetVersion=candidate-20261013.1`.
+`ConjugationDatasetVersion=candidate-20261110.1`.
 Không in connection/mật khẩu; các biến process được khôi phục khi script kết thúc.
 Địa chỉ Sidecar dùng IPv4 để khớp cổng Compose; không dùng `localhost` ở cấu hình
 local này vì Windows có thể ưu tiên IPv6 `::1` chưa được publish.

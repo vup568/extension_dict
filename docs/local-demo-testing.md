@@ -22,7 +22,7 @@ pwsh -NoProfile -File .\scripts\start-demo.ps1
 ```
 
 Script tạo `jp_dict_demo` nếu chưa có, chạy EF migrations hiện có, nạp 17 fixture
-rồi chạy backend với `candidate-20261013.1` và Sidecar. Giữ cửa sổ này mở;
+rồi chạy backend với `candidate-20261110.1` và Sidecar. Giữ cửa sổ này mở;
 chờ backend lắng nghe tại `http://127.0.0.1:5000`.
 Launcher dùng Sidecar `http://127.0.0.1:50051`, khớp cổng IPv4 Compose;
 tránh `localhost` ưu tiên IPv6 trên Windows. Không đổi timeout 500ms.

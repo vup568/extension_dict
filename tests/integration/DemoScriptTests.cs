@@ -165,7 +165,7 @@ public sealed class DemoScriptTests
             await File.WriteAllTextAsync(Path.Combine(directory, "scripts/start-local.ps1"), """
                 param($EnvFile,$DatasetVersion,[switch]$SkipDependencies)
                 $builder=[System.Data.Common.DbConnectionStringBuilder]::new();$builder.set_ConnectionString($env:ConnectionStrings__DefaultConnection)
-                if ($builder['Database'] -cne 'jp_dict_demo' -or $DatasetVersion -cne 'candidate-20261013.1' -or -not $SkipDependencies) { throw 'Wrong backend target.' }
+                if ($builder['Database'] -cne 'jp_dict_demo' -or $DatasetVersion -cne 'candidate-20261110.1' -or -not $SkipDependencies) { throw 'Wrong backend target.' }
                 $global:BackendChecked=$true
                 if ($global:BackendFail) { throw 'Synthetic backend failure.' }
                 """);

@@ -5,6 +5,8 @@ public interface IDictionaryImportStore
 {
     Task<ImportMechanismReport> ImportAsync(DictionaryImportInvocation invocation, SourceLockInspection inputs, CancellationToken ct);
     Task<ImportMechanismReport> ValidateAsync(DictionaryImportInvocation invocation, SourceLockInspection inputs, CancellationToken ct);
+    /// <summary>Applies missing forward-only dataset migrations to an imported candidate after full validation.</summary>
+    Task<ImportMechanismReport> UpgradeSchemaAsync(DictionaryImportInvocation invocation, SourceLockInspection inputs, CancellationToken ct);
 }
 
 public sealed class ExecuteDictionaryImportUseCase(IDictionaryImportStore store)
@@ -22,6 +24,7 @@ public sealed class ExecuteDictionaryImportUseCase(IDictionaryImportStore store)
         {
             "import" or "resume" => await store.ImportAsync(invocation, inputs, ct),
             "validate" => await store.ValidateAsync(invocation, inputs, ct),
+            "upgrade" => await store.UpgradeSchemaAsync(invocation, inputs, ct),
             _ => throw new ArgumentException("Unsupported canonical import operation.", nameof(invocation))
         };
         // EARS[State] FR-009/013: Fixture/mechanism validation cannot activate an unreviewed local candidate.

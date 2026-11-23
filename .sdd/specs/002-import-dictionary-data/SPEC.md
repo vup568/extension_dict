@@ -78,6 +78,7 @@ Người vận hành nạp lại cùng nguồn, xem số lượng/nguồn gốc/
 - **FR-012**: MUST bảo toàn API/extension compatibility, Unicode, privacy và stale-response protection; không đưa toàn bộ từ điển vào extension hoặc yêu cầu đăng nhập để tra từ.
 - **FR-013**: MUST kiểm tra dữ liệu thật độc lập với importer, có negative cases cho restriction, no-kanji reading, sai semantic mapping và pending/rejected nghĩa Việt.
 - **FR-014**: MUST có thông tin nguồn/giấy phép truy cập được từ giao diện và hướng dẫn cập nhật; không suy ra license dữ liệu từ license mã nguồn/mirror.
+- **FR-015**: WHEN code có migration tiến mới mà DB ứng viên đã nhập chưa có, người vận hành MUST dùng lệnh `upgrade` tường minh, có xác nhận đúng tên DB, để bổ sung. Lệnh chỉ chấp nhận khi các migration đã áp là phần đầu đúng thứ tự của danh sách trong code và mọi migration còn thiếu chỉ chèn dữ liệu vào `conjugation_datasets`, không đổi bảng, cột, trigger hay dữ liệu từ điển. Trước và sau khi áp, DB phải qua cùng kiểm tra sở hữu, checkpoint và facts hash như validation, và facts hash không đổi. Khởi động backend vẫn không tự migrate DB ứng viên (cập nhật 2026-11-23).
 
 ### Key Entities *(include if feature involves data)*
 

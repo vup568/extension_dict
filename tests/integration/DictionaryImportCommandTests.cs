@@ -238,6 +238,45 @@ public sealed class DictionaryImportCommandTests
         output.ToString().Should().Contain("missing_target_confirmation");
     }
 
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task UpgradeRequiresExactTargetAndRefusesBatchOptions(bool withBatchSize)
+    {
+        using var output = new StringWriter();
+        var called = false;
+        string[] args = withBatchSize
+            ? ["--dictionary-import", "upgrade", "--source-lock", "not-existing", "--run-id", "fixture", "--confirm-target", "jp_dict_real_fixture", "--batch-size", "100"]
+            : ["--dictionary-import", "upgrade", "--source-lock", "not-existing", "--run-id", "fixture"];
+        var result = await DictionaryImportCommand.ExecuteAsync(args, output,
+            (_, _, _) => { called = true; throw new InvalidOperationException(); }, TestContext.Current.CancellationToken);
+        result.Should().Be(2);
+        called.Should().BeFalse();
+        output.ToString().Should().Contain(withBatchSize ? "invalid_arguments" : "missing_target_confirmation");
+    }
+
+    [Fact]
+    public async Task UpgradeIsDocumentedAndDispatchesWithItsConfirmedTarget()
+    {
+        using var help = new StringWriter();
+        (await DictionaryImportCommand.ExecuteAsync(["--help"], help, ct: TestContext.Current.CancellationToken)).Should().Be(0);
+        help.ToString().Should().Contain("--dictionary-import upgrade --source-lock <file> --run-id <id> --confirm-target <exact-db-name>");
+
+        using var fixture = new LockFixture();
+        using var output = new StringWriter();
+        DictionaryImportInvocation? received = null;
+        var result = await DictionaryImportCommand.ExecuteAsync(
+            ["--dictionary-import", "upgrade", "--source-lock", fixture.LockPath, "--run-id", "fixture", "--confirm-target", "jp_dict_real_fixture"],
+            output, (invocation, _, _) =>
+            {
+                received = invocation;
+                return Task.FromResult(new DictionaryImportCommandResult(0, new { state = "imported" }));
+            }, TestContext.Current.CancellationToken);
+        result.Should().Be(0);
+        received!.Verb.Should().Be("upgrade");
+        received.ConfirmTarget.Should().Be("jp_dict_real_fixture");
+    }
+
     [Fact]
     public async Task PrepareDispatchesOnlyAfterAllPinsAreVerified()
     {

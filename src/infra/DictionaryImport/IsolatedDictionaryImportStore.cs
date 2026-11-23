@@ -11,4 +11,7 @@ public sealed class IsolatedDictionaryImportStore(string connectionString, strin
 
     public Task<ImportMechanismReport> ValidateAsync(DictionaryImportInvocation invocation, SourceLockInspection inputs, CancellationToken ct) =>
         DictionaryImportStore.ValidateAsync(connectionString, targetDatabase, invocation.RunId!, inputs, ct);
+
+    public Task<ImportMechanismReport> UpgradeSchemaAsync(DictionaryImportInvocation invocation, SourceLockInspection inputs, CancellationToken ct) =>
+        DictionaryImportStore.UpgradeSchemaAsync(connectionString, targetDatabase, invocation.RunId!, inputs, ct);
 }

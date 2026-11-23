@@ -19,6 +19,21 @@ Tra thử `食べる`, `食べました`, `橋` và `箸`. Nếu cổng 5000 đ�
 
 Sau khi cập nhật mã, chạy lại `npm --prefix extension run build`, nhấn **Reload** ở extension trong `chrome://extensions` và tải lại tab đang đọc. Có thể bôi đen cả câu `猫を食べました。`: popup hiển thị `猫` và `食べました` với mục từ gốc `食べる`. Câu `私は日本語を勉強しています。` được tra theo từng cụm, trong đó `勉強しています` liên kết đến mục JMdict `勉強`.
 
+## Nâng cấp database sau khi mã có migration mới
+
+Nếu sau khi cập nhật mã, backend dừng ngay với `Database initialization failed` và không mở cổng, database riêng có thể thiếu migration mới (ví dụ `20261118075656_AddYcoConjugationCandidate` thêm bộ quy tắc `candidate-20261110.1`). Khởi động không bao giờ tự sửa database riêng. Hãy dừng mọi backend đang dùng database này, sao lưu nếu cần, rồi chạy lệnh nâng cấp một lần từ thư mục dự án (Windows PowerShell 5.1 hoặc PowerShell 7):
+
+```powershell
+. .\scripts\local-backend-config.ps1
+$values = Read-LocalPostgresEnvironment -Path (Resolve-Path -LiteralPath .env).ProviderPath
+$values['POSTGRES_DB'] = 'jp_dict_real_jaen_20261030_v3'
+$env:ConnectionStrings__DefaultConnection = New-LocalBackendConnectionString -Values $values
+dotnet run --project .\src\interface\WebApi.csproj --no-restore -- --dictionary-import upgrade --source-lock .\data\dictionary-import\audit-20261015\source-lock.ja-en-v3.json --run-id jaen_20261030_v3 --confirm-target jp_dict_real_jaen_20261030_v3
+Remove-Item Env:\ConnectionStrings__DefaultConnection
+```
+
+Lệnh kiểm tra source lock, quyền sở hữu, checkpoint và facts hash trước khi ghi. Nó chỉ áp các migration còn thiếu khi chúng chỉ thêm bộ quy tắc chia thể, rồi kiểm tra lại và báo `facts_hash` không đổi. Migration đổi bảng hoặc lịch sử migration có lỗ hổng sẽ bị từ chối mà không ghi gì. Không thể gỡ ngược một bộ quy tắc đã thêm, nhưng có thể chọn lại bộ cũ bằng `-DatasetVersion`. Sau khi nâng cấp, khởi động như mục trên.
+
 Kết quả phụ thuộc vào cách Sudachi tách câu, dữ liệu JMdict và các quy tắc chia thể hiện có. Không phải mọi cụm hay thể chia đều được nhận diện; nếu việc tra bị giới hạn, popup sẽ báo rằng kết quả chỉ là một phần.
 
 ## Nguồn và giới hạn

@@ -60,11 +60,12 @@ public static class DictionaryImportCommand
                     + "  --dictionary-import prepare --source-lock <file> --run-id <id> --confirm-target <exact-new-db-name>\n"
                     + "  --dictionary-import import|resume --source-lock <file> --run-id <id> --confirm-target <exact-db-name> [--batch-size 1..2000]\n"
                     + "  --dictionary-import validate --source-lock <file> --run-id <id>\n"
-                    + "Connection: environment ConnectionStrings__DefaultConnection. Inspect is read-only. Prepare explicitly creates a new isolated database; it does not import or activate data. Canonical operations require approved source/license/mapping pins.");
+                    + "  --dictionary-import upgrade --source-lock <file> --run-id <id> --confirm-target <exact-db-name>\n"
+                    + "Connection: environment ConnectionStrings__DefaultConnection. Inspect is read-only. Prepare explicitly creates a new isolated database; it does not import or activate data. Upgrade validates an imported candidate, applies only missing migrations that insert conjugation datasets, and validates it again. Canonical operations require approved source/license/mapping pins.");
                 return 0;
             }
-            if (args.Length < 2 || args[0] != "--dictionary-import" || args[1] is not ("inspect" or "prepare" or "import" or "resume" or "validate"))
-                return await Error(2, "invalid_command", "Expected inspect, prepare, import, resume, validate or --help.");
+            if (args.Length < 2 || args[0] != "--dictionary-import" || args[1] is not ("inspect" or "prepare" or "import" or "resume" or "validate" or "upgrade"))
+                return await Error(2, "invalid_command", "Expected inspect, prepare, import, resume, validate, upgrade or --help.");
 
             var verb = args[1];
             var options = new Dictionary<string, string>(StringComparer.Ordinal);
@@ -83,12 +84,13 @@ public static class DictionaryImportCommand
             if (!options.TryGetValue("--source-lock", out var lockPath) || string.IsNullOrWhiteSpace(lockPath)
                 || verb != "inspect" && runId is null)
                 return await Error(2, "missing_arguments", "The command requires a source lock and, for database operations, a run identity.");
-            if (verb is "prepare" or "import" or "resume" &&
+            // EARS[Event] FR-009/FR-015: every operation that writes to a candidate names its exact target database.
+            if (verb is "prepare" or "import" or "resume" or "upgrade" &&
                 (!options.TryGetValue("--confirm-target", out var confirmedTarget) || string.IsNullOrWhiteSpace(confirmedTarget)))
-                return await Error(2, "missing_target_confirmation", "Prepare, import and resume require the exact target database name.");
+                return await Error(2, "missing_target_confirmation", "Prepare, import, resume and upgrade require the exact target database name.");
             if (verb is "inspect" && options.Keys.Any(key => key != "--source-lock")
                 || verb is "validate" && options.Keys.Any(key => key is not ("--source-lock" or "--run-id"))
-                || verb is "prepare" && options.Keys.Any(key => key is not ("--source-lock" or "--run-id" or "--confirm-target")))
+                || verb is "prepare" or "upgrade" && options.Keys.Any(key => key is not ("--source-lock" or "--run-id" or "--confirm-target")))
                 return await Error(2, "invalid_arguments", "This command does not accept write-operation options.");
             var batchSize = 500;
             if (options.TryGetValue("--batch-size", out var batch) && (!int.TryParse(batch, out batchSize) || batchSize is < 1 or > 2000))

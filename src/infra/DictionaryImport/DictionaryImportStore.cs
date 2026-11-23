@@ -8,6 +8,8 @@ using Domain.Entities;
 using Infrastructure.DictionaryImport.Parsing;
 using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Migrations.Operations;
 using Infrastructure.Persistence.Migrations;
 using Npgsql;
@@ -103,14 +105,66 @@ public static class DictionaryImportStore
         try
         {
             var run = await RequireOwnedAsync(context, confirmedTarget, runId, inputs, ct);
-            if (run.State != "imported") throw new InvalidOperationException("IMPORT_NOT_COMPLETE");
-            await VerifyCheckpointsAsync(context, run, inputs.Lock!, ct);
-            if (await ComputeFactsHashAsync(context, ct) != run.FactsHash)
-                throw new InvalidOperationException("IMPORT_FACTS_CHANGED");
+            await VerifyImportedAsync(context, run, inputs, ct);
             // EARS[State] FR-013: Mechanism validation alone cannot approve independent corpus, sources or activation.
             return await ReportAsync(context, run, true, ct);
         }
         finally { await UnlockAsync(context); }
+    }
+
+    /// <summary>
+    /// Brings an imported candidate up to the code's migration list when every missing migration only inserts
+    /// immutable conjugation datasets. Startup never migrates a candidate; only this explicit operator step does.
+    /// </summary>
+    public static async Task<ImportMechanismReport> UpgradeSchemaAsync(string connectionString, string confirmedTarget,
+        string runId, SourceLockInspection inputs, CancellationToken ct = default)
+    {
+        RequireInputs(inputs, runId);
+        IsolatedImportTarget.Check(connectionString, confirmedTarget);
+        await VerifyAllFilesAsync(inputs.Lock!, ct);
+        await using var context = Context(connectionString);
+        await context.Database.OpenConnectionAsync(ct);
+        await LockAsync(context, ct);
+        try
+        {
+            var applied = (await context.Database.GetAppliedMigrationsAsync(ct)).ToList();
+            var pending = KnowledgeOnlyPendingMigrations(context, applied);
+            // EARS[Event] FR-015: the candidate passes the same checks as validation before anything is written.
+            var run = await RequireOwnedAsync(context, confirmedTarget, runId, inputs, ct, applied);
+            await VerifyImportedAsync(context, run, inputs, ct);
+            if (pending.Count > 0) await context.Database.MigrateAsync(ct);
+            // Afterwards it must validate exactly as startup expects, with the dictionary facts unchanged.
+            run = await RequireOwnedAsync(context, confirmedTarget, runId, inputs, ct);
+            await VerifyImportedAsync(context, run, inputs, ct);
+            return await ReportAsync(context, run, pending.Count == 0, ct);
+        }
+        finally { await UnlockAsync(context); }
+    }
+
+    // Only migrations made solely of inserts into the immutable conjugation dataset table leave the imported schema,
+    // triggers and dictionary facts untouched, so they are the only ones an upgrade may apply.
+    private static List<string> KnowledgeOnlyPendingMigrations(AppDbContext context, IReadOnlyList<string> applied)
+    {
+        var expected = context.Database.GetMigrations().ToList();
+        if (applied.Count > expected.Count || !applied.SequenceEqual(expected.Take(applied.Count)))
+            throw new InvalidOperationException("IMPORT_SCHEMA_MISMATCH");
+        var pending = expected.Skip(applied.Count).ToList();
+        var migrations = context.GetService<IMigrationsAssembly>();
+        foreach (var id in pending)
+        {
+            var operations = migrations.CreateMigration(migrations.Migrations[id], context.Database.ProviderName!).UpOperations;
+            if (operations.Count == 0 || operations.Any(operation => operation is not InsertDataOperation { Table: "conjugation_datasets", Schema: null }))
+                throw new InvalidOperationException("IMPORT_SCHEMA_UPGRADE_REFUSED");
+        }
+        return pending;
+    }
+
+    private static async Task VerifyImportedAsync(AppDbContext context, DictionaryImportRun run, SourceLockInspection inputs, CancellationToken ct)
+    {
+        if (run.State != "imported") throw new InvalidOperationException("IMPORT_NOT_COMPLETE");
+        await VerifyCheckpointsAsync(context, run, inputs.Lock!, ct);
+        if (await ComputeFactsHashAsync(context, ct) != run.FactsHash)
+            throw new InvalidOperationException("IMPORT_FACTS_CHANGED");
     }
 
     private static async Task ImportSourceAsync(AppDbContext context, DictionaryImportRun run,
@@ -218,10 +272,11 @@ public static class DictionaryImportStore
     }
 
     private static async Task<DictionaryImportRun> RequireOwnedAsync(AppDbContext context, string target,
-        string runId, SourceLockInspection inputs, CancellationToken ct)
+        string runId, SourceLockInspection inputs, CancellationToken ct, IReadOnlyList<string>? expectedApplied = null)
     {
+        // Import and validation require the exact code migration list; an upgrade passes the prefix it already verified.
         var applied = await context.Database.GetAppliedMigrationsAsync(ct);
-        if (!applied.SequenceEqual(context.Database.GetMigrations())) throw new InvalidOperationException("IMPORT_SCHEMA_MISMATCH");
+        if (!applied.SequenceEqual(expectedApplied ?? context.Database.GetMigrations())) throw new InvalidOperationException("IMPORT_SCHEMA_MISMATCH");
         var runs = await context.DictionaryImportRuns.Include(x => x.Checkpoints).ToListAsync(ct);
         if (runs.Count != 1) throw new InvalidOperationException("IMPORT_UNOWNED_TARGET");
         var run = runs[0];

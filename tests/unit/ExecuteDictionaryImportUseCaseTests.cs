@@ -22,6 +22,20 @@ public sealed class ExecuteDictionaryImportUseCaseTests
     }
 
     [Fact]
+    public async Task UpgradeDispatchesOnlySchemaUpgrade()
+    {
+        var port = Substitute.For<IDictionaryImportStore>();
+        var input = Inputs();
+        var command = new DictionaryImportInvocation("upgrade", "lock.json", "run", "jp_dict_real_fixture");
+        port.UpgradeSchemaAsync(command, input, Arg.Any<CancellationToken>()).Returns(Report());
+        var result = await new ExecuteDictionaryImportUseCase(port).ExecuteAsync(command, input, TestContext.Current.CancellationToken);
+        Assert.Equal(0, result.ExitCode);
+        await port.Received(1).UpgradeSchemaAsync(command, input, TestContext.Current.CancellationToken);
+        await port.DidNotReceiveWithAnyArgs().ImportAsync(default!, default!, TestContext.Current.CancellationToken);
+        await port.DidNotReceiveWithAnyArgs().ValidateAsync(default!, default!, TestContext.Current.CancellationToken);
+    }
+
+    [Fact]
     public async Task MechanismValidationDoesNotGrantActivation()
     {
         var port = Substitute.For<IDictionaryImportStore>();

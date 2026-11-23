@@ -196,6 +196,93 @@ public sealed class DictionaryImportStoreTests(PostgreSqlFixture postgres) : ICl
         Assert.Empty(await db.DictionaryEntries.ToListAsync(TestContext.Current.CancellationToken));
     }
 
+    private const string DatasetMigration = "20261118075656_AddYcoConjugationCandidate";
+
+    [Fact]
+    public async Task UpgradeAddsOnlyTheMissingDatasetMigrationAndKeepsFacts()
+    {
+        using var fixture = new SourceFixture(includeKanji: true);
+        var target = Target();
+        await DictionaryImportStore.PrepareAsync(target.Connection, target.Name, "upgrade", fixture.Inputs, ct: TestContext.Current.CancellationToken);
+        var imported = await DictionaryImportStore.ImportAsync(target.Connection, target.Name, "upgrade", fixture.Inputs, ct: TestContext.Current.CancellationToken);
+        await RemoveMigrationsAsync(target.Connection, DatasetMigration);
+        var refused = await Assert.ThrowsAsync<InvalidOperationException>(() => DictionaryImportStore.ValidateAsync(
+            target.Connection, target.Name, "upgrade", fixture.Inputs, ct: TestContext.Current.CancellationToken));
+        Assert.Equal("IMPORT_SCHEMA_MISMATCH", refused.Message);
+
+        var upgraded = await DictionaryImportStore.UpgradeSchemaAsync(target.Connection, target.Name, "upgrade", fixture.Inputs, TestContext.Current.CancellationToken);
+
+        Assert.False(upgraded.VerifiedNoOp);
+        Assert.Equal(imported.FactsHash, upgraded.FactsHash);
+        var validated = await DictionaryImportStore.ValidateAsync(target.Connection, target.Name, "upgrade", fixture.Inputs, ct: TestContext.Current.CancellationToken);
+        Assert.Equal(imported.FactsHash, validated.FactsHash);
+        await using (var db = Context(target.Connection))
+        {
+            Assert.Equal(db.Database.GetMigrations(), await db.Database.GetAppliedMigrationsAsync(TestContext.Current.CancellationToken));
+            Assert.True(await db.ConjugationDatasets.AnyAsync(d => d.Version == "candidate-20261110.1", TestContext.Current.CancellationToken));
+        }
+        var repeated = await DictionaryImportStore.UpgradeSchemaAsync(target.Connection, target.Name, "upgrade", fixture.Inputs, TestContext.Current.CancellationToken);
+        Assert.True(repeated.VerifiedNoOp);
+    }
+
+    [Theory]
+    [InlineData("schema", "IMPORT_SCHEMA_UPGRADE_REFUSED")]
+    [InlineData("gap", "IMPORT_SCHEMA_MISMATCH")]
+    [InlineData("facts", "IMPORT_FACTS_CHANGED")]
+    public async Task UpgradeRefusesUnsafeCandidatesBeforeApplyingAnything(string fault, string expected)
+    {
+        using var fixture = new SourceFixture(includeKanji: true);
+        var target = Target();
+        await DictionaryImportStore.PrepareAsync(target.Connection, target.Name, "refused", fixture.Inputs, ct: TestContext.Current.CancellationToken);
+        await DictionaryImportStore.ImportAsync(target.Connection, target.Name, "refused", fixture.Inputs, ct: TestContext.Current.CancellationToken);
+        string[] removed;
+        await using (var db = Context(target.Connection))
+        {
+            var all = db.Database.GetMigrations().ToList();
+            // A missing schema migration, or a hole in the history, must never be filled in by an upgrade.
+            removed = fault switch
+            {
+                "schema" => [all[^2], DatasetMigration],
+                "gap" => [all[^2]],
+                _ => [DatasetMigration],
+            };
+        }
+        await RemoveMigrationsAsync(target.Connection, removed);
+        if (fault == "facts")
+        {
+            await using var db = Context(target.Connection);
+            (await db.LocalizedGlosses.FirstAsync(TestContext.Current.CancellationToken)).GlossText = "tampered";
+            await db.SaveChangesAsync(TestContext.Current.CancellationToken);
+        }
+
+        var error = await Assert.ThrowsAsync<InvalidOperationException>(() => DictionaryImportStore.UpgradeSchemaAsync(
+            target.Connection, target.Name, "refused", fixture.Inputs, TestContext.Current.CancellationToken));
+
+        Assert.Equal(expected, error.Message);
+        await using var after = Context(target.Connection);
+        var applied = await after.Database.GetAppliedMigrationsAsync(TestContext.Current.CancellationToken);
+        Assert.DoesNotContain(applied, id => removed.Contains(id));
+        if (removed.Contains(DatasetMigration))
+            Assert.False(await after.ConjugationDatasets.AnyAsync(d => d.Version == "candidate-20261110.1", TestContext.Current.CancellationToken));
+    }
+
+    // Recreates a candidate imported before the given migrations existed: their history rows and, for the
+    // dataset migration, its inserted dataset row are removed (the immutability trigger is paused only for that).
+    private static async Task RemoveMigrationsAsync(string connection, params string[] migrations)
+    {
+        await using var db = new NpgsqlConnection(connection);
+        await db.OpenAsync(TestContext.Current.CancellationToken);
+        await using var command = new NpgsqlCommand("""
+            ALTER TABLE conjugation_datasets DISABLE TRIGGER conjugation_dataset_immutable;
+            DELETE FROM conjugation_datasets WHERE version = 'candidate-20261110.1' AND @dataset;
+            ALTER TABLE conjugation_datasets ENABLE TRIGGER conjugation_dataset_immutable;
+            DELETE FROM "__EFMigrationsHistory" WHERE "MigrationId" = ANY(@migrations);
+            """, db);
+        command.Parameters.AddWithValue("dataset", migrations.Contains(DatasetMigration));
+        command.Parameters.AddWithValue("migrations", migrations);
+        await command.ExecuteNonQueryAsync(TestContext.Current.CancellationToken);
+    }
+
     private (string Connection, string Name) Target()
     {
         var name = "jp_dict_real_" + Guid.NewGuid().ToString("N");
